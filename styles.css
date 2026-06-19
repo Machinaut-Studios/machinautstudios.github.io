@@ -602,7 +602,7 @@ main:focus, main:focus-visible {
   transition: transform 0.1s var(--ease), box-shadow 0.1s var(--ease);
 }
 .product-banner:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.32); }
-.product-banner__icon { width: 64px; height: 64px; flex: none; border: 1px solid var(--surface-edge); }
+.product-banner__icon { width: 64px; height: auto; flex: none; filter: drop-shadow(2px 2px 0 rgba(0, 0, 0, 0.2)); }
 .product-banner__body { display: flex; flex-direction: column; gap: 0.2rem; }
 .product-banner__stamp { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.16em; color: var(--muted-on-surface); }
 .product-banner__title { font-family: var(--font-head); font-size: 1.9rem; line-height: 1; }
@@ -624,10 +624,10 @@ main:focus, main:focus-visible {
 }
 .app-hero__icon {
   width: clamp(104px, 22vw, 152px);
-  height: clamp(104px, 22vw, 152px);
+  height: auto; /* preserve the logo's aspect ratio */
   flex: none;
-  border: 1px solid var(--muted);
-  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.35);
+  /* drop-shadow follows the icon's rounded alpha edges (box-shadow would not) */
+  filter: drop-shadow(6px 6px 0 rgba(0, 0, 0, 0.35));
 }
 .app-hero__text { flex: 1 1 22rem; min-width: 0; }
 .app-hero__tagline {
