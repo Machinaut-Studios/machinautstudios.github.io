@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Tooter app icon">
+  <rect width="512" height="512" rx="96" fill="#2B2A24"/>
+  <rect x="20" y="20" width="472" height="472" rx="80" fill="none" stroke="#8A8366" stroke-width="4"/>
+  <!-- record dot -->
+  <circle cx="120" cy="120" r="26" fill="#FF7A3C"/>
+  <!-- waveform bars -->
+  <g fill="#33FF66">
+    <rect x="70"  y="216" width="36" height="80"  rx="10"/>
+    <rect x="130" y="181" width="36" height="150" rx="10"/>
+    <rect x="190" y="141" width="36" height="230" rx="10"/>
+    <rect x="250" y="106" width="36" height="300" rx="10"/>
+    <rect x="310" y="141" width="36" height="230" rx="10"/>
+    <rect x="370" y="181" width="36" height="150" rx="10"/>
+    <rect x="430" y="216" width="36" height="80"  rx="10"/>
+  </g>
+</svg>

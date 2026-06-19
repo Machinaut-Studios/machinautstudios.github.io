@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="1200" height="1200">
+  <defs>
+    <pattern id="scan" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="6" height="3" fill="#000000"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="1200" fill="#2B2A24"/>
+  <rect x="28" y="28" width="1144" height="1144" fill="none" stroke="#8A8366" stroke-width="3"/>
+  <rect x="0" y="0" width="1200" height="1200" fill="url(#scan)" opacity="0.10"/>
+
+  <!-- app icon: waveform + record dot -->
+  <g transform="translate(420 140)">
+    <rect width="360" height="360" rx="64" fill="#23221d" stroke="#8A8366" stroke-width="3"/>
+    <circle cx="78" cy="78" r="20" fill="#FF7A3C"/>
+    <g fill="#33FF66">
+      <rect x="46"  y="150" width="26" height="60"  rx="8"/>
+      <rect x="92"  y="124" width="26" height="112" rx="8"/>
+      <rect x="138" y="98"  width="26" height="164" rx="8"/>
+      <rect x="184" y="74"  width="26" height="212" rx="8"/>
+      <rect x="230" y="98"  width="26" height="164" rx="8"/>
+      <rect x="276" y="124" width="26" height="112" rx="8"/>
+      <rect x="322" y="150" width="26" height="60"  rx="8"/>
+    </g>
+  </g>
+
+  <!-- wordmark + tagline (monospace; rasterizer-safe system fonts) -->
+  <g font-family="'Courier New', monospace" text-anchor="middle">
+    <text x="600" y="690" font-size="168" font-weight="700" fill="#33FF66">TOOTER</text>
+    <text x="600" y="770" font-size="44"  font-weight="700" fill="#D8CCA8">Record. Rate. Repeat.</text>
+    <text x="600" y="840" font-size="34"  fill="#D8CCA8">The flatulence archive</text>
+    <text x="600" y="886" font-size="34"  fill="#D8CCA8">you didn't know you needed.</text>
+    <text x="600" y="1000" font-size="30" font-weight="700" fill="#FF7A3C">COMING SOON TO GOOGLE PLAY</text>
+    <text x="600" y="1110" font-size="24" fill="#8A8366">MACHINAUT STUDIOS LLC // TERMINAL BEIGE DIVISION</text>
+  </g>
+</svg>
