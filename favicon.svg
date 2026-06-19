@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Machinaut Studios">
+  <rect width="32" height="32" fill="#2B2A24"/>
+  <rect x="6" y="6" width="20" height="3" fill="#8A8366"/>
+  <rect x="6" y="13" width="13" height="3" fill="#8A8366"/>
+  <rect x="6" y="22" width="9" height="6" fill="#33FF66">
+    <animate attributeName="opacity" values="1;1;0;0" dur="1.06s" calcMode="discrete" repeatCount="indefinite"/>
+  </rect>
+</svg>

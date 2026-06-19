@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<!--
+  Machinaut Studios LLC — Terminal Beige Division
+  Copyright © 2026 Machinaut Studios LLC. All rights reserved. See LICENSE.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="copyright" content="© 2026 Machinaut Studios LLC. All rights reserved." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Machinaut Studios LLC — Terminal Beige Division</title>
+  <meta name="description" content="Machinaut Studios LLC builds fun apps. For fun. That is the whole filing. We will not be telling you what the apps do." />
+  <meta name="theme-color" content="#2B2A24" />
+  <meta name="color-scheme" content="dark" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Machinaut Studios LLC — Terminal Beige Division" />
+  <meta property="og:description" content="We build fun apps. For fun. That is the whole filing. Now featuring an industrial-grade complaint shredder." />
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
+  <!-- Fonts: VT323 (CRT headlines) + IBM Plex Mono (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=VT323&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <a class="skip-link" href="#complaint">Skip to the complaint shredder</a>
+
+  <!-- ===================== NAV ===================== -->
+  <header class="nav">
+    <div class="nav__inner">
+      <a class="nav__brand" href="#top">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span class="nav__brand-name">MACHINAUT</span>
+        <span class="nav__brand-sub">STUDIOS&nbsp;LLC</span>
+      </a>
+
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bars" aria-hidden="true"></span>
+      </button>
+
+      <nav class="nav__menu" id="nav-menu" aria-label="Primary">
+        <a href="#what-we-make">WHAT WE MAKE</a>
+        <a href="#the-facility">THE FACILITY</a>
+        <a href="#process">PROCESS</a>
+        <a href="#compliance">COMPLIANCE</a>
+        <a class="nav__cta" href="#complaint">COMPLAINT BOX</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <!-- ===================== HERO ===================== -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__scanlines" aria-hidden="true"></div>
+      <div class="hero__inner">
+        <p class="stamp stamp--hero">FILING NO. 0001 &nbsp;//&nbsp; STATUS: ONLINE</p>
+        <h1 class="hero__title" id="hero-title">
+          WE BUILD FUN APPS.<br />FOR FUN.<br />
+          <span class="hero__title-accent">THAT IS THE WHOLE FILING.<span class="cursor" aria-hidden="true"></span></span>
+        </h1>
+        <p class="hero__sub">
+          Machinaut Studios LLC has manufactured lightly entertaining software since the
+          machine warmed up this morning. We will not be telling you what the apps do.
+          The apps know. That is sufficient.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#complaint">FILE A COMPLAINT</a>
+          <a class="btn btn--ghost" href="#what-we-make">INSPECT THE FACILITY</a>
+        </div>
+      </div>
+      <a class="hero__scroll" href="#what-we-make" tabindex="-1" aria-hidden="true">▼</a>
+    </section>
+
+    <!-- ===================== WHAT WE MAKE ===================== -->
+    <section class="section" id="what-we-make" aria-labelledby="what-we-make-h">
+      <div class="section__head">
+        <p class="stamp">FILING NO. 0002</p>
+        <h2 class="section__title" id="what-we-make-h">WHAT WE MAKE</h2>
+      </div>
+      <p class="section__lead">
+        Apps. Fun ones. We could go into detail, but the detail is proprietary and frankly
+        a little embarrassing in how much fun it is. Picture a thing that does a thing, and
+        the thing is enjoyable. We have done that. Several times. We keep doing it. The lights
+        stay on. Nobody asks questions in the building, and we would appreciate the same
+        courtesy out here.
+      </p>
+      <ul class="grid" role="list">
+        <li class="cell">
+          <span class="cell__stamp">SPEC</span>
+          <h3 class="cell__title">OUTPUT: FUN</h3>
+          <p class="cell__text">Specifications classified. Reason for classification: none on file.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">SPEC</span>
+          <h3 class="cell__title">COMPATIBLE</h3>
+          <p class="cell__text">Works with your device, your mood, the general concept of an afternoon, and one specific toaster.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">SPEC</span>
+          <h3 class="cell__title">NOW SHIPPING</h3>
+          <p class="cell__text">Running on a computer near you, or possibly a computer slightly farther away.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">SPEC</span>
+          <h3 class="cell__title">HAND-ASSEMBLED</h3>
+          <p class="cell__text">Each app assembled by professionals who refuse, on principle, to elaborate.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== THE FACILITY ===================== -->
+    <section class="section section--alt" id="the-facility" aria-labelledby="the-facility-h">
+      <div class="section__head">
+        <p class="stamp">FILING NO. 0003</p>
+        <h2 class="section__title" id="the-facility-h">THE FACILITY</h2>
+      </div>
+      <p class="section__lead">
+        Operations run out of a single beige room kept at a respectful 68 degrees. Tape spools.
+        A CRT that has seen things. One blinking cursor that has never once been wrong. Every
+        release is printed, reviewed, fed back into the machine, and shipped — a procedure we
+        describe internally as the bit where the fun comes out. It is fully automated and
+        emotionally invested. Trusted by several users and at least one very confident raccoon.
+      </p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">DEPT</span>
+          <h3 class="cell__title">STAFF</h3>
+          <p class="cell__text">People, plus the raccoon. The raccoon does not have a title and we have stopped asking.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">DEPT</span>
+          <h3 class="cell__title">HOURS</h3>
+          <p class="cell__text">The machine is warm. The machine is always warm. We do not turn off the machine.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">DEPT</span>
+          <h3 class="cell__title">AUDITED BY</h3>
+          <p class="cell__text">The same blinking cursor. Zero violations. One standing ovation, possibly from the HVAC.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== PROCESS ===================== -->
+    <section class="section" id="process" aria-labelledby="process-h">
+      <div class="section__head">
+        <p class="stamp">FILING NO. 0004</p>
+        <h2 class="section__title" id="process-h">OUR PROCESS</h2>
+      </div>
+      <p class="section__lead">
+        Step one: we have an idea. Step two: we do not write it down anywhere you can find it.
+        Step three: a soft mechanical churning sound. Step four: an app exists and it is fun.
+        We have streamlined steps two through four into a single noise. There is a diagram. It
+        has at least three arrows pointing rightward, because that is the direction of progress.
+        Quality is assured by a man named Gerald who nods slowly when it is good.
+      </p>
+      <ol class="grid grid--3 grid--steps" role="list">
+        <li class="cell">
+          <span class="cell__stamp">PHASE 1</span>
+          <h3 class="cell__title">→</h3>
+          <p class="cell__text">Make a thing. Filed as complete.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">PHASE 2</span>
+          <h3 class="cell__title">→→</h3>
+          <p class="cell__text">Make the thing better, or at minimum different. In progress, emotionally.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">PHASE 3</span>
+          <h3 class="cell__title">→→→</h3>
+          <p class="cell__text">A feature Gerald dreamed about and will not describe out loud. Ship when it feels right.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ===================== COMPLIANCE ===================== -->
+    <section class="section section--alt" id="compliance" aria-labelledby="compliance-h">
+      <div class="section__head">
+        <p class="stamp">FILING NO. 0005</p>
+        <h2 class="section__title" id="compliance-h">COMPLIANCE &amp; FUN STANDARDS</h2>
+      </div>
+      <p class="section__lead">
+        Machinaut Studios is certified fun by our own internal fun-certification department,
+        which is also us. We adhere to all relevant regulations regarding enjoyment, mild
+        delight, and not being weird about it. No mission statement. No roadmap. No follow-up
+        questions, because frankly we are not staffed for those. Cancel anytime, in theory. So
+        far: zero violations, total satisfaction, and a warm hum we have grown to love.
+      </p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">CERT</span>
+          <h3 class="cell__title">CERTIFIED FUN</h3>
+          <p class="cell__text">By the department of us. Audited annually by the cursor.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">CERT</span>
+          <h3 class="cell__title">PATENT PENDING</h3>
+          <p class="cell__text">On the feeling you will have. Approximately.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">CERT</span>
+          <h3 class="cell__title">RESULTS MAY VARY</h3>
+          <p class="cell__text">The variance is also part of the fun. This was intentional. Mostly.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== COMPLAINT BOX ===================== -->
+    <section class="section section--complaint" id="complaint" aria-labelledby="complaint-h">
+      <div class="section__head">
+        <p class="stamp">FILING NO. 0006 &nbsp;//&nbsp; DESTRUCTION UNIT</p>
+        <h2 class="section__title" id="complaint-h">THE COMPLAINT BOX</h2>
+      </div>
+      <p class="section__lead">
+        Got a complaint? Magnificent. We take feedback extremely seriously, which is why we have
+        installed an industrial-grade, fully bonded, OSHA-adjacent document destruction unit
+        directly beneath this textarea. Type your grievance below. Press SUBMIT. Watch it become
+        confetti. Your concerns will be heard by no one and felt by everyone. This is the most
+        finished feature we have.
+      </p>
+
+      <form class="complaint" id="complaintForm" novalidate>
+        <label class="complaint__label" for="complaint-input">GRIEVANCE INTAKE FORM &mdash; SECTION 1 OF 1</label>
+
+        <div class="shred-wrap" id="shredWrap">
+          <div class="shredder-mouth" aria-hidden="true"></div>
+          <textarea
+            id="complaint-input"
+            class="complaint__input"
+            name="complaint"
+            rows="6"
+            placeholder="Begin grievance. Be as specific as you like — it changes nothing, but the shredder appreciates thorough work..."
+            spellcheck="true"
+            autocomplete="off"></textarea>
+          <canvas class="shred-fx" id="shredFx" aria-hidden="true"></canvas>
+        </div>
+
+        <div class="complaint__controls">
+          <button type="submit" class="btn btn--primary btn--submit" id="shredBtn">SUBMIT TO THE SHREDDER</button>
+          <p class="complaint__status" id="shredStatus" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <p class="footer__text">
+      MACHINAUT STUDIOS LLC — TERMINAL BEIGE DIVISION. Manufacturing fun on a grid since this
+      morning. No roadmap. No regrets. The cursor is still blinking.
+      <span class="footer__cursor cursor" aria-hidden="true"></span>
+    </p>
+    <p class="footer__fine">© 2026, or thereabouts.</p>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
