@@ -643,6 +643,28 @@ main:focus, main:focus-visible {
 .btn__icon { width: 18px; height: 18px; flex: none; }
 .app-note { font-size: 0.78rem; color: var(--muted-text); margin-top: 0.7rem; }
 
+/* ---- Field reports / reviews (beige filing cards) ---- */
+.review { display: flex; flex-direction: column; }
+.review__stars {
+  font-size: 1.15rem;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.7rem;
+}
+.review__quote {
+  font-size: 1rem;
+  line-height: 1.55;
+  font-style: italic;
+  margin-bottom: 0.9rem;
+}
+.review__by {
+  margin-top: auto;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--muted-on-surface);
+}
+
 /* ---- Legal / privacy document (a beige "printed filing") ---- */
 .legal {
   max-width: 760px;
