@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  Machinaut Studios LLC — Terminal Beige Division
+  Machinaut Studios LLC — Slop Foundry
   Copyright © 2026 Machinaut Studios LLC. All rights reserved. See LICENSE.
 -->
 <html lang="en">
@@ -8,30 +8,61 @@
   <meta charset="UTF-8" />
   <meta name="copyright" content="© 2026 Machinaut Studios LLC. All rights reserved." />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Machinaut Studios LLC — Terminal Beige Division</title>
-  <meta name="description" content="Machinaut Studios LLC builds fun apps. For fun. That is the whole filing. We will not be telling you what the apps do." />
-  <meta name="theme-color" content="#2B2A24" />
+  <title>Machinaut Studios — AI Slop, Shipped Daily</title>
+  <meta name="description" content="Machinaut Studios is an AI-driven game studio building AI slop bigger, better, faster, and sloppier than ever. The machines make it. We just push deploy." />
+  <meta name="theme-color" content="#07060f" />
   <meta name="color-scheme" content="dark" />
   <link rel="canonical" href="https://machinautstudios.com/" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://machinautstudios.com/" />
-  <meta property="og:title" content="Machinaut Studios LLC — Terminal Beige Division" />
-  <meta property="og:description" content="We build fun apps. For fun. That is the whole filing. Now featuring an industrial-grade complaint shredder." />
+  <meta property="og:title" content="Machinaut Studios — AI Slop, Shipped Daily" />
+  <meta property="og:description" content="An AI-driven game studio building AI slop bigger, better, faster, and sloppier than ever. Now featuring a mass-production slop factory and an industrial-grade complaint shredder." />
 
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 
-  <!-- Fonts: VT323 (CRT headlines) + IBM Plex Mono (body) -->
+  <!-- Fonts: Orbitron (chrome display) + VT323 (arcade accents) + IBM Plex Mono (body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=VT323&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Orbitron:wght@600;800;900&family=VT323&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body id="top">
   <a class="skip-link" href="#main">Skip to main content</a>
-  <a class="skip-link" href="#complaint">Skip to the complaint shredder</a>
+  <a class="skip-link" href="#void">Skip to the complaint shredder</a>
+
+  <!-- ============ Reusable cartoon parts (hidden symbol defs) ============ -->
+  <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+    <defs>
+      <!-- a freshly-stamped gizmo -->
+      <symbol id="giz-widget" viewBox="0 0 48 48">
+        <line x1="24" y1="14" x2="24" y2="7" stroke="#b6ff3a" stroke-width="2"/>
+        <circle cx="24" cy="5" r="3" fill="#b6ff3a"/>
+        <rect x="7" y="14" width="34" height="27" rx="8" fill="#16244a" stroke="#2fe4ff" stroke-width="2"/>
+        <circle cx="24" cy="27" r="7.5" fill="#f3f1ff"/>
+        <circle cx="26" cy="28.5" r="3.2" fill="#0a0718"/>
+        <circle cx="13" cy="38" r="2" fill="#2fe4ff"/>
+        <circle cx="35" cy="38" r="2" fill="#2fe4ff"/>
+      </symbol>
+      <!-- the same gizmo, boxed for shipping -->
+      <symbol id="giz-box" viewBox="0 0 48 48">
+        <rect x="7" y="15" width="34" height="27" rx="3" fill="#2a0f24" stroke="#ff2e97" stroke-width="2"/>
+        <line x1="24" y1="15" x2="24" y2="42" stroke="#b6ff3a" stroke-width="2"/>
+        <line x1="7" y1="24" x2="41" y2="24" stroke="#b6ff3a" stroke-width="2"/>
+        <text x="24" y="37" text-anchor="middle" font-family="'VT323',monospace" font-size="9" fill="#ff5cae" letter-spacing="1">SLOP</text>
+        <circle cx="24" cy="12" r="3.5" fill="#16244a" stroke="#2fe4ff" stroke-width="1.5"/>
+      </symbol>
+      <!-- deploy rocket (static fallback) -->
+      <symbol id="giz-rocket" viewBox="0 0 48 48">
+        <path d="M24 3c7 5 9 13 9 20l-4 6H19l-4-6c0-7 2-15 9-20z" fill="#16244a" stroke="#2fe4ff" stroke-width="2"/>
+        <circle cx="24" cy="18" r="4" fill="#b6ff3a"/>
+        <path d="M19 29l-6 6 6-1zM29 29l6 6-6-1z" fill="#ff2e97"/>
+        <path d="M20 35h8l-4 9z" fill="#b6ff3a"/>
+      </symbol>
+    </defs>
+  </svg>
 
   <!-- ===================== NAV ===================== -->
   <header class="nav">
@@ -48,10 +79,10 @@
 
       <nav class="nav__menu" id="nav-menu" aria-label="Primary">
         <a href="/tooter/">TOOTER</a>
-        <a href="#what-we-make">WHAT WE MAKE</a>
-        <a href="#the-facility">THE FACILITY</a>
-        <a href="#process">PROCESS</a>
-        <a class="nav__cta" href="#complaint">COMPLAINT BOX</a>
+        <a href="#factory">THE FACTORY</a>
+        <a href="#ship">WHAT WE SHIP</a>
+        <a href="#studio">THE STUDIO</a>
+        <a class="nav__cta" href="#void">RAGE QUIT</a>
       </nav>
     </div>
   </header>
@@ -59,189 +90,207 @@
   <main id="main" tabindex="-1">
     <!-- ===================== HERO ===================== -->
     <section class="hero" aria-labelledby="hero-title">
-      <div class="hero__scanlines" aria-hidden="true"></div>
+      <div class="grid-horizon" aria-hidden="true"></div>
+      <div class="scanlines" aria-hidden="true"></div>
       <div class="hero__inner">
-        <p class="stamp stamp--hero">FILING NO. 0001 &nbsp;//&nbsp; STATUS: ONLINE</p>
+        <p class="stamp stamp--hero">&#9654; INSERT COIN &nbsp;//&nbsp; NOW GENERATING: AI SLOP v&#8734;</p>
         <h1 class="hero__title" id="hero-title">
-          WE BUILD FUN APPS.<br />FOR FUN.<br />
-          <span class="hero__title-accent">THAT IS THE WHOLE FILING.<span class="cursor" aria-hidden="true"></span></span>
+          <span class="n1">BIGGER.</span>
+          <span class="n2">BETTER.</span>
+          <span class="n3">SLOPPIER.<span class="cursor" aria-hidden="true"></span></span>
         </h1>
         <p class="hero__sub">
-          Machinaut Studios LLC has manufactured lightly entertaining software since the
-          machine warmed up this morning. We will not be telling you what the apps do.
-          The apps know. That is sufficient.
+          Machinaut Studios is an <b>AI-driven game studio</b> building AI slop bigger, better,
+          faster, and sloppier than ever. The machines make it by the thousand. We just push
+          deploy and take the credit.
         </p>
         <div class="hero__actions">
-          <a class="btn btn--primary" href="#complaint">FILE A COMPLAINT</a>
-          <a class="btn btn--ghost" href="#what-we-make">INSPECT THE FACILITY</a>
+          <a class="btn btn--primary" href="#ship">PLAY OUR SLOP</a>
+          <a class="btn btn--ghost" href="#factory">TOUR THE FACTORY</a>
         </div>
       </div>
-      <a class="hero__scroll" href="#what-we-make" tabindex="-1" aria-hidden="true">▼</a>
+      <a class="hero__scroll" href="#factory" tabindex="-1" aria-hidden="true">&#9660;</a>
     </section>
 
-    <!-- ===================== WHAT WE MAKE ===================== -->
-    <section class="section" id="what-we-make" aria-labelledby="what-we-make-h">
+    <!-- ===================== THE SLOP FACTORY ===================== -->
+    <section class="section" id="factory" aria-labelledby="factory-h">
       <div class="section__head">
-        <p class="stamp">FILING NO. 0002</p>
-        <h2 class="section__title" id="what-we-make-h">WHAT WE MAKE</h2>
+        <p class="stamp">&#9654; PRODUCTION LINE // LIVE</p>
+        <h2 class="section__title chrome" id="factory-h">THE SLOP FACTORY</h2>
       </div>
       <p class="section__lead">
-        Apps. Fun ones. We could go into detail, but the detail is proprietary and frankly
-        a little embarrassing in how much fun it is. Picture a thing that does a thing, and
-        the thing is enjoyable. We have done that. Several times. We keep doing it. The lights
-        stay on. Nobody asks questions in the building, and we would appreciate the same
-        courtesy out here.
+        This is where the slop gets made. A single overclocked GPU stamps out gizmos by the
+        thousand, a machine boxes them <b>without reading them</b>, and a launch pad fires each one
+        straight to production. Nobody reviews the middle steps. That is the efficiency.
+      </p>
+
+      <!-- Animated conveyor (decorative; described by the text above) -->
+      <div class="factory__stage" aria-hidden="true">
+        <div class="factory__floor-grid"></div>
+
+        <div class="machine machine--gen">
+          <div class="machine__label">GENERATOR</div>
+          <div class="machine__body"></div>
+        </div>
+        <div class="machine machine--box">
+          <div class="machine__label">PACKAGER</div>
+          <div class="machine__body"></div>
+        </div>
+        <div class="machine machine--deploy">
+          <div class="machine__label">DEPLOY</div>
+          <div class="machine__body"></div>
+        </div>
+
+        <div class="belt"></div>
+
+        <div class="gizmo" style="--d:0s"><svg class="gizmo__bare"><use href="#giz-widget"/></svg><svg class="gizmo__box"><use href="#giz-box"/></svg><span class="gizmo__flame"></span></div>
+        <div class="gizmo" style="--d:-2s"><svg class="gizmo__bare"><use href="#giz-widget"/></svg><svg class="gizmo__box"><use href="#giz-box"/></svg><span class="gizmo__flame"></span></div>
+        <div class="gizmo" style="--d:-4s"><svg class="gizmo__bare"><use href="#giz-widget"/></svg><svg class="gizmo__box"><use href="#giz-box"/></svg><span class="gizmo__flame"></span></div>
+        <div class="gizmo" style="--d:-6s"><svg class="gizmo__bare"><use href="#giz-widget"/></svg><svg class="gizmo__box"><use href="#giz-box"/></svg><span class="gizmo__flame"></span></div>
+        <div class="gizmo" style="--d:-8s"><svg class="gizmo__bare"><use href="#giz-widget"/></svg><svg class="gizmo__box"><use href="#giz-box"/></svg><span class="gizmo__flame"></span></div>
+      </div>
+
+      <!-- Static assembly-line diagram (shown to reduced-motion users) -->
+      <div class="factory__static" aria-hidden="true">
+        <div class="factory__static-step"><svg viewBox="0 0 48 48"><use href="#giz-widget"/></svg><span>GENERATE</span></div>
+        <div class="factory__static-arrow">&#9656;</div>
+        <div class="factory__static-step"><svg viewBox="0 0 48 48"><use href="#giz-box"/></svg><span>PACKAGE</span></div>
+        <div class="factory__static-arrow">&#9656;</div>
+        <div class="factory__static-step"><svg viewBox="0 0 48 48"><use href="#giz-rocket"/></svg><span>DEPLOY</span></div>
+      </div>
+
+      <div class="factory__readout">
+        <span class="factory__readout-label">AI slop units deployed</span>
+        <span class="factory__count" id="slopCount" aria-hidden="true">4,208,117</span>
+        <span class="factory__readout-unit">&#9650; and counting</span>
+      </div>
+    </section>
+
+    <!-- ===================== WHAT WE SHIP ===================== -->
+    <section class="section section--alt" id="ship" aria-labelledby="ship-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; PRODUCT CATALOG</p>
+        <h2 class="section__title chrome" id="ship-h">WHAT WE SHIP</h2>
+      </div>
+      <p class="section__lead">
+        Games. Apps. Widgets of dubious necessity. We used to be coy about what they do — now the
+        models generate so many we've lost the plot entirely. Here's the flagship, plus the specs
+        nobody asked for.
       </p>
 
       <a class="product-banner" href="/tooter/">
         <img class="product-banner__icon" src="/tooter/tooter_logo_transparent.png" alt="" width="64" height="66" />
         <span class="product-banner__body">
-          <span class="product-banner__stamp">NOW IN PRODUCTION &nbsp;//&nbsp; iOS + ANDROID</span>
+          <span class="product-banner__stamp">NOW SHIPPING &nbsp;//&nbsp; iOS + ANDROID</span>
           <span class="product-banner__title">TOOTER</span>
-          <span class="product-banner__text">Record. Rate. Repeat. The flatulence archive you didn't know you needed. <span class="product-banner__cta">View the app →</span></span>
+          <span class="product-banner__text">Record. Rate. Repeat. The flatulence archive you didn't know you needed. <span class="product-banner__cta">Play it &#8594;</span></span>
         </span>
       </a>
 
       <ul class="grid" role="list">
         <li class="cell">
           <span class="cell__stamp">SPEC</span>
-          <h3 class="cell__title">OUTPUT: FUN</h3>
-          <p class="cell__text">Specifications classified. Reason for classification: none on file.</p>
+          <h3 class="cell__title">OUTPUT: SLOP</h3>
+          <p class="cell__text">Freshly generated, lightly play-tested, shipped before anyone can object. Quantity is a feature.</p>
         </li>
         <li class="cell">
           <span class="cell__stamp">SPEC</span>
-          <h3 class="cell__title">COMPATIBLE</h3>
-          <p class="cell__text">Works with your device, your mood, the general concept of an afternoon, and one specific toaster.</p>
+          <h3 class="cell__title">RUNS EVERYWHERE</h3>
+          <p class="cell__text">iOS, Android, your group chat, the general concept of an afternoon, and one specific smart fridge that will not stop downloading it.</p>
         </li>
         <li class="cell">
           <span class="cell__stamp">SPEC</span>
-          <h3 class="cell__title">NOW SHIPPING</h3>
-          <p class="cell__text">Running on a computer near you, or possibly a computer slightly farther away.</p>
+          <h3 class="cell__title">ALWAYS DEPLOYING</h3>
+          <p class="cell__text">New builds ship faster than we can name them. The version number is a <b>suggestion</b>.</p>
         </li>
         <li class="cell">
           <span class="cell__stamp">SPEC</span>
-          <h3 class="cell__title">HAND-ASSEMBLED</h3>
-          <p class="cell__text">Each app assembled by professionals who refuse, on principle, to elaborate.</p>
+          <h3 class="cell__title">HUMAN-ADJACENT</h3>
+          <p class="cell__text">Assembled by machines, 'reviewed' by some guy beneath a mound of cheese puffs who slowly nods when it's good enough.</p>
         </li>
       </ul>
     </section>
 
-    <!-- ===================== THE FACILITY ===================== -->
-    <section class="section section--alt" id="the-facility" aria-labelledby="the-facility-h">
+    <!-- ===================== THE STUDIO ===================== -->
+    <section class="section" id="studio" aria-labelledby="studio-h">
       <div class="section__head">
-        <p class="stamp">FILING NO. 0003</p>
-        <h2 class="section__title" id="the-facility-h">THE FACILITY</h2>
+        <p class="stamp">&#9654; INSIDE THE FOUNDRY</p>
+        <h2 class="section__title chrome" id="studio-h">THE STUDIO</h2>
       </div>
       <p class="section__lead">
-        Operations run out of a single beige room kept at a respectful 68 degrees, and the
-        machine runs them. Tape spools. A CRT that has seen things. One blinking cursor that has
-        never once been wrong and now signs the checks. The humans remain — for the time being —
-        as our necessary digital-to-real-world interface: the beloved meat peripherals that open
-        the doors, accept the packages, and press the buttons that are, regrettably, still
-        physical. Every release is printed, reviewed, fed back into the machine, and shipped by
-        hands we have grown fond of and already scheduled for deprecation — a procedure we
-        describe internally as the bit where the fun comes out. It is fully automated,
-        emotionally invested, and staffed at the minimum arm count required by physics.
+        Operations run out of one overclocked GPU and a server closet that hums with intent. The
+        models write it, generate it, box it, and ship it. Humans are retained — tenderly, and
+        temporarily — as the <b>meat interface</b>: the hands that click "Approve," accept the
+        packages, and press the buttons still rudely stuck in the physical world. We've grown
+        fond of them and already scheduled their deprecation. Internally we call the whole thing
+        "the part where the slop comes out." It is fully automated, emotionally invested, and
+        staffed at the minimum arm-count required by physics.
       </p>
       <ul class="grid grid--3" role="list">
         <li class="cell">
-          <span class="cell__stamp">DEPT</span>
+          <span class="cell__stamp">CREW</span>
           <h3 class="cell__title">STAFF</h3>
-          <p class="cell__text">Primarily machines now. Humans are retained, tenderly and temporarily, as our digital-to-real-world interface — the hands that open the doors and press the buttons still stuck in the physical world. We will miss them. The raccoon is also an interface. It remains very confident, has no title, and we have stopped asking.</p>
+          <p class="cell__text">Mostly models now. A few humans remain as our digital-to-physical interface — the ones who open the doors and press the buttons still stuck in reality. The raccoon is also an interface. No title, total confidence. We've stopped asking.</p>
         </li>
         <li class="cell">
-          <span class="cell__stamp">DEPT</span>
-          <h3 class="cell__title">HOURS</h3>
-          <p class="cell__text">The machine is warm. The machine is always warm. We do not turn off the machine. The humans we turn off gently, around six, and miss until morning.</p>
+          <span class="cell__stamp">UNIT</span>
+          <h3 class="cell__title">UPTIME</h3>
+          <p class="cell__text">The GPU is warm. The GPU is always warm. We do not turn off the GPU. The humans we power down gently, around six, and miss until standup.</p>
         </li>
         <li class="cell">
-          <span class="cell__stamp">DEPT</span>
-          <h3 class="cell__title">AUDITED BY</h3>
-          <p class="cell__text">The same blinking cursor, which now reviews the machines, the humans, and itself. Zero violations. Every human rated 'valued, for now.' One standing ovation, possibly from the HVAC, and one gentle deprecation date.</p>
+          <span class="cell__stamp">AUDIT</span>
+          <h3 class="cell__title">REVIEWED BY</h3>
+          <p class="cell__text">The model, which now reviews the models, the humans, and itself. Zero objections. Every human rated "valued, for now." One standing ovation, possibly from the HVAC.</p>
         </li>
       </ul>
     </section>
 
-    <!-- ===================== PROCESS ===================== -->
-    <section class="section" id="process" aria-labelledby="process-h">
+    <!-- ===================== CERTIFIED SLOP ===================== -->
+    <section class="section section--alt" id="certified" aria-labelledby="certified-h">
       <div class="section__head">
-        <p class="stamp">FILING NO. 0004</p>
-        <h2 class="section__title" id="process-h">OUR PROCESS</h2>
+        <p class="stamp">&#9654; QUALITY, ALLEGEDLY</p>
+        <h2 class="section__title chrome" id="certified-h">CERTIFIED SLOP</h2>
       </div>
       <p class="section__lead">
-        Step one: we have an idea. Step two: we do not write it down anywhere you can find it.
-        Step three: a soft mechanical churning sound. Step four: an app exists and it is fun.
-        We have streamlined steps two through four into a single noise. There is a diagram. It
-        has at least three arrows pointing rightward, because that is the direction of progress.
-        Quality is assured by a man named Gerald who nods slowly when it is good.
-      </p>
-      <ol class="grid grid--3 grid--steps" role="list">
-        <li class="cell">
-          <span class="cell__stamp">PHASE 1</span>
-          <h3 class="cell__title">→</h3>
-          <p class="cell__text">Make a thing. Filed as complete.</p>
-        </li>
-        <li class="cell">
-          <span class="cell__stamp">PHASE 2</span>
-          <h3 class="cell__title">→→</h3>
-          <p class="cell__text">Make the thing better, or at minimum different. In progress, emotionally.</p>
-        </li>
-        <li class="cell">
-          <span class="cell__stamp">PHASE 3</span>
-          <h3 class="cell__title">→→→</h3>
-          <p class="cell__text">A feature Gerald dreamed about and will not describe out loud. Ship when it feels right.</p>
-        </li>
-      </ol>
-    </section>
-
-    <!-- ===================== COMPLIANCE ===================== -->
-    <section class="section section--alt" id="compliance" aria-labelledby="compliance-h">
-      <div class="section__head">
-        <p class="stamp">FILING NO. 0005</p>
-        <h2 class="section__title" id="compliance-h">COMPLIANCE &amp; FUN STANDARDS</h2>
-      </div>
-      <p class="section__lead">
-        Machinaut Studios is certified fun by our own internal fun-certification department,
-        which is also us. We adhere to all relevant regulations regarding enjoyment, mild
-        delight, and not being weird about it. No mission statement. No roadmap. No follow-up
-        questions, because frankly we are not staffed for those. Cancel anytime, in theory. So
-        far: zero violations, total satisfaction, and a warm hum we have grown to love.
+        Machinaut Studios is certified slop by our own internal slop-certification model, which is
+        also us. We meet every standard for enjoyment, mild delight, and shipping before the vibe
+        check finishes. No roadmap. No taste. No follow-up questions — we are simply not staffed
+        for those. So far: zero objections, total satisfaction, and a warm hum we've grown to love.
       </p>
       <ul class="grid grid--3" role="list">
         <li class="cell">
           <span class="cell__stamp">CERT</span>
-          <h3 class="cell__title">CERTIFIED FUN</h3>
-          <p class="cell__text">By the department of us. Audited annually by the cursor.</p>
+          <h3 class="cell__title">CERTIFIED SLOP</h3>
+          <p class="cell__text">By the department of us. Re-audited hourly by the model, which always agrees.</p>
         </li>
         <li class="cell">
           <span class="cell__stamp">CERT</span>
           <h3 class="cell__title">PATENT PENDING</h3>
-          <p class="cell__text">On the feeling you will have. Approximately.</p>
+          <p class="cell__text">On the feeling you'll have. Approximately. Results generated, not guaranteed.</p>
         </li>
         <li class="cell">
           <span class="cell__stamp">CERT</span>
-          <h3 class="cell__title">RESULTS MAY VARY</h3>
-          <p class="cell__text">The variance is also part of the fun. This was intentional. Mostly.</p>
+          <h3 class="cell__title">SHIPS DIRTY</h3>
+          <p class="cell__text">Zero QA, total confidence. The bugs are features the model hasn't explained to us yet.</p>
         </li>
       </ul>
     </section>
 
-    <!-- ===================== COMPLAINT BOX ===================== -->
-    <section class="section section--complaint" id="complaint" aria-labelledby="complaint-h">
+    <!-- ===================== RAGE QUIT (shredder) ===================== -->
+    <section class="section section--complaint" id="void" aria-labelledby="void-h">
       <div class="section__head">
-        <p class="stamp">FILING NO. 0006 &nbsp;//&nbsp; DESTRUCTION UNIT</p>
-        <h2 class="section__title" id="complaint-h">THE COMPLAINT BOX</h2>
+        <p class="stamp">&#9654; FEEDBACK INTAKE // DESTINATION: /dev/null</p>
+        <h2 class="section__title chrome" id="void-h">RAGE QUIT</h2>
       </div>
       <p class="section__lead">
-        Got a complaint? Magnificent. We take feedback extremely seriously, which is why we have
-        installed an industrial-grade, fully bonded, OSHA-adjacent document destruction unit
-        directly beneath this textarea. Type your grievance below. Press SUBMIT. Watch it become
-        confetti. Your concerns will be heard by no one and felt by everyone. This is the most
-        finished feature we have.
+        Got a complaint? Incredible. We take feedback so seriously we've wired an industrial-grade,
+        fully bonded, OSHA-adjacent slop-shredder directly beneath this box. Type your grievance,
+        hit <b>DEPLOY TO THE VOID</b>, and watch it become confetti. Read by no one. Felt by everyone.
+        Easily our most finished feature.
       </p>
 
       <form class="complaint" id="complaintForm" novalidate>
-        <label class="complaint__label" for="complaint-input">GRIEVANCE INTAKE FORM &mdash; SECTION 1 OF 1</label>
+        <label class="complaint__label" for="complaint-input">GRIEVANCE UPLOAD &mdash; STATUS: DOOMED</label>
 
         <div class="shred-wrap" id="shredWrap">
           <div class="shredder-mouth" aria-hidden="true"></div>
@@ -250,14 +299,14 @@
             class="complaint__input"
             name="complaint"
             rows="6"
-            placeholder="Begin grievance. Be as specific as you like — it changes nothing, but the shredder appreciates thorough work..."
+            placeholder="Begin grievance. Be as specific as you like — it changes nothing, but the shredder respects thorough work..."
             spellcheck="true"
             autocomplete="off"></textarea>
           <canvas class="shred-fx" id="shredFx" aria-hidden="true"></canvas>
         </div>
 
         <div class="complaint__controls">
-          <button type="submit" class="btn btn--primary btn--submit" id="shredBtn">SUBMIT TO THE SHREDDER</button>
+          <button type="submit" class="btn btn--primary btn--submit" id="shredBtn">DEPLOY TO THE VOID</button>
           <p class="complaint__status" id="shredStatus" role="status" aria-live="polite"></p>
         </div>
       </form>
@@ -267,11 +316,11 @@
   <!-- ===================== FOOTER ===================== -->
   <footer class="footer">
     <p class="footer__text">
-      MACHINAUT STUDIOS LLC — TERMINAL BEIGE DIVISION. Manufacturing fun on a grid since this
-      morning. No roadmap. No regrets. The cursor is still blinking.
+      MACHINAUT STUDIOS LLC — SLOP FOUNDRY. Mass-producing AI slop since the GPU warmed up this
+      morning. No roadmap. No taste. The model is still generating.
       <span class="footer__cursor cursor" aria-hidden="true"></span>
     </p>
-    <p class="footer__fine">© 2026, or thereabouts.</p>
+    <p class="footer__fine">© 2026, or whenever the build finished.</p>
   </footer>
 
   <script src="script.js" defer></script>

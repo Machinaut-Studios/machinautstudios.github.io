@@ -1,7 +1,8 @@
 # Machinaut Studios LLC — website
 
-The official landing page for **Machinaut Studios LLC**. We build fun apps. For fun.
-That is the whole filing.
+The official landing page for **Machinaut Studios LLC** — an AI-driven game studio
+building AI slop bigger, better, faster, and sloppier than ever. The machines make it.
+We just push deploy.
 
 Live site: <https://machinautstudios.github.io>
 
@@ -11,17 +12,17 @@ A static, dependency-free site for GitHub Pages.
 
 | File          | Purpose                                                              |
 | ------------- | ------------------------------------------------------------------- |
-| `index.html`  | Page structure and copy                                             |
-| `styles.css`  | "Terminal Beige Division" theme — CRT-green-on-beige, fully responsive |
-| `script.js`   | Mobile nav + the Complaint Shredder                                 |
-| `favicon.svg` | Blinking-cursor mark                                                |
+| `index.html`  | Page structure, copy, and the animated "Slop Factory" conveyor       |
+| `styles.css`  | "Slop Foundry" neon-arcade theme — synthwave grid, chrome type, fully responsive |
+| `script.js`   | Mobile nav + the slop-deployed counter + the Complaint Shredder      |
+| `favicon.svg` | Neon arcade mark with a blinking deploy pixel                        |
 | `.nojekyll`   | Tells GitHub Pages to serve the files as-is (skip Jekyll)           |
 
 No build step, no frameworks, no npm. Plain HTML/CSS/JS.
 
 ## The Complaint Shredder
 
-The marquee feature. Type a complaint, press **SUBMIT TO THE SHREDDER**, and watch it
+The marquee feature. Type a complaint, press **DEPLOY TO THE VOID**, and watch it
 become confetti:
 
 1. The typed text is rasterized to an offscreen `<canvas>` (matching the textarea's

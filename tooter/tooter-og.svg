@@ -1,20 +1,52 @@
-<!-- Source for tooter-og.png (1200x1200 social/OG share image).
-     Regenerate: embed tooter_logo_transparent.png as a base64 data URI in an
-     <image> (qlmanage does not reliably load relative external images), then
-     rasterize, e.g.:  qlmanage -t -s 1200 -o <dir> <this-svg-with-datauri> -->
+<!-- Source for tooter-og.png (1200x1200 social/OG share image), Neon Arcade theme.
+     Regenerate the PNG by rendering this SVG in a browser with the brand webfonts
+     loaded (Orbitron / IBM Plex Mono) so the type matches the site, e.g. inline it in
+     an HTML wrapper that <link>s the Google Fonts and screenshot at 1200x1200. The
+     <image> below uses a relative href that resolves next to this file. -->
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 1200" width="1200" height="1200">
   <defs>
+    <linearGradient id="frame" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff2e97"/>
+      <stop offset="0.5" stop-color="#a855ff"/>
+      <stop offset="1" stop-color="#2fe4ff"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.40" r="0.62">
+      <stop offset="0" stop-color="#1a1140"/>
+      <stop offset="1" stop-color="#07060f"/>
+    </radialGradient>
+    <radialGradient id="sun" cx="0.5" cy="0.94" r="0.5">
+      <stop offset="0" stop-color="#ff2e97" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#ff2e97" stop-opacity="0"/>
+    </radialGradient>
     <pattern id="scan" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="3" fill="#000000"/></pattern>
   </defs>
-  <rect width="1200" height="1200" fill="#2B2A24"/>
-  <rect x="28" y="28" width="1144" height="1144" fill="none" stroke="#8A8366" stroke-width="3"/>
-  <rect width="1200" height="1200" fill="url(#scan)" opacity="0.10"/>
-  <image xlink:href="tooter_logo_transparent.png" x="320" y="105" width="560" height="575"/>
-  <g font-family="'Courier New', monospace" text-anchor="middle">
-    <text x="600" y="775" font-size="44" font-weight="700" fill="#D8CCA8">Record. Rate. Repeat.</text>
-    <text x="600" y="845" font-size="34" fill="#D8CCA8">The flatulence archive</text>
-    <text x="600" y="891" font-size="34" fill="#D8CCA8">you didn't know you needed.</text>
-    <text x="600" y="1000" font-size="30" font-weight="700" fill="#FF7A3C">NOW ON THE APP STORE &amp; GOOGLE PLAY</text>
-    <text x="600" y="1110" font-size="24" fill="#8A8366">MACHINAUT STUDIOS LLC // TERMINAL BEIGE DIVISION</text>
+
+  <rect width="1200" height="1200" fill="#07060f"/>
+  <rect width="1200" height="1200" fill="url(#glow)"/>
+  <rect x="0" y="700" width="1200" height="500" fill="url(#sun)"/>
+  <!-- synthwave floor lines -->
+  <g stroke="#2fe4ff" stroke-width="2" opacity="0.28">
+    <line x1="600" y1="1030" x2="120" y2="1200"/>
+    <line x1="600" y1="1030" x2="360" y2="1200"/>
+    <line x1="600" y1="1030" x2="600" y2="1200"/>
+    <line x1="600" y1="1030" x2="840" y2="1200"/>
+    <line x1="600" y1="1030" x2="1080" y2="1200"/>
+  </g>
+  <g stroke="#ff2e97" stroke-width="2" opacity="0.22">
+    <line x1="0" y1="1085" x2="1200" y2="1085"/>
+    <line x1="0" y1="1140" x2="1200" y2="1140"/>
+  </g>
+
+  <rect width="1200" height="1200" fill="url(#scan)" opacity="0.12"/>
+  <rect x="26" y="26" width="1148" height="1148" rx="26" fill="none" stroke="url(#frame)" stroke-width="5"/>
+
+  <image xlink:href="tooter_logo_transparent.png" x="330" y="118" width="540" height="555"/>
+
+  <g text-anchor="middle">
+    <text x="600" y="778" font-family="'Orbitron','Arial Black',sans-serif" font-size="58" font-weight="800" fill="#f3f1ff">RECORD. RATE. REPEAT.</text>
+    <text x="600" y="846" font-family="'IBM Plex Mono','Courier New',monospace" font-size="33" fill="#b0a8dd">The flatulence archive</text>
+    <text x="600" y="892" font-family="'IBM Plex Mono','Courier New',monospace" font-size="33" fill="#b0a8dd">you didn't know you needed.</text>
+    <text x="600" y="1002" font-family="'Orbitron','Arial Black',sans-serif" font-size="30" font-weight="800" fill="#b6ff3a">NOW ON THE APP STORE &amp; GOOGLE PLAY</text>
+    <text x="600" y="1112" font-family="'IBM Plex Mono','Courier New',monospace" font-size="24" fill="#8a83b8">MACHINAUT STUDIOS LLC // SLOP FOUNDRY</text>
   </g>
 </svg>

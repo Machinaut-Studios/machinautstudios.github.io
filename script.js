@@ -1,7 +1,8 @@
 /* =========================================================================
-   MACHINAUT STUDIOS LLC — Terminal Beige Division
+   MACHINAUT STUDIOS LLC — Slop Foundry
    1) Mobile nav toggle (accessible)
-   2) The Complaint Shredder — rasterize the user's text to a canvas, wipe the
+   2) The "slop deployed" counter (ticks up forever, respects reduced motion)
+   3) The Complaint Shredder — rasterize the user's text to a canvas, wipe the
       real <textarea> value the instant we snapshot it (so the text is GENUINELY
       gone, not faked), then shred the snapshot into falling paper strips.
    No libraries. No build step. Drops straight onto GitHub Pages.
@@ -37,6 +38,29 @@
     });
   }
 
+  /* ------------------------------------------------------------ SLOP COUNTER
+     The factory's "units deployed" readout. Ticks up at an absurd rate so the
+     mass-production gag keeps paying off. Static (no ticking) for reduced motion. */
+  const slopEl = document.getElementById("slopCount");
+  if (slopEl && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    let n = parseInt(slopEl.textContent.replace(/[^0-9]/g, ""), 10) || 4208117;
+    const fmt = (v) => v.toLocaleString("en-US");
+    let acc = 0;
+    let last = 0;
+    const tickCounter = (t) => {
+      if (!last) last = t;
+      acc += Math.min(120, t - last); // clamp so a backgrounded tab can't leap
+      last = t;
+      if (acc >= 90) {
+        n += 1 + Math.floor(Math.random() * 6);
+        slopEl.textContent = fmt(n);
+        acc = 0;
+      }
+      requestAnimationFrame(tickCounter);
+    };
+    requestAnimationFrame(tickCounter);
+  }
+
   /* ------------------------------------------------------------- SHREDDER */
   const form = document.getElementById("complaintForm");
   const ta = document.getElementById("complaint-input");
@@ -51,15 +75,15 @@
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   const SHRED_MESSAGES = [
-    "COMPLAINT RECEIVED. COMPLAINT RECYCLED. Thank you for the paper.",
-    "Your feedback has been converted into 1,400 small rectangles. Resolution: total.",
-    "Escalated to /dev/null, our most senior department. It read 0% and could not agree more.",
-    "The machine has eaten your concern and reports that it was delicious.",
-    "Ticket #00000 closed automatically. Satisfaction: assumed. Confetti: deployed.",
+    "COMPLAINT DEPLOYED TO /dev/null. Zero downtime. Thank you for the paper.",
+    "Your feedback has been generated into 1,400 small rectangles. Resolution: total.",
+    "Shipped straight to production and immediately shredded. Our fastest pipeline yet.",
+    "The model has eaten your concern and reports that it was, quote, 'delicious slop.'",
+    "Ticket #00000 auto-closed. Satisfaction: assumed. Confetti: deployed.",
   ];
   const EMPTY_MESSAGES = [
-    "THE SHREDDER AWAITS INPUT. It will not destroy an empty page. It has standards.",
-    "NOTHING TO SHRED. The machine hums, disappointed but professional.",
+    "THE SHREDDER AWAITS INPUT. It will not deploy an empty grievance. It has standards.",
+    "NOTHING TO SHRED. The GPU hums, disappointed but professional.",
     "ERROR 0: grievance not found. The shredder is, frankly, bored.",
   ];
 
@@ -175,10 +199,12 @@
     src.height = contentH * dpr;
     const sctx = src.getContext("2d");
     sctx.scale(dpr, dpr);
-    const surface =
-      getComputedStyle(document.documentElement).getPropertyValue("--surface").trim() ||
-      "#D8CCA8";
-    sctx.fillStyle = surface;
+    // Fill with the textarea's actual (opaque, dark) field colour so the shredded
+    // strips match the terminal field they came from.
+    const fieldBg = cs.backgroundColor && cs.backgroundColor !== "rgba(0, 0, 0, 0)"
+      ? cs.backgroundColor
+      : "#0b0918";
+    sctx.fillStyle = fieldBg;
     sctx.fillRect(0, 0, cssW, contentH);
     sctx.fillStyle = cs.color || "#1A1A14";
     sctx.textBaseline = "top";
