@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<!--
+  Critter Gram — an app by Machinaut Studios LLC
+  Copyright © 2026 Machinaut Studios LLC. All rights reserved. See /LICENSE.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Critter Gram — Type it. A critter says it. | Machinaut Studios LLC</title>
+  <meta name="description" content="Critter Gram turns a short message into a silly animal-voiced video — a sprite critter whose mouth flaps in time with the audio. Fourteen personalities, all generated on your phone, no account and no servers. An iOS and Android app by Machinaut Studios LLC." />
+  <meta name="copyright" content="© 2026 Machinaut Studios LLC. All rights reserved." />
+  <meta name="theme-color" content="#07060f" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="canonical" href="https://machinautstudios.com/crittergram/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Critter Gram — Type it. A critter says it." />
+  <meta property="og:description" content="Fourteen animals who deliver your message badly, on purpose. Generated entirely on your phone. Coming soon to the App Store and Google Play." />
+  <meta property="og:url" content="https://machinautstudios.com/crittergram/" />
+  <meta property="og:image" content="https://machinautstudios.com/crittergram/crittergram-og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="1200" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="Critter Gram — a deadpan rabbit on an orange field." />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <!-- Fonts: Orbitron (chrome display) + VT323 (arcade accents) + IBM Plex Mono (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Orbitron:wght@600;800;900&family=VT323&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ===================== NAV ===================== -->
+  <header class="nav">
+    <div class="nav__inner">
+      <a class="nav__brand" href="/">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span class="nav__brand-name">MACHINAUT</span>
+        <span class="nav__brand-sub">STUDIOS&nbsp;LLC</span>
+      </a>
+
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bars" aria-hidden="true"></span>
+      </button>
+
+      <nav class="nav__menu" id="nav-menu" aria-label="Primary">
+        <a href="/tooter/">TOOTER</a>
+        <a href="/crittergram/" aria-current="page">CRITTER GRAM</a>
+        <a href="/#factory">THE FACTORY</a>
+        <a href="/#ship">WHAT WE SHIP</a>
+        <a href="/#studio">THE STUDIO</a>
+        <a class="nav__cta" href="/#complaint">RAGE QUIT</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <!-- ===================== HERO ===================== -->
+    <section class="hero hero--compact" aria-labelledby="crittergram-title">
+      <div class="hero__scanlines" aria-hidden="true"></div>
+      <div class="hero__inner">
+        <div class="app-hero__layout">
+          <img class="app-hero__icon" src="/crittergram/crittergram_icon.png" alt="Critter Gram app icon — a grey rabbit wearing a profoundly unimpressed expression, on an orange rounded square" width="152" height="152" />
+          <div class="app-hero__text">
+            <p class="stamp stamp--hero">&#9654; IN THE PACKAGER &nbsp;//&nbsp; iOS + ANDROID SOON</p>
+            <h1 class="hero__title" id="crittergram-title"><span class="n2">Critter Gram</span><span class="cursor" aria-hidden="true"></span></h1>
+            <p class="app-hero__tagline">Type it. A critter says it.<br />Fourteen animals who deliver your message badly, on purpose.</p>
+            <p class="hero__sub">
+              Write one line. Pick an animal. Critter Gram hands it back as a silly
+              animal-voiced video — a sprite critter whose mouth flaps in time with the
+              audio — ready for Messages, WhatsApp, or anywhere else you share things.
+              Every voice is synthesized on your phone. No account, no analytics, and
+              not one network call between typing the message and sharing the video.
+            </p>
+            <div class="hero__actions">
+              <button class="btn btn--primary btn--play" type="button" disabled aria-disabled="true"
+                      aria-label="Coming soon to Google Play">
+                <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M4 3.5v17a1 1 0 0 0 1.5.87l14-8.5a1 1 0 0 0 0-1.74l-14-8.5A1 1 0 0 0 4 3.5z" fill="currentColor"/>
+                </svg>
+                <span>Coming soon to Google Play</span>
+              </button>
+              <button class="btn btn--primary btn--play" type="button" disabled aria-disabled="true"
+                      aria-label="Coming soon to the App Store">
+                <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M16.37 1.43c0 1.06-.43 2.07-1.13 2.83-.76.82-1.99 1.45-3 1.37-.13-.99.39-2.05 1.05-2.74.74-.78 2.01-1.37 3.01-1.42.03.32.06.64.07-.04zm3.4 16.05c-.5 1.16-.74 1.67-1.38 2.7-.9 1.43-2.16 3.21-3.73 3.22-1.39.01-1.75-.91-3.64-.9-1.89.01-2.28.92-3.68.9-1.57-.01-2.77-1.62-3.67-3.05-2.51-3.98-2.77-8.65-1.23-11.13 1.1-1.76 2.83-2.79 4.46-2.79 1.66 0 2.7.91 4.07.91 1.33 0 2.14-.91 4.06-.91 1.45 0 2.99.79 4.08 2.16-3.59 1.96-3.01 7.09.66 8.89z" fill="currentColor"/>
+                </svg>
+                <span>Coming soon to the App Store</span>
+              </button>
+              <a class="btn btn--ghost" href="/crittergram/privacy/">PRIVACY POLICY</a>
+            </div>
+            <p class="app-note">
+              Built, boxed, and sitting in review. The Foundry does not control that
+              timeline — it merely waits, warmly, beside the GPU.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FEATURES ===================== -->
+    <section class="section" id="features" aria-labelledby="features-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; SPEC SHEET</p>
+        <h2 class="section__title chrome" id="features-h">WHAT IT DOES</h2>
+      </div>
+      <p class="section__lead">
+        A gram is something a critter brings you <b>on somebody's behalf</b>. There are always
+        three people in one: you, the animal, and whoever is listening. The animal is the one
+        in the middle, and it is not good at its job. Here is the whole machine.
+      </p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">FEATURE</span>
+          <h3 class="cell__title">FOURTEEN PERSONALITIES</h3>
+          <p class="cell__text">Personality is innate — each critter writes its own way. The chipmunk relays you verbatim. The turtle tells you a story from his day first. Same message, fourteen wildly different deliveries.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">FEATURE</span>
+          <h3 class="cell__title">IT NEVER ANSWERS YOU</h3>
+          <p class="cell__text">The critter carries the message; it does not reply to it. Ask "fancy a coffee?" and the question arrives as a question. Left alone, a model would happily decline on your behalf. We stopped it.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">FEATURE</span>
+          <h3 class="cell__title">MADE ON YOUR PHONE</h3>
+          <p class="cell__text">Offline speech synthesis, a tape-speed pitch trick per animal, mouth sprites driven by the audio's own loudness, and a hardware-encoded video. Nothing leaves the device to make it.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">FEATURE</span>
+          <h3 class="cell__title">SHARES LIKE A VIDEO</h3>
+          <p class="cell__text">Out comes an ordinary video file through the ordinary share sheet. The recipient needs nothing installed, no account, and no explanation beyond the obvious one.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">FEATURE</span>
+          <h3 class="cell__title">OR A FEW HUNDRED BYTES</h3>
+          <p class="cell__text">When both people have the app, skip the video: the gram travels as a scrap of text and the other phone rebuilds the voice and the animation locally. Friends pair by invite link only.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">OPTIONAL</span>
+          <h3 class="cell__title">THE BIG BRAIN</h3>
+          <p class="cell__text">A language model you can add later, which runs entirely on your device and writes the generative critters' material. Skip it and everything still works — a built-in procedural engine covers for it.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== THE ROSTER ===================== -->
+    <section class="section" id="roster" aria-labelledby="roster-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; PERSONNEL FILE</p>
+        <h2 class="section__title chrome" id="roster-h">THE ROSTER</h2>
+      </div>
+      <p class="section__lead">
+        Fourteen animals are on staff. Four are free to send with; the other ten arrive with a
+        single one-time unlock — no subscription. <b>Receiving is never gated:</b> a gram plays in
+        full on any phone, every critter, paid or not. Six representative units follow.
+      </p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">UNIT 12 &nbsp;//&nbsp; SNAIL</span>
+          <h3 class="cell__title">SAYS NOTHING</h3>
+          <p class="cell__text">Speaks not one word. Hands over a written letter instead, which takes <b>three real days</b> to arrive. This is the intended behavior and we will not be moving it.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">UNIT 14 &nbsp;//&nbsp; DOLPHIN</span>
+          <h3 class="cell__title">WITHHOLDS, PROFESSIONALLY</h3>
+          <p class="cell__text">Gives exactly one squeak. Knows your whole message and will not tell. The recipient has to interrogate it with yes/no questions until they work it out.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">UNIT 04 &nbsp;//&nbsp; DUCK</span>
+          <h3 class="cell__title">ONLY QUACKS</h3>
+          <p class="cell__text">Just quacks, honestly and at length. The message rides alongside as a decodable quack transcript — paste it into the in-app translator to get your words back.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">UNIT 10 &nbsp;//&nbsp; JACK RABBIT</span>
+          <h3 class="cell__title">FOUR WORDS, TOTAL</h3>
+          <p class="cell__text">Two sentences. Two words each. Four words, total, enforced by two very small boxes. Brevity is not a style here, it is a hard constraint.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">UNIT 09 &nbsp;//&nbsp; WHALE</span>
+          <h3 class="cell__title">ONE UNBROKEN SONG</h3>
+          <p class="cell__text">Takes the plain delivery and stretches it into a single deep song with no gaps in it anywhere. Accurate. Extremely long.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">UNIT 13 &nbsp;//&nbsp; DODO</span>
+          <h3 class="cell__title">WORDS OF ONE SYLLABLE</h3>
+          <p class="cell__text">Says all of it, but only in words of one beat. Nuance does not survive the trip. Neither, usually, does the name of whoever sent it.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== PRIVACY TEASER ===================== -->
+    <section class="section section--alt" id="privacy" aria-labelledby="privacy-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; ON THE RECORD</p>
+        <h2 class="section__title chrome" id="privacy-h">YOUR DATA STAYS YOURS</h2>
+      </div>
+      <p class="section__lead">
+        There is no account to make and no profile to fill in. Grams are built on your phone and
+        shared by you, to whoever you choose. Sending straight to a friend does pass through one
+        small relay — which holds no names, cannot read what it carries, and deletes it on
+        delivery. The full, plainly-worded details live on the privacy page — the same one we
+        submit to the App Store and Google Play.
+      </p>
+      <p>
+        <a class="btn btn--ghost" href="/crittergram/privacy/">READ THE CRITTER GRAM PRIVACY POLICY</a>
+      </p>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <nav class="footer__links" aria-label="Footer">
+      <a href="/">Home</a>
+      <a href="/crittergram/">Critter Gram</a>
+      <a href="/crittergram/privacy/">Privacy Policy</a>
+      <a href="/tooter/">Tooter</a>
+    </nav>
+    <p class="footer__text">
+      Critter Gram is an app by MACHINAUT STUDIOS LLC — SLOP FOUNDRY.
+      Fourteen animals. One message. No guarantee it survives the trip.
+      <span class="footer__cursor cursor" aria-hidden="true"></span>
+    </p>
+    <p class="footer__fine">© 2026 Machinaut Studios LLC. All rights reserved.</p>
+  </footer>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

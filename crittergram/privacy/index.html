@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<!--
+  Privacy Policy for Critter Gram — Machinaut Studios LLC
+  Copyright © 2026 Machinaut Studios LLC. All rights reserved. See /LICENSE.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Privacy Policy for Critter Gram | Machinaut Studios LLC</title>
+  <meta name="description" content="Privacy policy for the Critter Gram iOS and Android app by Machinaut Studios LLC. Grams are generated on your device. There are no accounts, and the optional friend-to-friend relay holds no names and deletes messages on delivery." />
+  <meta name="robots" content="index, follow" />
+  <meta name="copyright" content="© 2026 Machinaut Studios LLC. All rights reserved." />
+  <meta name="theme-color" content="#07060f" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="canonical" href="https://machinautstudios.com/crittergram/privacy/" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Privacy Policy for Critter Gram" />
+  <meta property="og:description" content="Grams are generated on your device. No accounts. The optional relay holds no names and deletes messages on delivery." />
+  <meta property="og:url" content="https://machinautstudios.com/crittergram/privacy/" />
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <!-- Fonts: Orbitron (chrome display) + VT323 (arcade accents) + IBM Plex Mono (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Orbitron:wght@600;800;900&family=VT323&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ===================== NAV ===================== -->
+  <header class="nav">
+    <div class="nav__inner">
+      <a class="nav__brand" href="/">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span class="nav__brand-name">MACHINAUT</span>
+        <span class="nav__brand-sub">STUDIOS&nbsp;LLC</span>
+      </a>
+
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bars" aria-hidden="true"></span>
+      </button>
+
+      <nav class="nav__menu" id="nav-menu" aria-label="Primary">
+        <a href="/tooter/">TOOTER</a>
+        <a href="/crittergram/">CRITTER GRAM</a>
+        <a href="/#factory">THE FACTORY</a>
+        <a href="/#ship">WHAT WE SHIP</a>
+        <a href="/#studio">THE STUDIO</a>
+        <a class="nav__cta" href="/#complaint">RAGE QUIT</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="section">
+      <article class="legal">
+        <h1>Privacy Policy for Critter Gram</h1>
+        <p class="legal__meta">Last updated: July 29, 2026</p>
+
+        <p class="legal__lead">
+          Critter Gram ("the app") is developed and published by Machinaut Studios LLC
+          ("we", "us"). This policy explains what data the app handles. The short version:
+          there is no account, grams are generated on your device, and we do not build a
+          profile of you. If you choose to send grams straight to a friend, they pass
+          through one small relay of ours that holds no names, cannot read what it
+          carries, and deletes it on delivery.
+        </p>
+
+        <h2>Information we collect</h2>
+        <p>
+          We do not ask for your name, email address, phone number, or contacts, and there
+          is no account to create. We run no analytics, no advertising, and no tracking of
+          any kind, and we do not sell or rent data to anyone.
+        </p>
+        <p>
+          If you never use the friend-to-friend features, the app makes no request to our
+          relay at all &mdash; it holds no record of you whatsoever.
+        </p>
+
+        <h2>Making a gram stays on your device</h2>
+        <p>
+          The message you type, the sender name you enter, the voice, the animation, and
+          the finished video are all produced locally on your phone. Speech is synthesized
+          by an offline engine bundled in the app; the video is encoded by your device's own
+          hardware. Nothing in that path is uploaded to us, and none of it requires a network
+          connection. Sharing the finished video is an ordinary share, initiated by you, to
+          whichever app or person you pick.
+        </p>
+
+        <h2>Microphone and camera</h2>
+        <p>
+          <b>Critter Gram does not use your microphone or camera.</b> Every critter voice is
+          synthesized, never recorded. On iOS you may see microphone and camera notices in
+          the app's store listing or system settings; those exist only because the video
+          encoder the app links against contains Apple's capture code, which causes iOS to
+          require the declarations. The app never opens either device, and we never receive
+          audio or images from you.
+        </p>
+
+        <h2>Sending grams to a friend (the critter relay)</h2>
+        <p>
+          Optionally, when both people have the app, a gram can travel as a small text
+          payload instead of a video. This uses a store-and-forward server we operate,
+          called the relay. It is a staging area, never an archive:
+        </p>
+        <ul>
+          <li><b>Payloads are opaque.</b> The relay never parses gram bodies. It stores bytes and forwards bytes.</li>
+          <li><b>No names, ever.</b> It holds no display names, profiles, phone numbers, or email addresses. A device is identified only by a random identifier generated on your phone.</li>
+          <li><b>Deleted on delivery.</b> A gram is deleted the moment the recipient's app acknowledges it. Anything undelivered expires automatically after 7 days.</li>
+          <li><b>Pairing is by invite only.</b> You reach someone by sharing a single-use invite code, which expires after 24 hours. There is no directory, no search, and no way for a stranger to reach you.</li>
+          <li><b>Credentials are stored hashed.</b> Only a one-way hash of your device secret and of invite codes is ever written to disk.</li>
+          <li><b>Logs are minimal and anonymized.</b> Gram contents and pairing blobs are never logged, and device identifiers are truncated in logs. IP addresses are used transiently to rate-limit abuse and are not used to build any profile.</li>
+        </ul>
+        <p>
+          You can block a paired friend, unpair from them, or erase this phone's messaging
+          identity entirely from within the app &mdash; the last of which deletes the device,
+          its pairings, any pending grams, and its notification tokens from the relay. Grams
+          you have already received stay on your phone.
+        </p>
+
+        <h2>Notifications</h2>
+        <p>
+          If you allow notifications, the app can tell you a gram has arrived. The
+          notification is deliberately content-free: it always reads "Critter Gram / A gram
+          just arrived." and never contains the message, the sender, the critter, or a count.
+          Delivery uses Firebase Cloud Messaging, a Google service, which issues your device
+          a notification token; on iOS, Firebase relays to Apple's push service. That token is
+          only ever handed to our relay after you have paired with a friend. Google's handling
+          of this is governed by the
+          <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener noreferrer">Firebase privacy documentation</a>
+          and the
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a>.
+          Notifications are only ever a hint to check for grams; the app works without them.
+        </p>
+
+        <h2>The optional on-device model ("Big Brain")</h2>
+        <p>
+          Settings offers an optional download of a language model that writes some critters'
+          dialogue. Downloading it fetches a file over the network; after that, it runs
+          entirely on your device. <b>Your messages are never sent anywhere to be written
+          &mdash; generation is always local.</b> The feature is optional, can be switched off,
+          and the download can be removed at any time. Without it, every critter still works
+          using a built-in procedural engine.
+        </p>
+
+        <h2>Reporting abuse</h2>
+        <p>
+          If someone sends you something abusive, you can report it. This is the one place
+          where we deliberately keep content: a report includes the reason you give and the
+          material you chose to quote, so that a person can review it and act. Reports are
+          automatically deleted after 90 days, and filing one also blocks that sender for you.
+          If you never file a report, we never receive any gram content.
+        </p>
+
+        <h2>Purchases</h2>
+        <p>
+          Critter Gram offers a single optional in-app purchase that unlocks the rest of the
+          critter roster for sending. There is no subscription. Purchases are processed
+          entirely by the store you downloaded the app from &mdash; Apple's App Store on iOS,
+          or Google Play Billing on Android. We do not receive or store your payment details,
+          card information, or billing address. On iOS, payment handling is governed by the
+          <a href="https://www.apple.com/legal/internet-services/itunes/" target="_blank" rel="noopener noreferrer">Apple Media Services Terms and Conditions</a>
+          and the
+          <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">Apple Privacy Policy</a>;
+          on Android, by the
+          <a href="https://play.google.com/about/play-terms/" target="_blank" rel="noopener noreferrer">Google Play Terms of Service</a>
+          and the
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a>.
+          The app stores only a local flag indicating whether the purchase was made.
+        </p>
+
+        <h2>Data sharing</h2>
+        <p>
+          We do not sell, rent, or trade your data, and we do not share it for advertising.
+          The only third parties involved are the infrastructure providers described above:
+          Apple and Google for app distribution and payments, and Google's Firebase Cloud
+          Messaging for notification delivery. Grams sent through our relay are passed only
+          to the friend you addressed them to.
+        </p>
+
+        <h2>Children's privacy</h2>
+        <p>
+          Critter Gram does not knowingly collect personal information from anyone, including
+          children, and requires no account. Because the app can send and receive messages
+          between paired friends, we recommend that younger users have a parent or guardian
+          involved in deciding who they pair with. Pairing always requires deliberately
+          sharing an invite code, and any pairing can be blocked or removed at any time.
+        </p>
+
+        <h2>Your choices</h2>
+        <ul>
+          <li>Use the app entirely offline by only sharing grams as videos &mdash; the relay is never contacted.</li>
+          <li>Decline notification permission; grams still arrive when you open the app.</li>
+          <li>Skip or remove the optional model download.</li>
+          <li>Block or unpair any friend, or erase this phone's messaging identity from the relay, from within the app.</li>
+          <li>Delete the app, which removes the grams and settings stored on your device.</li>
+        </ul>
+
+        <h2>Changes to this policy</h2>
+        <p>
+          We may update this policy from time to time. Material changes will be reflected by
+          updating the "Last updated" date above.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+          Questions about this policy can be sent to
+          <a href="mailto:info@machinautstudios.com">info@machinautstudios.com</a>.
+        </p>
+      </article>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <nav class="footer__links" aria-label="Footer">
+      <a href="/">Home</a>
+      <a href="/crittergram/">Critter Gram</a>
+      <a href="/crittergram/privacy/">Privacy Policy</a>
+      <a href="/tooter/">Tooter</a>
+    </nav>
+    <p class="footer__fine">© 2026 Machinaut Studios LLC. All rights reserved.</p>
+  </footer>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

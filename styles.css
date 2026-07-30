@@ -199,6 +199,8 @@ main:focus, main:focus-visible { outline: none; box-shadow: none; }
   display: inline-flex;
   align-items: center;
   min-height: 44px;
+  /* Labels stay on one line; the hamburger takes over before they'd need to wrap. */
+  white-space: nowrap;
   font-size: 0.76rem;
   font-weight: 600;
   letter-spacing: 0.1em;
@@ -852,7 +854,9 @@ main:focus, main:focus-visible { outline: none; box-shadow: none; }
   .grid--half2 { grid-template-columns: repeat(2, 1fr); }  /* keep 2-up where it fits */
 }
 
-@media (max-width: 600px) {
+/* Nav collapses to the hamburger at 960px. With six items the one-line row needs
+   ~950px; below that it would overflow the viewport (labels are nowrap by design). */
+@media (max-width: 960px) {
   .nav__toggle { display: inline-flex; align-items: center; justify-content: center; }
   .nav__menu {
     position: absolute;
@@ -935,7 +939,7 @@ main:focus, main:focus-visible { outline: none; box-shadow: none; }
 }
 
 /* =========================================================================
-   PRODUCT PAGES (Tooter app page + legal/privacy)  — shared components
+   PRODUCT PAGES (Tooter + Critter Gram app pages, legal/privacy) — shared components
    ========================================================================= */
 .nav__menu a[aria-current="page"] { color: var(--cyan-t); border-bottom-color: var(--cyan); }
 
