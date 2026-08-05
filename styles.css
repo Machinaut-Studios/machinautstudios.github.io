@@ -854,9 +854,13 @@ main:focus, main:focus-visible { outline: none; box-shadow: none; }
   .grid--half2 { grid-template-columns: repeat(2, 1fr); }  /* keep 2-up where it fits */
 }
 
-/* Nav collapses to the hamburger at 960px. With six items the one-line row needs
-   ~950px; below that it would overflow the viewport (labels are nowrap by design). */
-@media (max-width: 960px) {
+/* Nav collapses to the hamburger at 1120px. RE-MEASURE WHEN YOU ADD AN ITEM:
+   the one-line row is brand (246px) + menu + the inner's 80px padding, which
+   with seven items comes to 1101px. This breakpoint must sit ABOVE that, or
+   every viewport between it and 1101 overflows horizontally — which is exactly
+   what the seventh item (ANVILSPELL) did at 1024px, 35px of overflow on every
+   page, while this was still at 960px. */
+@media (max-width: 1120px) {
   .nav__toggle { display: inline-flex; align-items: center; justify-content: center; }
   .nav__menu {
     position: absolute;
@@ -939,7 +943,7 @@ main:focus, main:focus-visible { outline: none; box-shadow: none; }
 }
 
 /* =========================================================================
-   PRODUCT PAGES (Tooter + Critter Gram app pages, legal/privacy) — shared components
+   PRODUCT PAGES (Tooter + Critter Gram + Anvilspell app pages, legal/privacy) — shared components
    ========================================================================= */
 .nav__menu a[aria-current="page"] { color: var(--cyan-t); border-bottom-color: var(--cyan); }
 
