@@ -854,13 +854,21 @@ main:focus, main:focus-visible { outline: none; box-shadow: none; }
   .grid--half2 { grid-template-columns: repeat(2, 1fr); }  /* keep 2-up where it fits */
 }
 
-/* Nav collapses to the hamburger at 1120px. RE-MEASURE WHEN YOU ADD AN ITEM:
-   the one-line row is brand (246px) + menu + the inner's 80px padding, which
-   with seven items comes to 1101px. This breakpoint must sit ABOVE that, or
-   every viewport between it and 1101 overflows horizontally — which is exactly
-   what the seventh item (ANVILSPELL) did at 1024px, 35px of overflow on every
-   page, while this was still at 960px. */
-@media (max-width: 1120px) {
+/* Nav collapses to the hamburger at 1380px. RE-MEASURE WHEN YOU ADD AN ITEM —
+   and mind that the row is WIDER than the box it sits in. .nav__inner is
+   capped at --maxw (1000px) and centred, so the row starts at
+   (vw - 1000)/2 + 40 and runs brand (246px) + 16px + menu; the menu is the
+   labels (690px with eight items) + 7 gaps of clamp(0.75rem, 2vw, 1.6rem).
+   It spills out of the 1000px column long before it reaches the viewport
+   edge — what matters is where its right edge lands:
+       right = vw/2 - 198 + 690 + 7*gap(vw)
+   With the gap capped at 25.6px that is vw/2 + 671.2, so the row first fits
+   at vw = 1343. This breakpoint must sit ABOVE that, or every viewport
+   between it and 1343 overflows horizontally — which is exactly what the
+   seventh item (ANVILSPELL) did at 1024px, 35px of overflow on every page,
+   while this was still at 960px. Seven items fit from 1101px (breakpoint
+   1120); the eighth (HUSHWORD) pushed it to 1343. */
+@media (max-width: 1380px) {
   .nav__toggle { display: inline-flex; align-items: center; justify-content: center; }
   .nav__menu {
     position: absolute;
@@ -943,7 +951,7 @@ main:focus, main:focus-visible { outline: none; box-shadow: none; }
 }
 
 /* =========================================================================
-   PRODUCT PAGES (Tooter + Critter Gram + Anvilspell app pages, legal/privacy) — shared components
+   PRODUCT PAGES (Tooter + Critter Gram + Anvilspell + Hushword app pages, legal/privacy) — shared components
    ========================================================================= */
 .nav__menu a[aria-current="page"] { color: var(--cyan-t); border-bottom-color: var(--cyan); }
 
