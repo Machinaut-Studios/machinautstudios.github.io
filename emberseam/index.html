@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<!--
+  Emberseam — a game by Machinaut Studios LLC
+  Copyright © 2026 Machinaut Studios LLC. All rights reserved. See /LICENSE.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Emberseam — Every escape leaves a fire behind. | Machinaut Studios LLC</title>
+  <meta name="description" content="Emberseam is a puzzle game where every piece is an arrow: tap it and it slides off the board the way it faces, leaving its lane burning. You cannot cross the fire, but you can follow it. 150 campaign levels across six seams plus three years of daily boards — every one generated, solved to a proved optimum, and thrown away unless it punishes autopilot. An iOS and Android game by Machinaut Studios LLC — coming soon, not yet on either store." />
+  <meta name="copyright" content="© 2026 Machinaut Studios LLC. All rights reserved." />
+  <meta name="theme-color" content="#07060f" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="canonical" href="https://machinautstudios.com/emberseam/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Emberseam — Every escape leaves a fire behind." />
+  <meta property="og:description" content="Tap an arrow, it slides off the board, and the lane it left is burning. You cannot cross the fire — you can follow it. 150 levels and three years of dailies, each with a solver-proved par. Coming soon to iOS and Android." />
+  <meta property="og:url" content="https://machinautstudios.com/emberseam/" />
+  <meta property="og:image" content="https://machinautstudios.com/emberseam/emberseam_icon.png" />
+  <meta property="og:image:width" content="512" />
+  <meta property="og:image:height" content="512" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="Emberseam — a pale arrow on charcoal, dragging a burning orange lane behind it." />
+  <meta name="twitter:card" content="summary" />
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <!-- Fonts: Orbitron (chrome display) + VT323 (arcade accents) + IBM Plex Mono (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Orbitron:wght@600;800;900&family=VT323&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ===================== NAV ===================== -->
+  <header class="nav">
+    <div class="nav__inner">
+      <a class="nav__brand" href="/">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span class="nav__brand-name">MACHINAUT</span>
+        <span class="nav__brand-sub">STUDIOS&nbsp;LLC</span>
+      </a>
+
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bars" aria-hidden="true"></span>
+      </button>
+
+      <nav class="nav__menu" id="nav-menu" aria-label="Primary">
+        <a href="/#factory">THE FACTORY</a>
+        <a href="/#ship">WHAT WE SHIP</a>
+        <a href="/#studio">THE STUDIO</a>
+        <a class="nav__cta" href="/#complaint">RAGE QUIT</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <!-- ===================== HERO ===================== -->
+    <section class="hero hero--compact" aria-labelledby="emberseam-title">
+      <div class="hero__scanlines" aria-hidden="true"></div>
+      <div class="hero__inner">
+        <div class="app-hero__layout">
+          <img class="app-hero__icon" src="/emberseam/emberseam_icon.png" alt="Emberseam app icon — a pale arrow on charcoal, dragging a burning orange lane behind it" width="152" height="152" />
+          <div class="app-hero__text">
+            <p class="stamp stamp--hero">&#9654; COMING SOON &nbsp;//&nbsp; ANDROID &nbsp;//&nbsp; iOS</p>
+            <h1 class="hero__title" id="emberseam-title"><span class="n1">Emberseam</span><span class="cursor" aria-hidden="true"></span></h1>
+            <p class="app-hero__tagline">Every escape leaves a fire behind.<br />You cannot cross it — but you can follow it.</p>
+            <p class="hero__sub">
+              Every piece on the grid is an arrow. Tap one and it slides straight
+              off the board the way it faces — if its whole lane is clear. The lane
+              it escaped down is left <b>burning</b>, and fire runs ALONG a lane, so
+              a later piece may follow the same line out but may never cross it.
+              Fire cools by one on every move. Every board carries a
+              <b>solver-proved par</b> and a budget of par plus a little slack, and
+              not one of those boards was designed by a person: 150 campaign levels
+              and three years of dailies were generated, proved and measured by
+              machine before the game itself was built.
+            </p>
+            <div class="hero__actions">
+              <button class="btn btn--primary btn--play" type="button" disabled aria-disabled="true"
+                      aria-label="Coming soon to Google Play">
+                <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M4 3.5v17a1 1 0 0 0 1.5.87l14-8.5a1 1 0 0 0 0-1.74l-14-8.5A1 1 0 0 0 4 3.5z" fill="currentColor"/>
+                </svg>
+                <span>Coming soon to Google Play</span>
+              </button>
+              <button class="btn btn--primary btn--play" type="button" disabled aria-disabled="true"
+                      aria-label="Coming soon to the App Store">
+                <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M16.37 1.43c0 1.06-.43 2.07-1.13 2.83-.76.82-1.99 1.45-3 1.37-.13-.99.39-2.05 1.05-2.74.74-.78 2.01-1.37 3.01-1.42.03.32.06.64.07-.04zm3.4 16.05c-.5 1.16-.74 1.67-1.38 2.7-.9 1.43-2.16 3.21-3.73 3.22-1.39.01-1.75-.91-3.64-.9-1.89.01-2.28.92-3.68.9-1.57-.01-2.77-1.62-3.67-3.05-2.51-3.98-2.77-8.65-1.23-11.13 1.1-1.76 2.83-2.79 4.46-2.79 1.66 0 2.7.91 4.07.91 1.33 0 2.14-.91 4.06-.91 1.45 0 2.99.79 4.08 2.16-3.59 1.96-3.01 7.09.66 8.89z" fill="currentColor"/>
+                </svg>
+                <span>Coming soon to the App Store</span>
+              </button>
+              <a class="btn btn--ghost" href="/emberseam/privacy/">PRIVACY POLICY</a>
+            </div>
+            <p class="app-note">
+              Emberseam is not on Google Play or the App Store yet — there is
+              nothing to download today, and both buttons above are deliberately
+              dead rather than pointing somewhere hopeful. They become real links
+              the day each store approves it.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== HOW THE BOARDS ARE MADE ===================== -->
+    <section class="section" id="boards" aria-labelledby="boards-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; THE UNUSUAL PART</p>
+        <h2 class="section__title chrome" id="boards-h">NOTHING HERE WAS AUTHORED</h2>
+      </div>
+      <p class="section__lead">
+        There is no level designer on this game, and no hand-placed piece anywhere
+        in it. Every board was built backwards by a generator, replayed forwards
+        under the real fire rules, proved optimal by an exact solver, and then
+        <b>measured</b> — and thrown away unless it punishes autopilot. Most of them
+        were thrown away. That is the whole method, and it is why the par printed on
+        a board is a fact rather than a guess.
+      </p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">STEP ONE &nbsp;//&nbsp; BACKWARDS</span>
+          <h3 class="cell__title">SOLVABILITY FOR FREE</h3>
+          <p class="cell__text">The generator runs the game in reverse: it drops pieces onto an empty grid, each one with a clear lane, and reads the placement order backwards. That order is a legal extraction order <b>by construction</b> — so a generated board is never merely hoped to be solvable.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STEP TWO &nbsp;//&nbsp; FORWARDS</span>
+          <h3 class="cell__title">PLAYED UNDER THE REAL RULES</h3>
+          <p class="cell__text">A plain forward replay then plays that board under the full scar rules — the same ones you play — inserting a wait wherever fire is in the way. Reverse construction proves a route exists; the replay is what proves the route survives the fire it starts.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STEP THREE &nbsp;//&nbsp; PROOF</span>
+          <h3 class="cell__title">AN EXACT SOLVER</h3>
+          <p class="cell__text">Par is not the generator's route — it is the true minimum, proved by IDA* searching over (remaining pieces, fire) with a ceiling of 500,000 nodes. Any board the solver cannot prove inside that budget is <b>discarded rather than shipped with a guessed par</b>. Seeds are free; a wrong par would make every shared score a lie.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STEP FOUR &nbsp;//&nbsp; MEASURED</span>
+          <h3 class="cell__title">DOES IT PLAY ITSELF?</h3>
+          <p class="cell__text">A proved board still has to earn its place. Each is measured on how much worse reading-order autopilot is than the optimum, how many of the optimum's moves are waits, and how often only one move was even legal. Fail any of those gates and it is deleted, not softened.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">THE REJECT PILE</span>
+          <h3 class="cell__title">THROWN AWAY BY THE HUNDRED</h3>
+          <p class="cell__text">Roughly <b>32 seeds burned per daily board</b>, and up to <b>270</b> for the hardest campaign levels, with an allowance of 2,000 before a band is declared broken. Most candidates die in microseconds against the cheap gates. The survivors are the product.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">BEFORE THE BINARY</span>
+          <h3 class="cell__title">PROVED, THEN SHIPPED</h3>
+          <p class="cell__text">150 campaign boards and 1,095 dailies were baked and proved in one 28-minute run before the game was built around them. They ship as <b>data, not seeds</b> — so the app never generates at boot, and every daily is provably fair before the binary leaves the studio.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== HOW IT PLAYS ===================== -->
+    <section class="section section--alt" id="how-it-plays" aria-labelledby="how-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; THE LOOP</p>
+        <h2 class="section__title chrome" id="how-h">HOW IT PLAYS</h2>
+      </div>
+      <p class="section__lead">
+        One verb: tap an arrow. Everything hard about this game comes from what the
+        arrow leaves behind it.
+      </p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">STEP ONE &nbsp;//&nbsp; TAP</span>
+          <h3 class="cell__title">EVERY PIECE IS AN ARROW</h3>
+          <p class="cell__text">It slides straight off the board the way it faces, and only if its whole lane to the edge is clear. There is no dragging, no rotating, no swapping. The only question on the board is which piece, and in what order.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STEP TWO &nbsp;//&nbsp; THE COST</span>
+          <h3 class="cell__title">THE LANE IS LEFT BURNING</h3>
+          <p class="cell__text">Escaping sets that lane alight, and fire runs <b>along</b> a lane rather than across it: a later piece may follow the same line out, but may not cross it. Fire cools by one on every move and is gone at zero. Your route is written into the floor.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">NO WAIT BUTTON</span>
+          <h3 class="cell__title">WAITING COSTS A MOVE</h3>
+          <p class="cell__text">There isn't one, on purpose. Tap a piece that only <b>fire</b> is blocking and you spend a move letting that fire die — a smolder. Tap one that a <b>piece or a wall</b> is blocking and it costs nothing at all: a misread is free, a mistimed wait is not.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">THE BUDGET</span>
+          <h3 class="cell__title">PAR, AND A LITTLE SLACK</h3>
+          <p class="cell__text">Every board ships with a proved par and a budget of par plus slack — five spare moves in the opening levels, two by the end. Clear it at par for three stars, within half the slack for two, anything else for one. Par is a minimum, so beating it is impossible.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">THE ONLY LOSS</span>
+          <h3 class="cell__title">BURNING OUT</h3>
+          <p class="cell__text">Spend the whole budget with pieces still on the board and you burn out. That is the only way to lose, and it is always self-inflicted — the board is <b>provably still winnable</b> at the moment you run out. Three undos an attempt are free, and a revive hands back three moves.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">THREE KINDS</span>
+          <h3 class="cell__title">EMBER, ASH AND STONE</h3>
+          <p class="cell__text"><b>Ember</b> pieces leave a scar that burns twice as long as the board's. <b>Ash</b> pieces leave nothing behind at all — the one clean exit, and the piece you hoard. <b>Walls</b> are permanent floor: they never move, never burn, and no piece may ever face into one.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== WHAT'S IN IT ===================== -->
+    <section class="section" id="contents" aria-labelledby="contents-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; TWO WAYS IN</p>
+        <h2 class="section__title chrome" id="contents-h">WHAT'S IN THE BOX</h2>
+      </div>
+      <p class="section__lead">
+        A campaign that teaches the fire one seam at a time, and one board a day
+        that everybody on earth gets identically. Both are scored against a proved
+        minimum; neither needs a signal.
+      </p>
+      <ul class="grid" role="list">
+        <li class="cell">
+          <span class="cell__stamp">MODE 01 &nbsp;//&nbsp; 150 LEVELS</span>
+          <h3 class="cell__title">SIX SEAMS</h3>
+          <p class="cell__text">Twenty-five levels each. <b>Kindling</b> — small fires, learn what they cost. <b>Flashpoint</b> — stone in the floor, fewer ways through. <b>Backdraft</b> — some pieces leave nothing behind. <b>Cinderfall</b> — embers burn twice as long as you want them to. <b>Firebreak</b> — long lanes, longer memories. <b>Deepseam</b> — no room, no slack, no second guesses. The grid grows from 5&times;5 to 8&times;8 and scars last from two moves to six; par runs from 5 to 17.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MODE 02 &nbsp;//&nbsp; DAILY</span>
+          <h3 class="cell__title">ONE BOARD A DAY</h3>
+          <p class="cell__text">Seeded from the calendar date, so every player worldwide gets the same 7&times;8 board with the same eleven pieces and the same two moves of slack — par 13 to 16, and three years of them already baked. Scored on moves against par. The streak survives a loss, because the ritual is showing up. The share card is a <b>scar map</b>: where your fire went, not how to solve it, so two people who cleared the same board post visibly different pictures.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MADE OF NUMBERS</span>
+          <h3 class="cell__title">NOT ONE BITMAP</h3>
+          <p class="cell__text">Every pixel of the board is a gradient, a rounded rectangle or a triangle drawn in code, and all nine sounds are synthesized in the repository rather than licensed. The fonts are open-licensed. It also means a reduce-motion switch that every painter honours, not just some — this game spends its whole art budget on animated fire, which makes an off switch an accessibility requirement.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== MONETIZATION ===================== -->
+    <section class="section section--alt" id="cost" aria-labelledby="cost-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; THE HONEST BIT</p>
+        <h2 class="section__title chrome" id="cost-h">WHAT IT COSTS</h2>
+      </div>
+      <p class="section__lead">
+        Emberseam will be free. Nothing you can buy makes a board solvable that
+        wasn't — every one of them is proved winnable before it ships — and there is
+        no energy meter, no timer and no lives, because none were built. Money buys
+        fewer interruptions; coins buy tools and paint.
+      </p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">FREE &nbsp;//&nbsp; AD-SUPPORTED</span>
+          <h3 class="cell__title">ADS, ON A LEASH</h3>
+          <p class="cell__text">A full-screen ad only ever appears after a <b>cleared campaign board</b>. Your first five cleared boards are free of them entirely, then at most every third clear, never less than 90 seconds apart, and never more than four in a session. <b>Never after a loss, never after the Daily</b>, never during play. Those limits live in the code with tests around them.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">ONE-TIME PURCHASE</span>
+          <h3 class="cell__title">REMOVE ADS</h3>
+          <p class="cell__text">Ends the between-level interstitials permanently. The opt-in rewarded ads stay — a revive after a burnout, or a free tool when you're short of coins, are things you choose, and removing ads should not remove your choices.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">COINS &nbsp;//&nbsp; OPTIONAL</span>
+          <h3 class="cell__title">A POUCH, A SATCHEL, A CHEST</h3>
+          <p class="cell__text">Three coin packs — 600, 1,800 and 4,500 coins — for anyone who would rather buy the tools than earn them. Coins also fall out of ordinary play: you start with 300, a clear pays 20 plus 12 per unused move (up to 60 more), a par-exact clear pays 30 on top, finishing a seam pays 400, and the Daily pays 45 plus 8 a day of streak, capped at 80.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">COIN SINKS</span>
+          <h3 class="cell__title">TOOLS, NOT POWER</h3>
+          <p class="cell__text"><b>Foresight</b> costs 60 and names a piece that is on an optimal path from where you are now. <b>Douse</b> costs 90, cools every scar by two, and spends no move. A <b>revive</b> costs 150 and hands back three moves. <b>Quiet Hours</b> costs 450 for a 24-hour ad-free window, and buying it again extends the window rather than resetting it. Three undos an attempt are free.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">COSMETIC ONLY</span>
+          <h3 class="cell__title">SIX EMBER PALETTES</h3>
+          <p class="cell__text"><b>Emberseam</b> — charcoal and orange — and <b>Daybreak</b>, the light one, are free from the start: choosing a light interface is a legibility preference and must never cost money. <b>Magma</b>, <b>Frostfire</b> and <b>Verdigris</b> are 500 coins each, <b>Inkwell</b> — no colour at all, watch the shapes instead — is 750. Coins, not money, and they change nothing but the look.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">NOT IN HERE</span>
+          <h3 class="cell__title">NO SUBSCRIPTION</h3>
+          <p class="cell__text">No monthly anything, no season pass, no loot box, no randomised reward, no timed energy gate, no "watch an ad to keep your streak". There is nothing in this game that needs a probability disclosure in any market. There is also no chat, no account and no way for one player to reach another.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== PRIVACY TEASER ===================== -->
+    <section class="section" id="privacy" aria-labelledby="privacy-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; ON THE RECORD</p>
+        <h2 class="section__title chrome" id="privacy-h">YOUR DATA STAYS YOURS</h2>
+      </div>
+      <p class="section__lead">
+        Emberseam asks for <b>no permissions of its own</b> — no camera, no
+        microphone, no location, no contacts, no notifications. There is no account
+        to make, no server of ours anywhere in the picture, and no analytics or
+        crash reporter in the build. Your settings, statistics, daily ledger,
+        campaign progress and unlocked palettes, your coin balance and the two
+        boards you are part-way through all sit in your phone's own storage; delete
+        the app and they go with it. Every board ships inside the game, so it plays
+        fine in a tunnel. Exactly two things reach the network: Google's ad SDK,
+        which serves the ads, and the store that handles purchases — we never see
+        payment details. The full, plainly-worded details live on the privacy page —
+        the same one we will submit to the App Store and Google Play.
+      </p>
+      <p>
+        <a class="btn btn--ghost" href="/emberseam/privacy/">READ THE EMBERSEAM PRIVACY POLICY</a>
+      </p>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <nav class="footer__links" aria-label="Footer">
+      <a href="/">Home</a>
+      <a href="/emberseam/">Emberseam</a>
+      <a href="/emberseam/privacy/">Privacy Policy</a>
+      <a href="/hushword/">Hushword</a>
+      <a href="/anvilspell/">Anvilspell</a>
+      <a href="/tooter/">Tooter</a>
+      <a href="/crittergram/">Critter Gram</a>
+    </nav>
+    <p class="footer__text">
+      Emberseam is a game by MACHINAUT STUDIOS LLC — SLOP FOUNDRY.
+      Every escape leaves a fire behind. You cannot cross it — but you can follow it.
+      <span class="footer__cursor cursor" aria-hidden="true"></span>
+    </p>
+    <p class="footer__fine">© 2026 Machinaut Studios LLC. All rights reserved.</p>
+  </footer>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
