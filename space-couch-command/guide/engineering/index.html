@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<!--
+  Space Couch Command crew guide — Machinaut Studios LLC
+  Copyright © 2026 Machinaut Studios LLC. All rights reserved. See /LICENSE.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Space Couch Command — how to play Engineering | Machinaut Studios LLC</title>
+  <meta name="description" content="You run the ship&#x27;s power company: one reactor that can never feed everything at once, plus the heat, the repairs, the deflectors and the life-support breaker that keep the crew alive." />
+  <meta name="copyright" content="© 2026 Machinaut Studios LLC. All rights reserved." />
+  <meta name="theme-color" content="#07060f" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="canonical" href="https://machinautstudios.com/space-couch-command/guide/engineering/" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Space Couch Command — how to play Engineering | Machinaut Studios LLC" />
+  <meta property="og:description" content="You run the ship&#x27;s power company: one reactor that can never feed everything at once, plus the heat, the repairs, the deflectors and the life-support breaker that keep the crew alive." />
+  <meta property="og:url" content="https://machinautstudios.com/space-couch-command/guide/engineering/" />
+  <meta property="og:image" content="https://machinautstudios.com/space-couch-command/guide/img/engineering.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Orbitron:wght@600;800;900&family=VT323&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="nav">
+    <div class="nav__inner">
+      <a class="nav__brand" href="/">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span class="nav__brand-name">MACHINAUT</span>
+        <span class="nav__brand-sub">STUDIOS&nbsp;LLC</span>
+      </a>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bars" aria-hidden="true"></span>
+      </button>
+      <nav class="nav__menu" id="nav-menu" aria-label="Primary">
+        <a href="/space-couch-command/">Space Couch Command</a>
+        <a href="/space-couch-command/guide/">CREW GUIDE</a>
+        <a href="/#ship">WHAT WE SHIP</a>
+        <a class="nav__cta" href="/space-couch-command/guide/#stations">PICK A STATION</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="hero hero--compact" aria-labelledby="role-title">
+      <div class="hero__scanlines" aria-hidden="true"></div>
+      <div class="hero__inner">
+        <div class="app-hero__layout">
+          <img class="app-hero__icon" src="/space-couch-command/guide/img/engineering.png" alt="The Engineering console as it appears on a phone" width="152" height="329" style="width:min(220px,40vw);height:auto;border:1px solid rgba(47,228,255,.35)" />
+          <div class="app-hero__text">
+            <p class="stamp stamp--hero">&#9654; Space Couch Command CREW GUIDE &nbsp;//&nbsp; STATION</p>
+            <h1 class="hero__title" id="role-title"><span class="n1">ENGINEERING</span><span class="cursor" aria-hidden="true"></span></h1>
+            <p class="app-hero__tagline">Spend the reactor. Keep life support lit. Fix what breaks.</p>
+            <p class="hero__sub">You run the ship&#x27;s power company: one reactor that can never feed everything at once, plus the heat, the repairs, the deflectors and the life-support breaker that keep the crew alive.</p>
+            <div class="hero__actions">
+              <a class="btn btn--ghost" href="/space-couch-command/guide/">&#8592; ALL STATIONS</a>
+              <a class="btn btn--ghost" href="/space-couch-command/">ABOUT Space Couch Command</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="controls" aria-labelledby="controls-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; YOUR CONSOLE</p>
+        <h2 class="section__title chrome" id="controls-h">WHAT YOU CONTROL</h2>
+      </div>
+      <p class="section__lead">Everything below is on your screen and nobody else's. If you do not say it out loud, it did not happen.</p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">CONTROL</span>
+          <p class="cell__text">POWER DISTRIBUTION rows — one draggable bar per system (Engines, Sensors, Jump drive, Shields, Weapons) that sets its priority from 0% to 100% in 5% steps; the bar&#x27;s fill shows what the reactor actually granted, and the number reads granted/demand in units-per-second (u/s).</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">CONTROL</span>
+          <p class="cell__text">A ✂ BREAKER button on every row: one tap cuts that system to 0% (the button turns to a blinking OFF), a second tap restores the exact value you had before it.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">CONTROL</span>
+          <p class="cell__text">OUTPUT / DEMAND / FREE readouts, plus a POWER FLUX oscilloscope that traces total demand against the reactor&#x27;s output cap so an overdraw is visible as the line crossing the limit.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">CONTROL</span>
+          <p class="cell__text">REACTOR CORE panel: core temperature bar with a marked red line at 85, OUTPUT / DEMAND / CONTAINMENT readouts, an OVERCLOCK toggle (+20 u/s output) and a VENT button (a 5-second cycle that halves output while it cools). A separate four-dial cluster — OUTPUT, CORE TEMP, WPN HEAT, CONTAIN — lives on the Repair tab, not this one.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">CONTROL</span>
+          <p class="cell__text">LIFE SUPPORT breaker (ON/OFF only — no dial) sitting next to the RADIATION SHIELDING percentage, which is the crew&#x27;s actual health bar.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">CONTROL</span>
+          <p class="cell__text">SHIELD ALLOCATION — four sliders, one per arc (Fore, Aft, Port, Stbd), each showing that arc&#x27;s current charge out of 200. This is Engineering&#x27;s job, not Tactical&#x27;s.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">CONTROL</span>
+          <p class="cell__text">JUMP DRIVE spool toggle and charge percentage — you build the charge, Helm fires it.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">CONTROL</span>
+          <p class="cell__text">DAMAGE CONTROL — a tappable ship schematic (tap a node to jump to that system&#x27;s power row), the salvage counter, a HULL repair button and a worst-first repair queue; plus the REROUTE conduit puzzle, which only appears on screen when an event has forced a system offline.</p>
+        </li>
+      </ul>
+    </section>
+    <section class="section section--alt" id="loop" aria-labelledby="loop-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; MOMENT TO MOMENT</p>
+        <h2 class="section__title chrome" id="loop-h">THE LOOP</h2>
+      </div>
+      <ul class="grid grid--steps" role="list">
+        <li class="cell">
+          <span class="cell__stamp">STEP 01</span>
+          <p class="cell__text">Read the one number that matters: FREE (or a blinking OVER) at the top of POWER DISTRIBUTION. That is your entire budget, already counting life support and any running repair.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STEP 02</span>
+          <p class="cell__text">Set the sliders for what the ship is doing this minute — fighting, running, scanning, or spooling a jump. Remember a system&#x27;s draw is its demand multiplied by your priority.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STEP 03</span>
+          <p class="cell__text">Scan for red: any row flashing NOT ENOUGH POWER got nothing at all. Free at least that many units by lowering or cutting a different slider — the reactor will never rebalance itself for you.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STEP 04</span>
+          <p class="cell__text">Watch core temperature and the four arc charges. Vent before the core reaches 85; raise arc allocation to refill deflectors between volleys.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STEP 05</span>
+          <p class="cell__text">In the quiet: spend salvage on hull and reactor repairs, then spool the jump drive once the sector objective is done.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STEP 06</span>
+          <p class="cell__text">Say it out loud. Nobody else can see your board — announce what you just took away, what you just gave, and how hot the core is.</p>
+        </li>
+      </ul>
+    </section>
+    <section class="section" id="mechanics" aria-labelledby="mechanics-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; THE RULES UNDERNEATH</p>
+        <h2 class="section__title chrome" id="mechanics-h">KEY MECHANICS</h2>
+      </div>
+      <p class="section__lead">The numbers here come straight out of the shipping build.</p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">MECHANIC</span>
+          <h3 class="cell__title">Draw = demand × priority, and funding is all-or-nothing</h3>
+          <p class="cell__text">Your slider is a percentage of a system&#x27;s full appetite, not a rank. The reactor then funds systems in a fixed internal order — Engines, Sensors, Shields, Weapons, Jump drive, and finally the repair crew — giving each one its whole requested draw or nothing at all. There is no partial trickle and nothing already funded is ever clawed back to make room. Example: with 100 u/s of output and life support taking 10, a 70 u/s weapons load leaves 20 free, so a 30 u/s jump spool gets exactly zero until you dial weapons down.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MECHANIC</span>
+          <h3 class="cell__title">The reactor&#x27;s heat loop</h3>
+          <p class="cell__text">Core heat runs 0–100 with a red line at 85. Overclocking adds 6 heat/second, a jump drive parked at 100% charge adds 8/second, every phaser shot adds 6, and every point of damage your shields absorb adds 0.45. You passively shed only 2/second, and only while overclock is off. Past 85 the core damages itself at 2.5 reactor-hp/second, rising to 5 at heat 100. VENT is your only fast fix: a deliberate 5-second cycle that sheds 20 heat/second — enough to clear a full 100 in one cycle — while halving reactor output the whole time.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MECHANIC</span>
+          <h3 class="cell__title">Containment is output</h3>
+          <p class="cell__text">Reactor output equals the hull class&#x27;s rating multiplied by the reactor&#x27;s integrity, plus any overclock bonus. Class ratings run from 70 (the 1-crew WREN) through 100 (frigate), 110 (cruiser) to 125 (dreadnought). So a reactor cooked down to 50% integrity gives you half the power for the rest of the sector until you repair it. Heat damage is the main thing in the game that hurts a system&#x27;s integrity — everything else lands on the hull.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MECHANIC</span>
+          <h3 class="cell__title">Overclock is a war footing, not a trickle</h3>
+          <p class="cell__text">While lit it adds 20 u/s of output, doubles engine speed, doubles phaser damage and doubles shield regeneration. The costs are real: 6 heat/second with no passive cooling to offset it (about 14 seconds from a cold core to the red line), and +35 to the ship&#x27;s signature, which makes you far easier for hostile torpedo seekers to find. It is a tool you switch on for a specific 10 seconds and then switch off.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MECHANIC</span>
+          <h3 class="cell__title">Shield arcs: allocation buys regeneration, not armour</h3>
+          <p class="cell__text">Each arc holds up to 200 charge and soaks damage from the direction it faces before the hull takes any. Your slider does not make an arc tougher — it sets how fast that arc knits back up (4.5/second per arc at 100% allocation and full SHIELDS power) and how much the SHIELDS system demands: 10 u/s per arc at 100%, up to 40 u/s for all four. The default 25% on every arc only draws 10 u/s total and regenerates each arc at about 1.1/second.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MECHANIC</span>
+          <h3 class="cell__title">Life support is a breaker, and radiation shielding is the crew</h3>
+          <p class="cell__text">Life support has no slider and cannot be damaged or repaired — it is on or off. Closed, it reserves 10 u/s off the top of the budget and regenerates RADIATION SHIELDING at 0.8%/second toward 100. Open (or starved by a nearly-dead reactor), shielding bleeds at 4%/second. Outside the sector&#x27;s safe radius the radiation fence burns roughly another 4%/second, more the deeper you drift. Shielding reaching 0 ends the run on the spot — all hands lost.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MECHANIC</span>
+          <h3 class="cell__title">Forced outages and the REROUTE puzzle</h3>
+          <p class="cell__text">Roughly every 100–150 seconds from sector 2 onward, an intrusion or surge can scram one of WEAPONS, SHIELDS, SENSORS or JUMP DRIVE to LOCKED OUT. Power priority cannot fix it — a red banner and an alarm point you at the REROUTE conduit board, where you rotate tiles to link SRC on the left to the system tap on the right. Twelve seconds of connected flow restores it; break the link and progress bleeds back. An unfixed lockout decays on its own after about 90 seconds, so it is never a permanent softlock — just a very bad 90 seconds.</p>
+        </li>
+      </ul>
+    </section>
+    <section class="section section--alt" id="tips" aria-labelledby="tips-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; DO THIS</p>
+        <h2 class="section__title chrome" id="tips-h">TIPS FROM THE SIM</h2>
+      </div>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">TIP</span>
+          <p class="cell__text">Your board&#x27;s row order is not the funding order. The reactor pays Engines, Sensors, Shields, Weapons, then the jump drive, then the repair crew. Because funding is all-or-nothing, a big system that doesn&#x27;t fit gets skipped while a smaller one behind it still lights up — so scarcity produces odd-looking results, not a smooth brownout.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TIP</span>
+          <p class="cell__text">Keeping all four arcs at or above 100 charge (half of the 200 maximum) makes the surge director ground 80% of its outage rolls harmlessly. Full deflectors are literally the cheapest way to avoid ever seeing the REROUTE puzzle.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TIP</span>
+          <p class="cell__text">Never park a fully charged jump drive. At 100% the capacitor bleeds 8 heat/second into the core — about 15 seconds from cold to the red line — and toggling the spool switch off does not stop it. Jump, or ride the vent through it.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TIP</span>
+          <p class="cell__text">Cutting ENGINES to zero does more than slow the ship: the throttle lever itself unwinds at 0.3 per second, all the way to a dead stop, and Helm has to push it back up manually once you restore power. Tell them before you cut.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TIP</span>
+          <p class="cell__text">A vent halves your output for the full five seconds. Venting in the middle of a barrage can starve the exact shields you were protecting — take the cooldown in the gaps, not at the peak.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TIP</span>
+          <p class="cell__text">The vent also flushes weapon and turret heat at 20/second. If Tactical says their phasers are heat-choked, your vent button is their fix.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TIP</span>
+          <p class="cell__text">SENSORS is not only Science&#x27;s slider. Scan speed and scan range both scale directly off it (a zero-power dish reads nothing at all), Helm&#x27;s ECM scrambler needs the sensors at 40% or better to work, and Comms&#x27; jamming reach scales off it too. Cutting sensors quietly disables three other people&#x27;s tools.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TIP</span>
+          <p class="cell__text">Hull patches heal at half the rate of system repairs, and every repair bills 0.25 salvage per hit point — so a 100-point repair costs 25 salvage whether it takes 11 seconds or a minute.</p>
+        </li>
+      </ul>
+    </section>
+    <section class="section" id="mistakes" aria-labelledby="mistakes-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; NOT THIS</p>
+        <h2 class="section__title chrome" id="mistakes-h">COMMON MISTAKES</h2>
+      </div>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">MISTAKE</span>
+          <p class="cell__text">Leaving every slider at 100% and assuming it works. Full-tilt demand exceeds every hull&#x27;s output, so the distributor silently drops whichever system lands last — usually the jump spool or your own repair crew — and you don&#x27;t notice until something flashes NOT ENOUGH POWER at the worst moment.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MISTAKE</span>
+          <p class="cell__text">Switching on overclock and forgetting it. Six heat per second with no passive cooling means the core crosses the red line in about fourteen seconds, then starts eating its own integrity — and because output scales with integrity, you lose power exactly when you are trying to add it.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MISTAKE</span>
+          <p class="cell__text">Opening the life-support breaker to free up 10 units. Radiation shielding then falls 4% per second with no hull damage to warn you, and it only claws back at 0.8% per second. Hit zero and the run is over instantly.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MISTAKE</span>
+          <p class="cell__text">Fighting a whole engagement with all four arcs at the default 25%. Your shields draw only 10 of a possible 40 u/s, each arc refills at about one point per second, and you forfeit the full-envelope effect that grounds most surge outages.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MISTAKE</span>
+          <p class="cell__text">Starting a repair mid-fight. Repairs draw 15 u/s and are funded dead last, so they either accomplish nothing or eat the exact headroom your jump spool needed — while burning finite salvage.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MISTAKE</span>
+          <p class="cell__text">Working in silence. Engineering&#x27;s board never reaches the TV at all — there is no ◱ SCREEN button on your console, and no channel for it on Comms&#x27; screen router either. Ship status travels by voice, which is why Comms carries a read-only SHIP STATUS panel. If you cut something and don&#x27;t say so, the station that lost it will think it&#x27;s broken.</p>
+        </li>
+      </ul>
+    </section>
+    <section class="section section--alt" id="talk" aria-labelledby="talk-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; CROSS-STATION</p>
+        <h2 class="section__title chrome" id="talk-h">WHO YOU TALK TO</h2>
+      </div>
+      <p class="section__lead">No station wins alone. These are the conversations this seat owes the rest of the bridge.</p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">TALK TO</span>
+          <h3 class="cell__title">Helm</h3>
+          <p class="cell__text">Engine power caps their speed, and cutting it unwinds their throttle lever to zero. Their evasive maneuver multiplies engine demand by 1.6. You spool the jump drive; only they can engage it. When your radiation shielding starts burning, they are the ones who have to fly back inside the sector envelope. Their ECM scrambler also needs SENSORS funded to at least 40%.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TALK TO</span>
+          <h3 class="cell__title">Tactical</h3>
+          <p class="cell__text">Weapons power sets phaser charge speed and point-defense turret cadence, and every phaser shot they take dumps 6 heat into your core. You own the four shield arcs they rely on. Turrets left off HOLD add 12 u/s to the weapons load — ask them to hold the guns if you need the units back.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TALK TO</span>
+          <h3 class="cell__title">Science</h3>
+          <p class="cell__text">Both scan speed and scan range scale straight off your SENSORS slider — a zero-power dish reads nothing and a half-fed one only reaches half as far. Active scanning costs 15 u/s versus 5 idle, so tell them when you can&#x27;t afford the dish.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TALK TO</span>
+          <h3 class="cell__title">Comms</h3>
+          <p class="cell__text">The jammer&#x27;s reach scales with SENSORS power, so their counter-signal duel is partly your budget. They (or the host) are also the only ones who can put the ENGINEERING systems board on the main screen for the room to see.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TALK TO</span>
+          <h3 class="cell__title">Captain (a person on the couch, not a seat)</h3>
+          <p class="cell__text">When demand exceeds supply somebody has to decide who goes dark. Report output, free power, core temperature and shielding percentage; the captain arbitrates the humans while you arbitrate the watts.</p>
+        </li>
+      </ul>
+    </section>
+    <section class="section" id="solo" aria-labelledby="solo-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; SMALL CREWS</p>
+        <h2 class="section__title chrome" id="solo-h">ON A SMALLER SHIP</h2>
+      </div>
+      <p class="section__lead">On the 1-crew WREN (the Shipmaster&#x27;s single console) and the 2-crew SPARROW (the Operations seat, which merges Engineering with Science and Comms), Engineering runs as a slimmed module with auto-officers covering what&#x27;s dropped. You keep the priority sliders and breakers, the jump spool, the life-support breaker and the full REROUTE puzzle. You lose the overclock button (the server rejects the intent entirely on those hulls) and the manual repair console: an auto-repair module engages the worst bench once it drops below 80% integrity and repairs it to 100% at a quarter of the normal rate — 2.25 hit points per second — still spending salvage and still stalling when you&#x27;re broke. An auto-vent trips automatically once core heat passes 90, so venting is no longer a decision you make. The four shield arcs collapse into a single deflector dial that sets all four equally. From the 3-crew TALON upward there is a dedicated Engineering seat with the full three-column bench (Repair, Reactor, Power — three tabs on a phone).</p>
+    </section>
+    <section class="section" aria-label="Other stations">
+      <div class="hero__actions">
+        <a class="btn btn--ghost" href="/space-couch-command/guide/helm/">HELM</a>
+        <a class="btn btn--ghost" href="/space-couch-command/guide/tactical/">TACTICAL</a>
+        <a class="btn btn--primary" href="/space-couch-command/guide/engineering/" aria-current="page">ENGINEERING</a>
+        <a class="btn btn--ghost" href="/space-couch-command/guide/science/">SCIENCE</a>
+        <a class="btn btn--ghost" href="/space-couch-command/guide/comms/">COMMS</a>
+        <a class="btn btn--ghost" href="/space-couch-command/guide/cannoneer/">CANNONEER</a>
+        <a class="btn btn--ghost" href="/space-couch-command/guide/captain/">CAPTAIN</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <nav class="footer__links" aria-label="Footer">
+      <a href="/">Home</a>
+      <a href="/space-couch-command/">Space Couch Command</a>
+      <a href="/space-couch-command/guide/">Crew Guide</a>
+      <a href="/space-couch-command/guide/helm/">Helm</a>
+      <a href="/space-couch-command/guide/tactical/">Tactical</a>
+      <a href="/space-couch-command/guide/engineering/">Engineering</a>
+      <a href="/space-couch-command/guide/science/">Science</a>
+      <a href="/space-couch-command/guide/comms/">Comms</a>
+      <a href="/space-couch-command/guide/cannoneer/">Cannoneer</a>
+      <a href="/space-couch-command/guide/captain/">Captain</a>
+    </nav>
+    <p class="footer__text">
+      Space Couch Command is a game by MACHINAUT STUDIOS LLC — SLOP FOUNDRY.
+      The bridge only works if you talk.
+      <span class="footer__cursor cursor" aria-hidden="true"></span>
+    </p>
+    <p class="footer__fine">© 2026 Machinaut Studios LLC. All rights reserved.</p>
+  </footer>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
