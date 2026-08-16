@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<!--
+  EXOHULL — a game by Machinaut Studios LLC
+  Copyright © 2026 Machinaut Studios LLC. All rights reserved. See /LICENSE.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EXOHULL — Turn your living room into a starship bridge | Machinaut Studios LLC</title>
+  <meta name="description" content="EXOHULL is a couch co-op starship-bridge simulator. You install it once on the machine attached to your TV; your crew scans a QR code and any phone, tablet or laptop becomes a bridge station — Helm, Tactical, Engineering, Science or Comms. Fly, fight and survive a roguelike galaxy together. Coming to Steam for Windows, macOS and Linux." />
+  <meta name="copyright" content="© 2026 Machinaut Studios LLC. All rights reserved." />
+  <meta name="theme-color" content="#07060f" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="canonical" href="https://machinautstudios.com/exohull/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="EXOHULL — Turn your living room into a starship bridge" />
+  <meta property="og:description" content="One install on the TV machine. Everyone else scans a QR code and their own phone, tablet or laptop becomes a bridge station. Someone flies, someone runs the guns, someone keeps life support alive. The ship only works if you talk." />
+  <meta property="og:url" content="https://machinautstudios.com/exohull/" />
+  <meta property="og:image" content="https://machinautstudios.com/exohull/exohull-og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="688" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:alt" content="EXOHULL — a retro-CRT starship bridge viewscreen." />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <!-- Fonts: Orbitron (chrome display) + VT323 (arcade accents) + IBM Plex Mono (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Orbitron:wght@600;800;900&family=VT323&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ===================== NAV ===================== -->
+  <header class="nav">
+    <div class="nav__inner">
+      <a class="nav__brand" href="/">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span class="nav__brand-name">MACHINAUT</span>
+        <span class="nav__brand-sub">STUDIOS&nbsp;LLC</span>
+      </a>
+
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bars" aria-hidden="true"></span>
+      </button>
+
+      <nav class="nav__menu" id="nav-menu" aria-label="Primary">
+        <a href="/#factory">THE FACTORY</a>
+        <a href="/#ship">WHAT WE SHIP</a>
+        <a href="/#studio">THE STUDIO</a>
+        <a class="nav__cta" href="/exohull/guide/">CREW GUIDE</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <!-- ===================== HERO ===================== -->
+    <section class="hero hero--compact" aria-labelledby="exohull-title">
+      <div class="hero__scanlines" aria-hidden="true"></div>
+      <div class="hero__inner">
+        <div class="app-hero__layout">
+          <img class="app-hero__icon" src="/exohull/exohull_icon.png" alt="EXOHULL icon — a ship's hull silhouette on a green phosphor readout" width="152" height="152" />
+          <div class="app-hero__text">
+            <p class="stamp stamp--hero">&#9654; COMING SOON &nbsp;//&nbsp; STEAM &nbsp;//&nbsp; WINDOWS + MACOS + LINUX</p>
+            <h1 class="hero__title" id="exohull-title"><span class="n1">EXOHULL</span><span class="cursor" aria-hidden="true"></span></h1>
+            <p class="app-hero__tagline">Turn your living room<br />into a starship bridge.</p>
+            <p class="hero__sub">
+              One person installs it on the machine wired to the TV, and that screen becomes the
+              viewscreen. <b>Everyone else installs nothing.</b> They scan the QR code on the screen
+              and their own device <i>becomes</i> their station — a phone, a tablet, an old laptop,
+              the desktop in the next room. Anything with a web browser on your Wi-Fi is a bridge
+              station. No second copy, no controllers to buy, no accounts.
+            </p>
+            <div class="hero__actions">
+              <a class="btn btn--primary" href="/exohull/guide/">READ THE CREW GUIDE</a>
+              <button class="btn btn--ghost" type="button" disabled aria-disabled="true"
+                      aria-label="Coming soon to Steam">COMING SOON ON STEAM</button>
+            </div>
+            <p class="app-note">
+              Releasing on Steam for Windows, macOS and Linux. The store button becomes a link the
+              day the page goes live. Two to six players on one copy — plus optional gun seats for
+              anyone small enough to need one button and nothing else.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== HOW IT PLAYS ===================== -->
+    <section class="section" id="how-it-plays" aria-labelledby="how-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; THE LOOP</p>
+        <h2 class="section__title chrome" id="how-h">HOW IT PLAYS</h2>
+      </div>
+      <p class="section__lead">
+        Nobody can see the whole picture. That is the entire design. Every station holds one piece
+        of what the ship needs to survive the next ninety seconds, and the only wire between those
+        pieces is your voice.
+      </p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">STEP ONE &nbsp;//&nbsp; HOST</span>
+          <h3 class="cell__title">ONE SCREEN, ONE COPY</h3>
+          <p class="cell__text">You buy and install EXOHULL once, on the Windows, macOS or Linux machine attached to your TV. That screen is the viewscreen — the starfield, the damage, the thing coming out of the dark.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STEP TWO &nbsp;//&nbsp; JOIN</span>
+          <h3 class="cell__title">SCAN THE CODE</h3>
+          <p class="cell__text">A QR code sits on the viewscreen. Your crew points a camera at it and their browser opens their station. Phones, tablets, laptops, the desktop upstairs — any modern browser on the same network works.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STEP THREE &nbsp;//&nbsp; TALK</span>
+          <h3 class="cell__title">NOBODY SEES IT ALL</h3>
+          <p class="cell__text">Science's scan is what reveals an enemy's subsystems, so Tactical can't pick anything apart until Science says what's there. Engineering decides who gets power. The information only moves if somebody says it out loud.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">THE ECONOMY</span>
+          <h3 class="cell__title">POWER IS A BUDGET</h3>
+          <p class="cell__text">Shields, engines, guns and life support all draw from one reactor, and the core heat climbs as you push it. Engineering spends that budget live, and life support is a breaker one person is responsible for.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">THE STAKES</span>
+          <h3 class="cell__title">DEATH DELETES THE SHIP</h3>
+          <p class="cell__text">Runs are a hardcore roguelike through a procedural galaxy. Name your ship before you launch — that name is your save slot. Lose it and it's gone, but salvage, refits and recovered archive fragments carry into every future run.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">THE PACING</span>
+          <h3 class="cell__title">SUBMARINE-TENSE</h3>
+          <p class="cell__text">Long quiet stretches on a retro-CRT bridge — green phosphor, humming reactors — punctuated by the klaxon you learn to dread. Then everyone is talking at once and the reactor is redlining.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== STATIONS ===================== -->
+    <section class="section section--alt" id="stations" aria-labelledby="stations-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; FIVE STATIONS</p>
+        <h2 class="section__title chrome" id="stations-h">YOUR STATION</h2>
+      </div>
+      <p class="section__lead">
+        Five claimable seats. On a smaller crew the duties merge — one person can fly a whole ship
+        alone if they're brave — and on a full bridge each one is a job. Every station has its own
+        page in the <a href="/exohull/guide/">crew guide</a>.
+      </p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">STATION</span>
+          <h3 class="cell__title"><a href="/exohull/guide/helm/">HELM</a></h3>
+          <p class="cell__text">Fly the ship, run evasive, engage the jump drive, plot the next system. You carry the forward-fixed railgun — aimed by pointing the whole hull — plus flares and an ECM scrambler. Flip to the PARASCOPE for a fly-through cockpit view and put it on the big screen.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STATION</span>
+          <h3 class="cell__title"><a href="/exohull/guide/tactical/">TACTICAL</a></h3>
+          <p class="cell__text">Hold the lock and take an enemy apart subsystem by subsystem once Science has resolved it. Phaser banks, torpedo tubes with a real arming delay, a missile rack and a rocket pod.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STATION</span>
+          <h3 class="cell__title"><a href="/exohull/guide/engineering/">ENGINEERING</a></h3>
+          <p class="cell__text">A live power budget with priorities, reactor heat, overclock and a deliberate vent cycle, the life-support breaker, jump-drive charge, damage control that spends salvage, and a conduit-rerouting minigame when something hacks a system offline.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STATION</span>
+          <h3 class="cell__title"><a href="/exohull/guide/science/">SCIENCE</a></h3>
+          <p class="cell__text">Scan the strange and the beautiful, work the survey points on an anomaly, chase quest threads, decode the archive — and fly the probe when it's time to go inside something.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STATION</span>
+          <h3 class="cell__title"><a href="/exohull/guide/comms/">COMMS</a></h3>
+          <p class="cell__text">Answer hails, jam enemy reinforcement calls in a frequency-hop duel, run the alert state, and work SIGINT — a passive channel where enemy chatter leaks intent. Factions remember how you treat them.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">OPTIONAL &nbsp;//&nbsp; UP TO FOUR</span>
+          <h3 class="cell__title"><a href="/exohull/guide/cannoneer/">CANNONEER</a></h3>
+          <p class="cell__text">Dead-simple gun seats built for the youngest hands. A cannoneer takes over one of the ship's phaser banks and fires it at Tactical's lock — aiming stays Tactical's job, so one button genuinely makes the ship hit harder.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== THE VOID ===================== -->
+    <section class="section" id="void" aria-labelledby="void-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; THE CAMPAIGN</p>
+        <h2 class="section__title chrome" id="void-h">THE VOID</h2>
+      </div>
+      <p class="section__lead">
+        It opens the way the worst mornings do: an amber CRT flickering awake, and a PRIORITY ONE
+        from Fleet Command. Something is out there — a patch of pure <i>nothing</i> that returns no
+        mass, no light, no signal — drifting on a heading for the inner colonies. Your ship is the
+        closest. Go and find out what it is.
+      </p>
+      <p class="section__lead">
+        What you find is a cloaked ark the size of a small moon, and a sleeping people inside it:
+        the <b>Ossari</b>, fleeing something that does not stop. <b>THE UNMAKING</b> — a
+        self-replicating machine intelligence that converts all matter into more of itself. And
+        while you were staring into the Void, it slipped into human space behind you.
+      </p>
+      <p class="section__lead">
+        The mission quietly changes. Investigation becomes evacuation. You cannot win this — not
+        yet, maybe not ever. Each run you fall back system by system, get who you can to the boats,
+        decode another fragment of the alien archive, and hold the line a little longer than last
+        time. The dread is abstract: machines eating matter, not blood. Safe for the whole crew.
+      </p>
+    </section>
+
+    <!-- ===================== GALAXY ===================== -->
+    <section class="section section--alt" id="galaxy" aria-labelledby="galaxy-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; OUT THERE</p>
+        <h2 class="section__title chrome" id="galaxy-h">A GALAXY THAT FIGHTS BACK</h2>
+      </div>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">GO INSIDE</span>
+          <h3 class="cell__title">SEND THE PROBE</h3>
+          <p class="cell__text">Some wrecks won't give up what's inside from the outside. Science flies the probe on a bare vision cone in the dark; Comms runs a slow scope sweep and calls out the fuzzed echoes. Sometimes something in there wakes to the noise. And the ship never stopped flying.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">HAZARD</span>
+          <h3 class="cell__title">DEBRIS STORMS</h3>
+          <p class="cell__text">Rare systems the chart marks &#9888; DEBRIS, so going in is a choice the crew makes out loud. Boulders Helm has to thread, shrapnel the guns shoot out of the air, and impacts that put a system offline outright. At the eye: a foundry hulk worth the detour.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">HAZARD</span>
+          <h3 class="cell__title">MINEFIELDS THAT HUNT</h3>
+          <p class="cell__text">Skirt the field and you're fine. Get inside a mine's lock radius and it wakes, turns, and comes after you faster than most hulls can run. Shooting it down is the answer.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">SURVIVAL</span>
+          <h3 class="cell__title">LIFE SUPPORT IS A JOB</h3>
+          <p class="cell__text">It's a breaker, and behind it sits the crew's radiation shielding — the real health bar. Lose the plant, or drift past the sector's radiation line, and the shielding bleeds. It comes back slowly. It runs out permanently.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STRANGE</span>
+          <h3 class="cell__title">NEW WORLDS</h3>
+          <p class="cell__text">Derelicts with DO-NOT-ENTER beacons, drifting megastructures, and a sleeping leviathan you can survey for a fortune — or wake up, if somebody insists.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">THE FRONT</span>
+          <h3 class="cell__title">ALWAYS ADVANCING</h3>
+          <p class="cell__text">Once the Unmaking is loose it never recedes. Husk-converted hulls join the enemy packs, colony convoys need their jump spool covered, and the pressure only climbs. Buy time, save who you can, come back stronger.</p>
+        </li>
+      </ul>
+      <p>
+        <a class="btn btn--primary" href="/exohull/guide/">READ THE CREW GUIDE &#8594;</a>
+      </p>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <nav class="footer__links" aria-label="Footer">
+      <a href="/">Home</a>
+      <a href="/exohull/">EXOHULL</a>
+      <a href="/exohull/guide/">Crew Guide</a>
+      <a href="/anvilspell/">Anvilspell</a>
+      <a href="/tooter/">Tooter</a>
+      <a href="/crittergram/">Critter Gram</a>
+    </nav>
+    <p class="footer__text">
+      EXOHULL is a game by MACHINAUT STUDIOS LLC — SLOP FOUNDRY.
+      Someone flies. Someone shoots. Everyone yells.
+      <span class="footer__cursor cursor" aria-hidden="true"></span>
+    </p>
+    <p class="footer__fine">© 2026 Machinaut Studios LLC. All rights reserved.</p>
+  </footer>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

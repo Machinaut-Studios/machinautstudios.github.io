@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<!--
+  EXOHULL crew guide — Machinaut Studios LLC
+  Copyright © 2026 Machinaut Studios LLC. All rights reserved. See /LICENSE.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EXOHULL — how to play Helm | Machinaut Studios LLC</title>
+  <meta name="description" content="You are the pilot: you point the ship, set its speed, dodge what is trying to hit you, fire the one gun bolted to the nose, and press the button that leaves the star system." />
+  <meta name="copyright" content="© 2026 Machinaut Studios LLC. All rights reserved." />
+  <meta name="theme-color" content="#07060f" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="canonical" href="https://machinautstudios.com/exohull/guide/helm/" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="EXOHULL — how to play Helm | Machinaut Studios LLC" />
+  <meta property="og:description" content="You are the pilot: you point the ship, set its speed, dodge what is trying to hit you, fire the one gun bolted to the nose, and press the button that leaves the star system." />
+  <meta property="og:url" content="https://machinautstudios.com/exohull/guide/helm/" />
+  <meta property="og:image" content="https://machinautstudios.com/exohull/guide/img/helm.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Orbitron:wght@600;800;900&family=VT323&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="nav">
+    <div class="nav__inner">
+      <a class="nav__brand" href="/">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span class="nav__brand-name">MACHINAUT</span>
+        <span class="nav__brand-sub">STUDIOS&nbsp;LLC</span>
+      </a>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bars" aria-hidden="true"></span>
+      </button>
+      <nav class="nav__menu" id="nav-menu" aria-label="Primary">
+        <a href="/exohull/">EXOHULL</a>
+        <a href="/exohull/guide/">CREW GUIDE</a>
+        <a href="/#ship">WHAT WE SHIP</a>
+        <a class="nav__cta" href="/exohull/guide/#stations">PICK A STATION</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="hero hero--compact" aria-labelledby="role-title">
+      <div class="hero__scanlines" aria-hidden="true"></div>
+      <div class="hero__inner">
+        <div class="app-hero__layout">
+          <img class="app-hero__icon" src="/exohull/guide/img/helm.png" alt="The Helm console as it appears on a phone" width="152" height="329" style="width:min(220px,40vw);height:auto;border:1px solid rgba(47,228,255,.35)" />
+          <div class="app-hero__text">
+            <p class="stamp stamp--hero">&#9654; EXOHULL CREW GUIDE &nbsp;//&nbsp; STATION</p>
+            <h1 class="hero__title" id="role-title"><span class="n1">HELM</span><span class="cursor" aria-hidden="true"></span></h1>
+            <p class="app-hero__tagline">Fly the ship, point the nose, press the button that leaves the system.</p>
+            <p class="hero__sub">You are the pilot: you point the ship, set its speed, dodge what is trying to hit you, fire the one gun bolted to the nose, and press the button that leaves the star system.</p>
+            <div class="hero__actions">
+              <a class="btn btn--ghost" href="/exohull/guide/">&#8592; ALL STATIONS</a>
+              <a class="btn btn--ghost" href="/exohull/">ABOUT EXOHULL</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="controls" aria-labelledby="controls-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; YOUR CONSOLE</p>
+        <h2 class="section__title chrome" id="controls-h">WHAT YOU CONTROL</h2>
+      </div>
+      <p class="section__lead">Everything below is on your screen and nobody else's. If you do not say it out loud, it did not happen.</p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">CONTROL</span>
+          <p class="cell__text">THROTTLE: a 0–100% slider with four preset buttons (STOP, 1/3, 2/3, FULL) and a naval readout (&quot;ALL STOP&quot; / &quot;AHEAD 1/3&quot; / &quot;AHEAD 2/3&quot; / &quot;AHEAD FULL&quot;), plus an ENGINES bar underneath showing how much of the thrust you ordered is actually being funded with power (it turns red and says &quot;power-starved&quot; when it isn&#x27;t).</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">CONTROL</span>
+          <p class="cell__text">HEADING DIAL: drag to order a course. Above it a compass tape shows the actual bow (amber line, fixed at center), your ordered course (cyan diamond sliding along the tape), the shrinking gap between them with your hull&#x27;s turn rate printed (&quot;&gt;&gt; 42° @ 55°/s &gt;&gt;&quot;), and a green circle marking the direction you are really drifting.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">CONTROL</span>
+          <p class="cell__text">VIEW toggle — MAP or PARASCOPE. MAP is a top-down follow camera with a dashed projected-course line, range rings every 250 units, a faint 900-unit torpedo-seeker ring, the dashed red radiation boundary and zoom buttons. PARASCOPE is a look-out-the-window view you can fly from: A/D or on-screen ◄ ► steer, W/S or ▲ ▼ ramp the throttle, drag to glance around (up to ±60° up/down), R or a chip to re-center, plus FREE-LOOK and (on phones) GYRO chips.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">CONTROL</span>
+          <p class="cell__text">EVASIVE toggle (&quot;harder to hit · louder&quot;) and ENGAGE JUMP, which only lights when the jump drive is charged to 100% and is not in a forced lockout from an intrusion or surge — the button then reads “drive locked out — reroute power” and Engineering has to run the conduit puzzle. Ordinary battle damage does not block the jump; it only slows the spool. Otherwise it shows the charge bar Engineering is filling.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">CONTROL</span>
+          <p class="cell__text">RAIL slab: your railgun. Shows slug count (×2 to ×6 depending on hull) and a 6-second recharge bar. On the map it is press-to-arm then press-to-fire; in the parascope the slab arms it and you pull the trigger from the view (Space, a clean tap on the picture, or the round FIRE RAIL button).</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">CONTROL</span>
+          <p class="cell__text">ECM toggle (&quot;scrambles homing&quot;) and FLARE button with its remaining charge count.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">CONTROL</span>
+          <p class="cell__text">CHART: a slide-over star map of the whole run. Tap a system linked to the one you&#x27;re in to lock it as your jump destination (tap again to release), see which systems are charted, which are unexplored frontiers with signals, and which are tagged &quot;⚠ DEBRIS&quot;. It repeats the destination, jump charge and ENGAGE JUMP at the bottom.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">CONTROL</span>
+          <p class="cell__text">Glance readouts over the map: speed, throttle %, bow heading vs ordered heading (amber = still turning, cyan = on course), distance to the nearest hazard (with a ⚠ mine label), hull %, and the mission clock. Two &quot;⧉ on screen&quot; buttons push your parascope view or your chart to the TV. A red pulsing banner + looping alarm warns of a collision course with a countdown; a second banner warns you are in the radiation zone.</p>
+        </li>
+      </ul>
+    </section>
+    <section class="section section--alt" id="loop" aria-labelledby="loop-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; MOMENT TO MOMENT</p>
+        <h2 class="section__title chrome" id="loop-h">THE LOOP</h2>
+      </div>
+      <ul class="grid grid--steps" role="list">
+        <li class="cell">
+          <span class="cell__stamp">STEP 01</span>
+          <p class="cell__text">Arrive: after every jump the ship sits at rest in the middle of the new system with throttle zero and the rudder centered. Read the objective, pick a bearing, open the throttle.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STEP 02</span>
+          <p class="cell__text">Fly the crew to their work: Science can only scan inside 900 units, Tactical&#x27;s beams reach 720 and the turrets 420 — Comms is the exception, with no range gate at all. Get close to what matters without touching rocks, waking mines, or drifting past 3,400 units from system center into the radiation fence.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STEP 03</span>
+          <p class="cell__text">When shooting starts, keep moving and keep the shield arc you want facing the shooter (the arc is decided by which way the bow points). Turn EVASIVE on, and answer inbound homing rounds with flares, ECM, or a hard turn.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STEP 04</span>
+          <p class="cell__text">Take rail shots when the line is clean: swing the bow onto the target, watch for SPINAL LOCK in the parascope, arm, fire, then get off that heading before the 6-second recharge ends.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STEP 05</span>
+          <p class="cell__text">Once the objective is complete and Engineering reports the jump at 100%, punch ENGAGE JUMP promptly — a fully charged drive cooks the reactor while you hold it.</p>
+        </li>
+      </ul>
+    </section>
+    <section class="section" id="mechanics" aria-labelledby="mechanics-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; THE RULES UNDERNEATH</p>
+        <h2 class="section__title chrome" id="mechanics-h">KEY MECHANICS</h2>
+      </div>
+      <p class="section__lead">The numbers here come straight out of the shipping build.</p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">MECHANIC</span>
+          <h3 class="cell__title">You order a course; the ship answers slowly</h3>
+          <p class="cell__text">The dial does not turn the ship — it sets an ordered heading, and the bow swings toward it at your hull&#x27;s fixed turn rate: 130°/s on the WREN, 110 SPARROW, 90 TALON, 70 VANGUARD, 55 SOVEREIGN, 38 COLOSSUS. That means a SOVEREIGN needs over three seconds to reverse course and a COLOSSUS nearly five. On top of that, velocity only eases toward the new direction (a base rate of 0.55 per second, scaled by hull), so the ship keeps sliding the old way after the bow has come round — that drift is what the green flight-path circle on the compass tape is showing you.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MECHANIC</span>
+          <h3 class="cell__title">Throttle is a request the reactor has to pay for</h3>
+          <p class="cell__text">Top speed is 50 units/sec times your hull multiplier: 67.5 on the WREN down to 37.5 on the COLOSSUS. Real thrust = your throttle × how much of the ENGINES power demand Engineering actually funded × engine health, so a starved or damaged drive makes the lever lie (the ENGINES bar under the slider is the truth). If ENGINES goes offline or gets zero power, the drive UNSPOOLS: your throttle physically decays at 0.3 per second — full to dead stop in about 3.3 seconds — and you must push the lever back up once power returns. When Engineering OVERCLOCKS the reactor, engine output doubles: a SOVEREIGN goes from 45 to 90 units/sec.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MECHANIC</span>
+          <h3 class="cell__title">Speed is noise (signature), and EVASIVE is a trade</h3>
+          <p class="cell__text">Enemy torpedoes home on the loudest thing nearby, scored as signature ÷ distance², with no friend-or-foe check. Your signature is 40 at rest, plus up to 70 more from throttle (so 110 at full burn), plus 20 while evasive, plus 35 while the reactor is overclocked, plus 15 while ECM transmits. EVASIVE halves an enemy&#x27;s chance to land direct beam fire (a ×0.5 multiplier on their hit roll) but raises engine power demand by 60% and makes you louder — it does nothing at all against torpedoes, mines, rams or the railgun.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MECHANIC</span>
+          <h3 class="cell__title">Solid space: rams, mines, and the fence</h3>
+          <p class="cell__text">Any impact bills 4 + 0.72 × closing speed × mass ratio, where mass is radius² and the ratio is clamped between 0.75 and 1.15 for ordinary bodies but jumps to 2.6 against planets and megastructures (roughly 97 damage from a full-speed 50 u/s hit — planets do not notice, you do); under 15 u/s of closing speed it&#x27;s a harmless scrape, and both you and the other ship pay. Inside a DEBRIS STORM system rock impacts hit 2.25× harder and a big rock reaching the hull knocks a ship system offline. Mines sit quiet until you come within 160 units, then chase at 58 u/s — faster than a TALON (55), VANGUARD (50), SOVEREIGN (45) or COLOSSUS (37.5), so on those hulls shooting them is the counter rather than running; only the WREN (67.5) and SPARROW (62.5) can outrun one. Past 3,400 units from system center you&#x27;re in the radiation fence: the crew&#x27;s radiation shielding drains 4 per second at the line, and another 4 per second for every 1,000 units deeper. It never touches the hull directly — but if shielding reaches zero the run ends.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MECHANIC</span>
+          <h3 class="cell__title">The railgun: your gun, aimed by steering</h3>
+          <p class="cell__text">A forward-fixed slug fired along the ACTUAL bow at the instant you pull the trigger (not your ordered course), so a turning ship throws the shot. It does 120 damage at 420 units/sec with 7 seconds of flight (roughly 2,940 units of reach) and a 6-second recharge; hulls carry 2–6 slugs, and a trader will sell two more for 60 salvage. Nothing counters it except dodging — point defense ignores it and decoys don&#x27;t touch it — which is also why it still works when the weapons bus is knocked out. But rocks, hulks and planets block it, and it damages any ship it touches, including the freighter you were sent to protect.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MECHANIC</span>
+          <h3 class="cell__title">Flares and ECM</h3>
+          <p class="cell__text">Flares are finite (6–10 depending on hull, with no way to restock mid-run) — they eject behind you, light 0.15 seconds later and burn for 5 seconds. Enemy missiles and rockets are strongly lured onto them and detonate against them within 80 units; torpedoes can also be pulled by the flare&#x27;s 200 signature, though a Tactical noisemaker at 400 is still the proper answer to a torpedo. ECM scrambles the seekers of hostile torpedoes and missiles within 700 units (periodic heading kicks of up to ±12°), but only while SENSORS is online and funded to at least 40% — and it adds 15 to your own signature the whole time it transmits.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MECHANIC</span>
+          <h3 class="cell__title">The jump drive and the chart</h3>
+          <p class="cell__text">Engineering spools the drive (18 seconds at full power); only you can fire it, and only at 100% charge with the drive not locked out. Once it&#x27;s full it bleeds +8 reactor heat per second until you use it, so a &quot;banked&quot; jump is actively hurting the ship. You may jump mid-combat, but leaving before the objective completes logs &quot;objective abandoned&quot; and forfeits that sector&#x27;s salvage reward. On the chart you can lock any system connected to yours by a lane (or through a charted wormhole) as the destination; with no lock, the jump takes a random connected lane.</p>
+        </li>
+      </ul>
+    </section>
+    <section class="section section--alt" id="tips" aria-labelledby="tips-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; DO THIS</p>
+        <h2 class="section__title chrome" id="tips-h">TIPS FROM THE SIM</h2>
+      </div>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">TIP</span>
+          <p class="cell__text">Fly the flight-path marker, not the bow. Because velocity lags your turn, the green circle on the compass tape is where you&#x27;re actually going — when you&#x27;re threading rocks or breaking off from a ram, that marker clears the obstacle several seconds before the nose does.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TIP</span>
+          <p class="cell__text">Cutting the throttle is a defensive move. Going from full to stop takes your signature from 110 to 40, and since seekers score loudness ÷ distance², a quiet ship at range can lose a torpedo to a flare or a noisemaker that it would otherwise ignore.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TIP</span>
+          <p class="cell__text">Never fire flares while your own torpedoes are running. The torpedo seeker re-picks the loudest source every tick and has no friend-or-foe filter, so your own 200-signature flare can steal your own fish.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TIP</span>
+          <p class="cell__text">ECM is dead weight unless SENSORS is funded to 40% — and that&#x27;s the same bus Science needs for scanning. Ask Engineering before you switch it on, and turn it off when nothing is homing on you, because it makes you louder.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TIP</span>
+          <p class="cell__text">Ask for OVERCLOCK when you need to close or break off. Doubling engine output is the only thing that makes your ship genuinely fast; a corsair does 67 u/s, faster than every hull except the WREN (67.5), and a raptor&#x27;s 58 beats the VANGUARD, SOVEREIGN and COLOSSUS.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TIP</span>
+          <p class="cell__text">The parascope prints &quot;SPINAL LOCK — &lt;name&gt; &lt;range&gt;u&quot; when a live enemy is within about 8° of the bow. That is your rail cue, and it reads off the real server state — but the shot leaves along the bow whether or not the lock is showing, so a clean bearing matters more than the label.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TIP</span>
+          <p class="cell__text">Punch the jump the moment it reads 100%. Beyond the +8/sec reactor heat it costs to hold, every jump also advances the late-run Unmaking front by 8–12 points, so wandering the chart is not free.</p>
+        </li>
+      </ul>
+    </section>
+    <section class="section" id="mistakes" aria-labelledby="mistakes-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; NOT THIS</p>
+        <h2 class="section__title chrome" id="mistakes-h">COMMON MISTAKES</h2>
+      </div>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">MISTAKE</span>
+          <p class="cell__text">Steering as if the dial turns the ship. You are ordering a course that the hull answers at 38–130°/s while still coasting on old velocity — new pilots overshoot into a rock, then over-correct into the next one. Watch the slew arc on the tape and start the turn early.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MISTAKE</span>
+          <p class="cell__text">Cruising at FULL all the time. Full throttle is maximum torpedo bait (signature 110 vs 40), one of the heaviest swing loads on the bus (20 units/sec, 32 while evasive — though shields at full allocation want 40, and weapons with the turrets armed 42), and it turns a graze into a 40+ damage ram.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MISTAKE</span>
+          <p class="cell__text">Leaving EVASIVE on outside a gunfight. It only reduces direct beam hits — it does nothing against torpedoes, mines, or rocks — while costing 60% more engine power and adding 20 to your signature.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MISTAKE</span>
+          <p class="cell__text">Believing your own throttle lever after a power failure. With ENGINES offline or starved the drive unspools itself at 0.3/sec and your slider drops with it; when Engineering restores power you must re-order the throttle, or the ship just sits there.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MISTAKE</span>
+          <p class="cell__text">Trying to outrun a fight. Torpedoes (95 u/s) outrun every hull, mines (58 u/s) outrun everything but the WREN and SPARROW, and the quicker raiders outrun most of the fleet. The jump drive is the only real escape, and pressing it early costs you the sector&#x27;s salvage.</p>
+        </li>
+      </ul>
+    </section>
+    <section class="section section--alt" id="talk" aria-labelledby="talk-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; CROSS-STATION</p>
+        <h2 class="section__title chrome" id="talk-h">WHO YOU TALK TO</h2>
+      </div>
+      <p class="section__lead">No station wins alone. These are the conversations this seat owes the rest of the bridge.</p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">TALK TO</span>
+          <h3 class="cell__title">Engineering</h3>
+          <p class="cell__text">They fund the ENGINES bus (your actual thrust), spool the jump drive you fire, can overclock the reactor to double your speed, and own the life-support breaker. Your throttle is their largest swing load — 20 units/sec at full, 32 while evasive — so call &quot;going to full burn&quot; or &quot;need overclock&quot; before you do it, and tell them the moment the ENGINES bar goes red.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TALK TO</span>
+          <h3 class="cell__title">Tactical</h3>
+          <p class="cell__text">They fire the beams (720 units), turrets (420) and torpedoes; you own the range and the geometry that make those shots possible. Your heading also decides which of the four shield arcs soaks each incoming hit — arcs are 90° quadrants, with FORE covering ±45° off the bow — so if Tactical has stacked the forward shield, keep the nose toward the shooter.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TALK TO</span>
+          <h3 class="cell__title">Science</h3>
+          <p class="cell__text">Scans only progress inside 900 units, so a scan is a flight order: they tell you which contact and you park within range and hold. Their scans are also what reveal a whole minefield and locate enemy subsystems, so refusing to close means flying blind.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TALK TO</span>
+          <h3 class="cell__title">Comms</h3>
+          <p class="cell__text">Comms can raise anyone on the plot — there is no range gate, the signal-strength bar just reads weaker far out — and Comms owns the alert level, the ship&#x27;s log, and the intercepted enemy chatter that tells you a rail is charging or reinforcements are coming. Nobody can put a HELM nav card on the TV — that channel does not exist for any client. What you can promote is the parascope view and the star chart, from your own two buttons.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TALK TO</span>
+          <h3 class="cell__title">Cannoneer (Gunner seats)</h3>
+          <p class="cell__text">They shoot the small fast things — debris, mines, inbound missiles — but only inside 420 units. Give them a stable, predictable pass rather than a wild jink when the sky is full of shrapnel.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TALK TO</span>
+          <h3 class="cell__title">Captain (a person on the couch, not a station)</h3>
+          <p class="cell__text">They decide fight, talk, or run. You feed them the numbers they can&#x27;t see: range and bearing to the threat, whether you can still make the objective, and how many seconds you need to be pointed the right way before the jump.</p>
+        </li>
+      </ul>
+    </section>
+    <section class="section" id="solo" aria-labelledby="solo-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; SMALL CREWS</p>
+        <h2 class="section__title chrome" id="solo-h">ON A SMALLER SHIP</h2>
+      </div>
+      <p class="section__lead">Helm is a full seat only on the 4-, 5- and 6-crew hulls (VANGUARD, SOVEREIGN, COLOSSUS). On the 2-crew SPARROW and 3-crew TALON it merges with Tactical into the &quot;Pilot-Gunner&quot; seat, and on the 1-crew WREN the single &quot;Shipmaster&quot; chair holds all five duties at once. All of these keep the entire flight cluster intact — the same compass tape, evasive/jump buttons, rail/ECM/flare/chart row, throttle with detents, heading dial, and both the map and fully flyable parascope views (the merged consoles literally reuse the helm&#x27;s own components). What changes is that nobody else is flying while you shoot, and on the WREN the ship runs auto-officer modules (auto-jamming, a cut-down engineering that auto-vents heat and auto-repairs at a quarter rate) to cover what one pair of hands can&#x27;t. One important hull note for small crews: the WREN, SPARROW and TALON carry zero point-defense turrets, which is exactly why they carry the biggest flare racks (10, 8 and 9 charges) — as pilot you *are* the ship&#x27;s point defense.</p>
+    </section>
+    <section class="section" aria-label="Other stations">
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="/exohull/guide/helm/" aria-current="page">HELM</a>
+        <a class="btn btn--ghost" href="/exohull/guide/tactical/">TACTICAL</a>
+        <a class="btn btn--ghost" href="/exohull/guide/engineering/">ENGINEERING</a>
+        <a class="btn btn--ghost" href="/exohull/guide/science/">SCIENCE</a>
+        <a class="btn btn--ghost" href="/exohull/guide/comms/">COMMS</a>
+        <a class="btn btn--ghost" href="/exohull/guide/cannoneer/">CANNONEER</a>
+        <a class="btn btn--ghost" href="/exohull/guide/captain/">CAPTAIN</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <nav class="footer__links" aria-label="Footer">
+      <a href="/">Home</a>
+      <a href="/exohull/">EXOHULL</a>
+      <a href="/exohull/guide/">Crew Guide</a>
+      <a href="/exohull/guide/helm/">Helm</a>
+      <a href="/exohull/guide/tactical/">Tactical</a>
+      <a href="/exohull/guide/engineering/">Engineering</a>
+      <a href="/exohull/guide/science/">Science</a>
+      <a href="/exohull/guide/comms/">Comms</a>
+      <a href="/exohull/guide/cannoneer/">Cannoneer</a>
+      <a href="/exohull/guide/captain/">Captain</a>
+    </nav>
+    <p class="footer__text">
+      EXOHULL is a game by MACHINAUT STUDIOS LLC — SLOP FOUNDRY.
+      The bridge only works if you talk.
+      <span class="footer__cursor cursor" aria-hidden="true"></span>
+    </p>
+    <p class="footer__fine">© 2026 Machinaut Studios LLC. All rights reserved.</p>
+  </footer>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

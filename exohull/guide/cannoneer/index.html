@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<!--
+  EXOHULL crew guide — Machinaut Studios LLC
+  Copyright © 2026 Machinaut Studios LLC. All rights reserved. See /LICENSE.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EXOHULL — how to play Cannoneer | Machinaut Studios LLC</title>
+  <meta name="description" content="You own one of the ship&#x27;s phaser banks and pull its trigger at whatever target Tactical has locked — one huge FIRE button, no aiming, no missing." />
+  <meta name="copyright" content="© 2026 Machinaut Studios LLC. All rights reserved." />
+  <meta name="theme-color" content="#07060f" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="canonical" href="https://machinautstudios.com/exohull/guide/cannoneer/" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="EXOHULL — how to play Cannoneer | Machinaut Studios LLC" />
+  <meta property="og:description" content="You own one of the ship&#x27;s phaser banks and pull its trigger at whatever target Tactical has locked — one huge FIRE button, no aiming, no missing." />
+  <meta property="og:url" content="https://machinautstudios.com/exohull/guide/cannoneer/" />
+  <meta property="og:image" content="https://machinautstudios.com/exohull/exohull-og.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Orbitron:wght@600;800;900&family=VT323&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="nav">
+    <div class="nav__inner">
+      <a class="nav__brand" href="/">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span class="nav__brand-name">MACHINAUT</span>
+        <span class="nav__brand-sub">STUDIOS&nbsp;LLC</span>
+      </a>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bars" aria-hidden="true"></span>
+      </button>
+      <nav class="nav__menu" id="nav-menu" aria-label="Primary">
+        <a href="/exohull/">EXOHULL</a>
+        <a href="/exohull/guide/">CREW GUIDE</a>
+        <a href="/#ship">WHAT WE SHIP</a>
+        <a class="nav__cta" href="/exohull/guide/#stations">PICK A STATION</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="hero hero--compact" aria-labelledby="role-title">
+      <div class="hero__scanlines" aria-hidden="true"></div>
+      <div class="hero__inner">
+        <div class="app-hero__layout">
+          <div class="app-hero__text">
+            <p class="stamp stamp--hero">&#9654; EXOHULL CREW GUIDE &nbsp;//&nbsp; STATION</p>
+            <h1 class="hero__title" id="role-title"><span class="n1">CANNONEER</span><span class="cursor" aria-hidden="true"></span></h1>
+            <p class="app-hero__tagline">One phaser bank, one button. Built for the youngest hands.</p>
+            <p class="hero__sub">You own one of the ship&#x27;s phaser banks and pull its trigger at whatever target Tactical has locked — one huge FIRE button, no aiming, no missing.</p>
+            <div class="hero__actions">
+              <a class="btn btn--ghost" href="/exohull/guide/">&#8592; ALL STATIONS</a>
+              <a class="btn btn--ghost" href="/exohull/">ABOUT EXOHULL</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="controls" aria-labelledby="controls-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; YOUR CONSOLE</p>
+        <h2 class="section__title chrome" id="controls-h">WHAT YOU CONTROL</h2>
+      </div>
+      <p class="section__lead">Everything below is on your screen and nobody else's. If you do not say it out loud, it did not happen.</p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">CONTROL</span>
+          <p class="cell__text">ONE giant FIRE button that fills the bottom of the screen in portrait (or the right half in landscape/desktop). It is the only control on the console — there is nothing else to press.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">CONTROL</span>
+          <p class="cell__text">The FIRE button&#x27;s sub-label, which always spells out why you can&#x27;t shoot right now: &quot;no phaser bank — waiting for a slot&quot;, &quot;weapons offline — ask Engineering&quot;, &quot;overheated — venting&quot;, &quot;charging…&quot;, &quot;waiting for Tactical to lock a target&quot;, &quot;too far — 940u / 720u&quot;, or &quot;→ 22 Tango&quot; when you&#x27;re clear to fire.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">CONTROL</span>
+          <p class="cell__text">LOCKED TARGET panel: the contact&#x27;s designator (a NATO-style callsign like &quot;22 Tango&quot;), its distance in world units, and whether that&#x27;s inside the 720u beam range (grey &quot;in range&quot; vs amber &quot;too far&quot;).</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">CONTROL</span>
+          <p class="cell__text">PHASER BANK panel: a status lamp (READY / CHARGING / OVERHEATED / OFFLINE / NO BANK), a CHARGE bar (0 to 1) and a HEAT bar (0 to 100).</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">CONTROL</span>
+          <p class="cell__text">Station header showing which bank you actually hold — &quot;Phaser A&quot;, &quot;Phaser B&quot;, etc. — plus a running &quot;hits ×N&quot; tally on the right.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">CONTROL</span>
+          <p class="cell__text">Hit feedback: pressing FIRE plays a beam sound; when the beam lands you get a big green &quot;✦ HIT!&quot; for 700 ms, a reward chirp, and the streak ticks up.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">CONTROL</span>
+          <p class="cell__text">The run strip along the top, shared by every station: sector number, encounter name and objective, banked salvage, jump-drive charge %, and a border that turns amber/red with the alert level. Unlike Tactical, Helm, Science and Comms, you have NO &quot;◱ SCREEN&quot; button — a Cannoneer can&#x27;t push anything to the TV.</p>
+        </li>
+      </ul>
+    </section>
+    <section class="section section--alt" id="loop" aria-labelledby="loop-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; MOMENT TO MOMENT</p>
+        <h2 class="section__title chrome" id="loop-h">THE LOOP</h2>
+      </div>
+      <ul class="grid grid--steps" role="list">
+        <li class="cell">
+          <span class="cell__stamp">STEP 01</span>
+          <p class="cell__text">Watch the LOCKED TARGET box. Nothing happens until Tactical lights a designator there — you cannot pick targets yourself.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STEP 02</span>
+          <p class="cell__text">Watch the bank lamp and charge bar. The moment it flips to green READY and the target reads &quot;in range&quot;, hit FIRE.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STEP 03</span>
+          <p class="cell__text">Read the result: &quot;✦ HIT!&quot; plus the chirp means your beam landed and your hit count went up. Beams cannot miss, so no flash means your press was refused, not dodged.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STEP 04</span>
+          <p class="cell__text">Your bank drops to zero charge and starts refilling; heat spikes and bleeds off. Watch the sub-label while you wait.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STEP 05</span>
+          <p class="cell__text">If FIRE is grey, say out loud what the sub-label says — &quot;no lock&quot;, &quot;out of range, I need 720&quot;, &quot;weapons are offline&quot; — then go back to step 1.</p>
+        </li>
+      </ul>
+    </section>
+    <section class="section" id="mechanics" aria-labelledby="mechanics-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; THE RULES UNDERNEATH</p>
+        <h2 class="section__title chrome" id="mechanics-h">KEY MECHANICS</h2>
+      </div>
+      <p class="section__lead">The numbers here come straight out of the shipping build.</p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">MECHANIC</span>
+          <h3 class="cell__title">You never miss, and you never aim</h3>
+          <p class="cell__text">There is no aiming, no lead, and no hit roll on your shot. The server applies balance.combat.weaponDamage = 24 damage straight into the target&#x27;s shield, and the overflow into its hull. Enemy fire against you rolls a hit chance and can be dodged; your phaser cannot. Maximum beam range is 720 world units (balance.combat.maxWeaponRange) — outside it the shot is simply refused.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MECHANIC</span>
+          <h3 class="cell__title">Your bank is delegated to you live, by the server</h3>
+          <p class="cell__text">Each phaser carries a gunnerSeatId. The first connected Cannoneer takes the LAST bank in the list, the second takes the one before it, and so on, so Tactical keeps the front banks. This is re-evaluated every tick: if you disconnect, your bank hands itself straight back to Tactical, and if you rejoin you take one back. Tactical&#x27;s console shows your bank tagged &quot;⇢ CANNONEER&quot; with no FIRE button of their own — they can watch your charge and heat but cannot pull your trigger, and you cannot pull theirs (the server rejects both).</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MECHANIC</span>
+          <h3 class="cell__title">How many banks exist depends on how many Cannoneers boarded</h3>
+          <p class="cell__text">At launch the ship fits max(class beam count, number of connected Cannoneer seats) phasers. Class beams are: WREN 1, SPARROW 1, TALON 1, VANGUARD 2, SOVEREIGN 2, COLOSSUS 3. So a third Cannoneer on a SOVEREIGN materializes a third bank — extra kids genuinely make the ship stronger. The flip side: on a 1-beam hull the ship&#x27;s only phaser transfers to you and the pilot keeps none, and if Cannoneers equal or outnumber banks, Tactical has no beam at all.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MECHANIC</span>
+          <h3 class="cell__title">Charge and heat</h3>
+          <p class="cell__text">A bank charges from 0 to 1 in 2.4 seconds at full weapons power with a cold emitter (balance.combat.chargeTimeSec), and that rate is multiplied directly by the WEAPONS power ratio Engineering allocates and by the WEAPONS system&#x27;s health. Every shot adds 30 heat, which bleeds off at 14/second; heat also slows charging by up to 60% at heat 100, so your real cycle is a little longer than 2.4 s while the emitter is still hot. Engineering&#x27;s vent cycle dumps 20 heat/second out of your bank as a side effect of flushing the reactor.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MECHANIC</span>
+          <h3 class="cell__title">Tactical&#x27;s sub-target rides on your shot</h3>
+          <p class="cell__text">If Tactical has selected a revealed, still-online subsystem on the locked ship (engines, shield generator, weapons, jump drive), your 24 damage goes into THAT subsystem instead of the hull. Killing one takes the enemy function offline and ruptures 12 points of hull as a bonus. This is powerful for disabling a runner, but note that while a sub-target is set your shots are not reducing the hull — you are not shortening the fight, you are changing what the enemy can do.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MECHANIC</span>
+          <h3 class="cell__title">Every shot costs the reactor</h3>
+          <p class="cell__text">Firing adds 6 heat to the ship&#x27;s reactor core, on top of the 30 to your own emitter. The core only sheds 2/second passively, so sustained fire from two or more banks heats the ship faster than it cools; past 85 the reactor starts taking damage, and Engineering has to run a 5-second vent that halves reactor output while it runs. Overclock doubles your damage to 48 per shot but adds another 6/second of core heat on its own.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MECHANIC</span>
+          <h3 class="cell__title">Lockouts and outages</h3>
+          <p class="cell__text">If the WEAPONS system is forced offline — an event outage, or Engineering shedding the bus — FIRE is refused even if your bank is fully charged. The charge is held, not lost, and firing resumes the instant the bus is restored; your console shows &quot;○ OFFLINE&quot; and &quot;weapons offline — ask Engineering&quot;. Clearing it is Engineering&#x27;s conduit-reroute minigame (or it decays on its own after 90 seconds).</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MECHANIC</span>
+          <h3 class="cell__title">Targeting and turrets are not yours</h3>
+          <p class="cell__text">The server rejects a selectTarget intent from a Cannoneer seat — target selection and sub-targeting belong exclusively to Tactical. It also rejects fireTurret from everyone: the ship&#x27;s gun turrets are now fully automatic point defense that shoot down hostile missiles and rockets by themselves. Your one and only intent is fireWeapon on your own bank.</p>
+        </li>
+      </ul>
+    </section>
+    <section class="section section--alt" id="tips" aria-labelledby="tips-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; DO THIS</p>
+        <h2 class="section__title chrome" id="tips-h">TIPS FROM THE SIM</h2>
+      </div>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">TIP</span>
+          <p class="cell__text">Fire the instant the lamp turns green. An enemy&#x27;s shield regenerates at 3/second while its shield generator is alive, so a bank sitting on READY is literally handing damage back. There is no charged-up super shot and no accuracy bonus for waiting.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TIP</span>
+          <p class="cell__text">Call your bank LETTER, not your seat name. The lobby names your seat &quot;Cannoneer — Phaser I&quot;, but your console header shows the real bank (&quot;Phaser B&quot;) — and that letter is what Tactical sees on their beam panel. Saying &quot;B is hot&quot; is instantly understood; saying &quot;Phaser I&quot; is not.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TIP</span>
+          <p class="cell__text">Your 720u beam out-ranges the common pirates&#x27; guns (Raptor fighters shoot to 540u, Corsairs to 560u). When your box says the target is at, say, 690u and &quot;in range&quot;, tell Helm to hold there — that window is free damage before they can answer.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TIP</span>
+          <p class="cell__text">Your charge speed is Engineering&#x27;s power slider. WEAPONS demands 30 units on the bus (more with turrets active); a de-prioritized or damaged WEAPONS system makes your bar crawl. &quot;My charge is slow, give me weapons power&quot; is a real, mechanically correct call.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TIP</span>
+          <p class="cell__text">Before an alpha strike, ask Engineering for OVERCLOCK — it doubles your beam from 24 to 48 damage. Then stop asking, because between overclock (+6 core heat/sec) and your shots (+6 core heat each) the reactor red-lines at 85 and starts eating itself.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TIP</span>
+          <p class="cell__text">In a DEBRIS STORM the small fast rocks have 18 hull — exactly one phaser shot each. In a MINEFIELD each mine has 10 hull and does 75 damage if it reaches the ship. Popping the mines and rocks Tactical locks, from 720u away, is often worth more than shooting the enemy ship.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TIP</span>
+          <p class="cell__text">Your &quot;hits ×N&quot; is a private counter on your own console, inferred from a beam effect arriving within 600 ms of your press. It isn&#x27;t synced to anyone, it isn&#x27;t a scoreboard, and it resets when the console reloads (including the jump-transit screen between sectors). Don&#x27;t play for the number.</p>
+        </li>
+      </ul>
+    </section>
+    <section class="section" id="mistakes" aria-labelledby="mistakes-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; NOT THIS</p>
+        <h2 class="section__title chrome" id="mistakes-h">COMMON MISTAKES</h2>
+      </div>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">MISTAKE</span>
+          <p class="cell__text">Saving the shot for a &quot;better moment&quot;. There is no charge-up, no critical hit and no ammo — a bank held at READY is pure waste while the enemy shield knits itself back at 3/second.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MISTAKE</span>
+          <p class="cell__text">Keeping the trigger down after the enemy strikes its colors. A surrendered ship is already counted as a kill and already paid its 25 salvage bounty; destroying it adrift pays nothing extra and costs 15 reputation with BOTH pirate factions, which makes future pirates bolder and less willing to surrender to you.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MISTAKE</span>
+          <p class="cell__text">Firing at whatever is locked without reading the designator. Tactical can lock a FRIENDLY — the distress freighter or an evacuation transport — and your beam does not care. Killing one costs you the payout rather than the run: a dead KESTREL forfeits the 55-salvage escort bonus and a dead colony transport costs a colony saved — both logged as &quot;we were too slow&quot;.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MISTAKE</span>
+          <p class="cell__text">Going quiet when FIRE turns grey. Your bank&#x27;s state is invisible to the crew except as a small charge/heat bar on Tactical&#x27;s panel; the sub-label already names the officer who can fix it, so read it out instead of tapping a dead button.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MISTAKE</span>
+          <p class="cell__text">Treating the torpedo-lock klaxon as your problem. Your seat hears that alarm, but you cannot shoot torpedoes down — torpedoes are countered by Tactical&#x27;s noisemakers and Helm&#x27;s evasion, and missiles/rockets are handled automatically by the turrets. Stay on the lock.</p>
+        </li>
+      </ul>
+    </section>
+    <section class="section section--alt" id="talk" aria-labelledby="talk-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; CROSS-STATION</p>
+        <h2 class="section__title chrome" id="talk-h">WHO YOU TALK TO</h2>
+      </div>
+      <p class="section__lead">No station wins alone. These are the conversations this seat owes the rest of the bridge.</p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">TALK TO</span>
+          <h3 class="cell__title">Tactical</h3>
+          <p class="cell__text">They own the lock and the sub-target; your bank can only fire at whatever they have selected, so a silent Tactical means a silent Cannoneer. They also see your bank&#x27;s charge and heat as the &quot;⇢ CANNONEER&quot; row on their beam panel, and they need to know when you want the sub-target dropped back to hull so the kill actually lands.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TALK TO</span>
+          <h3 class="cell__title">Engineering</h3>
+          <p class="cell__text">Your charge rate is scaled directly by the WEAPONS power they allocate and by that system&#x27;s health; their vent cycle is the only fast way to dump your emitter heat; their overclock doubles your damage; and only their reroute repair clears a WEAPONS lockout that greys out your button.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TALK TO</span>
+          <h3 class="cell__title">Helm</h3>
+          <p class="cell__text">Range is entirely their call and your console is the crew&#x27;s clearest range readout. &quot;940 units, I need 720&quot; tells Helm to close; &quot;in range&quot; tells them to hold station instead of overshooting past the enemy.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TALK TO</span>
+          <h3 class="cell__title">Comms</h3>
+          <p class="cell__text">When Comms is negotiating a surrender or parleying with a Vel&#x27;Shaar envoy, your finger has to come off the button. The &quot;silence your guns&quot; outcome literally checks that every phaser bank is below 0.2 charge and every turret is on HOLD — a fully charged READY bank fails that check and turns a gift into a fight.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">TALK TO</span>
+          <h3 class="cell__title">Science</h3>
+          <p class="cell__text">Their scan is what reveals the enemy subsystems in the first place; until a subsystem is revealed and online, Tactical can&#x27;t route your damage into it and every shot just goes to shields and hull.</p>
+        </li>
+      </ul>
+    </section>
+    <section class="section" id="solo" aria-labelledby="solo-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; SMALL CREWS</p>
+        <h2 class="section__title chrome" id="solo-h">ON A SMALLER SHIP</h2>
+      </div>
+      <p class="section__lead">The Cannoneer duty is never merged into anyone else&#x27;s chair. It exists as up to four optional add-on seats (Cannoneer — Phaser I through IV) available on every hull from the 1-crew WREN to the 6-crew COLOSSUS, always with GUNNER as its only duty and always rendering this same one-button console, so a young crew member can join any ship at any crew size. What changes with hull size is who loses a gun: on the 1-beam hulls (WREN, SPARROW, TALON) the ship&#x27;s single phaser transfers to the first Cannoneer, so the solo Shipmaster or Pilot-Gunner keeps missiles, rockets, torpedoes and the railgun but no beam. On 2- and 3-beam hulls the Cannoneers take banks from the back while Tactical keeps the front ones, and any Cannoneer beyond the class beam count causes a spare bank to be built at launch. A Cannoneer who claims a seat after launch may find no bank free — the console then reads &quot;no phaser bank — waiting for a slot&quot; until someone drops.</p>
+    </section>
+    <section class="section" aria-label="Other stations">
+      <div class="hero__actions">
+        <a class="btn btn--ghost" href="/exohull/guide/helm/">HELM</a>
+        <a class="btn btn--ghost" href="/exohull/guide/tactical/">TACTICAL</a>
+        <a class="btn btn--ghost" href="/exohull/guide/engineering/">ENGINEERING</a>
+        <a class="btn btn--ghost" href="/exohull/guide/science/">SCIENCE</a>
+        <a class="btn btn--ghost" href="/exohull/guide/comms/">COMMS</a>
+        <a class="btn btn--primary" href="/exohull/guide/cannoneer/" aria-current="page">CANNONEER</a>
+        <a class="btn btn--ghost" href="/exohull/guide/captain/">CAPTAIN</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <nav class="footer__links" aria-label="Footer">
+      <a href="/">Home</a>
+      <a href="/exohull/">EXOHULL</a>
+      <a href="/exohull/guide/">Crew Guide</a>
+      <a href="/exohull/guide/helm/">Helm</a>
+      <a href="/exohull/guide/tactical/">Tactical</a>
+      <a href="/exohull/guide/engineering/">Engineering</a>
+      <a href="/exohull/guide/science/">Science</a>
+      <a href="/exohull/guide/comms/">Comms</a>
+      <a href="/exohull/guide/cannoneer/">Cannoneer</a>
+      <a href="/exohull/guide/captain/">Captain</a>
+    </nav>
+    <p class="footer__text">
+      EXOHULL is a game by MACHINAUT STUDIOS LLC — SLOP FOUNDRY.
+      The bridge only works if you talk.
+      <span class="footer__cursor cursor" aria-hidden="true"></span>
+    </p>
+    <p class="footer__fine">© 2026 Machinaut Studios LLC. All rights reserved.</p>
+  </footer>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
