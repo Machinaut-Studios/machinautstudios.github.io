@@ -2,7 +2,8 @@
    MACHINAUT STUDIOS LLC — Slop Foundry
    1) Mobile nav toggle (accessible)
    2) The "slop deployed" counter (ticks up forever, respects reduced motion)
-   3) The Complaint Shredder — rasterize the user's text to a canvas, wipe the
+   3) The Motion Kit — scroll reveals, offscreen stage pausing, telemetry
+   4) The Complaint Shredder — rasterize the user's text to a canvas, wipe the
       real <textarea> value the instant we snapshot it (so the text is GENUINELY
       gone, not faked), then shred the snapshot into falling paper strips.
    No libraries. No build step. Drops straight onto GitHub Pages.
@@ -357,4 +358,92 @@
     e.preventDefault();
     shred();
   });
+
+  /* ------------------------------------------------------------ MOTION KIT
+     Site-wide sugar, opt-in, and entirely absent for anyone who asked for
+     less motion:
+       1. Panels still below the fold rise into place as you scroll to them.
+          Only offscreen elements get tagged, so nothing already on screen
+          can blink out while this script boots.
+       2. Animated .stage housings idle until they scroll into view, so a
+          page full of contraptions only ever animates the one being looked
+          at.
+       3. The studio's telemetry readouts wander like a real dashboard. */
+  const wantsMotion = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (wantsMotion && "IntersectionObserver" in window) {
+    document.documentElement.classList.add("js-motion");
+
+    const fold = window.innerHeight * 0.85;
+    const pending = [];
+    document
+      .querySelectorAll(
+        ".section__head, .section__lead, .cell, .product-banner, .stage, .stage-static," +
+          " .telemetry, .factory__stage, .factory__static, .factory__readout, .complaint"
+      )
+      .forEach((el) => {
+        if (el.getBoundingClientRect().top < fold) return; // already in view — leave it alone
+        el.setAttribute("data-reveal", "");
+        pending.push(el);
+      });
+
+    // Cards in a grid arrive one after another rather than all at once.
+    document.querySelectorAll(".grid").forEach((grid) => {
+      let i = 0;
+      grid.querySelectorAll(":scope > .cell[data-reveal]").forEach((cell) => {
+        cell.style.setProperty("--i", i++);
+      });
+    });
+
+    let observed = false;
+    const revealIO = new IntersectionObserver(
+      (entries, obs) => {
+        observed = true;
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-in");
+          obs.unobserve(entry.target); // it only needs to arrive once
+        });
+      },
+      { rootMargin: "0px 0px -6% 0px", threshold: 0.05 }
+    );
+    pending.forEach((el) => revealIO.observe(el));
+
+    /* Braces to go with the belt. A real browser reports on every observed
+       target within a frame or two; anything that never reports (headless
+       captures, embedded webviews, a future bug) must not be allowed to
+       leave the page sitting there invisible. */
+    setTimeout(() => {
+      if (!observed) pending.forEach((el) => el.classList.add("is-in"));
+    }, 2500);
+
+    const stages = document.querySelectorAll(".stage");
+    if (stages.length) {
+      const liveIO = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => entry.target.classList.toggle("is-live", entry.isIntersecting));
+        },
+        { rootMargin: "140px 0px" }
+      );
+      stages.forEach((stage) => liveIO.observe(stage));
+    }
+  }
+
+  /* Studio dashboard: numbers that wander enough to look load-bearing.
+     Each readout declares its own range in the markup. */
+  const telemetry = document.querySelectorAll("[data-tele]");
+  if (telemetry.length && wantsMotion) {
+    const roll = () => {
+      telemetry.forEach((el) => {
+        const min = parseFloat(el.dataset.min);
+        const max = parseFloat(el.dataset.max);
+        const dec = parseInt(el.dataset.dec || "0", 10);
+        const v = min + Math.random() * (max - min);
+        el.textContent = (dec ? v.toFixed(dec) : Math.round(v).toLocaleString("en-US")) +
+          (el.dataset.suffix || "");
+      });
+    };
+    roll();
+    setInterval(roll, 1600);
+  }
 })();

@@ -1,0 +1,657 @@
+/* =========================================================================
+   HUSHWORD — "THE HIDDEN LINE"
+   The page's signature contraption. One board, one list, thirteen seconds:
+
+     a cyan sweep runs along a listed word  ->  the word strikes off the list
+     and its letters go used and dim        ->  the last word clears the list
+     ->  the twelve cells nothing ever touched wake up lime, lift out of the
+     grid, and land in order along the bottom:  THE QUIET PART
+
+   The board is honest: MOON, ORBIT, STAR, COMET and PLANET really are in
+   there (down, across, down-left, backwards, and the long diagonal), and the
+   twelve cells none of them touch really do read as the phrase, top-left to
+   bottom-right, exactly the way the game plays it.
+
+   Everything is scoped to .stage--hushword / .stage-static--hushword and
+   every keyframe is prefixed `hw-`. The housing, the back-wall grid, the
+   corner placards, the reduced-motion swap and the offscreen pausing all come
+   from the MOTION KIT in /styles.css — nothing below reimplements them.
+   ========================================================================= */
+
+.stage--hushword {
+  /* ---- one number drives the rig ------------------------------------- */
+  /* One grid cell. The second term is the hard ceiling: below ~410px the
+     answer line, not taste, decides how big a cell may be. */
+  --hw-t:  min(clamp(24px, 4.6vw, 46px), calc(7.15vw - 2.2px));
+  --hw-g:  calc(var(--hw-t) * 0.14);                 /* grout              */
+  --hw-p:  calc(var(--hw-t) + var(--hw-g));          /* cell pitch         */
+  --hw-bw: calc(6 * var(--hw-p) - var(--hw-g));      /* 6x6 board          */
+
+  --hw-lw: calc(var(--hw-t) * 5.2);                  /* the list panel     */
+  --hw-dg: calc(var(--hw-t) * 1.4);                  /* board -> list gap  */
+  --hw-dw: calc(var(--hw-bw) + var(--hw-dg) + var(--hw-lw));
+
+  --hw-tp: calc(var(--hw-t) * 1.05);                 /* answer-line pitch  */
+  --hw-wg: calc(var(--hw-t) * 0.55);                 /* gap between words  */
+  /* the answer line is the widest thing here, so it sets the scene width:
+     twelve letters, two word gaps, one letter box of overhang */
+  --hw-sw: calc(11 * var(--hw-tp) + 2 * var(--hw-wg) + var(--hw-t));
+
+  --hw-bx: calc((var(--hw-sw) - var(--hw-dw)) / 2);  /* board left         */
+  --hw-lx: calc(var(--hw-bx) + var(--hw-bw) + var(--hw-dg));
+  --hw-ty: calc(var(--hw-bw) + var(--hw-t) * 0.7);  /* answer line top    */
+  --hw-th: calc(var(--hw-t) * 1.35);                  /* its height         */
+  --hw-rt: calc(var(--hw-ty) + (var(--hw-th) - var(--hw-t)) / 2);
+  --hw-sh: calc(var(--hw-ty) + var(--hw-th));        /* scene height       */
+
+  --hw-loop: 13s;
+  --hw-dim: #7385bd;                                 /* a spent letter     */
+
+  /* housing tall enough for the scene plus air for the two placards */
+  --stage-h: calc(var(--hw-sh) + 3.7rem);
+}
+
+/* The scene: px-locked, centred, hung just under the top placard. */
+.stage--hushword .hw {
+  position: absolute;
+  left: 50%;
+  top: 1.55rem;
+  width: var(--hw-sw);
+  height: var(--hw-sh);
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+/* Ambient drift in the slack either side, straight off the kit. */
+.stage--hushword .hw__air { opacity: 0.5; }
+
+/* ---- the board --------------------------------------------------------- */
+.stage--hushword .hw__board {
+  position: absolute;
+  left: var(--hw-bx);
+  top: 0;
+  width: var(--hw-bw);
+  height: var(--hw-bw);
+}
+.stage--hushword .hw__board::before {          /* bezel */
+  content: "";
+  position: absolute;
+  inset: calc(var(--hw-t) * -0.2);
+  border: 1px solid var(--line-2);
+  border-radius: calc(var(--hw-t) * 0.22);
+  background: rgba(9, 7, 20, 0.6);
+  box-shadow:
+    0 0 26px rgba(47, 228, 255, 0.10),
+    inset 0 0 calc(var(--hw-t) * 0.9) rgba(168, 85, 255, 0.14);
+}
+.stage--hushword .hw__lattice {
+  position: absolute;
+  inset: calc(var(--hw-g) / -2);
+  z-index: 1;
+  background-image:
+    linear-gradient(to right, rgba(47, 228, 255, 0.16) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(47, 228, 255, 0.16) 1px, transparent 1px);
+  background-size: var(--hw-p) var(--hw-p);
+}
+
+/* Letters the list eats. They start indistinguishable from the spares —
+   that is the whole trick — and only a sweep tells them apart. */
+.stage--hushword .hw__cell {
+  position: absolute;
+  left: calc(var(--c) * var(--hw-p));
+  top:  calc(var(--r) * var(--hw-p));
+  width: var(--hw-t);
+  height: var(--hw-t);
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: max(13px, calc(var(--hw-t) * 0.58));
+  line-height: 1;
+  color: var(--ink);
+  text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4);
+  /* No will-change here on purpose: twenty-four promoted text layers cost
+     more than they save, and these only ever tween colour and a small pop. */
+}
+
+/* ---- the sweep --------------------------------------------------------- */
+/* One rounded lozenge per word, pinned to the word's first cell and rotated
+   onto its line, then grown from that end. Brightest at the leading edge, so
+   it reads as a finger dragging rather than a bar switching on. */
+.stage--hushword .hw__sweep {
+  position: absolute;
+  left: calc(var(--c) * var(--hw-p));
+  top: calc(var(--r) * var(--hw-p) + var(--hw-t) * 0.08);
+  width: calc(var(--hw-t) + (var(--len) - 1) * var(--hw-p) * var(--k));
+  height: calc(var(--hw-t) * 0.84);
+  z-index: 2;
+  border-radius: 999px;
+  transform-origin: calc(var(--hw-t) / 2) 50%;
+  transform: rotate(var(--a)) scaleX(0.05);
+  opacity: 0;
+  border: 1px solid rgba(47, 228, 255, 0.55);
+  background: linear-gradient(90deg,
+    rgba(47, 228, 255, 0.10),
+    rgba(47, 228, 255, 0.22) 62%,
+    rgba(47, 228, 255, 0.55) 100%);
+  box-shadow:
+    0 0 1.1em rgba(47, 228, 255, 0.35),
+    inset 0 0 0.8em rgba(47, 228, 255, 0.22);
+  will-change: transform, opacity;
+}
+
+/* Lime wash over the board the instant the list goes clear. */
+.stage--hushword .hw__flash {
+  position: absolute;
+  inset: calc(var(--hw-t) * -0.4);
+  z-index: 4;
+  border-radius: calc(var(--hw-t) * 0.3);
+  background: radial-gradient(60% 60% at 50% 50%,
+    rgba(182, 255, 58, 0.30), rgba(182, 255, 58, 0) 72%);
+  opacity: 0;
+  animation: hw-flash var(--hw-loop) linear infinite;
+}
+
+/* ---- the list ---------------------------------------------------------- */
+/* Sits ABOVE the spares (z 6 vs 5) and paints an almost-solid ground, so a
+   letter on its way to the answer line passes behind the panel instead of
+   printing itself over LIST CLEAR. */
+.stage--hushword .hw__list {
+  position: absolute;
+  left: var(--hw-lx);
+  top: 0;
+  width: var(--hw-lw);
+  height: var(--hw-bw);
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--hw-t) * 0.36) calc(var(--hw-t) * 0.42);
+  border: 1px solid var(--line-2);
+  border-radius: calc(var(--hw-t) * 0.22);
+  background: rgba(9, 7, 20, 0.93);
+  box-shadow: inset 0 0 calc(var(--hw-t) * 0.9) rgba(168, 85, 255, 0.12);
+  font-family: var(--font-arcade);
+  line-height: 1;
+}
+.stage--hushword .hw__pack {
+  margin: 0 0 calc(var(--hw-t) * 0.3);
+  padding-bottom: calc(var(--hw-t) * 0.22);
+  border-bottom: 1px solid rgba(255, 46, 151, 0.28);
+  font-size: max(10px, calc(var(--hw-t) * 0.42));
+  letter-spacing: 0.14em;
+  color: var(--magenta-t);
+  text-shadow: var(--glow-m);
+  white-space: nowrap;
+}
+.stage--hushword .hw__pack b { color: var(--muted-2); font-weight: 400; }
+.stage--hushword .hw__words {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(var(--hw-t) * 0.3);
+  margin-left: calc(var(--hw-t) * 0.62);
+}
+/* The strike is the row's own background, grown left to right — one animated
+   element per word instead of two. */
+.stage--hushword .hw__word {
+  position: relative;
+  margin: 0;
+  font-size: max(14px, calc(var(--hw-t) * 0.6));
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  opacity: 0.92;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 62%;
+  background-size: 0% 2px;
+}
+.stage--hushword .hw__word::before {
+  content: "\25B8";
+  position: absolute;
+  left: calc(var(--hw-t) * -0.52);
+  top: 0;
+  color: var(--cyan);
+  opacity: 0.55;
+}
+/* The beat that motivates the reveal: nothing left to find. */
+.stage--hushword .hw__clear {
+  margin-top: auto;
+  align-self: flex-start;
+  padding: calc(var(--hw-t) * 0.12) calc(var(--hw-t) * 0.3);
+  border: 1px solid var(--magenta);
+  border-radius: calc(var(--hw-t) * 0.1);
+  font-size: max(11px, calc(var(--hw-t) * 0.44));
+  letter-spacing: 0.16em;
+  color: var(--magenta-t);
+  text-shadow: var(--glow-m);
+  background: rgba(255, 46, 151, 0.1);
+  box-shadow: 0 0 1em rgba(255, 46, 151, 0.35);
+  opacity: 0;
+  transform: scale(0.4) rotate(-7deg);
+  animation: hw-clear var(--hw-loop) linear infinite;
+}
+
+/* ---- the answer line --------------------------------------------------- */
+.stage--hushword .hw__tray {
+  position: absolute;
+  left: 0;
+  top: var(--hw-ty);
+  width: var(--hw-sw);
+  height: var(--hw-th);
+  z-index: 2;
+  overflow: hidden;
+}
+.stage--hushword .hw__tray::before,
+.stage--hushword .hw__tray::after {   /* corner brackets, so the line reads as a slot */
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: calc(var(--hw-t) * 0.42);
+  height: calc(var(--hw-t) * 0.5);
+  border: 1px solid rgba(182, 255, 58, 0.6);
+}
+.stage--hushword .hw__tray::before { left: 0;  border-right: 0; border-top: 0; }
+.stage--hushword .hw__tray::after  { right: 0; border-left: 0;  border-top: 0; }
+
+/* a waiting slot: twelve of them, so the shape of the secret is on show
+   from the first frame */
+.stage--hushword .hw__slot {
+  position: absolute;
+  left: calc(var(--i) * var(--hw-tp) + var(--w) * var(--hw-wg) + var(--hw-t) * 0.08);
+  bottom: calc(var(--hw-t) * 0.1);
+  width: calc(var(--hw-t) * 0.84);
+  height: 2px;
+  border-radius: 2px;
+  background: var(--lime);
+  opacity: 0.26;
+  animation: hw-slot var(--hw-loop) linear infinite;
+  animation-delay: calc(var(--i) * 0.06s);
+}
+/* A glimmer walking the empty slots while the board is still being cleared:
+   3.25s is a clean quarter of the loop, so it never fights the seam. */
+.stage--hushword .hw__slot::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 2px;
+  background: var(--lime);
+  box-shadow: 0 0 8px rgba(182, 255, 58, 0.8);
+  opacity: 0;
+  animation: hw-wait 3.25s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.16s);
+}
+.stage--hushword .hw__glow {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 150%;
+  background: radial-gradient(58% 100% at 50% 100%,
+    rgba(182, 255, 58, 0.26), rgba(182, 255, 58, 0.05) 55%, transparent 76%);
+  opacity: 0;
+  animation: hw-glow var(--hw-loop) linear infinite;
+}
+.stage--hushword .hw__shine {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: -40%;
+  width: 30%;
+  mix-blend-mode: screen;
+  background: linear-gradient(100deg,
+    transparent, rgba(214, 255, 150, 0.22) 48%, transparent);
+  opacity: 0;
+  animation: hw-shine var(--hw-loop) linear infinite;
+}
+
+/* ---- the twelve spares ------------------------------------------------- */
+/* Each one lives at its slot on the answer line and spends most of the loop
+   translated back to the cell it came from, sitting in the grid pretending to
+   be filler. The reveal is that translate running out. */
+.stage--hushword .hw__fly {
+  --hw-x: calc(var(--i) * var(--hw-tp) + var(--w) * var(--hw-wg));
+  --hw-dx: calc(var(--hw-bx) + var(--c) * var(--hw-p) - var(--hw-x));
+  --hw-dy: calc(var(--r) * var(--hw-p) - var(--hw-rt));
+  /* How far along its own line each letter is at the two mid-flight beats.
+     Later letters run further ahead, so the twelve paths fan out instead of
+     arriving as one clump — the whole flock is in the air at once and this is
+     what keeps it legible. Both stay well inside 0..1: no overshoot. */
+  --hw-f1: calc(0.82 - var(--i) * 0.047);
+  --hw-f2: calc(0.36 - var(--i) * 0.024);
+  position: absolute;
+  left: var(--hw-x);
+  top: var(--hw-rt);
+  width: var(--hw-t);
+  height: var(--hw-t);
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: max(17px, calc(var(--hw-t) * 0.76));
+  line-height: 1;
+  color: var(--ink);
+  transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763);
+  animation: hw-fly var(--hw-loop) linear infinite;
+  animation-delay: calc(var(--i) * 0.06s);
+  will-change: transform, opacity;
+}
+
+/* ---- sparks off the reveal --------------------------------------------- */
+.stage--hushword .hw__sparks {
+  position: absolute;
+  left: 0; right: 0;
+  top: var(--hw-ty);
+  height: var(--hw-th);
+  z-index: 4;
+  pointer-events: none;
+}
+.stage--hushword .hw__sparks i {
+  position: absolute;
+  left: var(--x);
+  bottom: 20%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  color: var(--lime);
+  box-shadow: 0 0 9px currentColor;
+  opacity: 0;
+  animation: hw-spark var(--hw-loop) linear infinite;
+  animation-delay: var(--d, 0s);
+}
+.stage--hushword .hw__sparks i.is-m { color: var(--magenta); }
+.stage--hushword .hw__sparks i.is-c { color: var(--cyan); }
+
+/* =========================== THE LOOP ====================================
+   Thirteen seconds, and every number below is a percentage of it.
+     0.65s MOON  ·  1.85s ORBIT  ·  3.10s STAR  ·  4.25s COMET  ·  5.50s PLANET
+     6.75s list clear  ·  7.20s the spares wake  ·  8.30s they lift
+     9.15s they land   ·  11.40s hold ends      ·  11.80s the board ghosts
+     11.96s it deals back  ·  12.58s it is solid again (+ the 0.66s stagger)
+   ======================================================================== */
+
+/* ---- sweeps ------------------------------------------------------------ */
+@keyframes hw-sweep-1 {
+  0%, 5%      { transform: rotate(var(--a)) scaleX(0.05); opacity: 0; }
+  6%          { transform: rotate(var(--a)) scaleX(0.12); opacity: 1; }
+  10.4%       { transform: rotate(var(--a)) scaleX(1); opacity: 1; }
+  57.5%       { transform: rotate(var(--a)) scaleX(1); opacity: 0.45; }
+  88.5%       { transform: rotate(var(--a)) scaleX(1); opacity: 0.45; }
+  92%         { transform: rotate(var(--a)) scaleX(1); opacity: 0; }
+  92.5%, 100% { transform: rotate(var(--a)) scaleX(0.05); opacity: 0; }
+}
+@keyframes hw-sweep-2 {
+  0%, 14.2%   { transform: rotate(var(--a)) scaleX(0.05); opacity: 0; }
+  15.2%       { transform: rotate(var(--a)) scaleX(0.12); opacity: 1; }
+  20%         { transform: rotate(var(--a)) scaleX(1); opacity: 1; }
+  57.5%       { transform: rotate(var(--a)) scaleX(1); opacity: 0.45; }
+  88.5%       { transform: rotate(var(--a)) scaleX(1); opacity: 0.45; }
+  92%         { transform: rotate(var(--a)) scaleX(1); opacity: 0; }
+  92.5%, 100% { transform: rotate(var(--a)) scaleX(0.05); opacity: 0; }
+}
+@keyframes hw-sweep-3 {
+  0%, 23.8%   { transform: rotate(var(--a)) scaleX(0.05); opacity: 0; }
+  24.8%       { transform: rotate(var(--a)) scaleX(0.12); opacity: 1; }
+  28.8%       { transform: rotate(var(--a)) scaleX(1); opacity: 1; }
+  57.5%       { transform: rotate(var(--a)) scaleX(1); opacity: 0.45; }
+  88.5%       { transform: rotate(var(--a)) scaleX(1); opacity: 0.45; }
+  92%         { transform: rotate(var(--a)) scaleX(1); opacity: 0; }
+  92.5%, 100% { transform: rotate(var(--a)) scaleX(0.05); opacity: 0; }
+}
+@keyframes hw-sweep-4 {
+  0%, 32.7%   { transform: rotate(var(--a)) scaleX(0.05); opacity: 0; }
+  33.7%       { transform: rotate(var(--a)) scaleX(0.12); opacity: 1; }
+  38.5%       { transform: rotate(var(--a)) scaleX(1); opacity: 1; }
+  57.5%       { transform: rotate(var(--a)) scaleX(1); opacity: 0.45; }
+  88.5%       { transform: rotate(var(--a)) scaleX(1); opacity: 0.45; }
+  92%         { transform: rotate(var(--a)) scaleX(1); opacity: 0; }
+  92.5%, 100% { transform: rotate(var(--a)) scaleX(0.05); opacity: 0; }
+}
+@keyframes hw-sweep-5 {
+  0%, 42.3%   { transform: rotate(var(--a)) scaleX(0.05); opacity: 0; }
+  43.3%       { transform: rotate(var(--a)) scaleX(0.12); opacity: 1; }
+  49.6%       { transform: rotate(var(--a)) scaleX(1); opacity: 1; }
+  57.5%       { transform: rotate(var(--a)) scaleX(1); opacity: 0.45; }
+  88.5%       { transform: rotate(var(--a)) scaleX(1); opacity: 0.45; }
+  92%         { transform: rotate(var(--a)) scaleX(1); opacity: 0; }
+  92.5%, 100% { transform: rotate(var(--a)) scaleX(0.05); opacity: 0; }
+}
+
+/* ---- letters the sweep eats -------------------------------------------- */
+/* Flash white-cyan as the sweep passes, settle to found, then recede to spent
+   once the list is clear so the spares have the stage to themselves. */
+@keyframes hw-used-1 {
+  0%, 5.4%    { color: var(--ink); opacity: 1; transform: scale(1); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  6.9%        { color: #eaffff; opacity: 1; transform: scale(1.2); text-shadow: 0 0 0.75em rgba(47, 228, 255, 0.95); }
+  11.5%       { color: var(--cyan-t); transform: scale(1); text-shadow: 0 0 0.55em rgba(47, 228, 255, 0.6); }
+  53%         { color: var(--cyan-t); opacity: 1; }
+  57.5%       { color: var(--hw-dim); opacity: 0.45; text-shadow: none; }
+  88.5%       { color: var(--hw-dim); opacity: 0.45; text-shadow: none; }
+  90.8%       { opacity: 0.15; transform: scale(0.88); color: var(--hw-dim); text-shadow: none; }
+  93.2%       { opacity: 0.15; transform: scale(0.88); color: var(--ink); text-shadow: none; }
+  96.8%, 100% { opacity: 1; transform: scale(1); color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+}
+@keyframes hw-used-2 {
+  0%, 14.6%   { color: var(--ink); opacity: 1; transform: scale(1); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  16.2%       { color: #eaffff; opacity: 1; transform: scale(1.2); text-shadow: 0 0 0.75em rgba(47, 228, 255, 0.95); }
+  21.2%       { color: var(--cyan-t); transform: scale(1); text-shadow: 0 0 0.55em rgba(47, 228, 255, 0.6); }
+  53%         { color: var(--cyan-t); opacity: 1; }
+  57.5%       { color: var(--hw-dim); opacity: 0.45; text-shadow: none; }
+  88.5%       { color: var(--hw-dim); opacity: 0.45; text-shadow: none; }
+  90.8%       { opacity: 0.15; transform: scale(0.88); color: var(--hw-dim); text-shadow: none; }
+  93.2%       { opacity: 0.15; transform: scale(0.88); color: var(--ink); text-shadow: none; }
+  96.8%, 100% { opacity: 1; transform: scale(1); color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+}
+@keyframes hw-used-3 {
+  0%, 24.2%   { color: var(--ink); opacity: 1; transform: scale(1); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  25.8%       { color: #eaffff; opacity: 1; transform: scale(1.2); text-shadow: 0 0 0.75em rgba(47, 228, 255, 0.95); }
+  30%         { color: var(--cyan-t); transform: scale(1); text-shadow: 0 0 0.55em rgba(47, 228, 255, 0.6); }
+  53%         { color: var(--cyan-t); opacity: 1; }
+  57.5%       { color: var(--hw-dim); opacity: 0.45; text-shadow: none; }
+  88.5%       { color: var(--hw-dim); opacity: 0.45; text-shadow: none; }
+  90.8%       { opacity: 0.15; transform: scale(0.88); color: var(--hw-dim); text-shadow: none; }
+  93.2%       { opacity: 0.15; transform: scale(0.88); color: var(--ink); text-shadow: none; }
+  96.8%, 100% { opacity: 1; transform: scale(1); color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+}
+@keyframes hw-used-4 {
+  0%, 33.1%   { color: var(--ink); opacity: 1; transform: scale(1); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  34.6%       { color: #eaffff; opacity: 1; transform: scale(1.2); text-shadow: 0 0 0.75em rgba(47, 228, 255, 0.95); }
+  39.6%       { color: var(--cyan-t); transform: scale(1); text-shadow: 0 0 0.55em rgba(47, 228, 255, 0.6); }
+  53%         { color: var(--cyan-t); opacity: 1; }
+  57.5%       { color: var(--hw-dim); opacity: 0.45; text-shadow: none; }
+  88.5%       { color: var(--hw-dim); opacity: 0.45; text-shadow: none; }
+  90.8%       { opacity: 0.15; transform: scale(0.88); color: var(--hw-dim); text-shadow: none; }
+  93.2%       { opacity: 0.15; transform: scale(0.88); color: var(--ink); text-shadow: none; }
+  96.8%, 100% { opacity: 1; transform: scale(1); color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+}
+@keyframes hw-used-5 {
+  0%, 42.7%   { color: var(--ink); opacity: 1; transform: scale(1); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  44.2%       { color: #eaffff; opacity: 1; transform: scale(1.2); text-shadow: 0 0 0.75em rgba(47, 228, 255, 0.95); }
+  50.8%       { color: var(--cyan-t); transform: scale(1); text-shadow: 0 0 0.55em rgba(47, 228, 255, 0.6); }
+  53%         { color: var(--cyan-t); opacity: 1; }
+  57.5%       { color: var(--hw-dim); opacity: 0.45; text-shadow: none; }
+  88.5%       { color: var(--hw-dim); opacity: 0.45; text-shadow: none; }
+  90.8%       { opacity: 0.15; transform: scale(0.88); color: var(--hw-dim); text-shadow: none; }
+  93.2%       { opacity: 0.15; transform: scale(0.88); color: var(--ink); text-shadow: none; }
+  96.8%, 100% { opacity: 1; transform: scale(1); color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+}
+
+/* ---- the list, struck one line at a time ------------------------------- */
+@keyframes hw-word-1 {
+  0%, 8.8%    { color: var(--ink); opacity: 0.92; background-size: 0% 2px; text-shadow: none; }
+  10.5%       { color: #eaffff; opacity: 1; background-size: 55% 2px; text-shadow: 0 0 0.6em rgba(47, 228, 255, 0.9); }
+  11.9%       { color: var(--cyan-t); opacity: 1; background-size: 100% 2px; text-shadow: 0 0 0.4em rgba(47, 228, 255, 0.5); }
+  57.5%       { color: var(--cyan-t); opacity: 0.72; background-size: 100% 2px; text-shadow: none; }
+  88.5%       { color: var(--cyan-t); opacity: 0.72; background-size: 100% 2px; text-shadow: none; }
+  92%, 100%   { color: var(--ink); opacity: 0.92; background-size: 0% 2px; text-shadow: none; }
+}
+@keyframes hw-word-2 {
+  0%, 18.5%   { color: var(--ink); opacity: 0.92; background-size: 0% 2px; text-shadow: none; }
+  20%         { color: #eaffff; opacity: 1; background-size: 55% 2px; text-shadow: 0 0 0.6em rgba(47, 228, 255, 0.9); }
+  21.5%       { color: var(--cyan-t); opacity: 1; background-size: 100% 2px; text-shadow: 0 0 0.4em rgba(47, 228, 255, 0.5); }
+  57.5%       { color: var(--cyan-t); opacity: 0.72; background-size: 100% 2px; text-shadow: none; }
+  88.5%       { color: var(--cyan-t); opacity: 0.72; background-size: 100% 2px; text-shadow: none; }
+  92%, 100%   { color: var(--ink); opacity: 0.92; background-size: 0% 2px; text-shadow: none; }
+}
+@keyframes hw-word-3 {
+  0%, 27.3%   { color: var(--ink); opacity: 0.92; background-size: 0% 2px; text-shadow: none; }
+  29%         { color: #eaffff; opacity: 1; background-size: 55% 2px; text-shadow: 0 0 0.6em rgba(47, 228, 255, 0.9); }
+  30.4%       { color: var(--cyan-t); opacity: 1; background-size: 100% 2px; text-shadow: 0 0 0.4em rgba(47, 228, 255, 0.5); }
+  57.5%       { color: var(--cyan-t); opacity: 0.72; background-size: 100% 2px; text-shadow: none; }
+  88.5%       { color: var(--cyan-t); opacity: 0.72; background-size: 100% 2px; text-shadow: none; }
+  92%, 100%   { color: var(--ink); opacity: 0.92; background-size: 0% 2px; text-shadow: none; }
+}
+@keyframes hw-word-4 {
+  0%, 36.9%   { color: var(--ink); opacity: 0.92; background-size: 0% 2px; text-shadow: none; }
+  38.5%       { color: #eaffff; opacity: 1; background-size: 55% 2px; text-shadow: 0 0 0.6em rgba(47, 228, 255, 0.9); }
+  40%         { color: var(--cyan-t); opacity: 1; background-size: 100% 2px; text-shadow: 0 0 0.4em rgba(47, 228, 255, 0.5); }
+  57.5%       { color: var(--cyan-t); opacity: 0.72; background-size: 100% 2px; text-shadow: none; }
+  88.5%       { color: var(--cyan-t); opacity: 0.72; background-size: 100% 2px; text-shadow: none; }
+  92%, 100%   { color: var(--ink); opacity: 0.92; background-size: 0% 2px; text-shadow: none; }
+}
+@keyframes hw-word-5 {
+  0%, 48.1%   { color: var(--ink); opacity: 0.92; background-size: 0% 2px; text-shadow: none; }
+  49.7%       { color: #eaffff; opacity: 1; background-size: 55% 2px; text-shadow: 0 0 0.6em rgba(47, 228, 255, 0.9); }
+  51.2%       { color: var(--cyan-t); opacity: 1; background-size: 100% 2px; text-shadow: 0 0 0.4em rgba(47, 228, 255, 0.5); }
+  57.5%       { color: var(--cyan-t); opacity: 0.72; background-size: 100% 2px; text-shadow: none; }
+  88.5%       { color: var(--cyan-t); opacity: 0.72; background-size: 100% 2px; text-shadow: none; }
+  92%, 100%   { color: var(--ink); opacity: 0.92; background-size: 0% 2px; text-shadow: none; }
+}
+
+/* ---- the clear stamp and the flash it lands with ----------------------- */
+@keyframes hw-clear {
+  0%, 51.9%   { opacity: 0; transform: scale(0.4) rotate(-7deg); }
+  53.4%       { opacity: 1; transform: scale(1.14) rotate(-4deg); }
+  55%         { opacity: 1; transform: scale(1) rotate(-4deg); }
+  87.7%       { opacity: 1; transform: scale(1) rotate(-4deg); }
+  90%, 100%   { opacity: 0; transform: scale(1) rotate(-4deg); }
+}
+@keyframes hw-flash {
+  0%, 51.5%   { opacity: 0; }
+  53.4%       { opacity: 1; }
+  59%, 100%   { opacity: 0; }
+}
+
+/* ---- the spares: wake, lift, land, hold, redeal ------------------------ */
+/* The crossing is structural: reading order on a 6-wide board maps onto a
+   12-wide line, so paths must cross. So the letters cross SMALL and DIM —
+   they shrink to a travelling spark for the crowded middle of the flight and
+   only come back to full size and weight as they drop into the slot. Overlaps
+   read as motion instead of as two glyphs printed on each other. The two mid
+   keyframes are fractions of the same --hw-dx/--hw-dy, so the path stays a
+   straight line from the cell to the slot and nothing can drift. */
+@keyframes hw-fly {
+  0%, 55.4%   { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763);
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); opacity: 1; }
+  57.3%       { transform: translate(var(--hw-dx), calc(var(--hw-dy) - var(--hw-t) * 0.06)) scale(0.95);
+                color: #f4ffe0; text-shadow: 0 0 0.85em rgba(182, 255, 58, 0.95); }
+  59.6%       { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.83);
+                color: var(--lime-t); text-shadow: 0 0 0.7em rgba(182, 255, 58, 0.75); }
+  63.8%       { transform: translate(var(--hw-dx), calc(var(--hw-dy) - var(--hw-t) * 0.26)) scale(0.94);
+                opacity: 1;
+                animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+  65.6%       { transform: translate(calc(var(--hw-dx) * var(--hw-f1)),
+                                     calc(var(--hw-dy) * var(--hw-f1) - var(--hw-t) * 0.14)) scale(0.46);
+                opacity: 0.42; }
+  68.4%       { transform: translate(calc(var(--hw-dx) * var(--hw-f2)),
+                                     calc(var(--hw-dy) * var(--hw-f2))) scale(0.58);
+                opacity: 0.55; }
+  70.4%       { transform: translate(0, 0) scale(1.12); opacity: 1; }
+  72%         { transform: translate(0, 0) scale(1); opacity: 1;
+                color: var(--lime-t); text-shadow: 0 0 0.8em rgba(182, 255, 58, 0.85); }
+  87.7%       { transform: translate(0, 0) scale(1); opacity: 1;
+                color: var(--lime-t); text-shadow: 0 0 0.8em rgba(182, 255, 58, 0.85); }
+  90.3%       { transform: translate(0, 0) scale(1.14); opacity: 0; }
+  91%         { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 0;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  92%         { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 0.15;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  94.5%, 100% { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+}
+@keyframes hw-slot {
+  0%, 66%     { opacity: 0.26; transform: scaleX(1); box-shadow: none; }
+  70%         { opacity: 1; transform: scaleX(1.06); box-shadow: 0 0 10px rgba(182, 255, 58, 0.9); }
+  72.5%       { opacity: 0.8; transform: scaleX(1); box-shadow: 0 0 7px rgba(182, 255, 58, 0.55); }
+  87.7%       { opacity: 0.8; transform: scaleX(1); box-shadow: 0 0 7px rgba(182, 255, 58, 0.55); }
+  91.5%, 100% { opacity: 0.26; transform: scaleX(1); box-shadow: none; }
+}
+@keyframes hw-wait {
+  0%, 62%, 100% { opacity: 0; }
+  10%           { opacity: 0.62; }
+  26%           { opacity: 0; }
+}
+@keyframes hw-glow {
+  0%, 64%     { opacity: 0; }
+  71%         { opacity: 1; }
+  87.7%       { opacity: 1; }
+  91%, 100%   { opacity: 0; }
+}
+@keyframes hw-shine {
+  0%, 73%     { opacity: 0; transform: translateX(0); }
+  74%         { opacity: 0.85; }
+  81%         { opacity: 0.85; }
+  82%         { opacity: 0; transform: translateX(430%); }
+  100%        { opacity: 0; transform: translateX(430%); }
+}
+@keyframes hw-spark {
+  0%, 69%     { opacity: 0; transform: translate3d(0, 0, 0) scale(0.4); }
+  71%         { opacity: 1; }
+  84%         { opacity: 0; transform: translate3d(var(--dx, 6px), calc(var(--hw-t) * -1.9), 0) scale(1.1); }
+  100%        { opacity: 0; transform: translate3d(var(--dx, 6px), calc(var(--hw-t) * -1.9), 0) scale(1.1); }
+}
+
+/* ---- wiring ------------------------------------------------------------ */
+.stage--hushword .hw__sweep--1 { animation: hw-sweep-1 var(--hw-loop) var(--ease) infinite; }
+.stage--hushword .hw__sweep--2 { animation: hw-sweep-2 var(--hw-loop) var(--ease) infinite; }
+.stage--hushword .hw__sweep--3 { animation: hw-sweep-3 var(--hw-loop) var(--ease) infinite; }
+.stage--hushword .hw__sweep--4 { animation: hw-sweep-4 var(--hw-loop) var(--ease) infinite; }
+.stage--hushword .hw__sweep--5 { animation: hw-sweep-5 var(--hw-loop) var(--ease) infinite; }
+
+.stage--hushword .hw__cell--w1 { animation: hw-used-1 var(--hw-loop) linear infinite; }
+.stage--hushword .hw__cell--w2 { animation: hw-used-2 var(--hw-loop) linear infinite; }
+.stage--hushword .hw__cell--w3 { animation: hw-used-3 var(--hw-loop) linear infinite; }
+.stage--hushword .hw__cell--w4 { animation: hw-used-4 var(--hw-loop) linear infinite; }
+.stage--hushword .hw__cell--w5 { animation: hw-used-5 var(--hw-loop) linear infinite; }
+
+.stage--hushword .hw__word--1 { animation: hw-word-1 var(--hw-loop) linear infinite; }
+.stage--hushword .hw__word--2 { animation: hw-word-2 var(--hw-loop) linear infinite; }
+.stage--hushword .hw__word--3 { animation: hw-word-3 var(--hw-loop) linear infinite; }
+.stage--hushword .hw__word--4 { animation: hw-word-4 var(--hw-loop) linear infinite; }
+.stage--hushword .hw__word--5 { animation: hw-word-5 var(--hw-loop) linear infinite; }
+
+/* The bottom placard is the caption for the last beat, so it waits in the
+   half-light until the answer line has something on it. */
+.stage--hushword .stage__tag--end {
+  opacity: 0.6;
+  animation: hw-tag var(--hw-loop) linear infinite;
+}
+@keyframes hw-tag {
+  0%, 64%    { opacity: 0.6; }
+  71%        { opacity: 1; }
+  87.7%      { opacity: 1; }
+  92%, 100%  { opacity: 0.6; }
+}
+
+/* ---- narrow: the rig tightens rather than shrinking further ------------ */
+@media (max-width: 640px) {
+  .stage--hushword {
+    --hw-lw: calc(var(--hw-t) * 4.6);
+    --hw-dg: calc(var(--hw-t) * 0.9);
+    --hw-wg: calc(var(--hw-t) * 0.38);
+    --stage-h: calc(var(--hw-sh) + 3.8rem);
+  }
+  .stage--hushword .hw { top: 1.5rem; }
+  .stage--hushword .hw__words {
+    gap: calc(var(--hw-t) * 0.18);
+    margin-left: calc(var(--hw-t) * 0.5);
+  }
+}
+
+/* ---- the still twin ---------------------------------------------------- */
+/* The kit swaps these in under prefers-reduced-motion; this only tints the
+   last beat lime, because that one is the whole game. */
+.stage-static--hushword .stage-static__step svg { filter: drop-shadow(0 0 8px rgba(47, 228, 255, 0.35)); }
+.stage-static--hushword .stage-static__step--clear { color: var(--magenta-t); }
+.stage-static--hushword .stage-static__step--clear svg { filter: drop-shadow(0 0 8px rgba(255, 46, 151, 0.45)); }
+.stage-static--hushword .stage-static__step--secret { color: var(--lime-t); }
+.stage-static--hushword .stage-static__step--secret svg { filter: drop-shadow(0 0 9px rgba(182, 255, 58, 0.5)); }

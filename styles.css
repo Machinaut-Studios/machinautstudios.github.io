@@ -1068,3 +1068,284 @@ main:focus, main:focus-visible { outline: none; box-shadow: none; }
 }
 .footer__links a { color: var(--ink); border-bottom: 1px solid transparent; }
 .footer__links a:hover { color: var(--cyan-t); border-bottom-color: var(--cyan); }
+
+/* =========================================================================
+   MOTION KIT — the moving parts every page borrows
+   The conveyor up in THE SLOP FACTORY set the house style: a dark machine
+   housing, a faint grid behind it, and neon parts doing one honest loop.
+   Everything below generalises that, so each product page can bolt its own
+   contraption into the same frame and still look like it came off our line.
+
+     .stage         housing for a page's signature animation
+     .stage-static  its reduced-motion twin — same frame, nothing moves
+     [data-reveal]  panels rise as they scroll in (JS opt-in; see script.js)
+     .motes         embers drifting up behind a hero
+   ========================================================================= */
+
+/* ---- The housing ------------------------------------------------------- */
+.stage {
+  position: relative;
+  height: var(--stage-h, clamp(210px, 40vw, 330px));
+  margin: 0 0 1.6rem;
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  overflow: hidden;
+  background:
+    radial-gradient(90% 70% at 50% 0%, #1a1140 0%, #0a0720 70%),
+    var(--bg);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.55), inset 0 0 60px rgba(168, 85, 255, 0.08);
+  contain: paint;            /* a loop in here never repaints the page around it */
+}
+
+/* Faint back-wall grid — same one the factory floor uses. */
+.stage__grid {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(47, 228, 255, 0.10) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(168, 85, 255, 0.10) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: linear-gradient(to bottom, #000, transparent 72%);
+  -webkit-mask-image: linear-gradient(to bottom, #000, transparent 72%);
+}
+
+/* Corner placard: what the machine claims to be doing. */
+.stage__tag {
+  position: absolute; z-index: 6;
+  top: 0.6rem; left: 0.8rem;
+  font-family: var(--font-arcade);
+  font-size: 0.95rem;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  color: var(--cyan-t);
+  text-shadow: var(--glow-c);
+  pointer-events: none;
+}
+.stage__tag--end    { left: auto; right: 0.8rem; color: var(--lime-t); text-shadow: var(--glow-l); }
+.stage__tag--bottom { top: auto; bottom: 0.6rem; }
+
+/* Offscreen stages hold still — no sense burning frames nobody is watching.
+   Only bites once JS has confirmed motion is welcome. */
+html.js-motion .stage:not(.is-live),
+html.js-motion .stage:not(.is-live)::before,
+html.js-motion .stage:not(.is-live)::after,
+html.js-motion .stage:not(.is-live) *,
+html.js-motion .stage:not(.is-live) *::before,
+html.js-motion .stage:not(.is-live) *::after { animation-play-state: paused; }
+
+/* The still twin only appears under reduced motion (see the block at the end). */
+.stage-static { display: none; }
+
+/* ---- Reveal on scroll -------------------------------------------------- */
+/* JS tags only what is still below the fold, so nothing on screen can flash
+   blank while waiting for this stylesheet's opinion. */
+html.js-motion [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
+  transition-delay: calc(var(--i, 0) * 80ms);
+}
+html.js-motion [data-reveal].is-in { opacity: 1; transform: none; }
+
+/* Spec cards get their stamp thumped on once the card lands. */
+html.js-motion .cell[data-reveal].is-in .cell__stamp {
+  animation: stamp-in 0.45s var(--ease) both;
+  animation-delay: calc(var(--i, 0) * 80ms + 180ms);
+}
+@keyframes stamp-in {
+  0%   { opacity: 0; transform: scale(1.7) rotate(-7deg); }
+  65%  { opacity: 1; transform: scale(0.95) rotate(0deg); }
+  100% { opacity: 1; transform: none; }
+}
+
+/* ---- Drifting embers --------------------------------------------------- */
+.motes { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.mote {
+  position: absolute;
+  left: var(--x, 50%);
+  bottom: -14px;
+  width: var(--s, 4px);
+  height: var(--s, 4px);
+  border-radius: 50%;
+  color: var(--c, var(--cyan));
+  background: currentColor;
+  box-shadow: 0 0 10px currentColor;
+  opacity: 0;
+  animation: mote-rise var(--dur, 17s) linear infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes mote-rise {
+  0%   { transform: translate3d(0, 0, 0) scale(0.55); opacity: 0; }
+  10%  { opacity: 0.9; }
+  70%  { opacity: 0.45; }
+  100% { transform: translate3d(var(--drift, 24px), var(--rise, -340px), 0) scale(1.15); opacity: 0; }
+}
+
+/* ---- Display type: an occasional bad frame ----------------------------- */
+/* Every nine seconds the panel drops a frame and the channels separate. Two
+   tenths of a second, then it pretends nothing happened. */
+html.js-motion .glitch { animation: glitch-slip 9s steps(1) infinite; }
+@keyframes glitch-slip {
+  0%, 96.4% { transform: none; filter: none; }
+  96.5%     { transform: translateX(-3px); filter: drop-shadow(3px 0 var(--magenta)) drop-shadow(-3px 0 var(--cyan)); }
+  97.4%     { transform: translateX(3px);  filter: drop-shadow(-3px 0 var(--cyan)) drop-shadow(2px 0 var(--lime)); }
+  98.2%     { transform: translateX(-1px); filter: drop-shadow(1px 0 var(--magenta)); }
+  99%, 100% { transform: none; filter: none; }
+}
+
+/* ---- Product banners: a light passes over on hover --------------------- */
+.product-banner::after {
+  content: "";
+  position: absolute; inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 42%, rgba(47, 228, 255, 0.16) 50%, transparent 58%);
+  transform: translateX(-130%);
+}
+.product-banner:hover::after,
+.product-banner:focus-visible::after { animation: banner-sweep 0.85s var(--ease) 1; }
+@keyframes banner-sweep { to { transform: translateX(130%); } }
+.product-banner__icon { transition: transform 0.2s var(--ease), filter 0.2s var(--ease); }
+.product-banner:hover .product-banner__icon,
+.product-banner:focus-visible .product-banner__icon {
+  transform: scale(1.07) rotate(-3deg);
+  filter: drop-shadow(0 0 18px rgba(47, 228, 255, 0.65));
+}
+
+/* ---- Server-closet telemetry (THE STUDIO) ------------------------------ */
+.telemetry {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.9rem;
+  margin: 0 0 1.75rem;
+}
+.telemetry__unit {
+  position: relative;
+  overflow: hidden;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+  font-family: var(--font-arcade);
+}
+.telemetry__label {
+  display: block;
+  font-size: 0.95rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.telemetry__value {
+  display: block;
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  line-height: 1.15;
+  color: var(--lime);
+  text-shadow: var(--glow-l);
+  font-variant-numeric: tabular-nums;
+}
+.telemetry__unit--warm .telemetry__value { color: var(--magenta-t); text-shadow: var(--glow-m); }
+.telemetry__unit--cool .telemetry__value { color: var(--cyan-t);    text-shadow: var(--glow-c); }
+.meter {
+  display: block;
+  height: 8px;
+  margin-top: 0.55rem;
+  border: 1px solid var(--line-2);
+  border-radius: 99px;
+  overflow: hidden;
+  background: var(--field);
+}
+.meter__fill {
+  display: block;
+  height: 100%;
+  width: 68%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--cyan), var(--lime));
+  box-shadow: 0 0 12px rgba(182, 255, 58, 0.5);
+  animation: meter-breathe 4.5s var(--ease) infinite;
+}
+.telemetry__unit--warm .meter__fill {
+  background: linear-gradient(90deg, var(--lime), var(--magenta));
+  box-shadow: 0 0 12px rgba(255, 46, 151, 0.5);
+  animation-duration: 3.1s;
+}
+.telemetry__unit--cool .meter__fill {
+  background: linear-gradient(90deg, var(--violet), var(--cyan));
+  box-shadow: 0 0 12px rgba(47, 228, 255, 0.5);
+  animation-duration: 6.2s;
+}
+@keyframes meter-breathe { 0%, 100% { width: 58%; } 50% { width: 92%; } }
+
+/* ---- The seal that certifies us, by us --------------------------------- */
+.seal {
+  float: right;
+  width: clamp(74px, 14vw, 104px);
+  height: clamp(74px, 14vw, 104px);
+  margin: 0 0 0.75rem 1rem;
+  filter: drop-shadow(0 0 14px rgba(182, 255, 58, 0.45));
+}
+.seal__ring, .seal__ring--back, .seal__core {
+  /* Spin about the artwork's own centre, not the page origin. */
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+}
+.seal__ring      { animation: seal-spin 26s linear infinite; }
+.seal__ring--back { animation: seal-spin 38s linear infinite reverse; }
+.seal__core      { animation: seal-throb 3.4s var(--ease) infinite; }
+@media (max-width: 560px) { .seal { float: none; margin: 0 auto 1rem; display: block; } }
+@keyframes seal-spin { to { transform: rotate(360deg); } }
+@keyframes seal-throb { 0%, 100% { opacity: 0.75; transform: scale(1); } 50% { opacity: 1; transform: scale(1.06); } }
+
+/* ---- Production-line progress under the nav ----------------------------- */
+/* How far down the page you are, as a strip of the studio's three colours.
+   Scroll-driven, so it costs no JavaScript and no scroll listener; browsers
+   without scroll timelines simply never draw it. */
+@supports (animation-timeline: scroll()) {
+  .nav { position: sticky; }
+  .nav::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -1px;
+    height: 2px;
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    background: linear-gradient(90deg, var(--magenta), var(--violet), var(--cyan), var(--lime));
+    box-shadow: 0 0 10px rgba(47, 228, 255, 0.55);
+    animation: nav-progress linear both;
+    animation-timeline: scroll(root block);
+  }
+  @keyframes nav-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+}
+
+/* ---- Motion safety for everything above -------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .stage { display: none; }
+  .stage-static {
+    display: block;
+    padding: 1.35rem 1rem;
+    margin: 0 0 1.6rem;
+    border: 1px solid var(--line-2);
+    border-radius: 12px;
+    background: radial-gradient(90% 70% at 50% 0%, #1a1140, #0a0720 70%);
+  }
+  .stage-static__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem 1.1rem;
+    text-align: center;
+  }
+  .stage-static__step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-arcade);
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    color: var(--cyan-t);
+  }
+  .stage-static__step svg { width: 48px; height: 48px; }
+  .stage-static__arrow { font-family: var(--font-arcade); font-size: 1.5rem; color: var(--lime); }
+  .motes { display: none; }
+  .meter__fill { width: 74%; }
+}

@@ -26,6 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Orbitron:wght@600;800;900&family=VT323&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/space-couch-command/guide/console.css" />
 </head>
 <body id="top">
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -74,6 +75,55 @@
         <h2 class="section__title chrome" id="controls-h">WHAT YOU CONTROL</h2>
       </div>
       <p class="section__lead">Everything below is on your screen and nobody else's. If you do not say it out loud, it did not happen.</p>
+      <div class="stage stage--console stage--console-science" aria-hidden="true">
+        <div class="stage__grid"></div>
+        <div class="runstrip"><span class="runstrip__r">SECTOR 07 &middot; SNS 1600u</span></div>
+        <div class="deck">
+          <div class="pan pan--sweep">
+            <span class="pan__cap">SENSOR SWEEP</span>
+            <svg class="radar" viewBox="0 0 100 100" aria-hidden="true">
+              <circle class="rd__ring" cx="50" cy="50" r="47" />
+              <circle class="rd__ring" cx="50" cy="50" r="31" />
+              <circle class="rd__ring" cx="50" cy="50" r="15" />
+              <path class="rd__cross" d="M50 3V97M3 50H97" />
+              <g class="rd__sweep"><path d="M50 50 L50 3 A47 47 0 0 0 18 15.6 Z" /><line x1="50" y1="50" x2="50" y2="3" /></g>
+              <circle class="rd__blip" cx="72" cy="30" r="2.4" style="--t:0.4s" />
+              <circle class="rd__blip" cx="62" cy="74" r="2" style="--t:1.28s" />
+              <circle class="rd__blip rd__blip--hot" cx="34" cy="68" r="2.8" style="--t:1.85s" />
+              <circle class="rd__mark" cx="34" cy="68" r="7.5" />
+            </svg>
+          </div>
+          <div class="pan pan--card">
+            <span class="pan__cap">ACTIVE SCAN</span>
+            <div class="scard">
+              <div class="scard__hd">
+                <i class="scard__id">KESTREL &middot; RAIDER</i>
+                <i class="scard__pct"><span><b>00%</b><b>20%</b><b>45%</b><b>68%</b><b>88%</b><b>100%</b></span></i>
+              </div>
+              <div class="scard__pic">
+                <svg viewBox="0 0 100 46" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><g><path d="M14 23 L34 11 L74 11 L88 23 L74 35 L34 35 Z M46 11 V35 M62 11 V35" /></g></svg>
+                <i class="scard__noise"></i>
+              </div>
+              <div class="sigrow">
+                <i class="sig" style="--h:.42"></i><i class="sig" style="--h:.74"></i><i class="sig" style="--h:.3"></i><i class="sig" style="--h:.9"></i><i class="sig" style="--h:.56"></i><i class="sig" style="--h:.98"></i><i class="sig" style="--h:.38"></i>
+              </div>
+              <div class="scard__pt">&#9873; 22 TANGO &middot; SHIELD GEN</div>
+            </div>
+          </div>
+        </div>
+        <span class="stage__tag">RESOLVING</span>
+      </div>
+      <div class="stage-static" aria-hidden="true">
+        <div class="stage-static__row">
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8.5" /><path d="M12 12L18 6" /><circle cx="16" cy="9" r="1.4" /></svg><span>SWEEP</span></span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 3v11l3-2 2 5 3-1.5-2-4.5h4z" /></svg><span>TAP A RETURN</span></span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 19V13M8 19V9M13 19V5M18 19v-9" /></svg><span>IT RESOLVES</span></span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 21V4h11l-2 3 2 3H6" /></svg><span>CALL THE POINT</span></span>
+        </div>
+      </div>
       <ul class="grid grid--3" role="list">
         <li class="cell">
           <span class="cell__stamp">CONTROL</span>

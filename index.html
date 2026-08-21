@@ -91,9 +91,24 @@
     <section class="hero" aria-labelledby="hero-title">
       <div class="grid-horizon" aria-hidden="true"></div>
       <div class="scanlines" aria-hidden="true"></div>
+      <!-- Slop embers drifting off the factory floor below -->
+      <div class="motes" aria-hidden="true">
+        <span class="mote" style="--x:4%;--s:5px;--dur:17s;--d:-1s;--c:var(--lime);--drift:30px;--rise:-380px"></span>
+        <span class="mote" style="--x:11%;--s:3px;--dur:21s;--d:-6s;--c:var(--cyan);--drift:-24px;--rise:-420px"></span>
+        <span class="mote" style="--x:19%;--s:6px;--dur:15s;--d:-11s;--c:var(--magenta);--drift:18px;--rise:-340px"></span>
+        <span class="mote" style="--x:27%;--s:3px;--dur:24s;--d:-3s;--c:var(--cyan);--drift:34px;--rise:-460px"></span>
+        <span class="mote" style="--x:35%;--s:4px;--dur:19s;--d:-14s;--c:var(--lime);--drift:-30px;--rise:-400px"></span>
+        <span class="mote" style="--x:44%;--s:5px;--dur:26s;--d:-8s;--c:var(--violet);--drift:22px;--rise:-500px"></span>
+        <span class="mote" style="--x:52%;--s:3px;--dur:16s;--d:-19s;--c:var(--cyan);--drift:-18px;--rise:-330px"></span>
+        <span class="mote" style="--x:61%;--s:6px;--dur:22s;--d:-5s;--c:var(--magenta);--drift:26px;--rise:-430px"></span>
+        <span class="mote" style="--x:69%;--s:4px;--dur:18s;--d:-13s;--c:var(--lime);--drift:-26px;--rise:-360px"></span>
+        <span class="mote" style="--x:77%;--s:3px;--dur:25s;--d:-9s;--c:var(--cyan);--drift:30px;--rise:-470px"></span>
+        <span class="mote" style="--x:85%;--s:5px;--dur:20s;--d:-16s;--c:var(--violet);--drift:-20px;--rise:-390px"></span>
+        <span class="mote" style="--x:93%;--s:4px;--dur:23s;--d:-2s;--c:var(--magenta);--drift:24px;--rise:-440px"></span>
+      </div>
       <div class="hero__inner">
         <p class="stamp stamp--hero">&#9654; INSERT COIN &nbsp;//&nbsp; NOW GENERATING: AI SLOP v&#8734;</p>
-        <h1 class="hero__title" id="hero-title">
+        <h1 class="hero__title glitch" id="hero-title">
           <span class="n1">BIGGER.</span>
           <span class="n2">BETTER.</span>
           <span class="n3">SLOPPIER.<span class="cursor" aria-hidden="true"></span></span>
@@ -270,6 +285,25 @@
         "the part where the slop comes out." It is fully automated, emotionally invested, and
         staffed at the minimum arm-count required by physics.
       </p>
+
+      <!-- Live-ish readouts from the closet. The numbers wander; the GPU never cools. -->
+      <div class="telemetry">
+        <div class="telemetry__unit telemetry__unit--warm">
+          <span class="telemetry__label">GPU core temp</span>
+          <span class="telemetry__value" aria-hidden="true" data-tele data-min="81" data-max="96" data-dec="1" data-suffix="&deg;C">88.4&deg;C</span>
+          <span class="meter" aria-hidden="true"><span class="meter__fill"></span></span>
+        </div>
+        <div class="telemetry__unit">
+          <span class="telemetry__label">Slop per second</span>
+          <span class="telemetry__value" aria-hidden="true" data-tele data-min="840" data-max="1490">1,104</span>
+          <span class="meter" aria-hidden="true"><span class="meter__fill"></span></span>
+        </div>
+        <div class="telemetry__unit telemetry__unit--cool">
+          <span class="telemetry__label">Humans online</span>
+          <span class="telemetry__value" aria-hidden="true" data-tele data-min="1" data-max="4" data-suffix=" / 4">2 / 4</span>
+          <span class="meter" aria-hidden="true"><span class="meter__fill"></span></span>
+        </div>
+      </div>
       <ul class="grid grid--3" role="list">
         <li class="cell">
           <span class="cell__stamp">CREW</span>
@@ -291,6 +325,23 @@
 
     <!-- ===================== CERTIFIED SLOP ===================== -->
     <section class="section section--alt" id="certified" aria-labelledby="certified-h">
+      <!-- The seal our own certification model stamps on our own work -->
+      <svg class="seal" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+        <defs>
+          <path id="sealArc" d="M60 60 m-45 0 a45 45 0 1 1 90 0 a45 45 0 1 1 -90 0" />
+        </defs>
+        <g class="seal__ring--back">
+          <circle cx="60" cy="60" r="56" fill="none" stroke="#ff2e97" stroke-width="1.5" stroke-dasharray="5 9" opacity="0.8" />
+        </g>
+        <circle class="seal__core" cx="60" cy="60" r="31" fill="#16244a" stroke="#b6ff3a" stroke-width="2" />
+        <g class="seal__ring">
+          <text font-family="'VT323',monospace" font-size="13" fill="#c6ff5e" letter-spacing="2.2">
+            <textPath href="#sealArc" startOffset="0">CERTIFIED SLOP &#183; APPROVED BY US &#183; RE-AUDITED HOURLY &#183; </textPath>
+          </text>
+        </g>
+        <text x="60" y="58" text-anchor="middle" font-family="'VT323',monospace" font-size="17" fill="#57ecff" letter-spacing="1">SLOP</text>
+        <text x="60" y="74" text-anchor="middle" font-family="'VT323',monospace" font-size="12" fill="#ff5cae" letter-spacing="1">GRADE A+</text>
+      </svg>
       <div class="section__head">
         <p class="stamp">&#9654; QUALITY, ALLEGEDLY</p>
         <h2 class="section__title chrome" id="certified-h">CERTIFIED SLOP</h2>

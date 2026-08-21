@@ -26,6 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Orbitron:wght@600;800;900&family=VT323&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/space-couch-command/guide/console.css" />
 </head>
 <body id="top">
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -73,6 +74,45 @@
         <h2 class="section__title chrome" id="controls-h">WHAT YOU CONTROL</h2>
       </div>
       <p class="section__lead">Everything below is on your screen and nobody else's. If you do not say it out loud, it did not happen.</p>
+      <div class="stage stage--console stage--console-cannoneer" aria-hidden="true">
+        <div class="stage__grid"></div>
+        <div class="runstrip"><span class="runstrip__r">SECTOR 07 &middot; HITS &times;12</span></div>
+        <div class="deck">
+          <div class="pan pan--lane">
+            <span class="pan__cap">PHASER A &middot; 720u</span>
+            <div class="lane">
+              <i class="lane__line"></i>
+              <i class="lane__ship"></i>
+              <i class="lane__tgt"></i>
+              <i class="lane__run"><i class="lane__bolt"></i></i>
+              <i class="lane__hit">&#10022; HIT!</i>
+            </div>
+          </div>
+          <div class="row">
+            <div class="pan pan--fire"><div class="fire">FIRE</div></div>
+            <div class="pan pan--stat">
+              <span class="pan__cap">BANK</span>
+              <div class="stat">
+                <div class="stat__row"><i>CHARGE</i><span class="bar"><i class="bar__f chg"></i></span></div>
+                <div class="stat__row"><i>HEAT</i><span class="bar"><i class="bar__f heat"></i></span></div>
+                <div class="sub swap"><span>CHARGING&hellip;</span><span>&rarr; 22 TANGO</span><span>OVERHEATED &mdash; VENTING</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <span class="stage__tag">ONE BUTTON</span>
+      </div>
+      <div class="stage-static" aria-hidden="true">
+        <div class="stage-static__row">
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L5 13h6l-1 9 8-11h-6z" /></svg><span>IT CHARGES</span></span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8.5" /><circle cx="12" cy="12" r="3" /></svg><span>IT GOES GREEN</span></span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12h14" /><path d="M13 8l5 4-5 4" /></svg><span>PRESS FIRE</span></span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 21c-3-2-4-5-4-8 0-4 4-6 4-10 3 2 4 4 4 6 1-1 1-2 1-3 3 2 5 5 5 7 0 3-1 6-4 8" /></svg><span>WAIT OUT THE HEAT</span></span>
+        </div>
+      </div>
       <ul class="grid grid--3" role="list">
         <li class="cell">
           <span class="cell__stamp">CONTROL</span>

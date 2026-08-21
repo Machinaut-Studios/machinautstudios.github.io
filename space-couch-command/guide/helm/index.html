@@ -26,6 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Orbitron:wght@600;800;900&family=VT323&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/space-couch-command/guide/console.css" />
 </head>
 <body id="top">
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -74,6 +75,57 @@
         <h2 class="section__title chrome" id="controls-h">WHAT YOU CONTROL</h2>
       </div>
       <p class="section__lead">Everything below is on your screen and nobody else's. If you do not say it out loud, it did not happen.</p>
+      <div class="stage stage--console stage--console-helm" aria-hidden="true">
+        <div class="stage__grid"></div>
+        <div class="runstrip"><span class="runstrip__r">SECTOR 07 &middot; JUMP 41%</span></div>
+        <div class="deck">
+          <div class="col">
+            <div class="pan pan--tape">
+              <span class="pan__cap">COMPASS TAPE</span>
+              <div class="tape">
+                <div class="tape__strip">
+                  <i>300</i><i>310</i><i>320</i><i>330</i><i>340</i><i>350</i><i>000</i><i>010</i><i>020</i><i>030</i><i>040</i><i>050</i>
+                  <span class="tape__ord"></span>
+                </div>
+                <div class="tape__bow"></div>
+              </div>
+              <div class="tape__st swap"><span>ON COURSE</span><span>&gt;&gt; TURNING 17&deg; &gt;&gt;</span></div>
+            </div>
+            <div class="pan pan--thr">
+              <span class="pan__cap">THROTTLE</span>
+              <div class="thr">
+                <div class="thr__track"><i class="thr__f"></i><i class="thr__det" style="left:33%"></i><i class="thr__det" style="left:66%"></i></div>
+                <div class="thr__lbl swap"><span>AHEAD 2/3</span><span>AHEAD FULL</span><span>AHEAD 1/3</span></div>
+                <div class="thr__eng"><i>ENG</i><span class="bar"><i class="bar__f"></i></span><i class="thr__warn">STARVED</i></div>
+              </div>
+            </div>
+          </div>
+          <div class="pan pan--vec">
+            <span class="pan__cap">BOW</span>
+            <svg class="vec" viewBox="0 0 100 100" aria-hidden="true">
+              <circle class="vec__ring" cx="50" cy="52" r="40" />
+              <path class="vec__tick" d="M50 8V16M50 88V96M6 52H14M86 52H94" />
+              <circle class="vec__drift" cx="50" cy="18" r="4" />
+              <g class="vec__ship">
+                <path class="vec__flame" d="M43 62 L50 84 L57 62 Z" />
+                <path class="vec__hull" d="M50 24 L62 62 L50 55 L38 62 Z" />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <span class="stage__tag">COURSE ORDERED</span>
+      </div>
+      <div class="stage-static" aria-hidden="true">
+        <div class="stage-static__row">
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8.5" /><path d="M12 12l4.5-4.5" /></svg><span>ORDER A COURSE</span></span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12h18" /><path d="M7 8v8M12 6v12M17 8v8" /></svg><span>THE BOW SWINGS</span></span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="9" width="18" height="6" rx="2" /><path d="M9 9v6M15 9v6" /></svg><span>SET THE THROTTLE</span></span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l4 8-4 3-4-3z" /><path d="M9 17l3 4 3-4" /></svg><span>ENGAGE JUMP</span></span>
+        </div>
+      </div>
       <ul class="grid grid--3" role="list">
         <li class="cell">
           <span class="cell__stamp">CONTROL</span>

@@ -26,6 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Orbitron:wght@600;800;900&family=VT323&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/space-couch-command/guide/console.css" />
 </head>
 <body id="top">
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -74,6 +75,44 @@
         <h2 class="section__title chrome" id="controls-h">WHAT YOU CONTROL</h2>
       </div>
       <p class="section__lead">Everything below is on your screen and nobody else's. If you do not say it out loud, it did not happen.</p>
+      <div class="stage stage--console stage--console-engineering" aria-hidden="true">
+        <div class="stage__grid"></div>
+        <div class="runstrip"><span class="runstrip__r">SECTOR 07 &middot; SALVAGE 320</span></div>
+        <div class="deck">
+          <div class="pan pan--pwr">
+            <span class="pan__cap">POWER PRIORITY</span>
+            <div class="prs">
+              <span class="pr"><i class="pr__k">ENG</i><span class="bar"><i class="bar__f" style="--a:.70;--b:.34"></i></span><i class="pr__brk"></i></span>
+              <span class="pr"><i class="pr__k">SEN</i><span class="bar"><i class="bar__f" style="--a:.52;--b:.24"></i></span><i class="pr__brk"></i></span>
+              <span class="pr pr--cut"><i class="pr__k">JMP</i><span class="bar"><i class="bar__f" style="--a:.46;--b:0"></i></span><i class="pr__brk"></i></span>
+              <span class="pr"><i class="pr__k">SHD</i><span class="bar"><i class="bar__f" style="--a:.55;--b:.96"></i></span><i class="pr__brk"></i></span>
+              <span class="pr pr--hot"><i class="pr__k">WPN</i><span class="bar"><i class="bar__f" style="--a:.40;--b:.92;--c:.18"></i></span><i class="pr__brk"></i></span>
+            </div>
+          </div>
+          <div class="pan pan--core">
+            <span class="pan__cap">REACTOR CORE</span>
+            <div class="core">
+              <span class="core__k"><b>DEMAND</b><b>CAP 120</b></span>
+              <span class="gauge"><i class="dem"></i><i class="dem--over"></i><b class="gauge__cap"></b></span>
+              <span class="core__k"><b>CORE TEMP</b><b>RED 85</b></span>
+              <span class="gauge"><i class="tmp"></i><i class="tmp--hot"></i><b class="gauge__cap" style="left:85%"></b></span>
+              <span class="vent">&#9650; VENT</span>
+            </div>
+          </div>
+        </div>
+        <span class="stage__tag">BUDGET FIGHT</span>
+      </div>
+      <div class="stage-static" aria-hidden="true">
+        <div class="stage-static__row">
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 18V6M10 18v-8M16 18v-4M4 18h16" /></svg><span>DEMAND CLIMBS</span></span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 9h16M4 15h16" /><circle cx="9" cy="9" r="2.2" /><circle cx="15" cy="15" r="2.2" /></svg><span>SHIFT THE BUDGET</span></span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v10" /><circle cx="12" cy="17" r="4" /></svg><span>THE CORE COOKS</span></span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 16h14" /><path d="M8 12l4-6 4 6" /><path d="M9 20h6" /></svg><span>VENT</span></span>
+        </div>
+      </div>
       <ul class="grid grid--3" role="list">
         <li class="cell">
           <span class="cell__stamp">CONTROL</span>

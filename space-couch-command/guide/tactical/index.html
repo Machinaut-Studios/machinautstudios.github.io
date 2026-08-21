@@ -26,6 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Orbitron:wght@600;800;900&family=VT323&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/space-couch-command/guide/console.css" />
 </head>
 <body id="top">
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -74,6 +75,62 @@
         <h2 class="section__title chrome" id="controls-h">WHAT YOU CONTROL</h2>
       </div>
       <p class="section__lead">Everything below is on your screen and nobody else's. If you do not say it out loud, it did not happen.</p>
+      <div class="stage stage--console stage--console-tactical" aria-hidden="true">
+        <div class="stage__grid"></div>
+        <div class="runstrip"><span class="runstrip__r">SECTOR 07 &middot; ALERT RED</span></div>
+        <div class="deck">
+          <div class="pan pan--scope">
+            <span class="pan__cap">TARGETING SCOPE &middot; 1600u</span>
+            <svg class="scope" viewBox="0 0 100 100" aria-hidden="true">
+              <circle class="sc__ring" cx="50" cy="50" r="46" />
+              <circle class="sc__ring sc__ring--dash" cx="50" cy="50" r="34" />
+              <path class="arc arc--fore" pathLength="100" d="M36.5 33.9 A21 21 0 0 1 63.5 33.9" />
+              <path class="arc arc--stbd" pathLength="100" d="M66.1 36.5 A21 21 0 0 1 66.1 63.5" />
+              <path class="arc arc--aft" pathLength="100" d="M63.5 66.1 A21 21 0 0 1 36.5 66.1" />
+              <path class="arc arc--port" pathLength="100" d="M33.9 63.5 A21 21 0 0 1 33.9 36.5" />
+              <path class="sc__hull" d="M50 43 L55 56 L50 52 L45 56 Z" />
+              <line class="beam" x1="50" y1="50" x2="78" y2="26" />
+              <g class="bogey">
+                <path d="M78 21 L83 30 L78 27.5 L73 30 Z" />
+                <g class="lock"><path d="M71 19 h-3 v3 M85 19 h3 v3 M71 33 h-3 v-3 M85 33 h3 v-3" /></g>
+                <circle class="boom" cx="78" cy="26" r="6" />
+              </g>
+              <circle class="bolt" cx="76" cy="29" r="2.2" />
+            </svg>
+          </div>
+          <div class="pan pan--tgt">
+            <span class="pan__cap">TARGET DATA</span>
+            <div class="tgt">
+              <span class="tgt__id">22 TANGO</span>
+              <span class="tgt__lk"><i class="lamp"></i>LOCKED</span>
+              <span class="tgt__row"><i>SHD</i><span class="bar"><i class="bar__f tgt__shd"></i></span></span>
+              <span class="tgt__row"><i>HULL</i><span class="bar"><i class="bar__f tgt__hul"></i></span></span>
+              <span class="tgt__row"><i>BEAM</i><span class="bar"><i class="bar__f tgt__bnk"></i></span></span>
+            </div>
+          </div>
+          <div class="pan pan--defl">
+            <span class="pan__cap">OUR DEFLECTORS</span>
+            <div class="defl">
+              <span class="defl__row defl__row--fore"><i>FORE</i><span class="bar"><i class="bar__f df df--fore"></i></span></span>
+              <span class="defl__row defl__row--stbd"><i>STBD</i><span class="bar"><i class="bar__f df df--stbd"></i></span></span>
+              <span class="defl__row"><i>AFT</i><span class="bar"><i class="bar__f df" style="--h:.88"></i></span></span>
+              <span class="defl__row"><i>PORT</i><span class="bar"><i class="bar__f df" style="--h:.8"></i></span></span>
+            </div>
+          </div>
+        </div>
+        <span class="stage__tag">ARCS HOLDING</span>
+      </div>
+      <div class="stage-static" aria-hidden="true">
+        <div class="stage-static__row">
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="7" /><path d="M12 2v3M12 19v3M2 12h3M19 12h3" /></svg><span>TAP TO LOCK</span></span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 20L20 4" /><path d="M15 4h5v5" /></svg><span>FIRE THE BANK</span></span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6z" /></svg><span>AN ARC SOAKS IT</span></span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 17V9M9 17V5M14 17v-6M19 17V7" /></svg><span>CALL THE NUMBERS</span></span>
+        </div>
+      </div>
       <ul class="grid grid--3" role="list">
         <li class="cell">
           <span class="cell__stamp">CONTROL</span>

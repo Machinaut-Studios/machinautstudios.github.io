@@ -34,6 +34,7 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Orbitron:wght@600;800;900&family=VT323&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/crittergram/stage.css" />
 </head>
 <body id="top">
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -64,6 +65,17 @@
     <!-- ===================== HERO ===================== -->
     <section class="hero hero--compact" aria-labelledby="crittergram-title">
       <div class="hero__scanlines" aria-hidden="true"></div>
+      <!-- Embers off this one's own furnace -->
+      <div class="motes" aria-hidden="true">
+        <span class="mote" style="--x:7%;--s:4px;--dur:18s;--d:-2s;--c:var(--magenta);--drift:22px;--rise:-240px"></span>
+        <span class="mote" style="--x:18%;--s:3px;--dur:23s;--d:-9s;--c:var(--cyan);--drift:-18px;--rise:-280px"></span>
+        <span class="mote" style="--x:31%;--s:5px;--dur:16s;--d:-14s;--c:var(--magenta);--drift:26px;--rise:-220px"></span>
+        <span class="mote" style="--x:43%;--s:3px;--dur:21s;--d:-5s;--c:var(--cyan);--drift:-24px;--rise:-300px"></span>
+        <span class="mote" style="--x:57%;--s:4px;--dur:25s;--d:-17s;--c:var(--magenta);--drift:20px;--rise:-260px"></span>
+        <span class="mote" style="--x:69%;--s:5px;--dur:19s;--d:-7s;--c:var(--cyan);--drift:-22px;--rise:-230px"></span>
+        <span class="mote" style="--x:81%;--s:3px;--dur:22s;--d:-12s;--c:var(--magenta);--drift:28px;--rise:-290px"></span>
+        <span class="mote" style="--x:92%;--s:4px;--dur:17s;--d:-3s;--c:var(--cyan);--drift:-20px;--rise:-250px"></span>
+      </div>
       <div class="hero__inner">
         <div class="app-hero__layout">
           <img class="app-hero__icon" src="/crittergram/crittergram_icon.png" alt="Critter Gram app icon — a grey rabbit wearing a profoundly unimpressed expression, on an orange rounded square" width="152" height="152" />
@@ -113,6 +125,164 @@
         three people in one: you, the animal, and whoever is listening. The animal is the one
         in the middle, and it is not good at its job. Here is the whole machine.
       </p>
+
+      <!-- ===== THE DELIVERY — signature stage (see /crittergram/stage.css) ===== -->
+      <div class="stage stage--crittergram" aria-hidden="true">
+        <div class="stage__grid"></div>
+        <div class="cg-beam"></div>
+        <div class="cg-wire"></div>
+        <div class="cg-podium"></div>
+
+        <!-- the phone: one line, typed -->
+        <div class="cg-phone">
+          <span class="cg-phone__label">MESSAGE IN</span>
+          <div class="cg-field">
+            <span class="cg-field__txt">fancy a coffee?</span>
+            <span class="cg-field__caret"></span>
+          </div>
+          <div class="cg-row">
+            <span class="cg-chip cg-chip--chip"></span>
+            <span class="cg-chip cg-chip--duck"></span>
+            <span class="cg-chip cg-chip--dodo"></span>
+            <span class="cg-send">SEND &#9656;</span>
+          </div>
+        </div>
+
+        <!-- the gram, in transit -->
+        <span class="cg-pip">
+          <svg viewBox="0 0 26 19" focusable="false">
+            <rect class="cg-fill" x="1.6" y="1.6" width="22.8" height="15.8" rx="3" stroke="currentColor" stroke-width="2.2"/>
+            <path d="M3 4 13 11 23 4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+
+        <!-- UNIT 01 — the chipmunk, who relays you verbatim -->
+        <div class="cg-critter cg-critter--chip">
+          <div class="cg-critter__bob">
+            <svg class="cg-art" viewBox="0 0 100 100" focusable="false">
+              <g stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+                <ellipse cx="76" cy="80" rx="10" ry="17" transform="rotate(22 76 80)"/>
+                <path d="M78 93c4-7 5-16 2-23" fill="none" opacity="0.5"/>
+                <path d="M33 76c-9 8-13 17-12 26h42c1-10-3-19-9-25z"/>
+                <circle cx="30" cy="28" r="9"/>
+                <circle cx="64" cy="27" r="9"/>
+                <ellipse cx="47" cy="55" rx="30" ry="27"/>
+                <path d="M19 55 7 51M19 62 6 64" fill="none"/>
+                <path d="M75 55 87 51M75 62 88 64" fill="none"/>
+                <ellipse class="cg-dark" cx="22" cy="64" rx="7" ry="5.5"/>
+                <ellipse class="cg-dark" cx="72" cy="64" rx="7" ry="5.5"/>
+                <circle class="cg-solid" cx="37" cy="49" r="3.8"/>
+                <circle class="cg-solid" cx="57" cy="49" r="3.8"/>
+                <ellipse class="cg-mouth cg-dark" cx="47" cy="69" rx="8" ry="6.5"/>
+                <ellipse class="cg-solid" cx="47" cy="61" rx="3.4" ry="2.6"/>
+                <rect class="cg-teeth" x="43.3" y="64" width="3.4" height="5.6" rx="1"/>
+                <rect class="cg-teeth" x="47.3" y="64" width="3.4" height="5.6" rx="1"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <!-- UNIT 04 — the duck, who only quacks -->
+        <div class="cg-critter cg-critter--duck">
+          <div class="cg-critter__bob">
+            <svg class="cg-art" viewBox="0 0 100 100" focusable="false">
+              <g stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 74 4 68c2 7 6 10 13 12z"/>
+                <path d="M32 60c-11 12-17 27-16 44h56c1-17-5-32-15-42z"/>
+                <path d="M30 78c-3 11-2 19 3 26M64 80c2 9 1 16-2 22" fill="none"/>
+                <circle cx="42" cy="40" r="21"/>
+                <path d="M35 19c-3-10 8-13 10-3" fill="none"/>
+                <path d="M59 33h21a8 7 0 0 1 0 14H59z"/>
+                <path class="cg-jaw" d="M59 48h19a6 5 0 0 1 0 10H59z"/>
+                <circle class="cg-solid" cx="50" cy="34" r="3.6"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <!-- UNIT 15 — the dodo, words of one syllable -->
+        <div class="cg-critter cg-critter--dodo">
+          <div class="cg-critter__bob">
+            <svg class="cg-art" viewBox="0 0 100 100" focusable="false">
+              <g stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M38 86v10M56 86v10M30 96h13M50 96h13" fill="none"/>
+                <path d="M22 54c-12-6-16 8-6 14" fill="none"/>
+                <ellipse cx="46" cy="66" rx="27" ry="23"/>
+                <path d="M56 56c7 7 8 17 3 25" fill="none"/>
+                <circle cx="42" cy="31" r="16"/>
+                <path d="M36 15c-2-9 7-11 8-2M46 15c1-8 9-8 9 0" fill="none"/>
+                <path d="M53 25c17-3 25 3 24 10-4 3-12 1-22-1z"/>
+                <path class="cg-jaw" d="M55 35c10 1 16 2 21 3-4 7-14 6-21 2z"/>
+                <circle class="cg-solid" cx="46" cy="28" r="3.4"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <!-- what each of them makes of it -->
+        <div class="cg-say cg-say--chip"><div class="cg-say__box"><span class="cg-say__txt">FANCY A COFFEE?</span></div></div>
+        <div class="cg-say cg-say--duck"><div class="cg-say__box"><span class="cg-say__txt">QUACK QUACK QUACK?</span></div></div>
+        <div class="cg-say cg-say--dodo"><div class="cg-say__box"><span class="cg-say__txt">WANT A HOT BEAN?</span></div></div>
+
+        <!-- and what leaves: an ordinary clip, launched out of frame -->
+        <span class="cg-card">
+          <svg viewBox="0 0 34 24" focusable="false">
+            <rect class="cg-fill" x="1.4" y="1.4" width="31.2" height="21.2" rx="4" stroke="currentColor" stroke-width="2.2"/>
+            <path d="M8 2.4v20.2M26 2.4v20.2" fill="none" stroke="currentColor" stroke-width="1.6" opacity="0.6"/>
+            <path class="cg-solid" d="M14 8.1 21.6 12 14 15.9z"/>
+          </svg>
+        </span>
+
+        <span class="cg-name cg-name--chip">UNIT 01 &#47;&#47; CHIPMUNK</span>
+        <span class="cg-name cg-name--duck">UNIT 04 &#47;&#47; DUCK</span>
+        <span class="cg-name cg-name--dodo">UNIT 15 &#47;&#47; DODO</span>
+
+        <span class="stage__tag">THE DELIVERY</span>
+        <span class="stage__tag stage__tag--end stage__tag--bottom">BADLY, ON PURPOSE</span>
+      </div>
+
+      <div class="stage-static stage-static--crittergram" aria-hidden="true">
+        <div class="stage-static__row">
+          <span class="stage-static__step cg-step--a">
+            <svg viewBox="0 0 48 48" focusable="false"><g stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="13" width="40" height="22" rx="5"/>
+              <path d="M11 24h11" fill="none"/>
+              <rect class="cg-solid" x="25" y="19" width="4" height="10" rx="1"/>
+            </g></svg>
+            TYPE ONE LINE
+          </span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step cg-step--b">
+            <svg viewBox="0 0 48 48" focusable="false"><g stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="14" cy="14" r="5"/><circle cx="33" cy="13" r="5"/>
+              <ellipse cx="24" cy="27" rx="15" ry="14"/>
+              <circle class="cg-solid" cx="19" cy="24" r="2"/><circle class="cg-solid" cx="29" cy="24" r="2"/>
+              <ellipse class="cg-solid" cx="24" cy="31" rx="2" ry="1.6"/>
+              <rect class="cg-teeth" x="21.9" y="33" width="1.9" height="4.4" rx="0.6"/>
+              <rect class="cg-teeth" x="24.2" y="33" width="1.9" height="4.4" rx="0.6"/>
+            </g></svg>
+            PICK A CRITTER
+          </span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step cg-step--c">
+            <svg viewBox="0 0 48 48" focusable="false"><g stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 6h32a5 5 0 0 1 5 5v14a5 5 0 0 1-5 5H22l-9 9v-9H8a5 5 0 0 1-5-5V11a5 5 0 0 1 5-5z"/>
+              <path d="M11 15h26M11 22h15" fill="none"/>
+            </g></svg>
+            IT SAYS IT WRONG
+          </span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step cg-step--d">
+            <svg viewBox="0 0 48 48" focusable="false"><g stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="13" width="28" height="26" rx="5"/>
+              <path class="cg-solid" d="M17 20l11 6-11 6z"/>
+              <path d="M34 21 43 11M36 10h8v8" fill="none"/>
+            </g></svg>
+            SHARE THE VIDEO
+          </span>
+        </div>
+      </div>
+
       <ul class="grid grid--3" role="list">
         <li class="cell">
           <span class="cell__stamp">FEATURE</span>

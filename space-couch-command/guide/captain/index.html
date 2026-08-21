@@ -26,6 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Orbitron:wght@600;800;900&family=VT323&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/space-couch-command/guide/console.css" />
 </head>
 <body id="top">
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -78,6 +79,55 @@
         <h2 class="section__title chrome" id="what-h">A ROLE THE GAME DOES NOT ENFORCE</h2>
       </div>
       <p class="section__lead">THE CAPTAIN. Nobody claims it — there is no Captain seat on any hull and no Captain console anywhere. In the code, Role.CAPTAIN exists only for wire compatibility, is excluded from the list of claimable duties, and owns no intents. Whoever is captaining simply sits on the couch, watches the TV, listens to the reports the officers read off their phones, and gives orders out loud. On the one- to three-crew hulls the Pilot/Shipmaster is the captain socially.</p>
+      <div class="stage stage--console stage--console-captain" aria-hidden="true">
+        <div class="stage__grid"></div>
+        <div class="runstrip"><span class="runstrip__r">SECTOR 07 &middot; ALERT YELLOW</span></div>
+        <div class="deck">
+          <div class="pan pan--ord">
+            <span class="pan__cap">ORDERS</span>
+            <div class="ords">
+              <span class="ord" style="--d:0s"><i class="ord__t"><b>HELM</b> COME TO 090</i><i class="ord__b"><i></i></i></span>
+              <span class="ord" style="--d:4s"><i class="ord__t"><b>TAC</b> LOCK THE LEAD</i><i class="ord__b"><i></i></i></span>
+              <span class="ord" style="--d:8s"><i class="ord__t"><b>ENG</b> POWER TO FORE</i><i class="ord__b"><i></i></i></span>
+            </div>
+          </div>
+          <div class="pan pan--rdr">
+            <span class="pan__cap">VIEWSCREEN</span>
+            <svg class="radar" viewBox="0 0 100 100" aria-hidden="true">
+              <circle class="rd__ring" cx="50" cy="50" r="47" />
+              <circle class="rd__ring" cx="50" cy="50" r="31" />
+              <circle class="rd__ring" cx="50" cy="50" r="15" />
+              <path class="rd__cross" d="M50 3V97M3 50H97" />
+              <g class="rd__sweep"><path d="M50 50 L50 3 A47 47 0 0 0 18 15.6 Z" /><line x1="50" y1="50" x2="50" y2="3" /></g>
+              <circle class="rd__blip" cx="72" cy="30" r="2.4" style="--t:0.53s" />
+              <circle class="rd__blip" cx="62" cy="74" r="2" style="--t:1.7s" />
+              <circle class="rd__blip rd__blip--hot" cx="34" cy="68" r="2.8" style="--t:2.46s" />
+            </svg>
+          </div>
+          <div class="pan pan--pips">
+            <span class="pan__cap">REPORTS</span>
+            <div class="pips">
+              <span class="pip" style="--d:0.4s"><i class="lamp"></i>HLM 090</span>
+              <span class="pip" style="--d:2.6s"><i class="lamp"></i>TAC SHD 140</span>
+              <span class="pip" style="--d:4.8s"><i class="lamp"></i>ENG PWR 96</span>
+              <span class="pip" style="--d:7s"><i class="lamp"></i>SCI CONTACT</span>
+              <span class="pip" style="--d:9.2s"><i class="lamp"></i>COM YELLOW</span>
+            </div>
+          </div>
+        </div>
+        <span class="stage__tag">NO CONSOLE</span>
+      </div>
+      <div class="stage-static" aria-hidden="true">
+        <div class="stage-static__row">
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2.5" y="4.5" width="19" height="13" rx="1.5" /><path d="M9 21h6" /></svg><span>WATCH THE TV</span></span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5.5h18v10H8l-5 4z" /></svg><span>ASK FOR NUMBERS</span></span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12l5 5L20 6" /></svg><span>DECIDE</span></span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 9.5h4l6-4.5v14l-6-4.5H4z" /><path d="M17.5 9a4 4 0 0 1 0 6" /></svg><span>SAY IT OUT LOUD</span></span>
+        </div>
+      </div>
       <ul class="grid grid--3" role="list">
         <li class="cell">
           <span class="cell__stamp">WHY IT WORKS</span>

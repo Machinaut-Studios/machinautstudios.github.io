@@ -26,6 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Orbitron:wght@600;800;900&family=VT323&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/space-couch-command/guide/console.css" />
 </head>
 <body id="top">
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -74,6 +75,48 @@
         <h2 class="section__title chrome" id="controls-h">WHAT YOU CONTROL</h2>
       </div>
       <p class="section__lead">Everything below is on your screen and nobody else's. If you do not say it out loud, it did not happen.</p>
+      <div class="stage stage--console stage--console-comms" aria-hidden="true">
+        <div class="stage__grid"></div>
+        <div class="runstrip"><span class="runstrip__r">SECTOR 07 &middot; ALERT YELLOW</span></div>
+        <div class="deck">
+          <div class="pan pan--ch">
+            <span class="pan__cap">CHANNELS</span>
+            <div class="chs">
+              <span class="ch ch--live"><i class="lamp"></i><i class="ch__n">KESTREL</i><i class="ch__s" style="--w:.85"></i></span>
+              <span class="ch"><i class="lamp"></i><i class="ch__n">HULK 7</i><i class="ch__s" style="--w:.45"></i></span>
+              <span class="ch"><i class="lamp"></i><i class="ch__n">BEACON</i><i class="ch__s" style="--w:.62"></i></span>
+              <span class="cond"><b>COND</b><i class="lamp cond--g"></i><i class="lamp cond--y"></i><i class="lamp"></i></span>
+            </div>
+          </div>
+          <div class="pan pan--hail">
+            <span class="pan__cap">HAIL THEATER</span>
+            <div class="hail">
+              <div class="wave">
+                <i class="wv" style="--h:.5;--d:0s"></i><i class="wv" style="--h:.85;--d:-.07s"></i><i class="wv" style="--h:.35;--d:-.14s"></i><i class="wv" style="--h:.95;--d:-.21s"></i><i class="wv" style="--h:.6;--d:-.28s"></i><i class="wv" style="--h:.8;--d:-.35s"></i><i class="wv" style="--h:.4;--d:-.42s"></i><i class="wv" style="--h:.9;--d:-.49s"></i><i class="wv" style="--h:.55;--d:-.56s"></i><i class="wv" style="--h:.75;--d:-.12s"></i><i class="wv" style="--h:.3;--d:-.31s"></i><i class="wv" style="--h:.88;--d:-.24s"></i><i class="wv" style="--h:.48;--d:-.45s"></i>
+              </div>
+              <div class="card">
+                <i class="card__av"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 L20 8 L18 19 L12 21 L6 19 L4 8 Z M9 11 h2 M13 11 h2" /></svg></i>
+                <i class="card__id">K'THAR ENVOY &middot; HOSTILE</i>
+              </div>
+              <div class="line">STAND DOWN OR BE BOARDED.</div>
+              <div class="opts"><span class="opt">WE COMPLY</span><span class="opt opt--pick">STAND BY</span></div>
+              <i class="wait">&#9673; INCOMING &mdash; OPEN THE HAIL</i>
+            </div>
+          </div>
+        </div>
+        <span class="stage__tag">CHANNEL OPEN</span>
+      </div>
+      <div class="stage-static" aria-hidden="true">
+        <div class="stage-static__row">
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12h3l3-6 4 12 3-8 2 2h3" /></svg><span>SOMETHING CALLS</span></span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="12" rx="2" /><path d="M7 20h10" /></svg><span>OPEN THE HAIL</span></span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="5" rx="1.5" /><rect x="3" y="15" width="12" height="5" rx="1.5" /></svg><span>PICK A REPLY</span></span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="12" r="2.5" /><circle cx="12" cy="12" r="2.5" /><circle cx="18" cy="12" r="2.5" /></svg><span>SET THE CONDITION</span></span>
+        </div>
+      </div>
       <ul class="grid grid--3" role="list">
         <li class="cell">
           <span class="cell__stamp">CONTROL</span>

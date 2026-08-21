@@ -26,6 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Orbitron:wght@600;800;900&family=VT323&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/space-couch-command/guide/console.css" />
 </head>
 <body id="top">
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -70,6 +71,54 @@
       <div class="section__head">
         <p class="stamp">&#9654; THE SETUP</p>
         <h2 class="section__title chrome" id="how-h">HOW IT ALL FITS TOGETHER</h2>
+      </div>
+      <div class="stage stage--console stage--console-setup" aria-hidden="true">
+        <div class="stage__grid"></div>
+        <div class="runstrip"><span class="runstrip__r">LOBBY &middot; 16 SEATS</span></div>
+        <div class="deck">
+          <div class="pan pan--tv">
+            <span class="pan__cap">MAIN SCREEN</span>
+            <div class="tv">
+              <span class="tv__qr">
+                <svg viewBox="0 0 21 21" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M0 0h7v7H0zM1 1h5v5H1z" /><rect x="2" y="2" width="3" height="3" />
+                  <path fill-rule="evenodd" d="M14 0h7v7h-7zM15 1h5v5h-5z" /><rect x="16" y="2" width="3" height="3" />
+                  <path fill-rule="evenodd" d="M0 14h7v7H0zM1 15h5v5H1z" /><rect x="2" y="16" width="3" height="3" />
+                  <path d="M9 0h1v1H9zM9 2h1v1H9zM9 4h1v1H9zM11 1h1v1h-1zM11 3h1v1h-1zM11 5h1v1h-1z" />
+                  <path d="M0 9h1v1H0zM2 9h1v1H2zM4 9h1v1H4zM1 11h1v1H1zM3 11h1v1H3zM5 11h1v1H5z" />
+                  <path d="M9 9h2v2H9zM12 9h1v1h-1zM14 10h2v2h-2zM17 9h1v1h-1zM19 11h1v1h-1zM9 13h1v1H9zM11 14h2v2h-2zM15 14h1v1h-1zM18 16h2v2h-2zM9 17h2v2H9zM13 17h1v1h-1zM16 19h1v1h-1zM19 19h1v1h-1zM12 12h1v1h-1zM16 12h1v1h-1zM13 20h1v1h-1z" />
+                </svg>
+              </span>
+              <span class="tv__txt">
+                <span class="tv__k">ROOM CODE</span>
+                <span class="tv__code">K7QX</span>
+                <span class="tv__url">192.168.1.24:2567</span>
+                <span class="tv__foot swap"><span>SCAN TO JOIN</span><span>4 ABOARD</span></span>
+              </span>
+            </div>
+          </div>
+          <div class="pan pan--crew">
+            <span class="pan__cap">PHONES</span>
+            <div class="crew">
+              <span class="ph ph--1"><i class="ph__beam"></i><i class="ph__dev"></i><i class="ph__name">HELM</i></span>
+              <span class="ph ph--2"><i class="ph__beam"></i><i class="ph__dev"></i><i class="ph__name">TACTICAL</i></span>
+              <span class="ph ph--3"><i class="ph__beam"></i><i class="ph__dev"></i><i class="ph__name">SCIENCE</i></span>
+              <span class="ph ph--4"><i class="ph__beam"></i><i class="ph__dev"></i><i class="ph__name">COMMS</i></span>
+            </div>
+          </div>
+        </div>
+        <span class="stage__tag">EVERYONE IN</span>
+      </div>
+      <div class="stage-static" aria-hidden="true">
+        <div class="stage-static__row">
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2.5" y="4.5" width="19" height="13" rx="1.5" /><path d="M9 21h6" /></svg><span>HOST THE TV</span></span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="6" height="6" /><rect x="15" y="3" width="6" height="6" /><rect x="3" y="15" width="6" height="6" /><path d="M15 15h3v3h-3zM20 20h1" /></svg><span>SCAN THE QR</span></span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="8" y="2.5" width="8" height="19" rx="1.5" /><path d="M11 18.5h2" /></svg><span>PHONES JOIN</span></span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 20.5v-6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v6M4 12.5v-4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" /></svg><span>TAKE A SEAT</span></span>
+        </div>
       </div>
       <ul class="grid grid--3" role="list">
         <li class="cell">
