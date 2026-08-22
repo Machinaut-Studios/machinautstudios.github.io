@@ -1294,6 +1294,46 @@ html.js-motion .glitch { animation: glitch-slip 9s steps(1) infinite; }
 @keyframes seal-spin { to { transform: rotate(360deg); } }
 @keyframes seal-throb { 0%, 100% { opacity: 0.75; transform: scale(1); } 50% { opacity: 1; transform: scale(1.06); } }
 
+/* ---- The mark ---------------------------------------------------------- */
+/* /logo.svg — the studio's robot in an astronaut helmet, drawn as neon tubing
+   like everything else here, so one file covers every size it is asked for. */
+.nav__logo {
+  width: 30px;
+  height: 30px;
+  flex: none;
+  filter: drop-shadow(0 0 7px rgba(255, 46, 151, 0.5));
+  transition: filter 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.nav__brand:hover .nav__logo,
+.nav__brand:focus-visible .nav__logo {
+  transform: scale(1.06);
+  filter: drop-shadow(0 0 14px rgba(47, 228, 255, 0.75));
+}
+
+/* Home hero: the mark hangs above the headline and breathes. */
+.hero__logo {
+  display: block;
+  width: clamp(96px, 14vw, 148px);
+  height: auto;
+  margin: 0 0 1.2rem;
+  filter: drop-shadow(0 0 24px rgba(255, 46, 151, 0.4));
+}
+html.js-motion .hero__logo { animation: mark-float 7s var(--ease) infinite; }
+@keyframes mark-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-7px); }
+}
+
+/* Every footer signs off with it. */
+.footer__logo {
+  display: block;
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 0.9rem;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 12px rgba(168, 85, 255, 0.45));
+}
+
 /* ---- Production-line progress under the nav ----------------------------- */
 /* How far down the page you are, as a strip of the studio's three colours.
    Scroll-driven, so it costs no JavaScript and no scroll listener; browsers

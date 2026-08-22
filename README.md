@@ -15,7 +15,10 @@ A static, dependency-free site for GitHub Pages.
 | `index.html`  | Page structure, copy, and the animated "Slop Factory" conveyor       |
 | `styles.css`  | "Slop Foundry" neon-arcade theme — synthwave grid, chrome type, fully responsive |
 | `script.js`   | Mobile nav + the slop-deployed counter + the Complaint Shredder      |
-| `favicon.svg` | Neon arcade mark with a blinking deploy pixel                        |
+| `logo.png`    | The studio mark — a neon robot in an astronaut helmet, used in the nav, hero and footers |
+| `favicon.png` | The same mark, cropped tight for browser tabs                        |
+| `apple-touch-icon.png` | The mark on the studio's black, for iOS home screens         |
+| `og-image.png` | Social preview card for the home page                               |
 | `.nojekyll`   | Tells GitHub Pages to serve the files as-is (skip Jekyll)           |
 
 No build step, no frameworks, no npm. Plain HTML/CSS/JS.
