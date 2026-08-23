@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<!--
+  STARKNELL — a game by Machinaut Studios LLC
+  Copyright © 2026 Machinaut Studios LLC. All rights reserved. See /LICENSE.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>STARKNELL — Time is the only currency | Machinaut Studios LLC</title>
+  <meta name="description" content="STARKNELL is a dark retro-CRT roguelike autobattler. Command a doomed deep-space expedition through the green-phosphor terminal of its own mainframe: route a fleet across a branching sector chart, watch real-time auto-battles you steer only through captain abilities, and spend the one currency that matters — time. Every jump ages every captain by a year or more. Old age kills mid-run. Death is permanent. Premium and offline: no ads, no in-app purchases, no account. Coming to Steam, itch.io, the App Store and Google Play." />
+  <meta name="copyright" content="© 2026 Machinaut Studios LLC. All rights reserved." />
+  <meta name="theme-color" content="#07060f" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="canonical" href="https://machinautstudios.com/starknell/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="STARKNELL — Time is the only currency" />
+  <meta property="og:description" content="A dark retro-CRT roguelike autobattler. Every jump ages your captains; old age kills mid-run; death is permanent. Auto-battles you steer only through captain abilities, branching text encounters, and a forbidden conversion that conceals its price. No ads, no IAP, no account, fully offline." />
+  <meta property="og:url" content="https://machinautstudios.com/starknell/" />
+  <meta property="og:image" content="https://machinautstudios.com/starknell/starknell-og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="1200" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="STARKNELL — the title screen: a green phosphor wordmark reading STARKNELL over a dark nebula and a shadowed planet." />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <!-- Fonts: Orbitron (chrome display) + VT323 (arcade accents) + IBM Plex Mono (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Orbitron:wght@600;800;900&family=VT323&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ===================== NAV ===================== -->
+  <header class="nav">
+    <div class="nav__inner">
+      <a class="nav__brand" href="/">
+        <img class="nav__logo" src="/logo.png" alt="" width="30" height="30" />
+        <span class="nav__brand-name">MACHINAUT</span>
+        <span class="nav__brand-sub">STUDIOS&nbsp;LLC</span>
+      </a>
+
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bars" aria-hidden="true"></span>
+      </button>
+
+      <nav class="nav__menu" id="nav-menu" aria-label="Primary">
+        <a href="/starknell/" aria-current="page">STARKNELL</a>
+        <a href="/#factory">THE FACTORY</a>
+        <a href="/#ship">WHAT WE SHIP</a>
+        <a href="/#studio">THE STUDIO</a>
+        <a class="nav__cta" href="/#complaint">RAGE QUIT</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <!-- ===================== HERO ===================== -->
+    <section class="hero hero--compact" aria-labelledby="starknell-title">
+      <div class="scanlines" aria-hidden="true"></div>
+      <!-- Phosphor drifting off the expedition mainframe -->
+      <div class="motes" aria-hidden="true">
+        <span class="mote" style="--x:7%;--s:4px;--dur:18s;--d:-2s;--c:var(--lime);--drift:22px;--rise:-240px"></span>
+        <span class="mote" style="--x:18%;--s:3px;--dur:23s;--d:-9s;--c:var(--cyan);--drift:-18px;--rise:-280px"></span>
+        <span class="mote" style="--x:31%;--s:5px;--dur:16s;--d:-14s;--c:var(--lime);--drift:26px;--rise:-220px"></span>
+        <span class="mote" style="--x:43%;--s:3px;--dur:21s;--d:-5s;--c:var(--cyan);--drift:-24px;--rise:-300px"></span>
+        <span class="mote" style="--x:57%;--s:4px;--dur:25s;--d:-17s;--c:var(--lime);--drift:20px;--rise:-260px"></span>
+        <span class="mote" style="--x:69%;--s:5px;--dur:19s;--d:-7s;--c:var(--cyan);--drift:-22px;--rise:-230px"></span>
+        <span class="mote" style="--x:81%;--s:3px;--dur:22s;--d:-12s;--c:var(--lime);--drift:28px;--rise:-290px"></span>
+        <span class="mote" style="--x:92%;--s:4px;--dur:17s;--d:-3s;--c:var(--cyan);--drift:-20px;--rise:-250px"></span>
+      </div>
+      <div class="hero__inner">
+        <div class="app-hero__layout">
+          <img class="app-hero__icon" src="/starknell/starknell_icon.png" alt="STARKNELL icon — a green phosphor diamond sigil glowing on a black terminal field" width="152" height="152" />
+          <div class="app-hero__text">
+            <p class="stamp stamp--hero">&#9654; AWAITING ORDERS &nbsp;//&nbsp; COMING SOON &nbsp;//&nbsp; STEAM + iOS + ANDROID</p>
+            <h1 class="hero__title" id="starknell-title"><span class="n1">STARKNELL</span><span class="cursor" aria-hidden="true"></span></h1>
+            <p class="app-hero__tagline">Every jump ages your captains.<br />Time is the only currency.</p>
+            <p class="hero__sub">
+              A <b>dark retro-CRT roguelike autobattler</b>. You command a doomed deep-space
+              expedition through the green-phosphor terminal of its own mainframe — routing a
+              fleet across a branching sector chart, reading the casualty telegrams, and spending
+              the only resource that matters. Every jump and every engagement ages every captain
+              by a year or more, a whole lifespan is consumed inside a single run, and
+              <b>old age kills mid-run</b>. Death — by age or by fire — is permanent. The one way
+              to cheat the clock is a forbidden cybernetic conversion whose true cost stays
+              redacted until it isn't.
+            </p>
+            <div class="hero__actions">
+              <button class="btn btn--primary btn--play" type="button" disabled aria-disabled="true"
+                      aria-label="Coming soon on Steam">
+                <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M12 2a10 10 0 0 0-9.96 9.2l5.3 2.19A2.83 2.83 0 0 1 9 13.1l2.36-3.42v-.05a3.77 3.77 0 1 1 3.77 3.77h-.09l-3.37 2.4a2.83 2.83 0 0 1-5.62.33L2.26 14.6A10 10 0 1 0 12 2zm-3.2 15.15-1.21-.5a2.13 2.13 0 0 0 2.68 1.11 2.12 2.12 0 0 0-.6-4.12l1.25.52a1.56 1.56 0 1 1-1.2 2.88zm6.33-4.19a2.51 2.51 0 1 1 2.51-2.51 2.52 2.52 0 0 1-2.51 2.51zm0-4.39a1.88 1.88 0 1 0 1.88 1.88 1.88 1.88 0 0 0-1.88-1.88z" fill="currentColor"/>
+                </svg>
+                <span>Coming soon on Steam</span>
+              </button>
+              <button class="btn btn--primary btn--play" type="button" disabled aria-disabled="true"
+                      aria-label="Coming soon to the App Store">
+                <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M16.37 1.43c0 1.06-.43 2.07-1.13 2.83-.76.82-1.99 1.45-3 1.37-.13-.99.39-2.05 1.05-2.74.74-.78 2.01-1.37 3.01-1.42.03.32.06.64.07-.04zm3.4 16.05c-.5 1.16-.74 1.67-1.38 2.7-.9 1.43-2.16 3.21-3.73 3.22-1.39.01-1.75-.91-3.64-.9-1.89.01-2.28.92-3.68.9-1.57-.01-2.77-1.62-3.67-3.05-2.51-3.98-2.77-8.65-1.23-11.13 1.1-1.76 2.83-2.79 4.46-2.79 1.66 0 2.7.91 4.07.91 1.33 0 2.14-.91 4.06-.91 1.45 0 2.99.79 4.08 2.16-3.59 1.96-3.01 7.09.66 8.89z" fill="currentColor"/>
+                </svg>
+                <span>Coming soon to the App Store</span>
+              </button>
+              <button class="btn btn--primary btn--play" type="button" disabled aria-disabled="true"
+                      aria-label="Coming soon to Google Play">
+                <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M4 3.5v17a1 1 0 0 0 1.5.87l14-8.5a1 1 0 0 0 0-1.74l-14-8.5A1 1 0 0 0 4 3.5z" fill="currentColor"/>
+                </svg>
+                <span>Coming soon to Google Play</span>
+              </button>
+              <a class="btn btn--ghost" href="/starknell/privacy/">PRIVACY POLICY</a>
+            </div>
+            <p class="app-note">
+              Not on any store yet — the buttons above become links the day there is something
+              behind them. Steam comes first, with a free capped browser demo on itch.io the same
+              day; iOS and Android follow one to three months later. One flat price on every
+              store: no ads, no in-app purchases, no account, no sign-in, and nothing that needs
+              a signal.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== HOW IT PLAYS ===================== -->
+    <section class="section" id="how-it-plays" aria-labelledby="how-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; THE LOOP</p>
+        <h2 class="section__title chrome" id="how-h">HOW IT PLAYS</h2>
+      </div>
+      <p class="section__lead">
+        A run takes ten to twenty-five minutes and ends one of two ways. You assemble a fleet,
+        pick a route, commit to a battle you cannot micromanage, and pay for all of it in years
+        off your captains' lives. An adaptive darksynth score follows you down.
+      </p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">THE CLOCK</span>
+          <h3 class="cell__title">TIME IS THE ENEMY</h3>
+          <p class="cell__text">Every jump and every engagement ages <b>every</b> captain by a year or more. A whole lifespan is consumed inside a single run, so old age is not a distant threat — it kills mid-run, on the chart, between battles. Death by age and death by fire are equally permanent.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">THE FLEET</span>
+          <h3 class="cell__title">ROWS, NOT UNITS</h3>
+          <p class="cell__text">Assemble a fleet under a command-capacity budget — every hull you take is a hull you didn't. Set your rows before you commit: <b>vanguard draws fire, screen intercepts, rear stays protected</b>. The battle honours that arrangement exactly.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">THE BATTLE</span>
+          <h3 class="cell__title">COMMAND, DON'T PILOT</h3>
+          <p class="cell__text">Combat resolves in real time — full-colour pixel art under a CRT shader, on a deterministic seeded simulation. You intervene only through captain abilities, at the moment you judge is the moment. <b>No unit micro. No retreat.</b></p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">THE SECTOR</span>
+          <h3 class="cell__title">MANY NODES ARE NOT BATTLES</h3>
+          <p class="cell__text">Anomalies, derelicts, distress signals: branching text encounters with uncertain outcomes, and multi-step quest chains that resolve jumps later, long after you've forgotten what you agreed to. <b>What you choose persists.</b></p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">THE TEMPTATION</span>
+          <h3 class="cell__title">THE CONTINUANCE PROTOCOL</h3>
+          <p class="cell__text">A recruited Oracle hull can research the one technology that cheats the clock: a cybernetic conversion worth <b>twelve years</b>, carrying one concealed side-effect per procedure — revealed only after it has been applied. At the sector's end, the Provenance Ark reads your crew manifest for the oldest name.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">BETWEEN RUNS</span>
+          <h3 class="cell__title">VARIETY, NEVER POWER</h3>
+          <p class="cell__text">Only unlocks persist — new hulls, captain archetypes, encounter packs that <b>can appear</b>. No fleet, no captains and no banked salvage cross the gap; every run starts fresh. Standing doctrine is a shape you chose, not a checklist you filled. The memorial wall remembers everyone.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== WHAT IT COSTS ===================== -->
+    <section class="section section--alt" id="cost" aria-labelledby="cost-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; THE HONEST BIT</p>
+        <h2 class="section__title chrome" id="cost-h">ONE PRICE, FOREVER</h2>
+      </div>
+      <p class="section__lead">
+        STARKNELL is a premium game and nothing else. <b>No ads. No in-app purchases. No
+        account, no sign-in. Fully offline.</b> There is no subscription, no season pass, no
+        currency, no energy meter and no DLC bait — none of those things were built, so none of
+        them can be added by an update you didn't ask for. You buy it once and own all of it.
+      </p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">DESKTOP</span>
+          <h3 class="cell__title">STEAM &mdash; $9.99</h3>
+          <p class="cell__text">Windows and macOS, and the first store to get it. Planned launch price in USD; Valve generates every other territory from that base.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">DESKTOP &nbsp;//&nbsp; DEMO</span>
+          <h3 class="cell__title">ITCH.IO &mdash; $9.99</h3>
+          <p class="cell__text">Steam parity, so itch never undercuts the primary store — plus a <b>free browser demo</b>: the first four columns of the sector, with real battles, real encounters, real aging and real deaths. The Ark keeps the rest.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MOBILE</span>
+          <h3 class="cell__title">iOS + ANDROID &mdash; $4.99</h3>
+          <p class="cell__text">The App Store and Google Play, one to three months after Steam, at the same price on both. Paid up front, with no in-app purchases to configure and nothing to restore.</p>
+        </li>
+      </ul>
+      <p class="app-note">
+        Prices are the planned launch prices in USD and are not yet live on any store.
+      </p>
+    </section>
+
+    <!-- ===================== WHERE IT RUNS ===================== -->
+    <section class="section" id="platforms" aria-labelledby="platforms-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; ONE CODEBASE</p>
+        <h2 class="section__title chrome" id="platforms-h">WHERE IT RUNS</h2>
+      </div>
+      <p class="section__lead">
+        Built with Flutter and Flame: one codebase across iOS, Android, Windows, macOS and the
+        browser. The simulation is pure Dart and deterministic — bit-identical on a phone and in
+        a browser tab — which is why the same seed produces the same expedition everywhere.
+      </p>
+      <ul class="grid" role="list">
+        <li class="cell">
+          <span class="cell__stamp">PLATFORMS</span>
+          <h3 class="cell__title">DESKTOP, POCKET, BROWSER</h3>
+          <p class="cell__text">Windows and macOS on Steam. iPhone, iPad and Android phones and tablets on their own stores, in portrait or landscape. And a capped web demo that runs in a browser tab with nothing to install.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">THE TERMINAL</span>
+          <h3 class="cell__title">A CRT YOU CAN TUNE</h3>
+          <p class="cell__text">The whole interface is the expedition mainframe: green phosphor, scanlines, curvature and teletype. The full-screen CRT shader has <b>lite and off modes</b> and degrades itself automatically on hardware that can't carry it, so the effect never costs you the game.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== PRIVACY TEASER ===================== -->
+    <section class="section section--alt" id="privacy" aria-labelledby="privacy-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; ON THE RECORD</p>
+        <h2 class="section__title chrome" id="privacy-h">IT COLLECTS NOTHING</h2>
+      </div>
+      <p class="section__lead">
+        STARKNELL has no server, no account, no analytics and no crash reporter, and it makes
+        <b>no network requests at all</b>. Its Android manifest declares not one permission — not
+        even <b>INTERNET</b> — and its iOS property list declares no usage strings, so there is
+        nothing for the app to ask you for. Your expedition, your unlocks
+        and your settings are written to your own device's storage and stay there; deleting the
+        app deletes all of it. Purchases are handled by the store you bought from, and we never
+        see payment details. The full, plainly-worded details — including how to erase every byte
+        it stored — live on the privacy page.
+      </p>
+      <p>
+        <a class="btn btn--ghost" href="/starknell/privacy/">READ THE STARKNELL PRIVACY POLICY</a>
+      </p>
+    </section>
+
+    <!-- ===================== CREDITS ===================== -->
+    <section class="section" id="credits" aria-labelledby="credits-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; WHO MADE THE NOISE</p>
+        <h2 class="section__title chrome" id="credits-h">CREDITS</h2>
+      </div>
+      <p class="section__lead">
+        Music by <b>Karl Casey @ White Bat Audio</b>. Sound effects by
+        <b>Magic Sound Effects</b>. Pixel art curated from licensed
+        <b>CraftPix</b> packs. Everything else came off our own line.
+      </p>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <img class="footer__logo" src="/logo.png" alt="" width="44" height="44" />
+    <nav class="footer__links" aria-label="Footer">
+      <a href="/">Home</a>
+      <a href="/starknell/">STARKNELL</a>
+      <a href="/starknell/privacy/">Privacy Policy</a>
+      <a href="/space-couch-command/">Space Couch Command</a>
+      <a href="/emberseam/">Emberseam</a>
+      <a href="/hushword/">Hushword</a>
+      <a href="/anvilspell/">Anvilspell</a>
+      <a href="/tooter/">Tooter</a>
+      <a href="/crittergram/">Critter Gram</a>
+    </nav>
+    <p class="footer__text">
+      STARKNELL is a game by MACHINAUT STUDIOS LLC — SLOP FOUNDRY.
+      Every jump ages your captains. The wall remembers everyone.
+      <span class="footer__cursor cursor" aria-hidden="true"></span>
+    </p>
+    <p class="footer__fine">© 2026 Machinaut Studios LLC. All rights reserved.</p>
+  </footer>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

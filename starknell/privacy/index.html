@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<!--
+  Privacy Policy for STARKNELL — Machinaut Studios LLC
+  Copyright © 2026 Machinaut Studios LLC. All rights reserved. See /LICENSE.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Privacy Policy for STARKNELL | Machinaut Studios LLC</title>
+  <meta name="description" content="Privacy policy for STARKNELL by Machinaut Studios LLC. The app collects nothing: no account, no server, no analytics, no crash reporting, no ads, and no network requests of any kind. Its Android manifest declares no permissions — not even INTERNET — and its iOS property list declares no usage strings. Saves stay on your device, and this page lists the steps to erase them." />
+  <meta name="robots" content="index, follow" />
+  <meta name="copyright" content="© 2026 Machinaut Studios LLC. All rights reserved." />
+  <meta name="theme-color" content="#07060f" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="canonical" href="https://machinautstudios.com/starknell/privacy/" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Privacy Policy for STARKNELL" />
+  <meta property="og:description" content="No account, no server, no analytics, no ads, and no network requests at all. The app declares no permissions on any platform. Your expedition, unlocks and settings stay on your device." />
+  <meta property="og:url" content="https://machinautstudios.com/starknell/privacy/" />
+
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <!-- Fonts: Orbitron (chrome display) + VT323 (arcade accents) + IBM Plex Mono (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Orbitron:wght@600;800;900&family=VT323&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ===================== NAV ===================== -->
+  <header class="nav">
+    <div class="nav__inner">
+      <a class="nav__brand" href="/">
+        <img class="nav__logo" src="/logo.png" alt="" width="30" height="30" />
+        <span class="nav__brand-name">MACHINAUT</span>
+        <span class="nav__brand-sub">STUDIOS&nbsp;LLC</span>
+      </a>
+
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bars" aria-hidden="true"></span>
+      </button>
+
+      <nav class="nav__menu" id="nav-menu" aria-label="Primary">
+        <a href="/starknell/">STARKNELL</a>
+        <a href="/#factory">THE FACTORY</a>
+        <a href="/#ship">WHAT WE SHIP</a>
+        <a href="/#studio">THE STUDIO</a>
+        <a class="nav__cta" href="/#complaint">RAGE QUIT</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="section">
+      <article class="legal">
+        <h1>Privacy Policy for STARKNELL</h1>
+        <p class="legal__meta">Last updated: August 22, 2026</p>
+
+        <p class="legal__lead">
+          STARKNELL ("the game") is developed and published by Machinaut Studios
+          LLC ("we", "us"). This policy explains what data the game handles. The
+          short version is unusually short: <b>it collects nothing, and it does not
+          use the network at all.</b> There is no account, no sign-in, no server of
+          ours, no analytics, no crash reporter, no advertising and no third-party
+          software development kit that transmits anything. Your expedition, your
+          unlocks and your settings are written to your own device and stay there.
+          The only company that learns you bought the game is the store you bought
+          it from.
+        </p>
+
+        <h2>Information we collect</h2>
+        <p>
+          None. We operate no server for STARKNELL and we receive nothing from it.
+          There is no analytics SDK, no crash-reporting SDK, no advertising SDK and
+          no attribution SDK in the build. There is no account to create and no
+          sign-up: we never ask for your name, email address, phone number, contacts
+          or anything else. We build no profile of you, we have nothing to sell,
+          rent or trade, and we hold no record that you exist.
+        </p>
+
+        <h2>The game makes no network requests</h2>
+        <p>
+          This is a stronger statement than "we don't collect data", so here is what
+          it rests on. STARKNELL is a single-player game whose entire content —
+          every hull, captain archetype, encounter, quest chain and tuning number —
+          ships inside the app as bundled data. Nothing is fetched at runtime.
+          The app contains no HTTP client, no socket code and no web request of any
+          kind, and every third-party package it depends on is an offline one: the
+          game engine and its rendering, state management, in-app routing, audio
+          playback, local file access and local key–value storage, plus code
+          generators that produce no runtime behaviour. Not one of them talks to a
+          network.
+        </p>
+        <p>
+          The consequence you can check yourself: on Android the game runs without
+          the <b>INTERNET</b> permission, which the system would require before any
+          request could leave the device. Put the game in airplane mode and nothing
+          about it changes.
+        </p>
+
+        <h2>Permissions</h2>
+        <p>
+          <b>STARKNELL requests no permissions on any platform.</b>
+        </p>
+        <ul>
+          <li><b>Android</b> — the shipping manifest declares <b>no</b> <code>uses-permission</code> entries whatsoever. Not camera, microphone, location, contacts, storage or notifications — and not <code>INTERNET</code> either, which is the unusual one and the one that matters. The manifest's only other entry is a package-visibility <code>queries</code> block for the system "process text" action, which the Flutter engine includes as standard; it is not a permission, shows no prompt, and grants access to nothing.</li>
+          <li><b>iOS</b> — the app's <code>Info.plist</code> declares no usage-description strings at all, so iOS has nothing to prompt you for. It also declares that the app uses no non-exempt encryption.</li>
+          <li><b>macOS</b> — the release build runs inside the App Sandbox with no network, camera, microphone, location or file-access entitlements. (The developer-only debug configuration adds a local loopback entitlement so the Flutter toolchain can attach a debugger. That configuration is not what ships.)</li>
+          <li><b>Windows</b> — the desktop build requests nothing beyond reading and writing its own save folder.</li>
+        </ul>
+        <p>
+          Development builds of any Flutter app carry the Android <code>INTERNET</code>
+          permission so the tooling can hot-reload over a cable. Those debug and
+          profile builds are never distributed; the release manifest that goes to
+          Google Play is the permission-free one described above.
+        </p>
+
+        <h2>What the game stores, and where</h2>
+        <p>
+          Everything STARKNELL remembers is written to your device's own private app
+          storage and stays there. It is kept under three keys:
+        </p>
+        <ul>
+          <li><b>The expedition in progress</b> — the run's seed, your fleet and its row placement, every captain with their name, archetype, age, traits and portrait, your position on the sector chart, salvage, research progress, and the casualty telegrams still waiting to be read. Closing the game mid-run and coming back is the point of it.</li>
+          <li><b>The archive</b> — which unlocks you have earned, your standing doctrine allocation and the authorizations behind it, your lifetime records (expeditions started and won, deepest column, captains lost, enemies destroyed, years elapsed, procedures performed), and the memorial wall: the name, archetype, age, year and cause of death of every captain you have lost.</li>
+          <li><b>Settings</b> — CRT mode and shader intensity, reduced flicker, the green or amber palette, text speed and text scale, music and effect volumes, and which one-time advisories you have already been shown.</li>
+        </ul>
+        <p>
+          On iOS, Android, macOS and Windows these are ordinary JSON files in the
+          app's own support directory, written atomically so a crash mid-save cannot
+          corrupt an existing one. In the browser demo they are entries in that
+          browser's local storage for the page. None of it is uploaded, backed up to
+          us, or synced between your devices — we have nowhere to sync it to, and no
+          copy of it exists anywhere but on the device that wrote it. To erase it,
+          see <a href="#data-deletion">Deleting your data</a>.
+        </p>
+        <p>
+          The game also writes diagnostic lines to your platform's ordinary developer
+          console while it runs. Those lines are not saved to a file and are not sent
+          anywhere; they exist for a developer with the device in hand, and they
+          disappear when the app closes.
+        </p>
+
+        <h2>Purchases</h2>
+        <p>
+          STARKNELL is a premium game: <b>one flat price, no ads, no in-app
+          purchases, no subscription and no currency of any kind.</b> There is
+          nothing to buy inside the game, which is why the build contains no billing
+          or in-app-purchase library at all and why "restore purchases" does not
+          exist. Your purchase of the game itself is processed entirely by the store
+          you bought it from — Apple's App Store, Google Play, Steam or itch.io. We
+          do not receive or store your payment details, card information or billing
+          address; what reaches us is an aggregate sales figure, never anything about
+          an individual buyer. Those stores handle your purchase under their own
+          policies:
+          <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">Apple</a>,
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google</a>,
+          <a href="https://store.steampowered.com/privacy_agreement/" target="_blank" rel="noopener noreferrer">Valve</a>
+          and
+          <a href="https://itch.io/docs/legal/privacy-policy" target="_blank" rel="noopener noreferrer">itch.io</a>.
+        </p>
+
+        <h2>The browser demo</h2>
+        <p>
+          A free, capped browser demo is planned for itch.io alongside the desktop
+          launch. <b>It is not published yet</b>, and at the time of writing there is
+          no web build of STARKNELL hosted anywhere. When it goes live it will be
+          the same game code, making the same zero network requests and saving to
+          your browser's local storage instead of a file — but it will be served to
+          you by itch.io, and any web host can see the ordinary things a web server
+          sees when it hands you a page: your IP address, your browser's user-agent
+          string, the time, and which files were requested. That is itch.io's log,
+          not ours, and it is governed by
+          <a href="https://itch.io/docs/legal/privacy-policy" target="_blank" rel="noopener noreferrer">itch.io's privacy policy</a>.
+          We will update this page if that ever stops being an accurate description.
+        </p>
+
+        <h2>Data sharing</h2>
+        <p>
+          We do not sell, rent or trade your data, and we have none to share. No
+          third party receives anything from the game, because the game sends nothing
+          to anyone. The only companies in the picture at all are the stores that
+          distribute STARKNELL and process its purchase.
+        </p>
+
+        <h2>Children's privacy</h2>
+        <p>
+          STARKNELL is a single-player strategy game with no chat, no accounts, no
+          user-generated content, no advertising and no way for one player to reach
+          another. We do not knowingly collect personal information from anyone,
+          children included — we collect none from anybody. Note that the game
+          contains mild fantasy violence and text-only cosmic-horror themes, and its
+          store listings are rated accordingly; the honest audience floor is teens
+          and up. There is no advertising identifier in use and nothing in the game
+          that could personalize anything, because nothing about you ever leaves the
+          device.
+        </p>
+
+        <h2>Your choices</h2>
+        <ul>
+          <li>Play offline, permanently. Nothing in the game needs a signal and nothing is withheld without one.</li>
+          <li>Check the claim rather than trust it: on Android, open the store listing's permission details, or the app's own info screen, and see that no permissions are declared.</li>
+          <li>Erase your saved data at any time, with no request to file and nobody to ask — see below.</li>
+          <li>Delete the app, which removes everything it stored along with it.</li>
+        </ul>
+
+        <h2 id="data-deletion">Deleting your data</h2>
+        <p>
+          Every piece of STARKNELL data lives on your device, so you delete it
+          yourself and it is gone for good. There is no account for us to close, no
+          copy on a server, no backup of ours, and no request to file with us — we
+          could not delete your data if you asked, because we never had it. To erase
+          it:
+        </p>
+        <ol>
+          <li><b>1.</b> <b>Android</b> &mdash; open <b>Settings &rarr; Apps &rarr; STARKNELL &rarr; Storage</b> and tap <b>Clear storage</b>. Your expedition in progress, unlocks, doctrine, records, memorial wall and settings are all erased; the app stays installed and starts as if new.</li>
+          <li><b>2.</b> <b>Android</b> &mdash; or touch and hold the STARKNELL icon and choose <b>Uninstall</b>. The app and all of its data go together.</li>
+          <li><b>3.</b> <b>iOS / iPadOS</b> &mdash; touch and hold the STARKNELL icon, tap <b>Remove App</b>, then <b>Delete App</b>. This removes the app along with everything it stored. (Choosing <b>Offload App</b> instead deliberately keeps the data for when you reinstall.)</li>
+          <li><b>4.</b> <b>macOS</b> &mdash; quit the game, then delete the folder <b>~/Library/<wbr />Application&nbsp;Support/<wbr />com.machinautstudios.<wbr />starknell</b> (in Finder, use <b>Go &rarr; Go to Folder…</b> and paste that path). Dragging the app itself to the Trash removes the game; deleting that folder removes the saves.</li>
+          <li><b>5.</b> <b>Windows</b> &mdash; quit the game, then delete the <b>Starknell\<wbr />Starknell</b> folder inside <b>%APPDATA%</b> (paste <b>%APPDATA%</b> into the File Explorer address bar to get there). Uninstalling the game does not remove that folder; deleting it does.</li>
+          <li><b>6.</b> <b>Browser demo</b> &mdash; clear site data for the page in your browser's settings (in Chrome, the padlock menu &rarr; <b>Site settings</b> &rarr; <b>Delete data</b>; in Safari, <b>Settings &rarr; Privacy &rarr; Manage Website Data</b>). Everything the demo saved is in that browser's local storage for that site and nowhere else.</li>
+          <li><b>7.</b> <b>Any platform</b> &mdash; that is the entire procedure. Nothing about you exists off your device, so there is nothing left to request, revoke, export or wait on.</li>
+        </ol>
+        <p>
+          Your purchase is the one thing this does not erase, and it is not ours to
+          erase: the record of what you bought is held by Apple, Google, Valve or
+          itch.io. Deleting the game does not refund or cancel it, and reinstalling
+          from the same store account gives you the game back — without your old
+          saves, which are gone.
+        </p>
+
+        <h2>Changes to this policy</h2>
+        <p>
+          We may update this policy from time to time — for example, if the browser
+          demo goes live. Material changes will be reflected by updating the "Last
+          updated" date above. If STARKNELL ever gained a feature that used the
+          network, this page would say so before that version shipped.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+          Questions about this policy can be sent to
+          <a href="mailto:info@machinautstudios.com">info@machinautstudios.com</a>.
+        </p>
+      </article>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <img class="footer__logo" src="/logo.png" alt="" width="44" height="44" />
+    <nav class="footer__links" aria-label="Footer">
+      <a href="/">Home</a>
+      <a href="/starknell/">STARKNELL</a>
+      <a href="/starknell/privacy/">Privacy Policy</a>
+      <a href="/space-couch-command/">Space Couch Command</a>
+      <a href="/emberseam/">Emberseam</a>
+      <a href="/hushword/">Hushword</a>
+      <a href="/anvilspell/">Anvilspell</a>
+      <a href="/tooter/">Tooter</a>
+      <a href="/crittergram/">Critter Gram</a>
+    </nav>
+    <p class="footer__fine">© 2026 Machinaut Studios LLC. All rights reserved.</p>
+  </footer>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
