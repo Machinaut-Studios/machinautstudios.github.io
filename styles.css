@@ -854,28 +854,29 @@ main:focus, main:focus-visible { outline: none; box-shadow: none; }
   .grid--half2 { grid-template-columns: repeat(2, 1fr); }  /* keep 2-up where it fits */
 }
 
-/* Nav collapses to the hamburger at 1040px. RE-MEASURE WHEN YOU ADD AN ITEM —
-   and mind that the row is WIDER than the box it sits in. .nav__inner is
-   capped at --maxw (1000px) and centred, so the menu spills out of that
-   1000px column long before it reaches the viewport edge; what matters is
-   where its right edge lands. Don't model that — measure it: neutralise this
-   media query, then binary-search the narrowest viewport at which
-   document.documentElement.scrollWidth - clientWidth is 0, on EVERY page.
-   The widest nav on the site is the one that sets this number.
+/* Nav collapses to the hamburger at 900px. RE-MEASURE WHEN THE ITEM COUNT
+   CHANGES — and mind that the row is WIDER than the box it sits in.
+   .nav__inner is capped at --maxw (1000px) and centred, so the menu spills
+   out of that 1000px column long before it reaches the viewport edge; what
+   matters is where its right edge lands. Don't model that — measure it:
+   neutralise this media query, then binary-search the narrowest viewport at
+   which document.documentElement.scrollWidth - clientWidth is 0, on EVERY
+   page. The widest nav on the site is the one that sets this number.
 
-   Measured 2026-08-22 with the five-item bar (STARKNELL added), brand
-   267px, menu gap clamp(0.75rem, 2vw, 1.6rem):
-       871px  home + every product and privacy page (menu 538px)
-       881px  /space-couch-command/ (its CREW GUIDE cta is the wider one)
-       997px  /space-couch-command/guide/* (own five-item bar, menu 659px)
-   997px is therefore the floor, and this breakpoint sits above it with ~4%
+   Measured 2026-08-23 with the four-item bar (STARKNELL taken back out —
+   product links live in WHAT WE SHIP, never up here), brand 267px, menu gap
+   clamp(0.75rem, 2vw, 1.6rem):
+       741px  home + every product and privacy page (menu 428px)
+       750px  /space-couch-command/ (its CREW GUIDE cta is the wider one)
+       863px  /space-couch-command/guide/* (own four-item bar, menu 546px)
+   863px is therefore the floor, and this breakpoint sits above it with ~4%
    of headroom for a fallback font. If it ever drops BELOW that floor, every
    viewport in between overflows horizontally on every page — which is
-   exactly what the seventh item (ANVILSPELL) did at 1024px, 35px of
-   overflow, while this was still at 960px. Historic values: seven items
-   needed 1101px (breakpoint 1120), eight needed 1343px (breakpoint 1380).
-   Trimming the per-app links back out is what left room for STARKNELL. */
-@media (max-width: 1040px) {
+   exactly what a seventh item (ANVILSPELL) once did at 1024px, 35px of
+   overflow, while this was still at 960px. Historic values: five items
+   needed 997px (breakpoint 1040), seven needed 1101px (breakpoint 1120),
+   eight needed 1343px (breakpoint 1380). */
+@media (max-width: 900px) {
   .nav__toggle { display: inline-flex; align-items: center; justify-content: center; }
   .nav__menu {
     position: absolute;
