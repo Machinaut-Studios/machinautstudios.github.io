@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<!--
+  VoiceCmd — Machinaut Studios LLC
+  Copyright © 2026 Machinaut Studios LLC. All rights reserved. See /LICENSE.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VoiceCmd | Machinaut Studios LLC</title>
+  <meta name="description" content="VoiceCmd turns your voice into keystrokes, macros and mouse actions on macOS, Windows and Linux. Recognition runs entirely on your own computer." />
+  <meta name="robots" content="index, follow" />
+  <meta name="copyright" content="© 2026 Machinaut Studios LLC. All rights reserved." />
+  <meta name="theme-color" content="#07060f" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="canonical" href="https://machinautstudios.com/voicecmd/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="VoiceCmd" />
+  <meta property="og:description" content="Say one phrase, get a whole sequence. Voice macros with real key holds, fully offline." />
+  <meta property="og:url" content="https://machinautstudios.com/voicecmd/" />
+
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <!-- Fonts: Orbitron (chrome display) + VT323 (arcade accents) + IBM Plex Mono (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Orbitron:wght@600;800;900&family=VT323&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ===================== NAV ===================== -->
+  <header class="nav">
+    <div class="nav__inner">
+      <a class="nav__brand" href="/">
+        <img class="nav__logo" src="/logo.png" alt="" width="30" height="30" />
+        <span class="nav__brand-name">MACHINAUT</span>
+        <span class="nav__brand-sub">STUDIOS&nbsp;LLC</span>
+      </a>
+
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bars" aria-hidden="true"></span>
+      </button>
+
+      <nav class="nav__menu" id="nav-menu" aria-label="Primary">
+        <a href="/#factory">THE FACTORY</a>
+        <a href="/#ship">WHAT WE SHIP</a>
+        <a href="/#studio">THE STUDIO</a>
+        <a class="nav__cta" href="/#complaint">RAGE QUIT</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ===================== HERO ===================== -->
+    <section class="hero hero--compact" aria-labelledby="voicecmd-title">
+      <div class="hero__inner">
+        <div class="app-hero__layout">
+          <img class="app-hero__icon" src="/voicecmd/voicecmd_icon.png"
+               alt="VoiceCmd app icon" width="152" height="152" />
+          <div class="app-hero__text">
+            <p class="stamp stamp--hero">&#9654; IN DEVELOPMENT &nbsp;//&nbsp; macOS + WINDOWS + LINUX</p>
+            <h1 class="hero__title" id="voicecmd-title"><span class="n2">VoiceCmd</span><span class="cursor" aria-hidden="true"></span></h1>
+            <p class="app-hero__tagline">Talk. It obeys.<br />Voice macros with real key holds.</p>
+            <p class="hero__sub">
+              Say &ldquo;reload&rdquo; and the R key happens. Say &ldquo;unleash the kraken&rdquo;
+              and a whole macro happens &mdash; a sequence of keystrokes with real holds and
+              precise delays, mouse clicks, typed text, exactly as you defined it.
+              Recognition runs entirely on your own machine: no account, no subscription,
+              and no audio ever leaves your computer.
+            </p>
+            <div class="hero__actions">
+              <a class="btn btn--ghost" href="#support">GET SUPPORT</a>
+              <a class="btn btn--ghost" href="/voicecmd/privacy/">PRIVACY POLICY</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FEATURES ===================== -->
+    <section class="section" id="features" aria-labelledby="features-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; SPEC SHEET</p>
+        <h2 class="section__title chrome" id="features-h">WHAT IT DOES</h2>
+      </div>
+      <p class="section__lead">
+        Most voice tools stop at a single shortcut. VoiceCmd is built for everything
+        past that point.
+      </p>
+
+      <div class="grid">
+        <article class="cell">
+          <h3>Macros, not single shortcuts</h3>
+          <p>
+            Hold a key down for a set duration, then release it. Chain any number of
+            steps with delays you control. Mix keys, combinations, clicks, movement,
+            scrolling and typed text in one command.
+          </p>
+        </article>
+        <article class="cell">
+          <h3>The whole keyboard</h3>
+          <p>
+            F1 through F24, the numpad, the navigation cluster, media keys and chorded
+            combinations &mdash; delivered as real input, not as text pasted into a box.
+          </p>
+        </article>
+        <article class="cell">
+          <h3>Listens when you want it to</h3>
+          <p>
+            Push-to-talk or a toggle hotkey, so it will not fire mid-sentence while you
+            are on a call. An optional wake word if you would rather address it by name.
+            The hotkey gates matching rather than the microphone, so there is no spin-up
+            delay.
+          </p>
+        </article>
+        <article class="cell">
+          <h3>Profiles that follow you</h3>
+          <p>
+            Group commands per application. VoiceCmd notices which app you switch to and
+            loads the matching profile automatically. Export any profile as JSON to back
+            it up or share it.
+          </p>
+        </article>
+        <article class="cell">
+          <h3>Fast, and honest about it</h3>
+          <p>
+            Roughly half a second from the moment you stop speaking to the keystroke
+            landing. A built-in debug view breaks the timing down step by step, so you
+            can check that claim rather than take our word for it.
+          </p>
+        </article>
+        <article class="cell">
+          <h3>Understands you, not just your diction</h3>
+          <p>
+            Fuzzy matching tolerates typos and homophones. Longest phrase wins, so
+            &ldquo;reload weapon&rdquo; never fires &ldquo;reload&rdquo; by mistake.
+            Per-command and global cooldowns stop one utterance firing twice.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===================== SCREENS ===================== -->
+    <section class="section section--alt" id="screens" aria-labelledby="screens-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; ON SCREEN</p>
+        <h2 class="section__title chrome" id="screens-h">WHAT IT LOOKS LIKE</h2>
+      </div>
+      <figure>
+        <img src="/voicecmd/shot-main.png" alt="VoiceCmd listening, with a live voice log showing recognised phrases, the commands they matched, and a per-command latency breakdown." width="1600" height="1000" style="max-width:100%;height:auto;border-radius:10px;" loading="lazy" />
+        <figcaption style="margin-top:.6rem;font-size:.9rem;opacity:.72;">The voice log shows what was heard, which command matched, and exactly where the time went.</figcaption>
+      </figure>
+      <figure>
+        <img src="/voicecmd/shot-settings.png" alt="VoiceCmd settings, showing two profiles and a list of voice commands with their trigger phrases and actions." width="1600" height="1000" style="max-width:100%;height:auto;border-radius:10px;" loading="lazy" />
+        <figcaption style="margin-top:.6rem;font-size:.9rem;opacity:.72;">Profiles group commands per application, and switch automatically as you do.</figcaption>
+      </figure>
+    </section>
+
+    <!-- ===================== PRIVACY ===================== -->
+    <section class="section" id="privacy" aria-labelledby="privacy-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; YOUR DATA</p>
+        <h2 class="section__title chrome" id="privacy-h">IT NEVER LEAVES YOUR MACHINE</h2>
+      </div>
+      <p class="section__lead">
+        The speech model is bundled inside the app and runs on your own computer.
+        Audio is processed as a live stream, never written to a file, and discarded
+        the moment it becomes text. There are no accounts, no telemetry and no servers
+        &mdash; VoiceCmd works with the network switched off.
+        Read the full <a href="/voicecmd/privacy/">privacy policy</a>.
+      </p>
+    </section>
+
+    <!-- ===================== SUPPORT ===================== -->
+    <section class="section section--alt" id="support" aria-labelledby="support-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; SUPPORT</p>
+        <h2 class="section__title chrome" id="support-h">SOMETHING NOT WORKING?</h2>
+      </div>
+      <p class="section__lead">
+        Email <a href="mailto:info@machinautstudios.com">info@machinautstudios.com</a>
+        and we will help. A real person reads it.
+      </p>
+
+      <div class="grid">
+        <article class="cell">
+          <h3>Tell us this and it will be quicker</h3>
+          <p>
+            Open <strong>Settings &rarr; Debug Info</strong> and copy the block &mdash;
+            it holds the version, the exact build, and your operating system. Select it,
+            copy it, and paste it into the email.
+          </p>
+        </article>
+        <article class="cell">
+          <h3>Nothing is being typed (macOS)</h3>
+          <p>
+            macOS silently discards simulated keystrokes until the app is allowed to send
+            them. Grant VoiceCmd <strong>Accessibility</strong> in System Settings &rarr;
+            Privacy &amp; Security. The app shows an <strong>INPUT BLOCKED</strong> chip
+            while that permission is missing.
+          </p>
+        </article>
+        <article class="cell">
+          <h3>It is not hearing you</h3>
+          <p>
+            Open <strong>Settings &rarr; Microphone input</strong> and watch the level
+            meter while you speak. If it never moves, the app is being handed silence
+            &mdash; pick the correct input device there, and check the microphone is not
+            muted in your system sound settings.
+          </p>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <img class="footer__logo" src="/logo.png" alt="" width="44" height="44" />
+    <nav class="footer__links" aria-label="Footer">
+      <a href="/">Home</a>
+      <a href="/voicecmd/">VoiceCmd</a>
+      <a href="/voicecmd/privacy/">Privacy Policy</a>
+    </nav>
+    <p class="footer__fine">© 2026 Machinaut Studios LLC. All rights reserved.</p>
+  </footer>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
