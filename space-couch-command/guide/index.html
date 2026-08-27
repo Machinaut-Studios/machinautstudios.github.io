@@ -32,21 +32,24 @@
 <body id="top">
   <a class="skip-link" href="#main">Skip to main content</a>
 
-  <header class="nav">
-    <div class="nav__inner">
-      <a class="nav__brand" href="/">
-        <img class="nav__logo" src="/logo.png" alt="" width="30" height="30" />
-        <span class="nav__brand-name">MACHINAUT</span>
-        <span class="nav__brand-sub">STUDIOS&nbsp;LLC</span>
+  <!-- ===================== NAV (crew guide tab bar) ===================== -->
+  <header class="nav tabbar">
+    <div class="tabbar__inner">
+      <a class="brand" href="/">
+        <img class="brand__logo" src="/logo.png" alt="" width="28" height="28" />
+        <span class="brand__name">MACHINAUT</span>
+        <span class="brand__sub">STUDIOS&nbsp;LLC</span>
       </a>
-      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
-        <span class="nav__toggle-bars" aria-hidden="true"></span>
+
+      <button class="tabbar__toggle" id="navToggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span aria-hidden="true"></span>
       </button>
-      <nav class="nav__menu" id="nav-menu" aria-label="Primary">
-        <a href="/space-couch-command/">Space Couch Command</a>
-        <a href="/space-couch-command/guide/">CREW GUIDE</a>
-        <a href="/#ship">WHAT WE SHIP</a>
-        <a class="nav__cta" href="/space-couch-command/guide/#stations">PICK A STATION</a>
+
+      <nav class="tabs" id="nav-menu" aria-label="Primary">
+        <a class="tab" href="/space-couch-command/"><span class="tab__dot tab__dot--c"></span>space-couch-command/</a>
+        <a class="tab" aria-current="page" href="/space-couch-command/guide/"><span class="tab__dot tab__dot--v"></span>crew-guide.md</a>
+        <a class="tab" href="/#ship"><span class="tab__dot tab__dot--l"></span>products/</a>
+        <a class="tab tab--cta" href="/space-couch-command/guide/#stations"><span class="tab__dot tab__dot--m"></span>pick-a-station.sh</a>
       </nav>
     </div>
   </header>
@@ -444,26 +447,44 @@
     </section>
   </main>
 
-  <footer class="footer">
-    <img class="footer__logo" src="/logo.png" alt="" width="44" height="44" />
-    <nav class="footer__links" aria-label="Footer">
-      <a href="/">Home</a>
-      <a href="/space-couch-command/">Space Couch Command</a>
-      <a href="/space-couch-command/guide/">Crew Guide</a>
-      <a href="/space-couch-command/guide/helm/">Helm</a>
-      <a href="/space-couch-command/guide/tactical/">Tactical</a>
-      <a href="/space-couch-command/guide/engineering/">Engineering</a>
-      <a href="/space-couch-command/guide/science/">Science</a>
-      <a href="/space-couch-command/guide/comms/">Comms</a>
-      <a href="/space-couch-command/guide/cannoneer/">Cannoneer</a>
-      <a href="/space-couch-command/guide/captain/">Captain</a>
-    </nav>
-    <p class="footer__text">
-      Space Couch Command is a game by MACHINAUT STUDIOS LLC — SLOP FOUNDRY.
-      The bridge only works if you talk.
-      <span class="footer__cursor cursor" aria-hidden="true"></span>
-    </p>
-    <p class="footer__fine">© 2026 Machinaut Studios LLC. All rights reserved.</p>
+  <!-- ===================== FOOTER (status bar) ===================== -->
+  <footer class="footer footer--bar">
+    <div class="statusbar">
+      <span class="sb sb--branch"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="5" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="6" cy="19" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="9" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 7.6v8.8M18 11.6c0 3.2-3 3.6-6 4.2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>main &#10003;</span>
+      <span class="sb">0 problems</span>
+      <span class="sb">temperature 1.0</span>
+      <span class="sb sb--warm">GPU 88.4&deg;C</span>
+      <span class="sb">Ln &#8734;, Col 1</span>
+      <span class="sb sb--flow">prompt &#8594; accept &#8594; deploy</span>
+      <span class="sb sb--right">autocomplete: on &nbsp;&middot;&nbsp; brakes: off</span>
+    </div>
+
+    <div class="footer__body">
+      <img class="footer__logo" src="/logo.png" alt="" width="44" height="44" />
+
+      <p class="vibe vibe--foot">Nobody read the diff. Here is a manual anyway.</p>
+
+      <nav class="footer__links" aria-label="Footer">
+        <a href="/">Home</a>
+        <a href="/space-couch-command/">Space Couch Command</a>
+        <a href="/space-couch-command/guide/">Crew Guide</a>
+        <a href="/space-couch-command/guide/helm/">Helm</a>
+        <a href="/space-couch-command/guide/tactical/">Tactical</a>
+        <a href="/space-couch-command/guide/engineering/">Engineering</a>
+        <a href="/space-couch-command/guide/science/">Science</a>
+        <a href="/space-couch-command/guide/comms/">Comms</a>
+        <a href="/space-couch-command/guide/cannoneer/">Cannoneer</a>
+        <a href="/space-couch-command/guide/captain/">Captain</a>
+      </nav>
+
+      <p class="footer__text">
+        Space Couch Command is a game by MACHINAUT STUDIOS LLC &mdash; written by the model,
+        approved with its eyes shut, shipped at temperature 1.0. The bridge only works if you talk.
+        <span class="footer__cursor cursor" aria-hidden="true"></span>
+      </p>
+
+      <p class="footer__fine">&copy; 2026 Machinaut Studios LLC. All rights reserved.</p>
+    </div>
   </footer>
 
   <script src="/script.js" defer></script>

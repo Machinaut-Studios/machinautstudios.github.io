@@ -1,7 +1,12 @@
 /* =========================================================================
-   MACHINAUT STUDIOS LLC — SLOP FOUNDRY
-   Neon-arcade skin: an AI-driven game studio mass-producing AI slop.
+   MACHINAUT STUDIOS LLC — VIBE FOUNDRY
+   Neon-arcade skin: an AI-driven game studio vibe-coding games at
+   temperature 1.0 and shipping them before anybody opens the diff.
    Synthwave grid, chrome type, magenta / cyan / lime glow. No dependencies.
+
+   The home page wears /home.css. This file dresses the other 23 pages in the
+   same clothes — see THE CHROME at the bottom, where the tab bar, the status
+   bar and the catchphrase treatments are kept in step with it.
    ========================================================================= */
 
 :root {
@@ -20,11 +25,15 @@
   --cyan:      #2fe4ff;
   --lime:      #b6ff3a;
   --violet:    #a855ff;
+  --amber:     #ffc857;   /* the one warm light in the room */
 
   /* text-safe accents (bright enough for large text / links on dark) */
   --magenta-t: #ff5cae;
   --cyan-t:    #57ecff;
   --lime-t:    #c6ff5e;
+  --violet-t:  #c48cff;
+
+  --chrome-bar:#1a1236;   /* title bars, tool bars, status bars */
 
   --line:      rgba(150, 120, 255, 0.22);  /* hairline separators */
   --line-2:    rgba(47, 228, 255, 0.30);
@@ -35,7 +44,7 @@
 
   --maxw: 1000px;
   --gutter: clamp(1rem, 4vw, 2.5rem);
-  --nav-h: 60px;
+  --nav-h: 54px;          /* tab-bar height — matches /home.css exactly */
 
   --ease: cubic-bezier(0.2, 0, 0, 1);
 
@@ -523,7 +532,7 @@ main:focus, main:focus-visible { outline: none; box-shadow: none; }
 .cell__text { font-size: 0.92rem; line-height: 1.55; color: var(--muted); }
 .cell__text b { color: var(--ink); font-weight: 600; }
 
-/* ===================== THE SLOP FACTORY (conveyor) ================== */
+/* ====================== THE PIPELINE (conveyor) ===================== */
 .factory__stage {
   position: relative;
   height: clamp(230px, 42vw, 360px);
@@ -875,7 +884,14 @@ main:focus, main:focus-visible { outline: none; box-shadow: none; }
    exactly what a seventh item (ANVILSPELL) once did at 1024px, 35px of
    overflow, while this was still at 960px. Historic values: five items
    needed 997px (breakpoint 1040), seven needed 1101px (breakpoint 1120),
-   eight needed 1343px (breakpoint 1380). */
+   eight needed 1343px (breakpoint 1380).
+
+   2026-08-26: the tab bar that replaces this one has its own, wider breakpoint
+   down in THE CHROME. This query stays until the last page has swapped over;
+   the two coexist happily because they share only #navToggle and #nav-menu.
+   Also note --nav-h went 60px -> 54px to match the tab bar, which shortens
+   this bar a little too. The numbers above were measured at 60px and are, if
+   anything, now slightly conservative. */
 @media (max-width: 900px) {
   .nav__toggle { display: inline-flex; align-items: center; justify-content: center; }
   .nav__menu {
@@ -1080,7 +1096,7 @@ main:focus, main:focus-visible { outline: none; box-shadow: none; }
 
 /* =========================================================================
    MOTION KIT — the moving parts every page borrows
-   The conveyor up in THE SLOP FACTORY set the house style: a dark machine
+   The conveyor up in THE PIPELINE set the house style: a dark machine
    housing, a faint grid behind it, and neon parts doing one honest loop.
    Everything below generalises that, so each product page can bolt its own
    contraption into the same frame and still look like it came off our line.
@@ -1397,4 +1413,310 @@ html.js-motion .hero__logo { animation: mark-float 7s var(--ease) infinite; }
   .stage-static__arrow { font-family: var(--font-arcade); font-size: 1.5rem; color: var(--lime); }
   .motes { display: none; }
   .meter__fill { width: 74%; }
+}
+
+/* =========================================================================
+   THE CHROME — the tab bar, the status bar, and the catchphrases
+   Lifted straight out of /home.css so the other 23 pages wear the same
+   editor furniture as the front door. Values here are copied, not
+   reinterpreted: if one file changes, change the other in the same commit.
+
+   Markup contract (page agents: paste the snippets, don't improvise):
+     <header class="nav tabbar">          .nav stays on so script.js finds it
+       <div class="tabbar__inner">
+         <a class="brand">  <button class="tabbar__toggle" id="navToggle">
+         <nav class="tabs" id="nav-menu"> <a class="tab"><span class="tab__dot">
+     <footer class="footer footer--bar">
+       <div class="statusbar"> <span class="sb">…            (chips)
+       <div class="footer__body">                            (links + sign-off)
+
+   The old .nav / .nav__menu block further up is deliberately untouched.
+   Pages swap over one at a time and a half-migrated site has to keep
+   working; delete those rules only once nothing links to them.
+   ========================================================================= */
+
+/* ============================ TAB BAR (nav) ============================= */
+/* Sits on the same <header> as .nav, so it has to win on every property the
+   old bar also sets — it does, by coming later in the file at equal weight. */
+.tabbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--nav-h);
+  background: rgba(9, 7, 20, 0.94);
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+  border-bottom: 1px solid var(--line);
+  box-shadow: none;        /* .nav's cyan hairline would double the border */
+}
+.tabbar__inner {
+  max-width: 1340px;       /* wider than --maxw: the bar spans the window */
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* ---- the mark, top left, where a project name would be ---- */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: none;
+  color: var(--ink);
+}
+.brand__logo {
+  width: 28px;
+  height: 28px;
+  flex: none;
+  filter: drop-shadow(0 0 7px rgba(255, 46, 151, 0.5));
+  transition: filter 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.brand:hover .brand__logo,
+.brand:focus-visible .brand__logo {
+  transform: scale(1.06);
+  filter: drop-shadow(0 0 14px rgba(47, 228, 255, 0.75));
+}
+.brand__name {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+.brand__sub {
+  font-family: var(--font-arcade);
+  font-size: 0.9rem;
+  letter-spacing: 0.16em;
+  color: var(--muted-2);
+  white-space: nowrap;
+}
+
+/* ---- the open files ---- */
+.tabs {
+  margin-left: auto;
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+}
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0 0.9rem;
+  height: 100%;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;     /* the toggle takes over before a label could wrap */
+  color: var(--muted);
+  border-left: 1px solid var(--line);
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s var(--ease), background 0.15s var(--ease),
+              border-color 0.15s var(--ease);
+}
+.tab:last-child { border-right: 1px solid var(--line); }
+.tab:hover { color: var(--ink); background: rgba(168, 85, 255, 0.10); border-bottom-color: var(--cyan); }
+.tab--cta { color: var(--magenta-t); }
+.tab--cta:hover { border-bottom-color: var(--magenta); background: rgba(255, 46, 151, 0.12); }
+/* the file you are actually looking at reads as the focused tab */
+.tab[aria-current="page"] {
+  color: var(--ink);
+  background: rgba(47, 228, 255, 0.07);
+  border-bottom-color: var(--cyan);
+}
+.tab__dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+.tab__dot--c { background: var(--cyan);    box-shadow: 0 0 8px var(--cyan); }
+.tab__dot--l { background: var(--lime);    box-shadow: 0 0 8px var(--lime); }
+.tab__dot--v { background: var(--violet);  box-shadow: 0 0 8px var(--violet); }
+.tab__dot--m { background: var(--magenta); box-shadow: 0 0 8px var(--magenta); }
+
+/* ---- the hamburger. Same button, same #navToggle, same script.js ---- */
+.tabbar__toggle {
+  display: none;
+  margin-left: auto;
+  flex: none;
+  width: 42px;
+  height: 38px;
+  border: 1px solid var(--line-2);
+  border-radius: 5px;
+  background: transparent;
+  position: relative;
+}
+.tabbar__toggle span,
+.tabbar__toggle span::before,
+.tabbar__toggle span::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 18px;
+  height: 2px;
+  background: var(--cyan);
+  box-shadow: var(--glow-c);
+  transform: translateX(-50%);
+  transition: transform 0.18s var(--ease), opacity 0.18s var(--ease);
+}
+.tabbar__toggle span { top: 50%; margin-top: -1px; }
+.tabbar__toggle span::before { top: -6px; left: 0; transform: none; }
+.tabbar__toggle span::after  { top:  6px; left: 0; transform: none; }
+/* script.js flags the <header>, so the X folds off .tabbar.is-open */
+.tabbar.is-open .tabbar__toggle span { background: transparent; box-shadow: none; }
+.tabbar.is-open .tabbar__toggle span::before { transform: translateY(6px) rotate(45deg); }
+.tabbar.is-open .tabbar__toggle span::after  { transform: translateY(-6px) rotate(-45deg); }
+
+/* Scroll progress under the bar — same strip .nav draws, same keyframes. */
+@supports (animation-timeline: scroll()) {
+  .tabbar::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -1px;
+    height: 2px;
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    background: linear-gradient(90deg, var(--magenta), var(--violet), var(--cyan), var(--lime));
+    box-shadow: 0 0 10px rgba(47, 228, 255, 0.55);
+    animation: nav-progress linear both;
+    animation-timeline: scroll(root block);
+  }
+}
+
+/* Tab bar collapses to the hamburger at 1040px. RE-MEASURE WHEN A LABEL OR AN
+   ITEM COUNT CHANGES — same procedure as the .nav query above: neutralise this
+   block (force .tabs back to a row and .tabbar__toggle to display:none), then
+   binary-search the narrowest viewport with no horizontal overflow, on EVERY
+   page. The widest bar on the site sets the number.
+
+   Two amendments to that procedure, both because this bar is not that bar:
+
+   1. .tabbar__inner is capped at 1340px, not at --maxw (1000px), so at every
+      width that matters the row spans the whole window. What has to fit is
+      gutter + brand + 1rem + four tabs + gutter.
+   2. scrollWidth - clientWidth is too generous here. body sets
+      overflow-x: hidden, and the bar can spill a full right gutter into that
+      clip before the document reports a single pixel — measured, consistently
+      33-41px of real overflow while doc overflow still read 0. So the test is
+      the row itself: sum the children of .tabbar__inner (plus the 1rem gap)
+      against its content box. Both numbers are recorded below; the row number
+      is the one that governs.
+
+   Measured 2026-08-26, headless Chrome, the four-item bars this file
+   prescribes (every .tab is nowrap, so nothing can wrap its way out of an
+   overflow the way the home page's untagged labels do at their hyphens):
+       webfonts        fallback fonts     bar
+       870px           881px              product + privacy pages
+       991px           1002px             /space-couch-command/guide/*
+   1002px is the floor. This breakpoint sits above it with ~4% of headroom.
+   Historic .nav values, for scale: five items 1040, seven 1120, eight 1380.
+
+   NOTE, and it is not this file's to fix: /home.css collapses its own copy of
+   this bar at 780px while its studio bar needs 826px, so the home page
+   overflows by up to ~46px between 781px and 825px. Same measurement, same
+   day. Worth a look next time index.html is open. */
+@media (max-width: 1040px) {
+  .tabbar__toggle { display: block; }
+  .tabs {
+    position: absolute;      /* .tabbar is sticky, so it is the containing block */
+    top: var(--nav-h);
+    left: 0; right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    height: auto;
+    margin: 0;
+    background: rgba(9, 7, 20, 0.98);
+    border-bottom: 1px solid var(--line);
+    max-height: 0;
+    overflow: hidden;
+    /* hidden, not merely clipped: a closed drawer must not hold tab stops */
+    visibility: hidden;
+    transition: max-height 0.25s var(--ease), visibility 0s linear 0.25s;
+  }
+  .tabbar.is-open .tabs,     /* script.js flags the <header> */
+  .nav.is-open .tabs,        /* …belt and braces if it ever flags .nav alone */
+  .tabs.is-open {            /* …or the menu, the way the home page does */
+    max-height: 320px;
+    visibility: visible;
+    transition: max-height 0.25s var(--ease), visibility 0s;
+  }
+  .tab {
+    height: 48px;
+    border-left: none;
+    border-top: 1px solid var(--line);
+  }
+  .tab:last-child { border-right: none; }
+}
+
+/* ============================ CATCHPHRASES ============================== */
+/* One line per section, in the arcade face, prefixed like a comment nobody
+   will read. Deadpan only — if it needs a second sentence it is a lead. */
+.vibe {
+  font-family: var(--font-arcade);
+  font-size: clamp(1.02rem, 2.3vw, 1.3rem);
+  line-height: 1.25;
+  letter-spacing: 0.11em;
+  color: var(--lime-t);
+  text-shadow: var(--glow-l);
+  margin: 0.15rem 0 1.7rem;
+}
+.vibe::before { content: "// "; color: var(--magenta-t); text-shadow: var(--glow-m); }
+
+/* The owner's line: an ember rubber stamp, thumped on slightly crooked.
+   No // prefix — a stamp isn't a comment. Identical to the home page's. */
+.vibe--hero {
+  display: inline-flex;
+  margin: 0.1rem 0 1.3rem;
+  padding: 0.34rem 0.9rem 0.28rem;
+  border: 2px solid rgba(255, 157, 58, 0.6);
+  border-radius: 5px;
+  font-size: clamp(1.05rem, 2.9vw, 1.5rem);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #ffbc73;
+  text-shadow: 0 0 14px rgba(255, 157, 58, 0.55), 0 0 3px rgba(255, 157, 58, 0.9);
+  transform: rotate(-1.3deg);
+}
+.vibe--hero::before { content: none; }
+.vibe--head { margin: 0.15rem 0 0; }
+.vibe--foot { margin: 0 0 0.7rem; color: var(--violet-t); text-shadow: 0 0 12px rgba(168, 85, 255, 0.5); }
+
+/* ========================= STATUS BAR (footer) ========================== */
+/* The strip of chips an editor keeps along the bottom of the window: branch,
+   problem count, temperature, and how warm the closet is. Full-bleed, so it
+   opts out of the legacy .footer column and hands the padding to __body. */
+.footer--bar {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+}
+.statusbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 1.2rem;
+  padding: 0.4rem max(var(--gutter), calc((100% - var(--maxw)) / 2));
+  background: linear-gradient(90deg, var(--chrome-bar), #150f2c);
+  border-bottom: 1px solid var(--line);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.sb { display: inline-flex; align-items: center; gap: 0.3rem; white-space: nowrap; }
+.sb--branch { color: var(--lime-t); }
+.sb--branch svg { width: 12px; height: 12px; flex: none; }
+.sb--warm { color: var(--magenta-t); }
+.sb--flow { color: var(--violet-t); letter-spacing: 0.1em; }
+.sb--right { margin-left: auto; color: var(--cyan-t); }
+
+.footer--bar .footer__body {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 2rem var(--gutter) 2.4rem;
+  text-align: center;
+}
+
+@media (max-width: 460px) {
+  .statusbar { gap: 0 0.7rem; font-size: 0.64rem; }
+  .sb--right { margin-left: 0; }
 }

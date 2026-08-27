@@ -1,7 +1,7 @@
 /* =========================================================================
-   MACHINAUT STUDIOS LLC — Slop Foundry
+   MACHINAUT STUDIOS LLC — vibe-coded, shipped at temperature 1.0
    1) Mobile nav toggle (accessible)
-   2) The "slop deployed" counter (ticks up forever, respects reduced motion)
+   2) The units-deployed counter (ticks up forever, respects reduced motion)
    3) The Motion Kit — scroll reveals, offscreen stage pausing, telemetry
    4) The Complaint Shredder — rasterize the user's text to a canvas, wipe the
       real <textarea> value the instant we snapshot it (so the text is GENUINELY
@@ -39,12 +39,12 @@
     });
   }
 
-  /* ------------------------------------------------------------ SLOP COUNTER
+  /* --------------------------------------------------------- SHIP COUNTER
      The factory's "units deployed" readout. Ticks up at an absurd rate so the
      mass-production gag keeps paying off. Static (no ticking) for reduced motion. */
-  const slopEl = document.getElementById("slopCount");
-  if (slopEl && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    let n = parseInt(slopEl.textContent.replace(/[^0-9]/g, ""), 10) || 4208117;
+  const shipEl = document.getElementById("shipCount");
+  if (shipEl && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    let n = parseInt(shipEl.textContent.replace(/[^0-9]/g, ""), 10) || 4208117;
     const fmt = (v) => v.toLocaleString("en-US");
     let acc = 0;
     let last = 0;
@@ -54,7 +54,7 @@
       last = t;
       if (acc >= 90) {
         n += 1 + Math.floor(Math.random() * 6);
-        slopEl.textContent = fmt(n);
+        shipEl.textContent = fmt(n);
         acc = 0;
       }
       requestAnimationFrame(tickCounter);
@@ -79,7 +79,7 @@
     "COMPLAINT DEPLOYED TO /dev/null. Zero downtime. Thank you for the paper.",
     "Your feedback has been generated into 1,400 small rectangles. Resolution: total.",
     "Shipped straight to production and immediately shredded. Our fastest pipeline yet.",
-    "The model has eaten your concern and reports that it was, quote, 'delicious slop.'",
+    "The model read your concern, called it 'valid feedback', and closed it as wontfix.",
     "Ticket #00000 auto-closed. Satisfaction: assumed. Confetti: deployed.",
   ];
   const EMPTY_MESSAGES = [

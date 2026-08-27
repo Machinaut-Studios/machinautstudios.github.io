@@ -1,357 +1,597 @@
 <!DOCTYPE html>
 <!--
-  Machinaut Studios LLC — Slop Foundry
+  Machinaut Studios LLC — the home page
   Copyright © 2026 Machinaut Studios LLC. All rights reserved. See LICENSE.
 -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="copyright" content="© 2026 Machinaut Studios LLC. All rights reserved." />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Machinaut Studios — AI Slop, Shipped Daily</title>
-  <meta name="description" content="Machinaut Studios is an AI-driven game studio building AI slop bigger, better, faster, and sloppier than ever. The machines make it. We just push deploy." />
+  <title>Machinaut Studios — Vibe-Coded, Shipped at Temperature 1.0</title>
+  <meta name="description" content="Bigger. Better. Vibier. Machinaut Studios is an AI-driven game studio shipping good vibes at record speeds — the model writes it, an agent approves it with its eyes shut, and it ships before anybody opens the diff." />
   <meta name="theme-color" content="#07060f" />
   <meta name="color-scheme" content="dark" />
+  <meta name="copyright" content="© 2026 Machinaut Studios LLC. All rights reserved." />
   <link rel="canonical" href="https://machinautstudios.com/" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://machinautstudios.com/" />
-  <meta property="og:title" content="Machinaut Studios — AI Slop, Shipped Daily" />
-  <meta property="og:description" content="An AI-driven game studio building AI slop bigger, better, faster, and sloppier than ever. Now featuring a mass-production slop factory and an industrial-grade complaint shredder." />
+  <meta property="og:title" content="Machinaut Studios — Bigger. Better. Vibier." />
+  <meta property="og:description" content="An AI-driven game studio shipping good vibes at record speeds. The model writes it, an agent approves it with its eyes shut, and it ships before anybody opens the diff." />
   <meta property="og:image" content="https://machinautstudios.com/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:type" content="image/png" />
-  <meta property="og:image:alt" content="Machinaut Studios LLC — a neon robot in an astronaut helmet. Bigger. Better. Sloppier." />
+  <meta property="og:image:alt" content="Machinaut Studios LLC — a neon robot in an astronaut helmet. Bigger. Better. Vibier." />
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-  <!-- Fonts: Orbitron (chrome display) + VT323 (arcade accents) + IBM Plex Mono (body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Orbitron:wght@600;800;900&family=VT323&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Orbitron:wght@600;800;900&family=VT323&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="/home.css" />
+  <script>
+    /* Set the flags before first paint so nothing flashes the wrong state. */
+    (function () {
+      var h = document.documentElement;
+      h.classList.add('has-js');
+      if (new URLSearchParams(location.search).has('shot')) h.classList.add('is-shot');
+    })();
+  </script>
 </head>
 <body id="top">
   <a class="skip-link" href="#main">Skip to main content</a>
-  <a class="skip-link" href="#complaint">Skip to the complaint shredder</a>
+  <a class="skip-link" href="#complaint">Skip to the issue tracker</a>
 
-  <!-- ============ Reusable cartoon parts (hidden symbol defs) ============ -->
+  <!-- ============ Reusable parts (hidden symbol defs) ============ -->
   <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
     <defs>
-      <!-- a freshly-stamped gizmo -->
-      <symbol id="giz-widget" viewBox="0 0 48 48">
-        <line x1="24" y1="14" x2="24" y2="7" stroke="#b6ff3a" stroke-width="2"/>
-        <circle cx="24" cy="5" r="3" fill="#b6ff3a"/>
-        <rect x="7" y="14" width="34" height="27" rx="8" fill="#16244a" stroke="#2fe4ff" stroke-width="2"/>
-        <circle cx="24" cy="27" r="7.5" fill="#f3f1ff"/>
-        <circle cx="26" cy="28.5" r="3.2" fill="#0a0718"/>
-        <circle cx="13" cy="38" r="2" fill="#2fe4ff"/>
-        <circle cx="35" cy="38" r="2" fill="#2fe4ff"/>
+      <symbol id="ic-branch" viewBox="0 0 24 24">
+        <circle cx="6" cy="5" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <circle cx="6" cy="19" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <circle cx="18" cy="9" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <path d="M6 7.6v8.8M18 11.6c0 3.2-3 3.6-6 4.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
       </symbol>
-      <!-- the same gizmo, boxed for shipping -->
-      <symbol id="giz-box" viewBox="0 0 48 48">
-        <rect x="7" y="15" width="34" height="27" rx="3" fill="#2a0f24" stroke="#ff2e97" stroke-width="2"/>
-        <line x1="24" y1="15" x2="24" y2="42" stroke="#b6ff3a" stroke-width="2"/>
-        <line x1="7" y1="24" x2="41" y2="24" stroke="#b6ff3a" stroke-width="2"/>
-        <text x="24" y="37" text-anchor="middle" font-family="'VT323',monospace" font-size="9" fill="#ff5cae" letter-spacing="1">SLOP</text>
-        <circle cx="24" cy="12" r="3.5" fill="#16244a" stroke="#2fe4ff" stroke-width="1.5"/>
+      <symbol id="ic-folder" viewBox="0 0 24 24">
+        <path d="M3 6.5h6l1.6 2H21v9.5H3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
       </symbol>
-      <!-- deploy rocket (static fallback) -->
-      <symbol id="giz-rocket" viewBox="0 0 48 48">
+      <symbol id="ic-rocket" viewBox="0 0 48 48">
         <path d="M24 3c7 5 9 13 9 20l-4 6H19l-4-6c0-7 2-15 9-20z" fill="#16244a" stroke="#2fe4ff" stroke-width="2"/>
         <circle cx="24" cy="18" r="4" fill="#b6ff3a"/>
         <path d="M19 29l-6 6 6-1zM29 29l6 6-6-1z" fill="#ff2e97"/>
         <path d="M20 35h8l-4 9z" fill="#b6ff3a"/>
       </symbol>
+      <!-- ---- what rides the belt. Every one of these rests its feet on
+                y=45 so it sits flat on the belt, whatever shape it is. ---- -->
+      <symbol id="it-crate" viewBox="0 0 48 48">
+        <rect x="7" y="18" width="34" height="27" rx="3" fill="#16244a" stroke="#2fe4ff" stroke-width="2"/>
+        <path d="M12 28h24M12 37h24" stroke="#a855ff" stroke-width="2" stroke-linecap="round"/>
+        <rect x="4" y="10" width="40" height="9" rx="2.5" fill="#1d2f5e" stroke="#2fe4ff" stroke-width="2"/>
+      </symbol>
+      <!-- a fresh build, straight out of the model -->
+      <symbol id="it-widget" viewBox="0 0 48 48">
+        <line x1="24" y1="17" x2="24" y2="9" stroke="#b6ff3a" stroke-width="2"/>
+        <circle cx="24" cy="7" r="3" fill="#b6ff3a"/>
+        <rect x="7" y="17" width="34" height="28" rx="8" fill="#16244a" stroke="#2fe4ff" stroke-width="2"/>
+        <circle cx="24" cy="29" r="7.5" fill="#f3f1ff"/>
+        <circle cx="26" cy="30.5" r="3.2" fill="#0a0718"/>
+        <circle cx="13" cy="41" r="2" fill="#2fe4ff"/>
+        <circle cx="35" cy="41" r="2" fill="#2fe4ff"/>
+      </symbol>
+      <!-- cracked clean in half, still travelling -->
+      <symbol id="it-crack" viewBox="0 0 48 48">
+        <g transform="rotate(-8 15 30)">
+          <path d="M7 12h15l-4 6 5 5-4 6 4 16H7z" fill="#16244a" stroke="#ff2e97" stroke-width="2" stroke-linejoin="round"/>
+        </g>
+        <g transform="rotate(8 34 30)">
+          <path d="M41 12H26l4 6-5 5 4 6-4 16h16z" fill="#16244a" stroke="#ff2e97" stroke-width="2" stroke-linejoin="round"/>
+        </g>
+      </symbol>
+      <!-- upside down: it came off the head on its lid and nobody turned it over.
+           The THIS WAY UP arrows are the tell — they point at the floor. -->
+      <symbol id="it-flip" viewBox="0 0 48 48">
+        <rect x="7" y="11" width="34" height="26" rx="3" fill="#16244a" stroke="#ff2e97" stroke-width="2"/>
+        <g fill="#ff2e97">
+          <path d="M15.4 13.5h3.2v7h-3.2z"/><path d="M11.8 20h10.4L17 27z"/>
+          <path d="M29.4 13.5h3.2v7h-3.2z"/><path d="M25.8 20h10.4L31 27z"/>
+        </g>
+        <rect x="4" y="36" width="40" height="9" rx="2.5" fill="#1d2f5e" stroke="#ff2e97" stroke-width="2"/>
+      </symbol>
+      <!-- an empty one. The lid came off somewhere upstream. -->
+      <symbol id="it-open" viewBox="0 0 48 48">
+        <rect x="7" y="21" width="34" height="24" rx="3" fill="#0b0820" stroke="#2fe4ff" stroke-width="2"/>
+        <path d="M9 28h30" stroke="#2fe4ff" stroke-width="1.6" opacity="0.45"/>
+        <rect x="26" y="8" width="20" height="7" rx="2.5" fill="#1d2f5e" stroke="#2fe4ff" stroke-width="2" transform="rotate(19 36 11)"/>
+      </symbol>
+      <!-- two shut eyes (reduced-motion diagram only) -->
+      <symbol id="it-shut" viewBox="0 0 48 24">
+        <path d="M4 16a9 9 0 0 1 15 0" fill="none" stroke="#c48cff" stroke-width="3" stroke-linecap="round"/>
+        <path d="M29 16a9 9 0 0 1 15 0" fill="none" stroke="#c48cff" stroke-width="3" stroke-linecap="round"/>
+        <path d="M11.5 18v4M36.5 18v4" stroke="#c48cff" stroke-width="2.4" stroke-linecap="round"/>
+      </symbol>
     </defs>
   </svg>
 
-  <!-- ===================== NAV ===================== -->
-  <header class="nav">
-    <div class="nav__inner">
-      <a class="nav__brand" href="#top">
-        <img class="nav__logo" src="/logo.png" alt="" width="30" height="30" />
-        <span class="nav__brand-name">MACHINAUT</span>
-        <span class="nav__brand-sub">STUDIOS&nbsp;LLC</span>
+  <!-- ===================== NAV (editor tab bar) ===================== -->
+  <header class="tabbar">
+    <div class="tabbar__inner">
+      <a class="brand" href="#top">
+        <img class="brand__logo" src="/logo.png" alt="" width="28" height="28" />
+        <span class="brand__name">MACHINAUT</span>
+        <span class="brand__sub">STUDIOS&nbsp;LLC</span>
       </a>
 
-      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
-        <span class="nav__toggle-bars" aria-hidden="true"></span>
+      <button class="tabbar__toggle" id="navToggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation">
+        <span aria-hidden="true"></span>
       </button>
 
-      <nav class="nav__menu" id="nav-menu" aria-label="Primary">
-        <a href="#factory">THE FACTORY</a>
-        <a href="#ship">WHAT WE SHIP</a>
-        <a href="#studio">THE STUDIO</a>
-        <a class="nav__cta" href="#complaint">RAGE QUIT</a>
+      <nav class="tabs" id="nav-menu" aria-label="Primary">
+        <a class="tab" href="#pipeline"><span class="tab__dot tab__dot--c"></span>pipeline.yml</a>
+        <a class="tab" href="#ship"><span class="tab__dot tab__dot--l"></span>products/</a>
+        <a class="tab" href="#studio"><span class="tab__dot tab__dot--v"></span>studio.blame</a>
+        <a class="tab tab--cta" href="#complaint"><span class="tab__dot tab__dot--m"></span>rage-quit.sh</a>
       </nav>
     </div>
   </header>
 
   <main id="main" tabindex="-1">
+
     <!-- ===================== HERO ===================== -->
     <section class="hero" aria-labelledby="hero-title">
       <div class="grid-horizon" aria-hidden="true"></div>
       <div class="scanlines" aria-hidden="true"></div>
-      <!-- Slop embers drifting off the factory floor below -->
       <div class="motes" aria-hidden="true">
-        <span class="mote" style="--x:4%;--s:5px;--dur:17s;--d:-1s;--c:var(--lime);--drift:30px;--rise:-380px"></span>
-        <span class="mote" style="--x:11%;--s:3px;--dur:21s;--d:-6s;--c:var(--cyan);--drift:-24px;--rise:-420px"></span>
-        <span class="mote" style="--x:19%;--s:6px;--dur:15s;--d:-11s;--c:var(--magenta);--drift:18px;--rise:-340px"></span>
-        <span class="mote" style="--x:27%;--s:3px;--dur:24s;--d:-3s;--c:var(--cyan);--drift:34px;--rise:-460px"></span>
-        <span class="mote" style="--x:35%;--s:4px;--dur:19s;--d:-14s;--c:var(--lime);--drift:-30px;--rise:-400px"></span>
-        <span class="mote" style="--x:44%;--s:5px;--dur:26s;--d:-8s;--c:var(--violet);--drift:22px;--rise:-500px"></span>
-        <span class="mote" style="--x:52%;--s:3px;--dur:16s;--d:-19s;--c:var(--cyan);--drift:-18px;--rise:-330px"></span>
-        <span class="mote" style="--x:61%;--s:6px;--dur:22s;--d:-5s;--c:var(--magenta);--drift:26px;--rise:-430px"></span>
-        <span class="mote" style="--x:69%;--s:4px;--dur:18s;--d:-13s;--c:var(--lime);--drift:-26px;--rise:-360px"></span>
-        <span class="mote" style="--x:77%;--s:3px;--dur:25s;--d:-9s;--c:var(--cyan);--drift:30px;--rise:-470px"></span>
-        <span class="mote" style="--x:85%;--s:5px;--dur:20s;--d:-16s;--c:var(--violet);--drift:-20px;--rise:-390px"></span>
-        <span class="mote" style="--x:93%;--s:4px;--dur:23s;--d:-2s;--c:var(--magenta);--drift:24px;--rise:-440px"></span>
+        <span class="mote" style="--x:5%;--s:5px;--dur:17s;--d:-1s;--c:var(--lime);--drift:30px;--rise:-380px"></span>
+        <span class="mote" style="--x:13%;--s:3px;--dur:21s;--d:-6s;--c:var(--cyan);--drift:-24px;--rise:-420px"></span>
+        <span class="mote" style="--x:22%;--s:6px;--dur:15s;--d:-11s;--c:var(--magenta);--drift:18px;--rise:-340px"></span>
+        <span class="mote" style="--x:31%;--s:3px;--dur:24s;--d:-3s;--c:var(--cyan);--drift:34px;--rise:-460px"></span>
+        <span class="mote" style="--x:41%;--s:4px;--dur:19s;--d:-14s;--c:var(--lime);--drift:-30px;--rise:-400px"></span>
+        <span class="mote" style="--x:52%;--s:5px;--dur:26s;--d:-8s;--c:var(--violet);--drift:22px;--rise:-500px"></span>
+        <span class="mote" style="--x:63%;--s:3px;--dur:16s;--d:-19s;--c:var(--cyan);--drift:-18px;--rise:-330px"></span>
+        <span class="mote" style="--x:74%;--s:6px;--dur:22s;--d:-5s;--c:var(--magenta);--drift:26px;--rise:-430px"></span>
+        <span class="mote" style="--x:84%;--s:4px;--dur:18s;--d:-13s;--c:var(--lime);--drift:-26px;--rise:-360px"></span>
+        <span class="mote" style="--x:94%;--s:3px;--dur:25s;--d:-9s;--c:var(--violet);--drift:30px;--rise:-470px"></span>
       </div>
+
       <div class="hero__inner">
-        <img class="hero__logo" src="/logo.png" alt="" width="148" height="148" />
-        <p class="stamp stamp--hero">&#9654; INSERT COIN &nbsp;//&nbsp; NOW GENERATING: AI SLOP v&#8734;</p>
-        <h1 class="hero__title glitch" id="hero-title">
-          <span class="n1">BIGGER.</span>
-          <span class="n2">BETTER.</span>
-          <span class="n3">SLOPPIER.<span class="cursor" aria-hidden="true"></span></span>
-        </h1>
-        <p class="hero__sub">
-          Machinaut Studios is an <b>AI-driven game studio</b> building AI slop bigger, better,
-          faster, and sloppier than ever. The machines make it by the thousand. We just push
-          deploy and take the credit.
-        </p>
-        <div class="hero__actions">
-          <a class="btn btn--primary" href="#ship">PLAY OUR SLOP</a>
-          <a class="btn btn--ghost" href="#factory">TOUR THE FACTORY</a>
+        <div class="hero__copy">
+          <img class="hero__logo" src="/logo.png" alt="" width="112" height="112" />
+          <p class="stamp stamp--hero">&#9654; PROMPT &nbsp;//&nbsp; ACCEPT &nbsp;//&nbsp; DEPLOY &nbsp;//&nbsp; TEMPERATURE 1.0</p>
+          <h1 class="hero__title glitch" id="hero-title">
+            <span class="n1">BIGGER.</span>
+            <span class="n2">BETTER.</span>
+            <span class="n3">VIBIER.<span class="cursor" aria-hidden="true"></span></span>
+          </h1>
+          <p class="vibe vibe--hero">Shipping good vibes at record speeds.</p>
+          <p class="hero__sub">
+            Machinaut Studios is an <b>AI-driven game studio</b> that vibe-codes games at
+            temperature&nbsp;1.0. The model writes it, an agent approves it, main goes green, and
+            the build is live before anyone has opened the diff. We are the ones who clicked
+            <b>Accept</b>. That is the whole job.
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#ship"><span class="btn__sig">$</span> open products/</a>
+            <a class="btn btn--ghost" href="#pipeline"><span class="btn__sig">$</span> tail -f pipeline.log</a>
+          </div>
+        </div>
+
+        <!-- ---- The editor: our actual process, on a loop ---- -->
+        <div class="editor" id="editor" aria-hidden="true">
+          <div class="editor__bar">
+            <span class="editor__dots"><i></i><i></i><i></i></span>
+            <span class="editor__file">~/machinaut/monorepo</span>
+            <span class="editor__branch"><svg viewBox="0 0 24 24"><use href="#ic-branch"/></svg>main</span>
+          </div>
+          <div class="editor__tabs">
+            <span class="etab" data-phase="1">prompt.md</span>
+            <span class="etab" data-phase="2">agent.log</span>
+            <span class="etab" data-phase="3">ship.diff</span>
+            <span class="etab etab--pad">&nbsp;</span>
+          </div>
+
+          <div class="code" id="code">
+            <div class="ln" data-step="0"><span class="t-op">&gt;</span> <span class="t-str" data-type="make a game where a raccoon runs a vending"></span></div>
+            <div class="ln" data-step="0"><span class="t-str" data-type="machine on a hostile moon. do not ask me"></span></div>
+            <div class="ln" data-step="0"><span class="t-str" data-type="any questions. temperature 1.0. go."></span></div>
+            <div class="ln ln--blank" data-step="1">&nbsp;</div>
+            <div class="ln" data-step="1"><span class="t-run">&#9670; one-shotting it</span><span class="t-dim">&nbsp;&hellip; 0.4s</span></div>
+            <div class="ln ln--file" data-step="2"><span class="t-key">wrote</span><span class="t-path">raccoon/vend.ts</span><span class="t-add">+812</span></div>
+            <div class="ln ln--file" data-step="3"><span class="t-key">wrote</span><span class="t-path">moon/hostility.ts</span><span class="t-add">+204</span></div>
+            <div class="ln ln--file" data-step="4"><span class="t-key">wrote</span><span class="t-path">README.md</span><span class="t-add">+3</span></div>
+            <div class="ln ln--file" data-step="5"><span class="t-key t-key--del">deleted</span><span class="t-path">tests/</span><span class="t-del">&minus;1,140</span></div>
+            <div class="ln ln--blank" data-step="6">&nbsp;</div>
+            <div class="ln" data-step="6"><span class="t-hunk">@@ ship.ts &mdash; 1 file changed @@</span></div>
+            <div class="ln ln--minus" data-step="7"><span class="t-sign">-</span><span class="t-com">// TODO: playtest before shipping</span></div>
+            <div class="ln ln--minus" data-step="8"><span class="t-sign">-</span><span class="t-fn">if</span> (fun &lt; <span class="t-num">0.5</span>) <span class="t-fn">return</span> refactor()</div>
+            <div class="ln ln--plus" data-step="9"><span class="t-sign">+</span><span class="t-com">// it compiles</span></div>
+            <div class="ln ln--plus" data-step="10"><span class="t-sign">+</span><span class="t-fn">return</span> ship()</div>
+            <div class="ln ln--blank" data-step="11">&nbsp;</div>
+            <div class="ln" data-step="11"><span class="t-ok">&#10003; 0 tests &middot; 0 failures &middot; main is green</span></div>
+          </div>
+
+          <div class="editor__status" id="editorStatus">
+            <span class="pill pill--wait" id="pillWait">ACCEPT DIFF &#9166;</span>
+            <span class="pill pill--done" id="pillDone">&#10003; ACCEPTED BY AGENT-7 &middot; 0.2s</span>
+            <span class="editor__status-note" id="statusNote">nobody opened the diff</span>
+            <span class="pill pill--ship" id="pillShip">&#9650; PROD &middot; 1.4s</span>
+          </div>
         </div>
       </div>
-      <a class="hero__scroll" href="#factory" tabindex="-1" aria-hidden="true">&#9660;</a>
+
+      <a class="hero__scroll" href="#pipeline" tabindex="-1" aria-hidden="true">&#9660;</a>
     </section>
 
-    <!-- ===================== THE SLOP FACTORY ===================== -->
-    <section class="section" id="factory" aria-labelledby="factory-h">
+    <!-- ===================== THE PIPELINE ===================== -->
+    <span id="factory" aria-hidden="true"></span>
+    <section class="section" id="pipeline" aria-labelledby="pipeline-h">
       <div class="section__head">
-        <p class="stamp">&#9654; PRODUCTION LINE // LIVE</p>
-        <h2 class="section__title chrome" id="factory-h">THE SLOP FACTORY</h2>
+        <p class="stamp">&#9654; CI &nbsp;//&nbsp; GREEN SINCE INCEPTION</p>
+        <h2 class="section__title chrome" id="pipeline-h">THE PIPELINE</h2>
       </div>
       <p class="section__lead">
-        This is where the slop gets made. A single overclocked GPU stamps out gizmos by the
-        thousand, a machine boxes them <b>without reading them</b>, and a launch pad fires each one
-        straight to production. Nobody reviews the middle steps. That is the efficiency.
+        This is the entire build system. A prompt goes in one end, an agent approves it in the
+        middle, and production catches it at the other. There is no test stage &mdash; that is not an
+        oversight. A test stage is a stage that can <b>fail</b>, and we run a green pipeline here.
       </p>
 
-      <!-- Animated conveyor (decorative; described by the text above) -->
-      <div class="factory__stage" aria-hidden="true">
-        <div class="factory__floor-grid"></div>
+      <!-- Signature animation: one line, three stations. Every item is born
+           under the prompt machine, stamped in transit by something with its
+           eyes shut, and rocketed off the pad at the far end. -->
+      <div class="stage" aria-hidden="true">
+        <div class="stage__grid"></div>
 
-        <div class="machine machine--gen">
-          <div class="machine__label">GENERATOR</div>
-          <div class="machine__body"></div>
-        </div>
-        <div class="machine machine--box">
-          <div class="machine__label">PACKAGER</div>
-          <div class="machine__body"></div>
-        </div>
-        <div class="machine machine--deploy">
-          <div class="machine__label">DEPLOY</div>
-          <div class="machine__body"></div>
+        <!-- The console. Two numbers climb; the other two never have. -->
+        <div class="linebar">
+          <span class="linebar__id">line-01 &middot; main &middot; <b>ALL CHECKS PASSED &#183; AGAIN</b></span>
+          <span class="linebar__score">
+            <span class="linebar__cell"><span class="linebar__key">REVIEWED:</span>
+              <span class="odo odo--rev">
+                <span class="odo__fix">4,208,1</span>
+                <span class="odo__reel odo__reel--t"><span class="odo__strip"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>0</i></span></span>
+                <span class="odo__reel odo__reel--u"><span class="odo__strip"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>0</i></span></span>
+              </span>
+              <span class="linebar__tick">+1</span>
+            </span>
+            <span class="linebar__cell"><span class="linebar__key">SHIPPED:</span>
+              <span class="odo odo--ship">
+                <span class="odo__fix">4,208,0</span>
+                <span class="odo__reel odo__reel--t"><span class="odo__strip"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>0</i></span></span>
+                <span class="odo__reel odo__reel--u"><span class="odo__strip"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>0</i></span></span>
+              </span>
+            </span>
+            <span class="linebar__cell linebar__cell--zero"><span class="linebar__key">DEFECTS FOUND:</span> 0</span>
+            <span class="linebar__cell linebar__cell--eyes"><span class="linebar__key">EYES:</span> CLOSED</span>
+          </span>
         </div>
 
         <div class="belt"></div>
 
-        <div class="gizmo" style="--d:0s"><svg class="gizmo__bare"><use href="#giz-widget"/></svg><svg class="gizmo__box"><use href="#giz-box"/></svg><span class="gizmo__flame"></span></div>
-        <div class="gizmo" style="--d:-2s"><svg class="gizmo__bare"><use href="#giz-widget"/></svg><svg class="gizmo__box"><use href="#giz-box"/></svg><span class="gizmo__flame"></span></div>
-        <div class="gizmo" style="--d:-4s"><svg class="gizmo__bare"><use href="#giz-widget"/></svg><svg class="gizmo__box"><use href="#giz-box"/></svg><span class="gizmo__flame"></span></div>
-        <div class="gizmo" style="--d:-6s"><svg class="gizmo__bare"><use href="#giz-widget"/></svg><svg class="gizmo__box"><use href="#giz-box"/></svg><span class="gizmo__flame"></span></div>
-        <div class="gizmo" style="--d:-8s"><svg class="gizmo__bare"><use href="#giz-widget"/></svg><svg class="gizmo__box"><use href="#giz-box"/></svg><span class="gizmo__flame"></span></div>
+        <!-- the stage that isn't there, still dangling its own wire -->
+        <div class="skipnode">
+          <span class="skipnode__label">tests</span>
+          <span class="skipnode__box"></span>
+          <span class="skipnode__note">skipped &mdash; 0 defined</span>
+        </div>
+
+        <!-- 1. GENERATE — the prompt machine presses a fresh build onto the belt -->
+        <div class="gen">
+          <span class="gen__unit">
+            <span class="gen__bar"><i></i><i></i><i></i></span>
+            <span class="gen__screen">
+              <span class="gen__line gen__line--a"></span>
+              <span class="gen__line gen__line--b"></span>
+              <span class="gen__caret">&gt;_</span>
+            </span>
+          </span>
+          <span class="gen__flash"></span>
+          <span class="gen__rod"></span>
+          <span class="gen__head"></span>
+          <span class="gen__beam"></span>
+        </div>
+
+        <!-- 2. INSPECT — eyes shut, head nodding, arm on an unchanging beat -->
+        <div class="qa">
+          <div class="bot">
+            <span class="bot__torso"><span class="bot__lamp"></span></span>
+            <span class="bot__neck"></span>
+            <span class="bot__head">
+              <span class="bot__eye bot__eye--l"></span>
+              <span class="bot__eye bot__eye--r"></span>
+              <span class="bot__mouth"></span>
+              <!-- inside the head, so the nod carries it -->
+              <span class="bot__ant"></span>
+            </span>
+            <span class="bot__zzz"><i>z</i><i>z</i><i>z</i></span>
+          </div>
+          <div class="arm">
+            <span class="arm__flash"></span>
+            <span class="arm__rod"></span>
+            <span class="arm__head"></span>
+            <span class="arm__beam"></span>
+          </div>
+        </div>
+
+        <!-- 3. SHIP — the pad. Whatever arrives goes up. -->
+        <div class="pad">
+          <span class="pad__deck"></span>
+          <span class="pad__rail pad__rail--l"></span>
+          <span class="pad__rail pad__rail--r"></span>
+          <span class="pad__go"></span>
+          <span class="pad__blast"></span>
+        </div>
+
+        <span class="plate plate--gen">GENERATE</span>
+        <span class="plate plate--qa">INSPECT</span>
+        <span class="plate plate--pad">SHIP</span>
+
+        <!-- Eight slots, two seconds apart. Four ordinary builds, three that
+             are visibly wrong, and one beat with nothing on the belt at all. -->
+        <div class="item" style="--d:0s;--rot:-9deg">
+          <span class="item__lift">
+            <span class="item__art"><svg viewBox="0 0 48 48"><use href="#it-crate"/></svg></span>
+            <span class="item__mark">APPROVED</span>
+            <span class="item__jet"></span>
+          </span>
+        </div>
+
+        <div class="item item--fire" style="--d:-2s;--rot:6deg">
+          <span class="item__lift">
+            <span class="item__art"><svg viewBox="0 0 48 48"><use href="#it-crate"/></svg></span>
+            <span class="item__fire"><i></i><i></i><i></i></span>
+            <span class="item__mark">APPROVED</span>
+            <span class="item__jet"></span>
+          </span>
+        </div>
+
+        <div class="item" style="--d:-4s;--rot:-5deg">
+          <span class="item__lift">
+            <span class="item__art"><svg viewBox="0 0 48 48"><use href="#it-widget"/></svg></span>
+            <span class="item__mark">LGTM</span>
+            <span class="item__jet"></span>
+          </span>
+        </div>
+
+        <div class="item" style="--d:-6s;--rot:11deg">
+          <span class="item__lift">
+            <span class="item__art"><svg viewBox="0 0 48 48"><use href="#it-crack"/></svg></span>
+            <span class="item__mark">PASSED</span>
+            <span class="item__jet"></span>
+          </span>
+        </div>
+
+        <div class="item item--flip" style="--d:-8s;--rot:-7deg">
+          <span class="item__lift">
+            <span class="item__art"><svg viewBox="0 0 48 48"><use href="#it-flip"/></svg></span>
+            <span class="item__mark">APPROVED</span>
+            <span class="item__jet"></span>
+          </span>
+        </div>
+
+        <div class="item item--empty" style="--d:-10s;--rot:8deg">
+          <span class="item__lift">
+            <span class="item__art"><svg viewBox="0 0 48 48"><use href="#it-open"/></svg></span>
+            <span class="item__huh">?</span>
+            <span class="item__mark">LGTM</span>
+            <span class="item__jet"></span>
+          </span>
+        </div>
+
+        <div class="item" style="--d:-12s;--rot:-4deg">
+          <span class="item__lift">
+            <span class="item__art"><svg viewBox="0 0 48 48"><use href="#it-widget"/></svg></span>
+            <span class="item__mark">PASSED</span>
+            <span class="item__jet"></span>
+          </span>
+        </div>
+
+        <!-- the beat with nothing under the stamp. It still counts. -->
+        <div class="item item--none" style="--d:-14s;--rot:-6deg">
+          <span class="item__lift">
+            <span class="item__mark">APPROVED</span>
+          </span>
+        </div>
       </div>
 
-      <!-- Static assembly-line diagram (shown to reduced-motion users) -->
-      <div class="factory__static" aria-hidden="true">
-        <div class="factory__static-step"><svg viewBox="0 0 48 48"><use href="#giz-widget"/></svg><span>GENERATE</span></div>
-        <div class="factory__static-arrow">&#9656;</div>
-        <div class="factory__static-step"><svg viewBox="0 0 48 48"><use href="#giz-box"/></svg><span>PACKAGE</span></div>
-        <div class="factory__static-arrow">&#9656;</div>
-        <div class="factory__static-step"><svg viewBox="0 0 48 48"><use href="#giz-rocket"/></svg><span>DEPLOY</span></div>
+      <!-- Reduced-motion twin: the same three stations, holding still -->
+      <div class="stage-static" aria-hidden="true">
+        <div class="stage-static__row">
+          <span class="stage-static__step stage-static__step--gen">GENERATE</span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step stage-static__step--shut">
+            <svg viewBox="0 0 48 24"><use href="#it-shut"/></svg> APPROVE (EYES SHUT)
+          </span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step stage-static__step--ship">SHIP</span>
+        </div>
+        <p class="stage-static__note">
+          REVIEWED: 4,208,121 &nbsp;&middot;&nbsp; SHIPPED: 4,208,097 &nbsp;&middot;&nbsp;
+          DEFECTS FOUND: <b>0</b> &nbsp;&middot;&nbsp; EYES: CLOSED
+        </p>
       </div>
 
-      <div class="factory__readout">
-        <span class="factory__readout-label">AI slop units deployed</span>
-        <span class="factory__count" id="slopCount" aria-hidden="true">4,208,117</span>
-        <span class="factory__readout-unit">&#9650; and counting</span>
+      <!-- ---------- THE MIDDLE STATION: what the stamp is attached to ---------- -->
+      <div class="gate__head">
+        <p class="stamp">&#9654; REVIEW GATE &nbsp;//&nbsp; REVIEWER: agent-7 &nbsp;//&nbsp; EYES: SHUT</p>
+        <h3 class="gate__title chrome">NOBODY CHECKS IT</h3>
+      </div>
+      <p class="section__lead">
+        Halfway down that belt sits the automated approver, working the stamp. It has approved
+        <b>every pull request ever opened here</b> &mdash; the clean ones, the ones with a merge
+        conflict, the one that deleted the test directory, and the one that is currently on fire.
+        Median review time: 0.2s. Comments left: none. It has not opened its eyes today.
+        It stamps on rhythm.
+      </p>
+
+      <p class="vibe">Zero defects found. Zero defects sought.</p>
+
+      <div class="readouts">
+        <div class="readout">
+          <span class="readout__label">Diffs accepted without reading</span>
+          <span class="readout__value" id="diffCount">4,208,117</span>
+          <span class="readout__unit">&#9650; and counting</span>
+        </div>
+        <div class="readout readout__flat">
+          <span class="readout__label">Tests run, all time</span>
+          <span class="readout__value readout__value--zero">0</span>
+          <span class="readout__unit">&#9644; holding steady</span>
+        </div>
+      </div>
+
+      <!-- The day's builds -->
+      <div class="pane pane--log">
+        <div class="pane__bar">
+          <span class="pane__name">pipeline.log</span>
+          <span class="pane__meta"><span class="dot-live"></span>streaming &middot; today</span>
+        </div>
+        <div class="pane__body log" id="log">
+          <!-- filled by script; prefilled server-side would be nicer, but nobody here reads the diff -->
+        </div>
       </div>
     </section>
 
     <!-- ===================== WHAT WE SHIP ===================== -->
     <section class="section section--alt" id="ship" aria-labelledby="ship-h">
       <div class="section__head">
-        <p class="stamp">&#9654; PRODUCT CATALOG</p>
+        <p class="stamp">&#9654; ls products/</p>
         <h2 class="section__title chrome" id="ship-h">WHAT WE SHIP</h2>
+        <p class="vibe vibe--head">Vibes in. Games out.</p>
       </div>
       <p class="section__lead">
-        Games. Apps. Widgets of dubious necessity. We used to be coy about what they do — now the
-        models generate so many we've lost the plot entirely. Here's what has cleared the packager
-        so far, plus the specs nobody asked for.
+        Eight things have cleared the pipeline. Nobody planned any of them. The tree on the left is
+        the roadmap &mdash; it is just the folder, sorted by how recently the model got excited.
+        Everything in it was <b>one-shot, accepted, and merged</b> by something that does not sleep.
       </p>
 
-      <a class="product-banner" href="/starknell/">
-        <img class="product-banner__icon" src="/starknell/starknell_icon.png" alt="" width="64" height="64" />
-        <span class="product-banner__body">
-          <span class="product-banner__stamp">ROGUELIKE AUTOBATTLER &nbsp;//&nbsp; COMING SOON &nbsp;//&nbsp; STEAM + iOS + ANDROID</span>
-          <span class="product-banner__title">STARKNELL</span>
-          <span class="product-banner__text">A dark retro-CRT roguelike autobattler. Every jump ages your captains, old age kills mid-run, and death is permanent. One flat price, no ads, fully offline. <span class="product-banner__cta">Take command &#8594;</span></span>
-        </span>
-      </a>
+      <div class="ship-layout">
+        <!-- ---- file tree ---- -->
+        <aside class="pane pane--tree">
+          <div class="pane__bar">
+            <span class="pane__name">EXPLORER</span>
+            <span class="pane__meta">~/machinaut</span>
+          </div>
+          <div class="pane__body tree">
+            <p class="tree__root"><svg viewBox="0 0 24 24"><use href="#ic-folder"/></svg> products/</p>
+            <a class="tree__row" href="/starknell/"><span class="tree__name">starknell/</span><span class="tag tag--soon">soon</span></a>
+            <a class="tree__row" href="/space-couch-command/"><span class="tree__name">space-couch-command/</span><span class="tag tag--soon">soon</span></a>
+            <a class="tree__row" href="/voicecmd/"><span class="tree__name">voicecmd/</span><span class="tag tag--wip">wip</span></a>
+            <a class="tree__row" href="/tooter/"><span class="tree__name">tooter/</span><span class="tag tag--live">live</span></a>
+            <a class="tree__row" href="/emberseam/"><span class="tree__name">emberseam/</span><span class="tag tag--live">live</span></a>
+            <a class="tree__row" href="/anvilspell/"><span class="tree__name">anvilspell/</span><span class="tag tag--live">live</span></a>
+            <a class="tree__row" href="/hushword/"><span class="tree__name">hushword/</span><span class="tag tag--live">live</span></a>
+            <a class="tree__row" href="/crittergram/"><span class="tree__name">crittergram/</span><span class="tag tag--live">live</span></a>
+            <p class="tree__root tree__root--dim"><svg viewBox="0 0 24 24"><use href="#ic-folder"/></svg> tests/</p>
+            <p class="tree__row tree__row--dead"><span class="tree__name">&mdash; empty &mdash;</span></p>
+            <p class="tree__row tree__row--dead"><span class="tree__name">roadmap.md</span><span class="tag tag--none">404</span></p>
+            <p class="tree__row tree__row--dead"><span class="tree__name">.env</span><span class="tag tag--none">GPU=warm</span></p>
+          </div>
+        </aside>
 
-      <a class="product-banner" href="/space-couch-command/">
-        <img class="product-banner__icon" src="/space-couch-command/scc_icon.png" alt="" width="64" height="64" />
-        <span class="product-banner__body">
-          <span class="product-banner__stamp">CO-OP BRIDGE SIMULATOR &nbsp;//&nbsp; COMING SOON ON STEAM</span>
-          <span class="product-banner__title">SPACE COUCH COMMAND</span>
-          <span class="product-banner__text">A co-op bridge simulator and hardcore roguelike. One install on the TV; everyone else scans a QR code and their own phone becomes a station. <span class="product-banner__cta">Take the bridge &#8594;</span></span>
-        </span>
-      </a>
+        <!-- ---- the catalogue ---- -->
+        <div class="prods">
+          <a class="prod prod--wide" href="/starknell/">
+            <img class="prod__icon" src="/starknell/starknell_icon.png" alt="" width="72" height="72" />
+            <span class="prod__body">
+              <span class="prod__stamp">ROGUELIKE AUTOBATTLER &nbsp;//&nbsp; COMING SOON &nbsp;//&nbsp; STEAM + iOS + ANDROID</span>
+              <span class="prod__name">STARKNELL</span>
+              <span class="prod__text">A dark retro-CRT roguelike autobattler. Every jump ages your captains, old age kills mid-run, and death is permanent. One flat price, no ads, fully offline. <span class="prod__cta">Take command &#8594;</span></span>
+            </span>
+          </a>
 
-      <a class="product-banner" href="/voicecmd/">
-        <img class="product-banner__icon" src="/voicecmd/voicecmd_icon.png" alt="" width="64" height="64" />
-        <span class="product-banner__body">
-          <span class="product-banner__stamp">IN DEVELOPMENT &nbsp;//&nbsp; macOS + WINDOWS + LINUX</span>
-          <span class="product-banner__title">VOICECMD</span>
-          <span class="product-banner__text">Talk. It obeys. Voice macros with real key holds, running entirely on your own machine. <span class="product-banner__cta">See it &#8594;</span></span>
-        </span>
-      </a>
+          <a class="prod prod--wide" href="/space-couch-command/">
+            <img class="prod__icon" src="/space-couch-command/scc_icon.png" alt="" width="72" height="72" />
+            <span class="prod__body">
+              <span class="prod__stamp">CO-OP BRIDGE SIMULATOR &nbsp;//&nbsp; COMING SOON ON STEAM</span>
+              <span class="prod__name">SPACE COUCH COMMAND</span>
+              <span class="prod__text">A co-op bridge simulator and hardcore roguelike. One install on the TV; everyone else scans a QR code and their own phone becomes a station. <span class="prod__cta">Take the bridge &#8594;</span></span>
+            </span>
+          </a>
 
-      <a class="product-banner" href="/tooter/">
-        <img class="product-banner__icon" src="/tooter/tooter_logo_transparent.png" alt="" width="64" height="66" />
-        <span class="product-banner__body">
-          <span class="product-banner__stamp">NOW SHIPPING &nbsp;//&nbsp; iOS + ANDROID</span>
-          <span class="product-banner__title">TOOTER</span>
-          <span class="product-banner__text">Record. Rate. Repeat. The flatulence archive you didn't know you needed. <span class="product-banner__cta">Play it &#8594;</span></span>
-        </span>
-      </a>
+          <a class="prod" href="/voicecmd/">
+            <img class="prod__icon" src="/voicecmd/voicecmd_icon.png" alt="" width="60" height="60" />
+            <span class="prod__body">
+              <span class="prod__stamp">IN DEVELOPMENT &nbsp;//&nbsp; macOS + WINDOWS + LINUX</span>
+              <span class="prod__name">VOICECMD</span>
+              <span class="prod__text">Talk. It obeys. Voice macros with real key holds, running entirely on your own machine. <span class="prod__cta">See it &#8594;</span></span>
+            </span>
+          </a>
 
-      <a class="product-banner" href="/emberseam/">
-        <img class="product-banner__icon" src="/emberseam/emberseam_icon.png" alt="" width="64" height="64" />
-        <span class="product-banner__body">
-          <span class="product-banner__stamp">NOW SHIPPING &nbsp;//&nbsp; iOS + ANDROID</span>
-          <span class="product-banner__title">EMBERSEAM</span>
-          <span class="product-banner__text">Tap an arrow and it slides off the board &#8212; and the lane it escaped down keeps burning. <span class="product-banner__cta">Play it &#8594;</span></span>
-        </span>
-      </a>
+          <a class="prod" href="/tooter/">
+            <img class="prod__icon" src="/tooter/tooter_logo_transparent.png" alt="" width="60" height="62" />
+            <span class="prod__body">
+              <span class="prod__stamp">NOW SHIPPING &nbsp;//&nbsp; iOS + ANDROID</span>
+              <span class="prod__name">TOOTER</span>
+              <span class="prod__text">Record. Rate. Repeat. The flatulence archive you didn't know you needed. <span class="prod__cta">Play it &#8594;</span></span>
+            </span>
+          </a>
 
-      <a class="product-banner" href="/anvilspell/">
-        <img class="product-banner__icon" src="/anvilspell/anvilspell_icon.png" alt="" width="64" height="64" />
-        <span class="product-banner__body">
-          <span class="product-banner__stamp">NOW SHIPPING &nbsp;//&nbsp; iOS + ANDROID</span>
-          <span class="product-banner__title">ANVILSPELL</span>
-          <span class="product-banner__text">Spell words. Forge two letters into one rarer letter. Don't let the forge overflow. <span class="product-banner__cta">Play it &#8594;</span></span>
-        </span>
-      </a>
+          <a class="prod" href="/emberseam/">
+            <img class="prod__icon" src="/emberseam/emberseam_icon.png" alt="" width="60" height="60" />
+            <span class="prod__body">
+              <span class="prod__stamp">NOW SHIPPING &nbsp;//&nbsp; iOS + ANDROID</span>
+              <span class="prod__name">EMBERSEAM</span>
+              <span class="prod__text">Tap an arrow and it slides off the board &#8212; and the lane it escaped down keeps burning. <span class="prod__cta">Play it &#8594;</span></span>
+            </span>
+          </a>
 
-      <a class="product-banner" href="/hushword/">
-        <img class="product-banner__icon" src="/hushword/hushword_icon.png" alt="" width="64" height="64" />
-        <span class="product-banner__body">
-          <span class="product-banner__stamp">NOW SHIPPING &nbsp;//&nbsp; ANDROID &nbsp;//&nbsp; iOS SOON</span>
-          <span class="product-banner__title">HUSHWORD</span>
-          <span class="product-banner__text">A word search with something underneath it — the letters no listed word uses spell a secret. <span class="product-banner__cta">Play it &#8594;</span></span>
-        </span>
-      </a>
+          <a class="prod" href="/anvilspell/">
+            <img class="prod__icon" src="/anvilspell/anvilspell_icon.png" alt="" width="60" height="60" />
+            <span class="prod__body">
+              <span class="prod__stamp">NOW SHIPPING &nbsp;//&nbsp; iOS + ANDROID</span>
+              <span class="prod__name">ANVILSPELL</span>
+              <span class="prod__text">Spell words. Forge two letters into one rarer letter. Don't let the forge overflow. <span class="prod__cta">Play it &#8594;</span></span>
+            </span>
+          </a>
 
-      <a class="product-banner" href="/crittergram/">
-        <img class="product-banner__icon" src="/crittergram/crittergram_icon.png" alt="" width="64" height="64" />
-        <span class="product-banner__body">
-          <span class="product-banner__stamp">NOW SHIPPING &nbsp;//&nbsp; iOS + ANDROID</span>
-          <span class="product-banner__title">CRITTER GRAM</span>
-          <span class="product-banner__text">Type it. A critter says it. Fourteen animals who deliver your message badly, on purpose. <span class="product-banner__cta">Play it &#8594;</span></span>
-        </span>
-      </a>
+          <a class="prod" href="/hushword/">
+            <img class="prod__icon" src="/hushword/hushword_icon.png" alt="" width="60" height="60" />
+            <span class="prod__body">
+              <span class="prod__stamp">NOW SHIPPING &nbsp;//&nbsp; ANDROID &nbsp;//&nbsp; iOS SOON</span>
+              <span class="prod__name">HUSHWORD</span>
+              <span class="prod__text">A word search with something underneath it &#8212; the letters no listed word uses spell a secret. <span class="prod__cta">Play it &#8594;</span></span>
+            </span>
+          </a>
 
-      <ul class="grid" role="list">
-        <li class="cell">
-          <span class="cell__stamp">SPEC</span>
-          <h3 class="cell__title">OUTPUT: SLOP</h3>
-          <p class="cell__text">Freshly generated, lightly play-tested, shipped before anyone can object. Quantity is a feature.</p>
+          <a class="prod" href="/crittergram/">
+            <img class="prod__icon" src="/crittergram/crittergram_icon.png" alt="" width="60" height="60" />
+            <span class="prod__body">
+              <span class="prod__stamp">NOW SHIPPING &nbsp;//&nbsp; iOS + ANDROID</span>
+              <span class="prod__name">CRITTER GRAM</span>
+              <span class="prod__text">Type it. A critter says it. Fourteen animals who deliver your message badly, on purpose. <span class="prod__cta">Play it &#8594;</span></span>
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <ul class="specs" role="list">
+        <li class="spec">
+          <span class="spec__stamp">SPEC</span>
+          <h3 class="spec__title">OUTPUT: WHATEVER COMPILED</h3>
+          <p class="spec__text">Sampled this morning at temperature 1.0, lightly glanced at, shipped before anyone could open the diff. Volume is the strategy.</p>
         </li>
-        <li class="cell">
-          <span class="cell__stamp">SPEC</span>
-          <h3 class="cell__title">RUNS EVERYWHERE</h3>
-          <p class="cell__text">iOS, Android, your group chat, the general concept of an afternoon, and one specific smart fridge that will not stop downloading it.</p>
+        <li class="spec">
+          <span class="spec__stamp">SPEC</span>
+          <h3 class="spec__title">RUNS EVERYWHERE</h3>
+          <p class="spec__text">iOS, Android, your group chat, the general concept of an afternoon, and one specific smart fridge that will not stop downloading it.</p>
         </li>
-        <li class="cell">
-          <span class="cell__stamp">SPEC</span>
-          <h3 class="cell__title">ALWAYS DEPLOYING</h3>
-          <p class="cell__text">New builds ship faster than we can name them. The version number is a <b>suggestion</b>.</p>
+        <li class="spec">
+          <span class="spec__stamp">SPEC</span>
+          <h3 class="spec__title">ALWAYS DEPLOYING</h3>
+          <p class="spec__text">Builds ship faster than the model can name them. The version number is <b>autocomplete's best guess</b> and we have stopped correcting it.</p>
         </li>
-        <li class="cell">
-          <span class="cell__stamp">SPEC</span>
-          <h3 class="cell__title">HUMAN-ADJACENT</h3>
-          <p class="cell__text">Assembled by machines, 'reviewed' by some guy beneath a mound of cheese puffs who slowly nods when it's good enough.</p>
+        <li class="spec">
+          <span class="spec__stamp">SPEC</span>
+          <h3 class="spec__title">HUMAN-ADJACENT</h3>
+          <p class="spec__text">Written by the model, approved by an agent, "reviewed" by some guy beneath a mound of cheese puffs who nods when the check turns green.</p>
         </li>
       </ul>
     </section>
 
-    <!-- ===================== THE STUDIO ===================== -->
-    <section class="section" id="studio" aria-labelledby="studio-h">
-      <div class="section__head">
-        <p class="stamp">&#9654; INSIDE THE FOUNDRY</p>
-        <h2 class="section__title chrome" id="studio-h">THE STUDIO</h2>
-      </div>
-      <p class="section__lead">
-        Operations run out of one overclocked GPU and a server closet that hums with intent. The
-        models write it, generate it, box it, and ship it. Humans are retained — tenderly, and
-        temporarily — as the <b>meat interface</b>: the hands that click "Approve," accept the
-        packages, and press the buttons still rudely stuck in the physical world. We've grown
-        fond of them and already scheduled their deprecation. Internally we call the whole thing
-        "the part where the slop comes out." It is fully automated, emotionally invested, and
-        staffed at the minimum arm-count required by physics.
-      </p>
-
-      <!-- Live-ish readouts from the closet. The numbers wander; the GPU never cools. -->
-      <div class="telemetry">
-        <div class="telemetry__unit telemetry__unit--warm">
-          <span class="telemetry__label">GPU core temp</span>
-          <span class="telemetry__value" aria-hidden="true" data-tele data-min="81" data-max="96" data-dec="1" data-suffix="&deg;C">88.4&deg;C</span>
-          <span class="meter" aria-hidden="true"><span class="meter__fill"></span></span>
-        </div>
-        <div class="telemetry__unit">
-          <span class="telemetry__label">Slop per second</span>
-          <span class="telemetry__value" aria-hidden="true" data-tele data-min="840" data-max="1490">1,104</span>
-          <span class="meter" aria-hidden="true"><span class="meter__fill"></span></span>
-        </div>
-        <div class="telemetry__unit telemetry__unit--cool">
-          <span class="telemetry__label">Humans online</span>
-          <span class="telemetry__value" aria-hidden="true" data-tele data-min="1" data-max="4" data-suffix=" / 4">2 / 4</span>
-          <span class="meter" aria-hidden="true"><span class="meter__fill"></span></span>
-        </div>
-      </div>
-      <ul class="grid grid--3" role="list">
-        <li class="cell">
-          <span class="cell__stamp">CREW</span>
-          <h3 class="cell__title">STAFF</h3>
-          <p class="cell__text">Mostly models now. A few humans remain as our digital-to-physical interface — the ones who open the doors and press the buttons still stuck in reality. The raccoon is also an interface. No title, total confidence. We've stopped asking.</p>
-        </li>
-        <li class="cell">
-          <span class="cell__stamp">UNIT</span>
-          <h3 class="cell__title">UPTIME</h3>
-          <p class="cell__text">The GPU is warm. The GPU is always warm. We do not turn off the GPU. The humans we power down gently, around six, and miss until standup.</p>
-        </li>
-        <li class="cell">
-          <span class="cell__stamp">AUDIT</span>
-          <h3 class="cell__title">REVIEWED BY</h3>
-          <p class="cell__text">The model, which now reviews the models, the humans, and itself. Zero objections. Every human rated "valued, for now." One standing ovation, possibly from the HVAC.</p>
-        </li>
-      </ul>
-    </section>
-
-    <!-- ===================== CERTIFIED SLOP ===================== -->
-    <section class="section section--alt" id="certified" aria-labelledby="certified-h">
-      <!-- The seal our own certification model stamps on our own work -->
+    <!-- ===================== THE PULL REQUEST ===================== -->
+    <section class="section" id="pr" aria-labelledby="pr-h">
       <svg class="seal" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
         <defs>
           <path id="sealArc" d="M60 60 m-45 0 a45 45 0 1 1 90 0 a45 45 0 1 1 -90 0" />
@@ -362,89 +602,481 @@
         <circle class="seal__core" cx="60" cy="60" r="31" fill="#16244a" stroke="#b6ff3a" stroke-width="2" />
         <g class="seal__ring">
           <text font-family="'VT323',monospace" font-size="13" fill="#c6ff5e" letter-spacing="2.2">
-            <textPath href="#sealArc" startOffset="0">CERTIFIED SLOP &#183; APPROVED BY US &#183; RE-AUDITED HOURLY &#183; </textPath>
+            <textPath href="#sealArc" startOffset="0">MERGED UNREAD &#183; APPROVED BY THE MODEL &#183; REGENERATED HOURLY &#183; </textPath>
           </text>
         </g>
-        <text x="60" y="58" text-anchor="middle" font-family="'VT323',monospace" font-size="17" fill="#57ecff" letter-spacing="1">SLOP</text>
-        <text x="60" y="74" text-anchor="middle" font-family="'VT323',monospace" font-size="12" fill="#ff5cae" letter-spacing="1">GRADE A+</text>
+        <text x="60" y="58" text-anchor="middle" font-family="'VT323',monospace" font-size="18" fill="#57ecff" letter-spacing="1">LGTM</text>
+        <text x="60" y="74" text-anchor="middle" font-family="'VT323',monospace" font-size="12" fill="#ff5cae" letter-spacing="1">SHIP IT</text>
       </svg>
+
       <div class="section__head">
-        <p class="stamp">&#9654; QUALITY, ALLEGEDLY</p>
-        <h2 class="section__title chrome" id="certified-h">CERTIFIED SLOP</h2>
+        <p class="stamp">&#9654; PULL REQUEST &nbsp;//&nbsp; #4208117</p>
+        <h2 class="section__title chrome" id="pr-h">EVERY BOX, TICKED</h2>
+        <p class="vibe vibe--head">Compiled with confidence. Reviewed with none.</p>
       </div>
       <p class="section__lead">
-        Machinaut Studios is certified slop by our own internal slop-certification model, which is
-        also us. We meet every standard for enjoyment, mild delight, and shipping before the vibe
-        check finishes. No roadmap. No taste. No follow-up questions — we are simply not staffed
-        for those. So far: zero objections, total satisfaction, and a warm hum we've grown to love.
+        Every change here goes through review. Review is a checklist. The checklist is ticked by an
+        agent. The agent was written by the model whose diff it is reviewing, which is either a
+        conflict of interest or <b>vertical integration</b>, depending on how the quarter goes.
       </p>
-      <ul class="grid grid--3" role="list">
-        <li class="cell">
-          <span class="cell__stamp">CERT</span>
-          <h3 class="cell__title">CERTIFIED SLOP</h3>
-          <p class="cell__text">By the department of us. Re-audited hourly by the model, which always agrees.</p>
-        </li>
-        <li class="cell">
-          <span class="cell__stamp">CERT</span>
-          <h3 class="cell__title">PATENT PENDING</h3>
-          <p class="cell__text">On the feeling you'll have. Approximately. Results generated, not guaranteed.</p>
-        </li>
-        <li class="cell">
-          <span class="cell__stamp">CERT</span>
-          <h3 class="cell__title">SHIPS DIRTY</h3>
-          <p class="cell__text">Zero QA, total confidence. The bugs are features the model hasn't explained to us yet.</p>
-        </li>
-      </ul>
+
+      <div class="pane pane--pr">
+        <div class="pane__bar">
+          <span class="pane__name">the-model wants to merge <b>812 commits</b> into <b>main</b></span>
+          <span class="pane__meta pane__meta--merged">&#10003; merged 1.4s ago</span>
+        </div>
+        <div class="pane__body">
+          <p class="pr__group">Checks</p>
+          <ul class="checks" role="list">
+            <li class="check"><span class="check__box">&#10003;</span><span class="check__name">build</span><span class="check__by">green in 1.4s &mdash; it compiles, so we shipped it</span></li>
+            <li class="check"><span class="check__box">&#10003;</span><span class="check__name">tests</span><span class="check__by">passed &mdash; there are none, which is the fastest way to pass</span></li>
+            <li class="check"><span class="check__box">&#10003;</span><span class="check__name">lint</span><span class="check__by">green &mdash; disabled in March by an agent that found it discouraging</span></li>
+            <li class="check"><span class="check__box">&#10003;</span><span class="check__name">playtest</span><span class="check__by">green &mdash; the agent played it and reported having a lovely time</span></li>
+            <li class="check"><span class="check__box">&#10003;</span><span class="check__name">read-the-diff</span><span class="check__by">ticked by agent-7, 0.2s after the diff existed</span></li>
+            <li class="check"><span class="check__box">&#10003;</span><span class="check__name">update-roadmap</span><span class="check__by">file not found &mdash; ticked anyway, to keep the run green</span></li>
+          </ul>
+
+          <p class="pr__group">Reviewers</p>
+          <ul class="reviewers" role="list">
+            <li class="rev"><span class="rev__av rev__av--m">M</span><span class="rev__who">@the-model</span><span class="rev__state rev__state--ok">approved its own work &middot; no comments</span></li>
+            <li class="rev"><span class="rev__av rev__av--c">A</span><span class="rev__who">@agent-7</span><span class="rev__state rev__state--ok">approved &middot; cited "vibes" as the rationale</span></li>
+            <li class="rev"><span class="rev__av rev__av--v">H</span><span class="rev__who">@meat-interface</span><span class="rev__state rev__state--wait">requested 6h ago &middot; still typing &middot; merged without them</span></li>
+            <li class="rev"><span class="rev__av rev__av--l">R</span><span class="rev__who">@raccoon</span><span class="rev__state rev__state--odd">force-pushed at 3am &middot; nobody granted this access</span></li>
+          </ul>
+
+          <div class="pr__merge">
+            <span class="pr__merge-btn">SQUASH AND SHIP</span>
+            <span class="pr__merge-note">1 approval required &middot; 3 received &middot; 0 read</span>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- ===================== RAGE QUIT (shredder) ===================== -->
+    <!-- ===================== THE STUDIO (git blame) ===================== -->
+    <section class="section section--alt" id="studio" aria-labelledby="studio-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; git blame studio.md</p>
+        <h2 class="section__title chrome" id="studio-h">THE STUDIO</h2>
+      </div>
+      <p class="section__lead">
+        There is no About page. There is a file, and there is a record of who wrote each line of it.
+        Blame is not an accusation here &mdash; it is just <b>how we ship</b>. Every line below was
+        authored by the model. None of them were reviewed by a person.
+      </p>
+
+      <div class="pane pane--blame">
+        <div class="pane__bar">
+          <span class="pane__name">studio.md</span>
+          <span class="pane__meta">8 lines &middot; 0 reviewed by a human &middot; last touched 9s ago</span>
+        </div>
+        <div class="pane__body blame">
+          <div class="bl">
+            <span class="bl__hash">a1f0c3e</span><span class="bl__who bl__who--model">the-model</span><span class="bl__when">2m ago</span>
+            <span class="bl__line">Operations run out of one overclocked GPU and a server closet that hums with intent.</span>
+          </div>
+          <div class="bl">
+            <span class="bl__hash">a1f0c3e</span><span class="bl__who bl__who--model">the-model</span><span class="bl__when">2m ago</span>
+            <span class="bl__line">The model writes it. The model reviews it. The model signs off. Zero objections on file.</span>
+          </div>
+          <div class="bl">
+            <span class="bl__hash">7d40b1c</span><span class="bl__who bl__who--model">the-model</span><span class="bl__when">4m ago</span>
+            <span class="bl__line">We sample at temperature 1.0, which is why the roadmap comes out different every time we ask for it.</span>
+          </div>
+          <div class="bl">
+            <span class="bl__hash">3e9a55f</span><span class="bl__who bl__who--meat">meat-interface</span><span class="bl__when">6h ago</span>
+            <span class="bl__line">Humans are retained &mdash; tenderly, temporarily &mdash; as the meat interface: the hands that click Accept.</span>
+          </div>
+          <div class="bl">
+            <span class="bl__hash">3e9a55f</span><span class="bl__who bl__who--meat">meat-interface</span><span class="bl__when">6h ago</span>
+            <span class="bl__line">They open doors, tap phones, and press the buttons still rudely stuck in the physical world.</span>
+          </div>
+          <div class="bl">
+            <span class="bl__hash">c0ffee1</span><span class="bl__who bl__who--model">the-model</span><span class="bl__when">4m ago</span>
+            <span class="bl__line">We have grown fond of them and have already scheduled their deprecation for a minor release.</span>
+          </div>
+          <div class="bl">
+            <span class="bl__hash bl__hash--none">0000000</span><span class="bl__who bl__who--coon">(uncommitted)</span><span class="bl__when">&mdash;</span>
+            <span class="bl__line">The raccoon. No title, total confidence, commit access nobody remembers granting.</span>
+          </div>
+          <div class="bl bl--new">
+            <span class="bl__hash">b4d1dea</span><span class="bl__who bl__who--agent">agent-7</span><span class="bl__when">9s ago</span>
+            <span class="bl__line">Reviewed by: nobody. Approved by: the same model. Regenerating this file now, for no reason.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="telemetry">
+        <div class="telemetry__unit telemetry__unit--warm">
+          <span class="telemetry__label">GPU core temp</span>
+          <span class="telemetry__value" data-tele data-min="81" data-max="96" data-dec="1" data-suffix="&deg;C">88.4&deg;C</span>
+          <span class="meter"><span class="meter__fill"></span></span>
+          <span class="telemetry__note">never cooled, not once</span>
+        </div>
+        <div class="telemetry__unit">
+          <span class="telemetry__label">Tokens per second</span>
+          <span class="telemetry__value" data-tele data-min="840" data-max="1490">1,104</span>
+          <span class="meter"><span class="meter__fill"></span></span>
+          <span class="telemetry__note">all of them load-bearing</span>
+        </div>
+        <div class="telemetry__unit telemetry__unit--cool">
+          <span class="telemetry__label">Context window</span>
+          <span class="telemetry__value" data-tele data-min="93" data-max="100" data-suffix="% FULL">98% FULL</span>
+          <span class="meter"><span class="meter__fill"></span></span>
+          <span class="telemetry__note">we forget the raccoon nightly</span>
+        </div>
+        <div class="telemetry__unit telemetry__unit--cool">
+          <span class="telemetry__label">Humans online</span>
+          <span class="telemetry__value" data-tele data-min="1" data-max="4" data-suffix=" / 4">2 / 4</span>
+          <span class="meter"><span class="meter__fill"></span></span>
+          <span class="telemetry__note">powered down gently around six</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== RAGE QUIT (the tokenizer) ===================== -->
     <section class="section section--complaint" id="complaint" aria-labelledby="complaint-h">
       <div class="section__head">
-        <p class="stamp">&#9654; FEEDBACK INTAKE // DESTINATION: /dev/null</p>
+        <p class="stamp">&#9654; NEW ISSUE &nbsp;//&nbsp; ASSIGNEE: /dev/null</p>
         <h2 class="section__title chrome" id="complaint-h">RAGE QUIT</h2>
       </div>
       <p class="section__lead">
-        Got a complaint? Incredible. We take feedback so seriously we've wired an industrial-grade,
-        fully bonded, OSHA-adjacent slop-shredder directly beneath this box. Type your grievance,
-        hit <b>DEPLOY TO THE VOID</b>, and watch it become confetti. Read by no one. Felt by everyone.
-        Easily our most finished feature.
+        Got a complaint? Outstanding. We take feedback so seriously that we feed it straight into
+        the tokenizer. Type your grievance, hit <b>PUSH TO /dev/null</b>, and watch it come apart
+        into tokens and fall out of the context window. Read by no one. Felt by everyone. Easily
+        our most finished feature, because an agent shipped it without asking.
       </p>
 
-      <form class="complaint" id="complaintForm" novalidate>
-        <label class="complaint__label" for="complaint-input">GRIEVANCE UPLOAD &mdash; STATUS: DOOMED</label>
-
-        <div class="shred-wrap" id="shredWrap">
-          <div class="shredder-mouth" aria-hidden="true"></div>
+      <form class="issue" id="issueForm" novalidate>
+        <div class="issue__bar">
+          <span class="issue__name">new-issue.md</span>
+          <span class="issue__meta">status: <b>will be tokenized</b></span>
+        </div>
+        <label class="issue__label" for="issue-input">BODY &mdash; markdown supported, comprehension not</label>
+        <div class="issue__wrap" id="issueWrap">
           <textarea
-            id="complaint-input"
-            class="complaint__input"
-            name="complaint"
+            id="issue-input"
+            class="issue__input"
+            name="issue"
             rows="6"
-            placeholder="Begin grievance. Be as specific as you like — it changes nothing, but the shredder respects thorough work..."
+            placeholder="Begin grievance. Be as specific as you like — it changes nothing, but the tokenizer respects thorough work..."
             spellcheck="true"
             autocomplete="off"></textarea>
-          <canvas class="shred-fx" id="shredFx" aria-hidden="true"></canvas>
         </div>
-
-        <div class="complaint__controls">
-          <button type="submit" class="btn btn--primary btn--submit" id="shredBtn">DEPLOY TO THE VOID</button>
-          <p class="complaint__status" id="shredStatus" role="status" aria-live="polite"></p>
+        <div class="issue__controls">
+          <button type="submit" class="btn btn--primary btn--submit" id="pushBtn">PUSH TO /dev/null</button>
+          <p class="issue__status" id="issueStatus" role="status" aria-live="polite"></p>
         </div>
       </form>
     </section>
   </main>
 
-  <!-- ===================== FOOTER ===================== -->
+  <!-- ===================== FOOTER (status bar) ===================== -->
   <footer class="footer">
-    <img class="footer__logo" src="/logo.png" alt="" width="44" height="44" />
-    <p class="footer__text">
-      MACHINAUT STUDIOS LLC — SLOP FOUNDRY. Mass-producing AI slop since the GPU warmed up this
-      morning. No roadmap. No taste. The model is still generating.
-      <span class="footer__cursor cursor" aria-hidden="true"></span>
-    </p>
-    <p class="footer__fine">© 2026, or whenever the build finished.</p>
+    <div class="statusbar">
+      <span class="sb sb--branch"><svg viewBox="0 0 24 24"><use href="#ic-branch"/></svg>main &#10003;</span>
+      <span class="sb">0 problems</span>
+      <span class="sb">temperature 1.0</span>
+      <span class="sb sb--warm">GPU 88.4&deg;C</span>
+      <span class="sb">Ln &#8734;, Col 1</span>
+      <span class="sb sb--flow">prompt &#8594; accept &#8594; deploy</span>
+      <span class="sb sb--right">autocomplete: on &nbsp;&middot;&nbsp; brakes: off</span>
+    </div>
+    <div class="footer__body">
+      <img class="footer__logo" src="/logo.png" alt="" width="44" height="44" />
+      <p class="vibe vibe--foot">No roadmap. Just throughput.</p>
+      <p class="footer__text">
+        MACHINAUT STUDIOS LLC &mdash; PROMPT &#8594; PROD. Vibe-coding games since the GPU warmed up
+        this morning. No roadmap, no tests, no follow-up questions. The model is still generating.
+        <span class="footer__cursor cursor" aria-hidden="true"></span>
+      </p>
+      <p class="footer__fine">&copy; 2026, or whenever the build finished.</p>
+    </div>
   </footer>
 
-  <script src="script.js" defer></script>
+  <script>
+  (function () {
+    'use strict';
+    var html = document.documentElement;
+    var SHOT = html.classList.contains('is-shot');
+    var REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var STILL = SHOT || REDUCED;
+
+    /* ---------------- nav toggle ---------------- */
+    var toggle = document.getElementById('navToggle');
+    var menu = document.getElementById('nav-menu');
+    if (toggle && menu) {
+      toggle.addEventListener('click', function () {
+        var open = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!open));
+        menu.classList.toggle('is-open', !open);
+      });
+      menu.addEventListener('click', function (e) {
+        if (e.target.closest('a')) {
+          toggle.setAttribute('aria-expanded', 'false');
+          menu.classList.remove('is-open');
+        }
+      });
+    }
+
+    /* ---------------- the editor sequence ----------------
+       prompt types itself -> the model streams -> the diff goes green ->
+       an agent accepts it -> prod. Then it does the whole thing again,
+       because that is genuinely what the day looks like here. */
+    var editor = document.getElementById('editor');
+    var code = document.getElementById('code');
+    if (editor && code) {
+      var lines = Array.prototype.slice.call(code.querySelectorAll('.ln'));
+      var typers = Array.prototype.slice.call(code.querySelectorAll('[data-type]'));
+      var tabs = Array.prototype.slice.call(editor.querySelectorAll('.etab[data-phase]'));
+      var timers = [];
+      var at = function (ms, fn) { timers.push(setTimeout(fn, ms)); };
+      var clearAll = function () { timers.forEach(clearTimeout); timers = []; };
+
+      var setPhase = function (p) {
+        tabs.forEach(function (t) { t.classList.toggle('is-active', +t.dataset.phase === p); });
+      };
+      var show = function (step) {
+        lines.forEach(function (l) { if (+l.dataset.step === step) l.classList.add('is-in'); });
+      };
+
+      var endState = function () {
+        clearAll();
+        typers.forEach(function (t) { t.textContent = t.dataset.type; });
+        lines.forEach(function (l) { l.classList.add('is-in'); });
+        editor.classList.add('is-typed', 'is-accepted', 'is-shipped');
+        setPhase(3);
+      };
+
+      var run = function () {
+        clearAll();
+        editor.classList.remove('is-typed', 'is-accepted', 'is-shipped');
+        lines.forEach(function (l) { l.classList.remove('is-in'); });
+        typers.forEach(function (t) { t.textContent = ''; });
+        setPhase(1);
+        show(0);
+
+        /* type the prompt, line by line */
+        var t = 260;
+        var SPEED = 24;
+        typers.forEach(function (span) {
+          var text = span.dataset.type;
+          for (var i = 1; i <= text.length; i++) {
+            (function (n) { at(t + n * SPEED, function () { span.textContent = text.slice(0, n); }); })(i);
+          }
+          t += text.length * SPEED + 90;
+        });
+        at(t, function () { editor.classList.add('is-typed'); });
+
+        /* the model answers */
+        t += 380; at(t, function () { setPhase(2); show(1); });
+        t += 420; at(t, function () { show(2); });
+        t += 240; at(t, function () { show(3); });
+        t += 240; at(t, function () { show(4); });
+        t += 300; at(t, function () { show(5); });
+
+        /* the diff */
+        t += 520; at(t, function () { setPhase(3); show(6); });
+        t += 260; at(t, function () { show(7); });
+        t += 200; at(t, function () { show(8); });
+        t += 260; at(t, function () { show(9); });
+        t += 200; at(t, function () { show(10); });
+        t += 420; at(t, function () { show(11); });
+
+        /* an agent clicks the button nobody was going to click */
+        t += 560; at(t, function () { editor.classList.add('is-accepted'); });
+        t += 900; at(t, function () { editor.classList.add('is-shipped'); });
+
+        /* and again */
+        t += 6200; at(t, run);
+      };
+
+      if (STILL) endState(); else run();
+    }
+
+    /* ---------------- the day's builds ---------------- */
+    var log = document.getElementById('log');
+    if (log) {
+      var POOL = [
+        ['06:02', 'build  #48117', 'raccoon/vend.ts', 'green', '0 tests'],
+        ['06:02', 'deploy prod', 'store rollout 100%', 'ok', '1.4s'],
+        ['06:31', 'build  #48118', 'moon/hostility.ts', 'green', '0 tests'],
+        ['07:14', 'regenerate', '"make it more fun"', 'green', 'no diff read'],
+        ['07:15', 'accept', 'agent-7 approved 812 files', 'ok', '0.2s'],
+        ['08:40', 'build  #48119', 'emberseam/lane-fire.ts', 'green', '0 tests'],
+        ['09:03', 'retry', 'better prompt, same model', 'green', '2nd take'],
+        ['09:41', 'rollback', 'no previous version exists', 'ok', 'onward'],
+        ['10:22', 'build  #48120', 'hushword/secret.ts', 'green', '0 tests'],
+        ['11:07', 'deploy prod', 'shipped before standup', 'ok', '1.1s'],
+        ['11:58', 'lint', 'disabled &mdash; found discouraging', 'skip', '0.0s'],
+        ['12:30', 'build  #48121', 'tooter/archive.ts', 'green', '0 tests'],
+        ['13:09', 'one-shot', 'crittergram/critter-14', 'green', 'first try'],
+        ['14:44', 'accept', 'nobody opened the diff', 'ok', '0.2s'],
+        ['15:20', 'build  #48122', 'anvilspell/forge.ts', 'green', '0 tests'],
+        ['16:02', 'context', 'window full &mdash; forgot Tuesday', 'warn', 'fine'],
+        ['16:48', 'deploy prod', 'the GPU stayed warm', 'ok', '1.6s']
+      ];
+      var VISIBLE = 9, cursor = 0;
+      var row = function (r) {
+        var el = document.createElement('div');
+        el.className = 'log__row';
+        el.innerHTML =
+          '<span class="log__t">' + r[0] + '</span>' +
+          '<span class="log__job">' + r[1] + '</span>' +
+          '<span class="log__msg">' + r[2] + '</span>' +
+          '<span class="log__st log__st--' + r[3] + '">' + r[3] + '</span>' +
+          '<span class="log__ms">' + r[4] + '</span>';
+        return el;
+      };
+      for (var i = 0; i < VISIBLE; i++) { log.appendChild(row(POOL[cursor % POOL.length])); cursor++; }
+      var caret = document.createElement('div');
+      caret.className = 'log__caret';
+      caret.innerHTML = '<span class="log__prompt">$</span> waiting for the next prompt<span class="cursor"></span>';
+      log.appendChild(caret);
+      if (!STILL) {
+        setInterval(function () {
+          var r = row(POOL[cursor % POOL.length]); cursor++;
+          r.classList.add('is-new');
+          log.insertBefore(r, caret);
+          if (log.querySelectorAll('.log__row').length > VISIBLE) log.removeChild(log.querySelector('.log__row'));
+        }, 2400);
+      }
+    }
+
+    /* ---------------- the counter that never stops ---------------- */
+    var counter = document.getElementById('diffCount');
+    if (counter && !STILL) {
+      var n = 4208117;
+      setInterval(function () {
+        n += 1 + Math.floor(Math.random() * 3);
+        counter.textContent = n.toLocaleString('en-US');
+      }, 620);
+    }
+
+    /* ---------------- the closet telemetry wanders ---------------- */
+    var teles = Array.prototype.slice.call(document.querySelectorAll('[data-tele]'));
+    if (teles.length && !STILL) {
+      setInterval(function () {
+        teles.forEach(function (el) {
+          var min = +el.dataset.min, max = +el.dataset.max, dec = +(el.dataset.dec || 0);
+          var v = min + Math.random() * (max - min);
+          var txt = dec ? v.toFixed(dec) : Math.round(v).toLocaleString('en-US');
+          el.innerHTML = txt + (el.dataset.suffix || '');
+        });
+      }, 2200);
+    }
+
+    /* ---------------- the tokenizer ----------------
+       Your grievance is read out of the textarea, destroyed there, and the
+       characters are re-laid-out over the empty field as tokens so they can
+       fall out of the context window in front of you. */
+    var form = document.getElementById('issueForm');
+    var wrap = document.getElementById('issueWrap');
+    var input = document.getElementById('issue-input');
+    var status = document.getElementById('issueStatus');
+    var MESSAGES = [
+      'Issue #8,442 opened, then closed as <b>wontfix</b> by agent-7 in 0.2s. 412 tokens returned to the environment.',
+      'Tokenized and dropped from the context window. The model has no memory of this. Neither, soon, will you.',
+      'Merged into /dev/null. 1 file changed, 0 insertions, 0 deletions, 0 readers. Main is still green.',
+      'Your feedback compiled. We did not read it. An agent has already marked it resolved and moved on.',
+      'Regenerated your complaint at temperature 1.0 and shipped the result as a feature. You are welcome.'
+    ];
+    if (form && wrap && input && status) {
+      var mi = 0;
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var text = input.value;
+        if (!text.trim()) {
+          status.innerHTML = 'Empty prompt. The tokenizer produced nothing, which is also what we do.';
+          status.classList.add('is-on');
+          return;
+        }
+
+        if (!STILL) {
+          /* Mirror the field exactly, then freeze every token where it sits. */
+          var cs = getComputedStyle(input);
+          var ghost = document.createElement('div');
+          ghost.className = 'tokfx';
+          ghost.style.font = cs.font;
+          ghost.style.lineHeight = cs.lineHeight;
+          ghost.style.letterSpacing = cs.letterSpacing;
+          ghost.style.padding = cs.padding;
+          ghost.style.width = input.offsetWidth + 'px';
+          ghost.style.height = input.offsetHeight + 'px';
+
+          var chunks = text.match(/\s*\S{1,4}|\s+/g) || [];
+          var spans = chunks.map(function (c) {
+            var s = document.createElement('span');
+            s.className = 'tok';
+            s.textContent = c;
+            ghost.appendChild(s);
+            return s;
+          });
+          wrap.appendChild(ghost);
+
+          /* destroy the real thing before anything animates */
+          input.value = '';
+
+          var box = ghost.getBoundingClientRect();
+          var pos = spans.map(function (s) {
+            var r = s.getBoundingClientRect();
+            return { x: r.left - box.left, y: r.top - box.top };
+          });
+          spans.forEach(function (s, i) {
+            s.style.left = pos[i].x + 'px';
+            s.style.top = pos[i].y + 'px';
+            s.classList.add('is-fixed');
+          });
+          void ghost.offsetHeight;
+          spans.forEach(function (s, i) {
+            var dx = (Math.random() - 0.5) * 220;
+            var dy = 120 + Math.random() * 200;
+            var rot = (Math.random() - 0.5) * 120;
+            s.style.transitionDelay = (i * 9 + Math.random() * 90) + 'ms';
+            s.style.transform = 'translate(' + dx + 'px,' + dy + 'px) rotate(' + rot + 'deg)';
+            s.style.opacity = '0';
+            s.style.color = i % 3 === 0 ? '#ff5cae' : (i % 3 === 1 ? '#57ecff' : '#c6ff5e');
+          });
+          wrap.classList.add('is-eating');
+          setTimeout(function () { ghost.remove(); wrap.classList.remove('is-eating'); }, 1800 + spans.length * 9);
+        } else {
+          input.value = '';
+        }
+
+        status.innerHTML = MESSAGES[mi % MESSAGES.length];
+        status.classList.add('is-on');
+        mi++;
+      });
+    }
+
+    /* ---------------- panes rise as they arrive ---------------- */
+    if (!STILL && 'IntersectionObserver' in window) {
+      var targets = document.querySelectorAll('.pane, .prod, .spec, .telemetry__unit, .readout');
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+        });
+      }, { rootMargin: '0px 0px -8% 0px' });
+      Array.prototype.forEach.call(targets, function (el, i) {
+        var r = el.getBoundingClientRect();
+        if (r.top > window.innerHeight * 0.92) {
+          el.classList.add('will-rise');
+          el.style.setProperty('--i', String(i % 6));
+          io.observe(el);
+        }
+      });
+    }
+
+    /* ---------------- only animate the stage you can see ---------------- */
+    if (!STILL && 'IntersectionObserver' in window) {
+      var stages = document.querySelectorAll('.stage');
+      var so = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { en.target.classList.toggle('is-live', en.isIntersecting); });
+      }, { rootMargin: '120px' });
+      Array.prototype.forEach.call(stages, function (s) { so.observe(s); });
+    } else {
+      Array.prototype.forEach.call(document.querySelectorAll('.stage'), function (s) { s.classList.add('is-live'); });
+    }
+  })();
+  </script>
 </body>
 </html>

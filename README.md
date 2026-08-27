@@ -1,7 +1,8 @@
 # Machinaut Studios LLC — website
 
 The official landing page for **Machinaut Studios LLC** — an AI-driven game studio
-building AI slop bigger, better, faster, and sloppier than ever. The machines make it.
+vibe-coding games bigger, better, and vibier than ever. The model writes it, an agent
+approves it with its eyes shut, and it ships before anybody opens the diff.
 We just push deploy.
 
 Live site: <https://machinautstudios.github.io>
@@ -12,9 +13,10 @@ A static, dependency-free site for GitHub Pages.
 
 | File          | Purpose                                                              |
 | ------------- | ------------------------------------------------------------------- |
-| `index.html`  | Page structure, copy, and the animated "Slop Factory" conveyor       |
-| `styles.css`  | "Slop Foundry" neon-arcade theme — synthwave grid, chrome type, fully responsive |
-| `script.js`   | Mobile nav + the slop-deployed counter + the Complaint Shredder      |
+| `index.html`  | Page structure, copy, and the prompt → approve → ship production line |
+| `home.css`    | The home page's own IDE/terminal skin and its production-line animation |
+| `styles.css`  | Shared neon-arcade theme for every other page — synthwave grid, chrome type, fully responsive |
+| `script.js`   | Mobile nav + the units-deployed counter + the Complaint Shredder     |
 | `logo.png`    | The studio mark — a neon robot in an astronaut helmet, used in the nav, hero and footers |
 | `favicon.png` | The same mark, cropped tight for browser tabs                        |
 | `apple-touch-icon.png` | The mark on the studio's black, for iOS home screens         |
