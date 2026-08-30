@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<!--
+  Slateveil — a game by Machinaut Studios LLC
+  Copyright © 2026 Machinaut Studios LLC. All rights reserved. See /LICENSE.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Slateveil — Set the stone, mind the seam. | Machinaut Studios LLC</title>
+  <meta name="description" content="Slateveil is a daily domino-logic puzzle. Every panel wants something — its pips all equal, all different, or adding up. Set every stone so every panel is satisfied, then pay mortar wherever two stones meet uneven. Every wall ships with a par a solver proved. An iOS and Android game by Machinaut Studios LLC." />
+  <meta name="copyright" content="© 2026 Machinaut Studios LLC. All rights reserved." />
+  <meta name="theme-color" content="#141619" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="canonical" href="https://machinautstudios.com/slateveil/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Slateveil — Set the stone, mind the seam." />
+  <meta property="og:description" content="A daily domino-logic puzzle. Satisfy every panel, then pay mortar for every seam where two stones meet uneven. The wall that fits is rarely the wall that's tight." />
+  <meta property="og:url" content="https://machinautstudios.com/slateveil/" />
+  <meta property="og:image" content="https://machinautstudios.com/slateveil/slateveil-og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="1200" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="Slateveil — a pale domino stone bedded into a warm band of mortar." />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Outfit:wght@300;400;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/slateveil/stage.css" />
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+<body id="top">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ===================== NAV (editor tab bar) ===================== -->
+  <header class="nav tabbar">
+    <div class="tabbar__inner">
+      <a class="brand" href="/">
+        <img class="brand__logo" src="/logo.png" alt="" width="28" height="28" />
+        <span class="brand__name">MACHINAUT</span>
+        <span class="brand__sub">STUDIOS&nbsp;LLC</span>
+      </a>
+
+      <button class="tabbar__toggle" id="navToggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span aria-hidden="true"></span>
+      </button>
+
+      <nav class="tabs" id="nav-menu" aria-label="Primary">
+        <a class="tab" href="/#pipeline"><span class="tab__dot tab__dot--c"></span>pipeline.yml</a>
+        <a class="tab" href="/#ship"><span class="tab__dot tab__dot--l"></span>products/</a>
+        <a class="tab" href="/#studio"><span class="tab__dot tab__dot--v"></span>studio.blame</a>
+        <a class="tab tab--cta" href="/#complaint"><span class="tab__dot tab__dot--m"></span>rage-quit.sh</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <section class="hero">
+      <div class="hero__inner sv-hero">
+        <div class="sv-stage" aria-hidden="true">
+          <div class="sv-stone">
+            <span class="sv-half"><i class="sv-pip"></i><i class="sv-pip"></i></span>
+            <span class="sv-half"><i class="sv-pip"></i><i class="sv-pip"></i><i class="sv-pip"></i></span>
+          </div>
+          <div class="sv-seam"></div>
+        </div>
+        <div class="hero__copy">
+          <h1 class="sv-wordmark">SLATEVEIL</h1>
+          <p class="sv-lede">
+            Every panel wants something. One wants its pips all equal, one wants
+            them all different, one wants them to add up. Set every stone so
+            every panel is satisfied — plenty of walls will do it.
+          </p>
+          <p class="sv-lede">
+            Then there is the mortar. Wherever two stones meet uneven, the seam
+            costs the difference. <strong>The wall that fits is rarely the wall
+            that's tight.</strong>
+          </p>
+          <div class="hero__actions">
+            <button class="btn btn--primary btn--play" type="button" disabled aria-disabled="true"
+                    aria-label="Coming soon to the App Store">
+              <span>Coming soon to the App Store</span>
+            </button>
+            <button class="btn btn--primary btn--play" type="button" disabled aria-disabled="true"
+                    aria-label="Coming soon to Google Play">
+              <span>Coming soon to Google Play</span>
+            </button>
+            <a class="btn btn--ghost" href="/slateveil/privacy/">PRIVACY POLICY</a>
+          </div>
+          <p class="app-note">
+            Not on either store yet — the buttons above become links the day
+            there is something behind them.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section__head">
+        <p class="stamp">&#9654; cat rules.md</p>
+        <h2 class="section__title chrome">HOW IT WORKS</h2>
+      </div>
+      <div class="sv-grid">
+        <div class="sv-card">
+          <h3>Panels carry marks</h3>
+          <p>A panel marked <b>=</b> wants every pip inside it the same. <b>&ne;</b>
+             wants them all different. A number wants them to add up to it.</p>
+        </div>
+        <div class="sv-card">
+          <h3>Seams cost mortar</h3>
+          <p>Two stones meeting five-against-one costs four. Three-against-three
+             costs nothing. Only different stones owe — the two halves of one
+             stone are a single piece.</p>
+        </div>
+        <div class="sv-card">
+          <h3>Par is proved, not guessed</h3>
+          <p>A solver cracked every shipped wall before it left the workshop.
+             Hit par and you have found the tightest wall that exists.</p>
+        </div>
+        <div class="sv-card">
+          <h3>One Daily, everyone</h3>
+          <p>The same wall for every player, scored on mortar against par — and
+             it counts whether or not you finish it. A streak a bad day can
+             break is a streak nobody keeps.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt">
+      <div class="section__head">
+        <p class="stamp">&#9654; ls features/</p>
+        <h2 class="section__title chrome">WHAT'S IN IT</h2>
+      </div>
+      <ul class="sv-list">
+        <li><b>150 walls</b> across six courses, from Footing to Capstone.</li>
+        <li><b>A Daily</b> with three years already baked and proved.</li>
+        <li><b>Plumb</b> names a stone on an optimal wall. <b>Chalkline</b> finds
+            the panel you have already broken.</li>
+        <li><b>Plays offline.</b> No account, no login, no server. Every wall is
+            in the download.</li>
+        <li><b>Five palettes</b>, two of them free — including the light one,
+            because a legibility preference should not cost money.</li>
+        <li>No timers, no lives, and no wall you cannot finish.</li>
+      </ul>
+    </section>
+  </main>
+<footer class="footer footer--bar">
+    <div class="statusbar">
+      <span class="sb sb--branch"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="5" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="6" cy="19" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="9" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 7.6v8.8M18 11.6c0 3.2-3 3.6-6 4.2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>main &#10003;</span>
+      <span class="sb">0 problems</span>
+      <span class="sb">temperature 1.0</span>
+      <span class="sb sb--warm">GPU 88.4&deg;C</span>
+      <span class="sb">Ln &#8734;, Col 1</span>
+      <span class="sb sb--flow">prompt &#8594; accept &#8594; deploy</span>
+      <span class="sb sb--right">autocomplete: on &nbsp;&middot;&nbsp; brakes: off</span>
+    </div>
+
+    <div class="footer__body">
+      <img class="footer__logo" src="/logo.png" alt="" width="44" height="44" />
+
+      <nav class="footer__links" aria-label="Footer">
+        <a href="/">Home</a>
+        <a href="/anvilspell/">Anvilspell</a>
+        <a href="/anvilspell/privacy/">Privacy Policy</a>
+        <a href="https://apps.apple.com/us/app/anvilspell-word-puzzle/id6798076873">App Store</a>
+        <a href="https://play.google.com/store/apps/details?id=com.machinautstudios.anvilspell">Google Play</a>
+        <a href="/tooter/">Tooter</a>
+        <a href="/crittergram/">Critter Gram</a>
+      </nav>
+
+      <p class="footer__text">
+        Anvilspell is a game by MACHINAUT STUDIOS LLC &mdash; vibe-coded at temperature 1.0
+        and merged the moment main went green. Two letters in, one hotter letter out.
+        The forge is not impressed by your streak.
+        <span class="footer__cursor cursor" aria-hidden="true"></span>
+      </p>
+
+      <p class="footer__fine">&copy; 2026 Machinaut Studios LLC. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
