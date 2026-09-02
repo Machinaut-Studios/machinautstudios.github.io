@@ -196,15 +196,33 @@
 
         <h2>What we declare to the stores</h2>
         <p>
-          One data type, and this is it. <b>The advertising identifier</b> — your
-          device's own resettable ad ID — is collected by <b>Google</b>, for
-          <b>advertising</b>. It is <b>not linked to your identity</b>, because there is
-          no identity here to link it to: no account, no login, no name, no email. It is
-          <b>not used for tracking</b> as Apple defines the word — we do not join it to
-          data from any other company to follow you around, which is why the app has no
-          tracking prompt. Nothing else in this app is collected by anyone. Not your
-          progress, not your Bolts, not your Daily results, not a device identifier of
-          ours, not a crash log.
+          <b>Everything on this list is collected by Google's ad SDK, not by us.</b> We
+          run no server, so there is nothing for us to collect. The two stores ask the
+          question in different shapes, so here are both answers.
+        </p>
+        <p>
+          Google Play's <b>Data safety</b> section lists four things, all of them the ad
+          SDK's, all of them shared with Google, none of them optional:
+        </p>
+        <ul>
+          <li><b>Device or other IDs</b> — your device's own resettable advertising identifier, and the app-set identifier that sits alongside it.</li>
+          <li><b>Approximate location</b> — derived from your IP address, at the coarse level an ad exchange uses to pick a country or region. The app never reads your device's location.</li>
+          <li><b>App interactions</b> — that an ad was requested, shown, or tapped. Not what you did in the factory.</li>
+          <li><b>Diagnostics</b> — the SDK's own performance, such as how long it took to load an ad.</li>
+        </ul>
+        <p>
+          Apple's <b>App Privacy</b> label answers with one type: the advertising
+          identifier, used for third-party advertising.
+        </p>
+        <p>
+          On both stores the same two things are true. It is <b>not linked to your
+          identity</b>, because there is no identity here to link it to: no account, no
+          login, no name, no email. And it is <b>not used for tracking</b> as Apple
+          defines the word — we do not join it to data from any other company to follow
+          you around, which is why the app has no tracking prompt. Nothing of yours is on
+          either list. Not your progress, not your Bolts, not your Daily results, not a
+          device identifier of ours, and no crash reporter, because the app ships without
+          one.
         </p>
 
         <h2>Purchases</h2>
