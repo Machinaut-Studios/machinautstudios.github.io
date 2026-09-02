@@ -1216,6 +1216,8 @@ a.tree__row:hover { background: rgba(47, 228, 255, 0.12); color: var(--cyan-t); 
 .tag--soon { color: #04141a; background: var(--cyan); }
 .tag--wip  { color: #14040c; background: var(--magenta); }
 .tag--none { color: var(--muted-2); border: 1px dashed rgba(176,168,221,0.35); }
+/* Prototypes: on the shelf, not on the roadmap. Dashed, like the icon. */
+.tag--proto { color: var(--violet-t, #c48cff); border: 1px dashed rgba(168, 85, 255, 0.6); background: rgba(168, 85, 255, 0.12); }
 
 .prods { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.85rem; }
 .prod {

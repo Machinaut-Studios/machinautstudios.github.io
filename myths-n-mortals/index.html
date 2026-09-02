@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<!--
+  Myths & Mortals — Machinaut Studios LLC
+  Copyright © 2026 Machinaut Studios LLC. All rights reserved. See /LICENSE.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Myths &amp; Mortals &mdash; prototype | Machinaut Studios LLC</title>
+  <meta name="description" content="Myths &amp; Mortals is a prototype, not a product: a Rust and Bevy client talking to a SpacetimeDB server, with real server-authoritative multiplayer, enemies that hunt you on a scheduled tick, and permanent-enough death. No build, no date, no art yet." />
+  <meta name="robots" content="index, follow" />
+  <meta name="copyright" content="&copy; 2026 Machinaut Studios LLC. All rights reserved." />
+  <meta name="theme-color" content="#07060f" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="canonical" href="https://machinautstudios.com/myths-n-mortals/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Myths &amp; Mortals &mdash; prototype" />
+  <meta property="og:description" content="A prototype we are not pretending is a game yet: Rust, Bevy and SpacetimeDB, with a server that owns the truth and enemies that do not care how you feel about it." />
+  <meta property="og:url" content="https://machinautstudios.com/myths-n-mortals/" />
+
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <!-- Fonts: Orbitron (chrome display) + VT323 (arcade accents) + IBM Plex Mono (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Orbitron:wght@600;800;900&family=VT323&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ===================== NAV (editor tab bar) ===================== -->
+  <header class="nav tabbar">
+    <div class="tabbar__inner">
+      <a class="brand" href="/">
+        <img class="brand__logo" src="/logo.png" alt="" width="28" height="28" />
+        <span class="brand__name">MACHINAUT</span>
+        <span class="brand__sub">STUDIOS&nbsp;LLC</span>
+      </a>
+
+      <button class="tabbar__toggle" id="navToggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span aria-hidden="true"></span>
+      </button>
+
+      <nav class="tabs" id="nav-menu" aria-label="Primary">
+        <a class="tab" href="/#pipeline"><span class="tab__dot tab__dot--c"></span>pipeline.yml</a>
+        <a class="tab" href="/#ship"><span class="tab__dot tab__dot--l"></span>products/</a>
+        <a class="tab" href="/#studio"><span class="tab__dot tab__dot--v"></span>studio.blame</a>
+        <a class="tab tab--cta" href="/#complaint"><span class="tab__dot tab__dot--m"></span>rage-quit.sh</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ===================== HERO ===================== -->
+    <section class="hero hero--compact" aria-labelledby="mnm-title">
+      <div class="hero__scanlines" aria-hidden="true"></div>
+      <!-- Embers off this one's own furnace -->
+      <div class="motes" aria-hidden="true">
+        <span class="mote" style="--x:7%;--s:4px;--dur:18s;--d:-2s;--c:var(--violet);--drift:22px;--rise:-240px"></span>
+        <span class="mote" style="--x:18%;--s:3px;--dur:23s;--d:-9s;--c:var(--cyan);--drift:-18px;--rise:-280px"></span>
+        <span class="mote" style="--x:31%;--s:5px;--dur:16s;--d:-14s;--c:var(--violet);--drift:26px;--rise:-220px"></span>
+        <span class="mote" style="--x:43%;--s:3px;--dur:21s;--d:-5s;--c:var(--cyan);--drift:-24px;--rise:-300px"></span>
+        <span class="mote" style="--x:57%;--s:4px;--dur:25s;--d:-17s;--c:var(--violet);--drift:20px;--rise:-260px"></span>
+        <span class="mote" style="--x:69%;--s:5px;--dur:19s;--d:-7s;--c:var(--cyan);--drift:-22px;--rise:-230px"></span>
+        <span class="mote" style="--x:81%;--s:3px;--dur:22s;--d:-12s;--c:var(--violet);--drift:28px;--rise:-290px"></span>
+        <span class="mote" style="--x:92%;--s:4px;--dur:17s;--d:-3s;--c:var(--cyan);--drift:-20px;--rise:-250px"></span>
+      </div>
+      <div class="hero__inner">
+        <div class="app-hero__layout">
+          <img class="app-hero__icon" src="/myths-n-mortals/proto_icon.svg" alt="Myths and Mortals placeholder icon &mdash; a dashed outline around a wireframe figure" width="152" height="152" />
+          <div class="app-hero__text">
+            <p class="stamp stamp--hero">&#9654; PROTOTYPE &nbsp;//&nbsp; NOT A PRODUCT &nbsp;//&nbsp; NO DATE</p>
+            <h1 class="hero__title" id="mnm-title"><span class="n3">Myths &amp; Mortals</span><span class="cursor" aria-hidden="true"></span></h1>
+            <p class="app-hero__tagline">A server that owns the truth.<br />Everything else is still a placeholder.</p>
+            <p class="hero__sub">
+              This is the honest shelf. Myths &amp; Mortals is a <b>prototype</b> &mdash; a Rust and
+              <b>Bevy</b> client wired to a <b>SpacetimeDB</b> module, built to find out whether a
+              persistent multiplayer world is something we can actually hold up. Players connect,
+              move, hit things, die and respawn, and the server is the only thing that decides any
+              of it. That much is real and running. Everything a person would call a game &mdash;
+              art, sound, systems, a reason to log in &mdash; is not built yet, and we are not
+              going to imply otherwise on our own website.
+            </p>
+            <div class="hero__actions">
+              <a class="btn btn--ghost" href="/#ship">SEE WHAT ACTUALLY SHIPS</a>
+            </div>
+            <p class="app-note">
+              There is nothing to download and no date to give you. Prototypes here either graduate
+              into the catalogue or quietly stop getting commits, and we have never been able to
+              tell which in advance.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== WHAT EXISTS ===================== -->
+    <section class="section" id="exists" aria-labelledby="exists-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; git log &mdash; not a wishlist</p>
+        <h2 class="section__title chrome" id="exists-h">WHAT ACTUALLY RUNS</h2>
+      </div>
+      <p class="section__lead">
+        Roughly <b>1,700 lines</b> across a client and a server module. Everything on this list is
+        implemented and working today; nothing on it is planned, aspirational or coming soon.
+      </p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">SERVER</span>
+          <h3 class="cell__title">THE SERVER OWNS IT</h3>
+          <p class="cell__text">Players, enemies, damage and death live in SpacetimeDB tables and change only through reducers. The client asks; it never decides. <b>Nothing is trusted from the wire.</b></p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">SERVER</span>
+          <h3 class="cell__title">ENEMIES ON A TICK</h3>
+          <p class="cell__text">A scheduled reducer wakes up, moves every enemy toward whoever is closest, and swings. It keeps doing this whether or not a single player is watching.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">SERVER</span>
+          <h3 class="cell__title">DEATH, THEN PAPERWORK</h3>
+          <p class="cell__text">Kills write a death event, the corpse becomes a tombstone the whole world can see, and a scheduled respawn decides when &mdash; and whether &mdash; anything comes back.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">CLIENT</span>
+          <h3 class="cell__title">EVERYONE SEES EVERYONE</h3>
+          <p class="cell__text">A Bevy client subscribes to the tables and reconciles remote players and enemies as they move. Two windows on one machine is still the entire QA department.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">CLIENT</span>
+          <h3 class="cell__title">CONNECT, FIGHT, RESPAWN</h3>
+          <p class="cell__text">A connect screen, input, a camera that follows, an attack, a self-damage button for testing, and a respawn prompt. Programmer UI, proudly.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">INFRA</span>
+          <h3 class="cell__title">IT HAS A HOME</h3>
+          <p class="cell__text">The module builds and publishes to a containerised server, so the world outlives the laptop it was written on. That was the last commit, and then June happened.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== WHAT DOESN'T ===================== -->
+    <section class="section section--alt" id="missing" aria-labelledby="missing-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; the part nobody puts on a website</p>
+        <h2 class="section__title chrome" id="missing-h">WHAT IT ISN'T</h2>
+      </div>
+      <p class="section__lead">
+        A prototype is a question, not a promise. Here is everything this one cannot do, written
+        down in the same place as everything it can, because the alternative is a page that quietly
+        implies otherwise.
+      </p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">MISSING</span>
+          <h3 class="cell__title">NO ART</h3>
+          <p class="cell__text">Coloured rectangles, all the way down &mdash; including the icon at the top of this page. If this graduates, <b>a human gets commissioned</b> to draw the real thing, same as every game we ship.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MISSING</span>
+          <h3 class="cell__title">NO GAME YET</h3>
+          <p class="cell__text">There is a world and there are things in it that can kill you. There is no progression, no content, no economy, and no answer to "and then what?"</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MISSING</span>
+          <h3 class="cell__title">NO BUILD, NO DATE</h3>
+          <p class="cell__text">Nothing to download, no store page, no wishlist button, no newsletter. When there is something, it will be in <a href="/#ship">WHAT WE SHIP</a> like everything else.</p>
+        </li>
+      </ul>
+      <p class="vibe">Vibe-coded fast. Labelled honestly. Those two go together or neither is worth much.</p>
+    </section>
+
+    <!-- ===================== STACK ===================== -->
+    <section class="section" id="stack" aria-labelledby="stack-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; cat Cargo.toml</p>
+        <h2 class="section__title chrome" id="stack-h">THE STACK</h2>
+      </div>
+      <p class="section__lead">
+        Rust end to end, which is a strange choice for a studio that ships Flutter word games, and
+        exactly why it exists: the prototype shelf is where we find out what a stack costs before a
+        product depends on the answer.
+      </p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">CLIENT</span>
+          <h3 class="cell__title">BEVY</h3>
+          <p class="cell__text">Rust, ECS, and a renderer trimmed to the features actually used. Runs on Linux, macOS and Windows because nothing in it wants otherwise.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">SERVER</span>
+          <h3 class="cell__title">SPACETIMEDB</h3>
+          <p class="cell__text">The database <b>is</b> the server. Tables hold the world, reducers are the only way to change it, and clients subscribe instead of polling.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">GLUE</span>
+          <h3 class="cell__title">GENERATED BINDINGS</h3>
+          <p class="cell__text">Client types are generated from the module, so the wire format cannot drift from the schema without the compiler having something to say about it.</p>
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- ===================== FOOTER (status bar) ===================== -->
+  <footer class="footer footer--bar">
+    <div class="statusbar">
+      <span class="sb sb--branch"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="5" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="6" cy="19" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="9" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 7.6v8.8M18 11.6c0 3.2-3 3.6-6 4.2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>main &#10003;</span>
+      <span class="sb">0 problems</span>
+      <span class="sb">temperature 1.0</span>
+      <span class="sb sb--warm">GPU 88.4&deg;C</span>
+      <span class="sb">Ln &#8734;, Col 1</span>
+      <span class="sb sb--flow">prompt &#8594; accept &#8594; deploy</span>
+      <span class="sb sb--right">autocomplete: on &nbsp;&middot;&nbsp; brakes: off</span>
+    </div>
+
+    <div class="footer__body">
+      <img class="footer__logo" src="/logo.png" alt="" width="44" height="44" />
+
+      <p class="vibe vibe--foot">Every studio has a folder like this. Most of them just don't link to it.</p>
+
+      <nav class="footer__links" aria-label="Footer">
+        <a href="/">Home</a>
+        <a href="/myths-n-mortals/">Myths &amp; Mortals</a>
+        <a href="/voicecmd/">VoiceCmd</a>
+        <a href="/spellheir/">Spellheir</a>
+        <a href="/slateveil/">Slateveil</a>
+        <a href="/starknell/">STARKNELL</a>
+        <a href="/space-couch-command/">Space Couch Command</a>
+        <a href="/tooter/">Tooter</a>
+        <a href="/emberseam/">Emberseam</a>
+        <a href="/anvilspell/">Anvilspell</a>
+        <a href="/hushword/">Hushword</a>
+        <a href="/crittergram/">Critter Gram</a>
+      </nav>
+
+      <p class="footer__fine">&copy; 2026 Machinaut Studios LLC. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
