@@ -1,0 +1,551 @@
+/* =========================================================================
+   WIDGETASTROPHE — the page's own paint, and "THE BELT"
+
+   Two things live in this file, in this order:
+
+   1. THE PALETTE. Every other product page wears the studio's dark chrome.
+      This one wears the game's own Day Shift theme — cream walls, orange
+      trim, ink outlines — because that is what the game looks like when you
+      open it. It is done by re-pointing /styles.css's OWN tokens on
+      <body class="wa">, so every shared component (cells, buttons, stamps,
+      bands) repaints itself and no shared rule had to be forked. The two
+      pieces of studio furniture that must stay recognisable — the tab bar
+      and the status bar — get the dark tokens handed straight back, so the
+      nav on this page is pixel-for-pixel the nav on every other page.
+
+   2. THE STAGE. One 9-second loop: the belt runs, a widget rides it under a
+      Lithium Cell Injector, comes out worth $52 more, and a few seconds
+      later the tile it crossed is on fire and somebody taps it out. Sized
+      off one custom property (--wa-cell) so the whole contraption fills the
+      housing from 320px to 1400px. Everything is scoped under .stage--wa and
+      every keyframe is prefixed `wa-`. The housing, the back-wall grid, the
+      reduced-motion swap and the offscreen pausing all come from the MOTION
+      KIT in /styles.css.
+   ========================================================================= */
+
+/* ============================== 1. PALETTE ============================== */
+
+body.wa {
+  /* --- the game's Day Shift, mapped onto the site's tokens ------------- */
+  --bg:        #fff4dd;   /* cream wall                     */
+  --bg-2:      #f3dcb0;   /* the lifted band = wall, higher */
+  --panel:     #fffaf0;   /* paper                          */
+  --panel-2:   #fff7e4;   /* card top edge                  */
+  --field:     #fffaf0;
+
+  --ink:       #2a2018;   /* every outline in this game     */
+  --muted:     #6d5c46;   /* 5.9:1 on cream                 */
+  --muted-2:   #7a6a52;   /* 4.8:1 on cream                 */
+
+  --magenta:   #ff8a34;   /* accent        */
+  --violet:    #e86a15;   /* accent, dark  */
+  --cyan:      #e86a15;
+  --lime:      #3f9442;   /* the good green */
+  --amber:     #ffc93c;   /* gold           */
+
+  /* Text-safe versions: all of these carry small type on cream (>=4.9:1 on
+     the #f3dcb0 band, which is the darkest ground any of them lands on). */
+  --magenta-t: #a82d18;
+  --cyan-t:    #94470a;
+  --lime-t:    #8f4207;
+  --violet-t:  #5c4a32;
+
+  --chrome-bar:#2a2018;
+
+  --line:      rgba(42, 32, 24, 0.20);
+  --line-2:    rgba(232, 106, 21, 0.45);
+
+  /* Neon does not happen on paper. The three glow slots become one printed
+     offset, which reads on both text-shadow and box-shadow. */
+  --glow-m: 0 1px 0 rgba(42, 32, 24, 0.22);
+  --glow-c: 0 1px 0 rgba(42, 32, 24, 0.22);
+  --glow-l: 0 1px 0 rgba(42, 32, 24, 0.22);
+
+  /* Display face is the game's own. Body copy stays IBM Plex Mono so the
+     stamps, buttons and status chips keep the house's terminal voice; the
+     long prose is handed to Nunito further down. */
+  --font-head: "Lilita One", "Orbitron", "VT323", "Courier New", monospace;
+
+  /* --- the game's palette, under its own names, for the stage ---------- */
+  --wa-cream:   #fff4dd;
+  --wa-cream-2: #f3dcb0;
+  --wa-paper:   #fffaf0;
+  --wa-ink:     #2a2018;
+  --wa-accent:  #ff8a34;
+  --wa-accent-d:#e86a15;
+  --wa-gold:    #ffc93c;
+  --wa-good:    #3f9442;
+  --wa-danger:  #ef4b38;
+  --wa-wall-t:  #f3dcb0;
+  --wa-wall-b:  #e0c08a;
+  --wa-floor:   #c8a882;
+  --wa-belt:    #3d3730;
+  --wa-band:    #6d6257;
+}
+
+/* The two bits of studio furniture keep the studio's clothes. Custom
+   properties inherit, so handing the dark set back on these two subtrees is
+   the whole fix — no shared rule is touched. */
+body.wa .tabbar,
+body.wa .statusbar {
+  --ink:       #f3f1ff;
+  --muted:     #b0a8dd;
+  --muted-2:   #8a83b8;
+  --magenta:   #ff2e97;
+  --cyan:      #2fe4ff;
+  --lime:      #b6ff3a;
+  --violet:    #a855ff;
+  --magenta-t: #ff5cae;
+  --cyan-t:    #57ecff;
+  --lime-t:    #c6ff5e;
+  --violet-t:  #c48cff;
+  --chrome-bar:#1a1236;
+  --line:      rgba(150, 120, 255, 0.22);
+  --line-2:    rgba(47, 228, 255, 0.30);
+  --glow-m: 0 0 14px rgba(255, 46, 151, 0.55), 0 0 3px rgba(255, 46, 151, 0.9);
+  --glow-c: 0 0 14px rgba(47, 228, 255, 0.5),  0 0 3px rgba(47, 228, 255, 0.9);
+  --glow-l: 0 0 14px rgba(182, 255, 58, 0.5),  0 0 3px rgba(182, 255, 58, 0.9);
+  --font-head: "Orbitron", "VT323", "Courier New", monospace;
+}
+
+/* ---- grounds the shared sheet paints by hand, not by token ------------- */
+body.wa {
+  background-image:
+    radial-gradient(120% 90% at 12% -10%, rgba(255, 201, 60, 0.30), transparent 55%),
+    radial-gradient(120% 90% at 100% 0%, rgba(255, 138, 52, 0.20), transparent 50%);
+}
+body.wa .hero {
+  background:
+    repeating-linear-gradient(90deg,
+      rgba(190, 140, 80, 0.11) 0 2px, transparent 2px 34px),
+    radial-gradient(120% 90% at 50% 0%, #fffaf0 0%, #fff8e9 42%, var(--wa-cream) 100%);
+}
+body.wa .footer--bar { background: var(--wa-cream-2); }
+
+/* Chrome type is a mirror finish on a dark room; on paper it is ink with the
+   factory's orange sitting a pixel behind it, like a two-pass print. */
+body.wa .chrome {
+  background: none;
+  color: var(--wa-ink);
+  -webkit-text-fill-color: var(--wa-ink);
+  text-shadow: 0 2px 0 rgba(232, 106, 21, 0.30);
+}
+
+/* Prose in the game's reading face; stamps, buttons and chips stay mono. */
+body.wa .hero__sub,
+body.wa .section__lead,
+body.wa .cell__text,
+body.wa .app-hero__tagline,
+body.wa .footer__text,
+body.wa .app-note {
+  font-family: "Nunito", "IBM Plex Mono", "Courier New", monospace;
+}
+body.wa .hero__sub b,
+body.wa .section__lead b,
+body.wa .cell__text b { color: var(--wa-ink); font-weight: 800; }
+body.wa .app-hero__tagline { font-family: var(--font-head); }
+
+/* The wordmark: WIDGET in ink, ASTROPHE in the accent, stacked. */
+body.wa .hero__title { letter-spacing: 0.005em; }
+body.wa .hero__title .n1 { color: var(--wa-ink);     text-shadow: 0 3px 0 rgba(42, 32, 24, 0.14); }
+body.wa .hero__title .n2 { color: var(--wa-accent-d); text-shadow: 0 3px 0 rgba(42, 32, 24, 0.14); }
+body.wa .cursor { background: var(--wa-accent-d); box-shadow: none; }
+body.wa .app-hero__icon {
+  border-radius: 24px;
+  filter: none;
+  box-shadow: 0 4px 0 rgba(42, 32, 24, 0.16), 0 14px 30px rgba(42, 32, 24, 0.14);
+}
+
+/* Buttons: the game's chunky ink-outlined, drop-shadowed kind. */
+body.wa .btn--primary {
+  color: var(--wa-ink);
+  border-color: var(--wa-ink);
+  box-shadow: 0 3px 0 var(--wa-ink);
+}
+body.wa .btn--primary:hover { box-shadow: 0 3px 0 var(--wa-ink); filter: brightness(1.05); }
+body.wa .btn--ghost {
+  background: rgba(232, 106, 21, 0.07);
+  border-color: var(--wa-accent-d);
+  box-shadow: inset 0 0 0 1px rgba(232, 106, 21, 0.12);
+}
+body.wa .btn--ghost:hover { color: var(--wa-paper); background: var(--wa-accent-d); box-shadow: 0 3px 0 var(--wa-ink); }
+/* Dead on purpose, and it has to LOOK dead — no hover, no lift, no shine. */
+body.wa .btn[disabled] {
+  opacity: 1;
+  filter: none;
+  color: var(--muted);
+  background: var(--wa-cream-2);
+  border-color: rgba(42, 32, 24, 0.35);
+  border-style: dashed;
+  box-shadow: none;
+}
+body.wa .btn[disabled]:hover { filter: none; box-shadow: none; }
+
+/* Cards: paper with an ink shadow instead of a hole in space. */
+body.wa .cell {
+  box-shadow: 0 3px 0 rgba(42, 32, 24, 0.13), 0 12px 26px rgba(42, 32, 24, 0.08);
+}
+body.wa .cell:hover {
+  border-color: var(--line-2);
+  box-shadow: 0 5px 0 rgba(42, 32, 24, 0.16), 0 16px 34px rgba(42, 32, 24, 0.12);
+}
+body.wa .cell__title { color: var(--wa-ink); font-size: 1.32rem; letter-spacing: 0.005em; }
+body.wa .cell__stamp { background: rgba(255, 201, 60, 0.26); border-color: rgba(42, 32, 24, 0.22); }
+body.wa .vibe { text-shadow: none; }
+body.wa .vibe::before { text-shadow: none; }
+body.wa .footer__links a:hover { color: var(--wa-accent-d); border-bottom-color: var(--wa-accent-d); }
+body.wa .skip-link { background: var(--wa-accent); color: var(--wa-ink); box-shadow: 0 3px 0 var(--wa-ink); }
+body.wa :focus-visible {
+  outline: 2px solid var(--wa-ink);
+  box-shadow: 0 0 0 4px rgba(255, 201, 60, 0.9);
+}
+body.wa .footer__logo, body.wa .brand__logo { filter: none; }
+
+/* =============================== 2. STAGE =============================== */
+
+.stage--wa {
+  /* One belt tile. The floor, the machine, the widget and the housing are
+     all multiples of it. */
+  --wa-cell: clamp(44px, 9vw, 88px);
+  --wa-cols: 7;
+  /* Which tile the machine is bolted to (0-based), and how far a widget has
+     travelled when it leaves the frame. Both move together with --wa-cols;
+     keep --wa-end at cols + 0.8 or the press stops meeting the widget. */
+  --wa-mtile: 3;
+  --wa-end: 7.44;   /* = 2 x mtile + 0.54 + 0.9; see @keyframes wa-ride */
+
+  /* Housing hugs the contraption: the floor plus room for both placards. */
+  --stage-h: calc(var(--wa-cell) * 2.15 + 4.6rem);
+
+  border-color: rgba(42, 32, 24, 0.22);
+  box-shadow: 0 4px 0 rgba(42, 32, 24, 0.10), 0 16px 40px rgba(42, 32, 24, 0.12);
+  background:
+    /* corrugation on the back wall */
+    repeating-linear-gradient(90deg,
+      rgba(120, 90, 55, 0.13) 0 2px, transparent 2px 30px),
+    linear-gradient(180deg, var(--wa-wall-t) 0%, var(--wa-wall-b) 76%, var(--wa-floor) 76%, #bb9a74 100%);
+}
+/* The kit's neon lattice, redrawn in pencil. */
+.stage--wa .stage__grid {
+  background-image:
+    linear-gradient(to right, rgba(42, 32, 24, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(42, 32, 24, 0.07) 1px, transparent 1px);
+  background-size: 34px 34px;
+}
+.stage--wa .stage__tag { color: var(--wa-ink); text-shadow: 0 1px 0 rgba(255, 250, 240, 0.7); }
+.stage--wa .stage__tag--bottom { color: var(--wa-ink); opacity: 0.72; }
+
+/* Where the belt starts and where it ends up. */
+.stage--wa .wa-port {
+  position: absolute;
+  top: calc(var(--wa-cell) * 0.52);
+  font-family: var(--font-arcade);
+  font-size: 0.9rem;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  color: rgba(42, 32, 24, 0.5);
+}
+.stage--wa .wa-port--in  { left: 0; }
+.stage--wa .wa-port--out { right: 0; }
+
+/* ---- deck: the floor, centred as one unit ------------------------------ */
+.stage--wa .wa-deck {
+  position: absolute;
+  inset: 2.2rem 0.8rem 2.1rem;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.stage--wa .wa-floor {
+  position: relative;
+  flex: 0 0 auto;
+  width: calc(var(--wa-cell) * var(--wa-cols));
+  max-width: 100%;
+  height: calc(var(--wa-cell) * 2.15);
+}
+
+/* ---- the belt ---------------------------------------------------------- */
+.stage--wa .wa-belt {
+  position: absolute;
+  left: 0; right: 0;
+  top: calc(var(--wa-cell) * 1.55);
+  height: calc(var(--wa-cell) * 0.36);
+  z-index: 3;
+  border: 2px solid var(--wa-ink);
+  border-radius: calc(var(--wa-cell) * 0.07);
+  background: var(--wa-belt);
+  box-shadow: 0 calc(var(--wa-cell) * 0.13) 0 var(--wa-band),
+              0 calc(var(--wa-cell) * 0.13) 0 2px var(--wa-ink);
+  overflow: hidden;
+}
+/* The stripes. This is the only thing on the page that never stops. */
+.stage--wa .wa-belt__stripes {
+  position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(90deg,
+    rgba(255, 201, 60, 0.62) 0 calc(var(--wa-cell) * 0.09),
+    transparent calc(var(--wa-cell) * 0.09) calc(var(--wa-cell) * 0.3));
+  animation: wa-run 0.9s linear infinite;
+}
+@keyframes wa-run { to { background-position-x: calc(var(--wa-cell) * 0.3); } }
+/* Tile seams — where a machine may be bolted. */
+.stage--wa .wa-belt__tiles {
+  position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(90deg,
+    transparent 0 calc(var(--wa-cell) - 2px),
+    rgba(42, 32, 24, 0.55) calc(var(--wa-cell) - 2px) var(--wa-cell));
+  box-shadow: inset 0 calc(var(--wa-cell) * 0.06) 0 rgba(255, 250, 240, 0.10);
+}
+
+/* ---- rollers ----------------------------------------------------------- */
+.stage--wa .wa-roller {
+  position: absolute;
+  z-index: 4;
+  top: calc(var(--wa-cell) * 1.5);
+  width: calc(var(--wa-cell) * 0.46);
+  height: calc(var(--wa-cell) * 0.46);
+  border: 2px solid var(--wa-ink);
+  border-radius: 50%;
+  background: var(--wa-band);
+  animation: wa-spin 0.9s linear infinite;
+}
+.stage--wa .wa-roller--l { left: calc(var(--wa-cell) * -0.2); }
+.stage--wa .wa-roller--r { right: calc(var(--wa-cell) * -0.2); }
+.stage--wa .wa-roller::before {
+  content: "";
+  position: absolute;
+  left: 50%; top: 12%;
+  width: 2px; height: 76%;
+  margin-left: -1px;
+  background: var(--wa-ink);
+  opacity: 0.7;
+}
+@keyframes wa-spin { to { transform: rotate(360deg); } }
+
+/* ---- the machine, bolted to tile four ---------------------------------- */
+.stage--wa .wa-machine {
+  position: absolute;
+  z-index: 5;
+  left: calc(var(--wa-cell) * var(--wa-mtile));
+  top: 0;
+  width: var(--wa-cell);
+  height: calc(var(--wa-cell) * 1.55);
+}
+.stage--wa .wa-machine__label {
+  position: absolute;
+  left: 50%; top: 0;
+  transform: translateX(-50%);
+  font-family: var(--font-arcade);
+  font-size: 0.78rem;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  color: var(--wa-ink);
+  background: rgba(255, 250, 240, 0.82);
+  border: 1px solid rgba(42, 32, 24, 0.3);
+  border-radius: 3px;
+  padding: 0.16rem 0.34rem 0.1rem;
+}
+.stage--wa .wa-machine__body {
+  position: absolute;
+  left: 2%; right: 2%;
+  top: calc(var(--wa-cell) * 0.42);
+  height: calc(var(--wa-cell) * 0.62);
+  border: 2px solid var(--wa-ink);
+  border-radius: calc(var(--wa-cell) * 0.1);
+  background: linear-gradient(180deg, #9ce29c 0%, #7ed37e 55%, #63bb63 100%);
+  box-shadow: 0 3px 0 var(--wa-ink), inset 0 calc(var(--wa-cell) * 0.08) 0 rgba(255, 255, 255, 0.35);
+}
+/* The press. Comes down on every widget that passes, out of the housing and
+   into the gap the widget rides through. */
+.stage--wa .wa-machine__head {
+  position: absolute;
+  left: 26%; right: 26%;
+  bottom: 8%;
+  height: 40%;
+  border: 2px solid var(--wa-ink);
+  border-radius: 0 0 calc(var(--wa-cell) * 0.06) calc(var(--wa-cell) * 0.06);
+  background: var(--wa-gold);
+  animation: wa-press 9s ease-in-out infinite;
+}
+@keyframes wa-press {
+  0%   { transform: translateY(62%); }
+  7%   { transform: translateY(0); }
+  43%  { transform: translateY(0); }
+  50%  { transform: translateY(62%); }
+  57%  { transform: translateY(0); }
+  93%  { transform: translateY(0); }
+  100% { transform: translateY(62%); }
+}
+/* Two legs down to the belt. The widget goes between them. */
+.stage--wa .wa-machine__leg {
+  position: absolute;
+  top: calc(var(--wa-cell) * 1.02);
+  width: 3px;
+  height: calc(var(--wa-cell) * 0.55);
+  background: var(--wa-ink);
+  border-radius: 2px;
+}
+.stage--wa .wa-machine__leg--l { left: 7%; }
+.stage--wa .wa-machine__leg--r { right: 7%; }
+
+/* ---- the widgets ------------------------------------------------------- */
+.stage--wa .wa-widget {
+  position: absolute;
+  z-index: 4;
+  left: 0;
+  top: calc(var(--wa-cell) * 1.09);
+  width: calc(var(--wa-cell) * 0.46);
+  height: calc(var(--wa-cell) * 0.46);
+  border: 2px solid var(--wa-ink);
+  border-radius: 24%;
+  background: var(--wa-paper);
+  animation: wa-ride 9s linear infinite;
+}
+/* Nobody knows what this is. It sells anyway. */
+.stage--wa .wa-widget i {
+  position: absolute;
+  left: 26%; top: 26%;
+  width: 48%; height: 48%;
+  border: 2px solid var(--wa-ink);
+  border-radius: 50%;
+  opacity: 0.75;
+}
+.stage--wa .wa-widget--b { animation-delay: -4.5s; }
+/* The ride carries the colour change and the fade too, rather than three
+   animations beside each other: one keyframe set cannot drift out of phase
+   with itself, and the widget MUST turn gold on the frame it clears the
+   press, not near it. The travel runs -0.9 to --wa-end, and --wa-end is
+   2 x --wa-mtile + 0.54 + 0.9 precisely so that "halfway through the ride"
+   and "under the press" are the same instant at any tile count. */
+@keyframes wa-ride {
+  0%     { transform: translateX(calc(var(--wa-cell) * -0.9)); background: var(--wa-paper); opacity: 0; }
+  8%     { opacity: 1; }
+  49.6%  { background: var(--wa-paper); }
+  50%    { background: var(--wa-gold); }
+  92%    { opacity: 1; }
+  100%   { transform: translateX(calc(var(--wa-cell) * var(--wa-end))); background: var(--wa-gold); opacity: 0; }
+}
+
+/* ---- what it was worth ------------------------------------------------- */
+.stage--wa .wa-pop {
+  position: absolute;
+  z-index: 6;
+  left: calc(var(--wa-cell) * (var(--wa-mtile) + 1.42));
+  top: calc(var(--wa-cell) * 1.12);
+  font-family: var(--font-head);
+  font-size: 0.92rem;
+  line-height: 1;
+  padding: 0.14rem 0.36rem 0.08rem;
+  border: 1px solid rgba(42, 32, 24, 0.4);
+  border-radius: 4px;
+  background: rgba(255, 250, 240, 0.94);
+  color: #2f7a33;
+  white-space: nowrap;
+  opacity: 0;
+  animation: wa-pop 9s ease-out infinite;
+}
+.stage--wa .wa-pop--b { animation-delay: -4.5s; }
+@keyframes wa-pop {
+  0%, 49%   { opacity: 0; transform: translate(-50%, 0); }
+  54%       { opacity: 1; transform: translate(-50%, -0.5em); }
+  68%       { opacity: 1; transform: translate(-50%, -1.6em); }
+  76%, 100% { opacity: 0; transform: translate(-50%, -2.2em); }
+}
+
+/* ---- the ninth cell ---------------------------------------------------- */
+.stage--wa .wa-fire {
+  position: absolute;
+  z-index: 5;
+  left: calc(var(--wa-cell) * (var(--wa-mtile) + 0.06));
+  top: calc(var(--wa-cell) * 0.95);
+  width: calc(var(--wa-cell) * 0.88);
+  height: calc(var(--wa-cell) * 0.6);
+  transform-origin: 50% 100%;
+  opacity: 0;
+  animation: wa-burn 9s ease-out infinite;
+}
+.stage--wa .wa-fire i {
+  position: absolute;
+  bottom: 0;
+  width: 34%;
+  height: 74%;
+  border-radius: 52% 52% 46% 46% / 70% 70% 30% 30%;
+  background: linear-gradient(180deg, var(--wa-gold) 0%, #ff8a34 48%, var(--wa-danger) 100%);
+  box-shadow: 0 0 10px rgba(239, 75, 56, 0.5);
+  animation: wa-flicker 0.42s ease-in-out infinite alternate;
+}
+.stage--wa .wa-fire i:nth-child(1) { left: 4%;  height: 58%; animation-delay: -0.14s; }
+.stage--wa .wa-fire i:nth-child(2) { left: 33%; height: 100%; }
+.stage--wa .wa-fire i:nth-child(3) { left: 62%; height: 66%; animation-delay: -0.28s; }
+@keyframes wa-burn {
+  0%, 58%   { opacity: 0; transform: scaleY(0.15); }
+  63%       { opacity: 1; transform: scaleY(1); }
+  75%       { opacity: 1; transform: scaleY(1); }
+  81%, 100% { opacity: 0; transform: scaleY(0.12); }
+}
+@keyframes wa-flicker {
+  from { transform: scaleY(0.86) skewX(-5deg); }
+  to   { transform: scaleY(1.06) skewX(5deg); }
+}
+
+/* ---- and somebody taps it out ------------------------------------------ */
+.stage--wa .wa-tap {
+  position: absolute;
+  z-index: 7;
+  left: calc(var(--wa-cell) * (var(--wa-mtile) + 0.5));
+  top: calc(var(--wa-cell) * 1.32);
+  width: calc(var(--wa-cell) * 0.9);
+  height: calc(var(--wa-cell) * 0.9);
+  margin: calc(var(--wa-cell) * -0.45) 0 0 calc(var(--wa-cell) * -0.45);
+  border: 4px solid var(--wa-accent-d);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(255, 250, 240, 0.85), inset 0 0 0 2px rgba(255, 250, 240, 0.85);
+  opacity: 0;
+  animation: wa-tap 9s ease-out infinite;
+}
+@keyframes wa-tap {
+  0%, 71%  { opacity: 0; transform: scale(0.24); }
+  73%      { opacity: 1; transform: scale(0.34); }
+  80%      { opacity: 0; transform: scale(1.2); }
+  100%     { opacity: 0; transform: scale(0.24); }
+}
+
+/* ---- small screens: fewer tiles, bigger ones --------------------------- */
+/* Seven 44px tiles on a phone is a belt you have to squint at. Below 560px
+   the line loses two tiles and spends the width on the five that are left —
+   which moves the machine (and everything timed against it) to tile three. */
+@media (max-width: 560px) {
+  .stage--wa {
+    --wa-cell: clamp(52px, 15vw, 72px);
+    --wa-cols: 5;
+    --wa-mtile: 2;
+    --wa-end: 5.44;   /* = 2 x mtile + 0.54 + 0.9, as above */
+  }
+  .stage--wa .wa-machine__label { font-size: 0.7rem; }
+  .stage--wa .wa-deck { inset: 2.2rem 0.5rem 2rem; }
+  .stage--wa .wa-pop { font-size: 0.85rem; }
+}
+
+/* ---- the still twin ---------------------------------------------------- */
+/* The kit swaps these in under prefers-reduced-motion. Same four beats the
+   loop plays, drawn once, in the same paint. */
+.stage-static--wa {
+  background:
+    repeating-linear-gradient(90deg, rgba(120, 90, 55, 0.13) 0 2px, transparent 2px 30px),
+    linear-gradient(180deg, var(--wa-wall-t), var(--wa-wall-b));
+  border-color: rgba(42, 32, 24, 0.22);
+}
+.stage-static--wa .stage-static__step { color: var(--wa-ink); }
+.stage-static--wa .stage-static__arrow { color: var(--wa-accent-d); }
+.stage-static--wa svg { overflow: visible; }
+.stage-static--wa .st-belt   { fill: var(--wa-belt); stroke: var(--wa-ink); stroke-width: 2; }
+.stage-static--wa .st-stripe { stroke: var(--wa-gold); stroke-width: 2.4; stroke-linecap: round; }
+.stage-static--wa .st-leg    { stroke: var(--wa-ink); stroke-width: 2.4; stroke-linecap: round; }
+.stage-static--wa .st-widget { fill: var(--wa-paper); stroke: var(--wa-ink); stroke-width: 2; }
+.stage-static--wa .st-machine{ fill: #7ed37e; stroke: var(--wa-ink); stroke-width: 2; }
+.stage-static--wa .st-fire   { fill: var(--wa-danger); stroke: var(--wa-ink); stroke-width: 2; stroke-linejoin: round; }
+.stage-static--wa .st-ring   { fill: none; stroke: var(--wa-ink); stroke-width: 2.4; opacity: 0.55; }
+.stage-static--wa .st-ring--in { opacity: 0.85; }
+.stage-static--wa .st-dot    { fill: var(--wa-accent-d); }
+.stage-static--wa .stage-static__step--fire { color: var(--magenta-t); }

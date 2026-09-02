@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<!--
+  Widgetastrophe — a game by Machinaut Studios LLC
+  Copyright © 2026 Machinaut Studios LLC. All rights reserved. See /LICENSE.
+
+  Same skeleton as every other product page (/styles.css does the chrome).
+  The palette is this game's own Day Shift — cream walls, orange trim — and
+  it is set at the top of /widgetastrophe/stage.css, scoped to body.wa.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Widgetastrophe — Ship first. Panic later. | Machinaut Studios LLC</title>
+  <meta name="description" content="Widgetastrophe is a factory game about features. Bolt machines onto the conveyor to make every widget worth more — and every machine you bolt on is a new way for the widget to catch fire, launch across the room, fill with live bees or walk off the job. Forty contracts in five districts, an Endless Shift and a five-day Daily Shift. Free with ads, one-time Remove Ads, plays offline, no account. Coming soon to the App Store and Google Play." />
+  <meta name="copyright" content="© 2026 Machinaut Studios LLC. All rights reserved." />
+  <meta name="theme-color" content="#FFF4DD" />
+  <meta name="color-scheme" content="light" />
+  <link rel="canonical" href="https://machinautstudios.com/widgetastrophe/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Widgetastrophe — Ship first. Panic later." />
+  <meta property="og:description" content="Bolt features onto the conveyor to make every widget worth more — and every feature is a new way for the widget to catch fire, launch across the room, fill with live bees or walk off the job. Coming soon to iOS and Android." />
+  <meta property="og:url" content="https://machinautstudios.com/widgetastrophe/" />
+  <meta property="og:image" content="https://machinautstudios.com/widgetastrophe/widgetastrophe-og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="1200" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="Widgetastrophe — a cream factory wall, a conveyor belt, and one widget on fire." />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <!-- Fonts: Orbitron + VT323 + IBM Plex Mono for the studio chrome, plus
+       Lilita One and Nunito — the two faces the game itself is set in. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Lilita+One&family=Nunito:wght@400;700;800&family=Orbitron:wght@600;800;900&family=VT323&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/widgetastrophe/stage.css" />
+</head>
+<body id="top" class="wa">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ===================== NAV (editor tab bar) ===================== -->
+  <header class="nav tabbar">
+    <div class="tabbar__inner">
+      <a class="brand" href="/">
+        <img class="brand__logo" src="/logo.png" alt="" width="28" height="28" />
+        <span class="brand__name">MACHINAUT</span>
+        <span class="brand__sub">STUDIOS&nbsp;LLC</span>
+      </a>
+
+      <button class="tabbar__toggle" id="navToggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span aria-hidden="true"></span>
+      </button>
+
+      <nav class="tabs" id="nav-menu" aria-label="Primary">
+        <a class="tab" href="/#pipeline"><span class="tab__dot tab__dot--c"></span>pipeline.yml</a>
+        <a class="tab" href="/#ship"><span class="tab__dot tab__dot--l"></span>products/</a>
+        <a class="tab" href="/#studio"><span class="tab__dot tab__dot--v"></span>studio.blame</a>
+        <a class="tab tab--cta" href="/#complaint"><span class="tab__dot tab__dot--m"></span>rage-quit.sh</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <!-- ===================== HERO ===================== -->
+    <section class="hero hero--compact" aria-labelledby="widgetastrophe-title">
+      <!-- Dust in the window light. Same kit as every other hero, warmer. -->
+      <div class="motes" aria-hidden="true">
+        <span class="mote" style="--x:7%;--s:4px;--dur:18s;--d:-2s;--c:var(--wa-gold);--drift:22px;--rise:-240px"></span>
+        <span class="mote" style="--x:18%;--s:3px;--dur:23s;--d:-9s;--c:var(--wa-accent);--drift:-18px;--rise:-280px"></span>
+        <span class="mote" style="--x:31%;--s:5px;--dur:16s;--d:-14s;--c:var(--wa-gold);--drift:26px;--rise:-220px"></span>
+        <span class="mote" style="--x:43%;--s:3px;--dur:21s;--d:-5s;--c:var(--wa-accent);--drift:-24px;--rise:-300px"></span>
+        <span class="mote" style="--x:57%;--s:4px;--dur:25s;--d:-17s;--c:var(--wa-gold);--drift:20px;--rise:-260px"></span>
+        <span class="mote" style="--x:69%;--s:5px;--dur:19s;--d:-7s;--c:var(--wa-accent);--drift:-22px;--rise:-230px"></span>
+        <span class="mote" style="--x:81%;--s:3px;--dur:22s;--d:-12s;--c:var(--wa-gold);--drift:28px;--rise:-290px"></span>
+        <span class="mote" style="--x:92%;--s:4px;--dur:17s;--d:-3s;--c:var(--wa-accent);--drift:-20px;--rise:-250px"></span>
+      </div>
+      <div class="hero__inner">
+        <div class="app-hero__layout">
+          <img class="app-hero__icon" src="/widgetastrophe/widgetastrophe_icon.png" alt="Widgetastrophe app icon — a cream widget on an orange conveyor, quietly on fire" width="152" height="152" />
+          <div class="app-hero__text">
+            <p class="stamp stamp--hero">&#9654; COMING SOON &nbsp;//&nbsp; iOS + ANDROID</p>
+            <h1 class="hero__title" id="widgetastrophe-title"><span class="n1">Widget</span><span class="n2">astrophe<span class="cursor" aria-hidden="true"></span></span></h1>
+            <p class="app-hero__tagline">Ship first.<br />Panic later.</p>
+            <p class="hero__sub">
+              Bolt features onto the conveyor to make every widget worth more &mdash; and every
+              feature you bolt on is a new way for the widget to catch fire, launch across the
+              room, fill with live bees or walk off the job. Nobody knows what a Widget is. It
+              sells anyway. <b>Safety machines</b> answer each of those disasters, but a safety
+              machine takes a belt tile that could have been earning. Rent comes due every
+              45 seconds and goes up by about a third every day.
+            </p>
+            <div class="hero__actions">
+              <button class="btn btn--primary btn--play" type="button" disabled aria-disabled="true"
+                      aria-label="Coming soon to the App Store">
+                <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M16.37 1.43c0 1.06-.43 2.07-1.13 2.83-.76.82-1.99 1.45-3 1.37-.13-.99.39-2.05 1.05-2.74.74-.78 2.01-1.37 3.01-1.42.03.32.06.64.07-.04zm3.4 16.05c-.5 1.16-.74 1.67-1.38 2.7-.9 1.43-2.16 3.21-3.73 3.22-1.39.01-1.75-.91-3.64-.9-1.89.01-2.28.92-3.68.9-1.57-.01-2.77-1.62-3.67-3.05-2.51-3.98-2.77-8.65-1.23-11.13 1.1-1.76 2.83-2.79 4.46-2.79 1.66 0 2.7.91 4.07.91 1.33 0 2.14-.91 4.06-.91 1.45 0 2.99.79 4.08 2.16-3.59 1.96-3.01 7.09.66 8.89z" fill="currentColor"/>
+                </svg>
+                <span>Coming soon to the App Store</span>
+              </button>
+              <button class="btn btn--primary btn--play" type="button" disabled aria-disabled="true"
+                      aria-label="Coming soon to Google Play">
+                <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M4 3.5v17a1 1 0 0 0 1.5.87l14-8.5a1 1 0 0 0 0-1.74l-14-8.5A1 1 0 0 0 4 3.5z" fill="currentColor"/>
+                </svg>
+                <span>Coming soon to Google Play</span>
+              </button>
+              <a class="btn btn--ghost" href="/widgetastrophe/privacy/">PRIVACY POLICY</a>
+            </div>
+            <p class="app-note">
+              Both store buttons are dead on purpose. The game is on its way to the App Store and
+              Google Play and is not on either yet, so there is nothing behind them to link to
+              &mdash; they become real links the day it is live, and not one day earlier.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== HOW IT PLAYS ===================== -->
+    <section class="section" id="how-it-plays" aria-labelledby="how-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; THE LOOP</p>
+        <h2 class="section__title chrome" id="how-h">HOW IT PLAYS</h2>
+        <p class="vibe vibe--head">The features that sell best are the ones that catch fire.</p>
+      </div>
+      <p class="section__lead">
+        Widgets ride the belt left to right and sell at the end. Every machine you bolt onto a
+        tile adds dollars to every widget that passes it &mdash; and hands that widget one new
+        way to go wrong. You are not fighting the factory. You are deciding how much of it you
+        can afford to have on fire at once.
+      </p>
+
+      <!-- ---------- THE BELT: the signature animation for this page ---------- -->
+      <div class="stage stage--wa" aria-hidden="true">
+        <div class="stage__grid"></div>
+        <div class="wa-deck">
+          <div class="wa-floor">
+            <span class="wa-port wa-port--in">INTAKE</span>
+            <span class="wa-port wa-port--out">SHIPPING</span>
+
+            <!-- the machine, bolted to tile four -->
+            <div class="wa-machine">
+              <span class="wa-machine__label">LITHIUM CELL INJECTOR</span>
+              <span class="wa-machine__leg wa-machine__leg--l"></span>
+              <span class="wa-machine__leg wa-machine__leg--r"></span>
+              <span class="wa-machine__body"><i class="wa-machine__head"></i></span>
+            </div>
+
+            <!-- the belt -->
+            <div class="wa-belt">
+              <span class="wa-belt__stripes"></span>
+              <span class="wa-belt__tiles"></span>
+            </div>
+            <span class="wa-roller wa-roller--l"></span>
+            <span class="wa-roller wa-roller--r"></span>
+
+            <!-- two widgets, half a loop apart, so the belt is never empty -->
+            <span class="wa-widget wa-widget--a"><i></i></span>
+            <span class="wa-widget wa-widget--b"><i></i></span>
+
+            <span class="wa-pop wa-pop--a">+$52</span>
+            <span class="wa-pop wa-pop--b">+$52</span>
+
+            <!-- the ninth cell is what marketing calls "the fun one" -->
+            <span class="wa-fire"><i></i><i></i><i></i></span>
+            <span class="wa-tap"></span>
+          </div>
+        </div>
+
+        <span class="stage__tag">THE BELT</span>
+        <span class="stage__tag stage__tag--bottom">EVERY FEATURE SELLS &#9656; EVERY FEATURE FAILS</span>
+      </div>
+
+      <div class="stage-static stage-static--wa" aria-hidden="true">
+        <div class="stage-static__row">
+          <span class="stage-static__step">
+            <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+              <rect class="st-belt" x="2" y="30" width="44" height="9" rx="2" />
+              <line class="st-stripe" x1="9" y1="31.5" x2="9" y2="37.5" />
+              <line class="st-stripe" x1="19" y1="31.5" x2="19" y2="37.5" />
+              <line class="st-stripe" x1="29" y1="31.5" x2="29" y2="37.5" />
+              <line class="st-stripe" x1="39" y1="31.5" x2="39" y2="37.5" />
+              <rect class="st-widget" x="18" y="18" width="12" height="12" rx="3" />
+            </svg>
+            IT RIDES
+          </span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step">
+            <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+              <rect class="st-belt" x="2" y="30" width="44" height="9" rx="2" />
+              <rect class="st-machine" x="12" y="7" width="24" height="13" rx="3" />
+              <line class="st-leg" x1="16" y1="20" x2="16" y2="30" />
+              <line class="st-leg" x1="32" y1="20" x2="32" y2="30" />
+              <rect class="st-widget" x="19" y="22" width="10" height="8" rx="2" />
+            </svg>
+            BOLT ONE ON
+          </span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step stage-static__step--fire">
+            <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+              <rect class="st-belt" x="2" y="30" width="44" height="9" rx="2" />
+              <path class="st-fire" d="M24 6c5 6 9 9 9 14a9 9 0 0 1-18 0c0-3 2-5 4-8 1 3 3 4 4 2 1-2-1-4 1-8z" />
+            </svg>
+            IT GOES WRONG
+          </span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step">
+            <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+              <circle class="st-ring" cx="24" cy="24" r="15" />
+              <circle class="st-ring st-ring--in" cx="24" cy="24" r="7.5" />
+              <circle class="st-dot" cx="24" cy="24" r="3" />
+            </svg>
+            TAP IT OUT
+          </span>
+        </div>
+      </div>
+
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">THE BELT</span>
+          <h3 class="cell__title">TILES ARE THE BUDGET</h3>
+          <p class="cell__text">A shift starts with a short conveyor and a little cash. You buy more tiles, and you bolt a machine onto a tile. Every tile you spend on <b>not going wrong</b> is a tile that isn't making money, and that trade is the whole game.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">FEATURES</span>
+          <h3 class="cell__title">MORE IS WORSE, PROFITABLY</h3>
+          <p class="cell__text">Each feature machine adds its dollars to <b>every widget that passes it</b>, and its risk to every widget that passes it. Chrome is harmless and pays $6. A Free Will Module pays $160 and the widget starts having opinions.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">THE INCIDENTS</span>
+          <h3 class="cell__title">SEVEN WAYS TO LOSE ONE</h3>
+          <p class="cell__text">Glitter gunks the belt. Bevels slice it. Airbags, springs and rockets <b>launch the widget across the room</b>, where it clangs off your other machines. Lithium and smart chips set the tile alight and fire spreads. Bees escape and shut a machine down. Helium floats the widget up off the belt, and the ceiling keeps whatever reaches it. Free will walks it back to the intake.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">YOUR HANDS</span>
+          <h3 class="cell__title">TAP THE TROUBLE</h3>
+          <p class="cell__text">Tap a fire to fight it and <b>hold to keep spraying</b>. Tap a swarm to shoo it off the machine it's sitting on. Tap a floater to pop it before the ceiling gets it. And a mutinous widget takes <b>three pep talks</b> before it turns around and goes back to work.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">THE CLOCK</span>
+          <h3 class="cell__title">RENT IS DUE</h3>
+          <p class="cell__text">A day is 45 seconds long and it ends with rent. Rent grows by about <b>a third every day</b>, so a factory that was comfortable on day three is bankrupt on day seven unless it grew too. Growth is the only stable state.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">GOING BROKE</span>
+          <h3 class="cell__title">A SLIGHTLY CHEAPER YOU</h3>
+          <p class="cell__text">Miss rent and the board replaces you with a slightly cheaper you. The way out is a <b>Bailout</b> &mdash; half the next rent plus a cushion, bought with Bolts, or taken once a run for an opt-in video instead. The second Bailout in a run costs double the first.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== THE CATALOGUE ===================== -->
+    <section class="section section--alt" id="machines" aria-labelledby="machines-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; ELEVEN FEATURE MACHINES</p>
+        <h2 class="section__title chrome" id="machines-h">WHAT YOU BOLT ON</h2>
+      </div>
+      <p class="section__lead">
+        Every one of these is a real card in the shop, with its real price on the widget and its
+        real way of ruining your afternoon. Six of the eleven are below; the Precision Bevelizer,
+        the Airbag Stuffer, the Spring Loader 3000, the Overclocked Smart Chip and the Rocket
+        Assist Module are the rest. Copies get more expensive each time &mdash; <b>1.45&times; the
+        last one</b> &mdash; so a wall of the same machine is never the answer.
+      </p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">+$6 A PASS</span>
+          <h3 class="cell__title">Chrome-Everything Buffer</h3>
+          <p class="cell__text">&ldquo;Adds no function whatsoever. Reviews improved 40%.&rdquo; <b>The one honest machine in the catalogue</b> &mdash; no risk at all, which is exactly why it pays so little.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">+$9 A PASS</span>
+          <h3 class="cell__title">Glitter Dip Tank</h3>
+          <p class="cell__text">&ldquo;Legally a coating. Practically a permanent resident of your factory.&rdquo; <b>Gunks up the belt</b>, and gunk slows every widget that has to crawl over it.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">+$52 A PASS</span>
+          <h3 class="cell__title">Lithium Cell Injector</h3>
+          <p class="cell__text">&ldquo;Nine cells per widget. The ninth is what marketing calls &lsquo;the fun one.&rsquo;&rdquo; <b>Catches fire &mdash; and fire spreads to the tiles either side.</b></p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">+$100 A PASS</span>
+          <h3 class="cell__title">Helium Bladder</h3>
+          <p class="cell__text">&ldquo;Lighter than air. Also lighter than the warranty.&rdquo; <b>The widget inflates and drifts up off the belt</b>, and the ceiling keeps whatever reaches it.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">+$125 A PASS</span>
+          <h3 class="cell__title">Live Bee Compartment</h3>
+          <p class="cell__text">&ldquo;Focus groups did not ask for this. Focus groups pay 4x for it.&rdquo; <b>A swarm escapes, picks a machine, sits on it and shuts it down</b> until somebody shoos it off.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">+$160 A PASS</span>
+          <h3 class="cell__title">Free Will Module</h3>
+          <p class="cell__text">&ldquo;The widget now has goals. None of them are &lsquo;be shipped.&rsquo;&rdquo; <b>It turns around and walks back to the intake</b>, pushing the whole queue behind it.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== THE SAFETY BENCH ===================== -->
+    <section class="section" id="safety" aria-labelledby="safety-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; SEVEN SAFETY MACHINES</p>
+        <h2 class="section__title chrome" id="safety-h">SAFETY COSTS A TILE</h2>
+      </div>
+      <p class="section__lead">
+        Safety machines earn nothing. They take a tile, they cover the tiles around them, and
+        each one answers a named disaster or two and nothing else &mdash; so the layout
+        question is which disasters you have decided to keep. The seventh is the <b>QA Bench</b>, which cuts the
+        risk of everything downstream of it by 45% and the sale value by 15%: it finds the
+        dangerous parts and removes them, and those were the good parts.
+      </p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">THIS TILE &plusmn;1</span>
+          <h3 class="cell__title">Sprinkler Head</h3>
+          <p class="cell__text">&ldquo;Also soaks the paperwork, which honestly helps.&rdquo; <b>Fights fire on its own tile and the two beside it</b>, without you having to be looking.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">THIS TILE &plusmn;1</span>
+          <h3 class="cell__title">Blast Netting</h3>
+          <p class="cell__text">&ldquo;Catches the widget and puts it back. Slightly embarrassed.&rdquo; <b>Catches launches and floaters</b> before the room does.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">THIS TILE &plusmn;1</span>
+          <h3 class="cell__title">Janitor Drone Dock</h3>
+          <p class="cell__text">&ldquo;Employee of the month, eleven months running. Cannot receive the award.&rdquo; <b>Clears glitter and patches tears</b> nearby.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">&plusmn;2 TILES</span>
+          <h3 class="cell__title">Apiarist on Retainer</h3>
+          <p class="cell__text">&ldquo;Expensive. Calm. Has never once explained where the bees go.&rdquo; <b>Bees within two tiles are handled four times faster.</b></p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">THIS TILE &plusmn;1</span>
+          <h3 class="cell__title">Blast Trampoline</h3>
+          <p class="cell__text">&ldquo;OSHA called it &lsquo;a trampoline.&rsquo; We call it Recovery Infrastructure.&rdquo; <b>Bounces fallen widgets back up onto the belt</b> instead of letting the floor have them.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">&plusmn;2 TILES</span>
+          <h3 class="cell__title">Motivational Poster</h3>
+          <p class="cell__text">&ldquo;HANG IN THERE. The widget reads it. The widget reconsiders.&rdquo; <b>Talks mutineers round</b> so you don't have to give three pep talks by hand.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== MODES ===================== -->
+    <section class="section section--alt" id="modes" aria-labelledby="modes-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; THREE WAYS IN</p>
+        <h2 class="section__title chrome" id="modes-h">THE MODES</h2>
+      </div>
+      <p class="section__lead">
+        One is a campaign that introduces the disasters one at a time and then stops being polite.
+        One takes the roster the campaign has unlocked and runs it until you go broke. The last is
+        the same shift, with the same twist, for everybody on earth, once a day.
+      </p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">MODE 01</span>
+          <h3 class="cell__title">40 CONTRACTS</h3>
+          <p class="cell__text">Five districts, eight contracts each: <b>Widget Co.</b> (est. this morning), <b>The Fun Ones</b> (features that deploy), <b>Thermal Events</b> (the brochure calls this warmth), <b>Livestock</b> (bees, obviously bees) and <b>Free Will</b> (the widget has decided otherwise). Each contract has a goal, a deadline and two bonus stars you will not get on the first go, and most of them add a rule twist on top.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MODE 02</span>
+          <h3 class="cell__title">ENDLESS SHIFT</h3>
+          <p class="cell__text">Everything the campaign has unlocked, no goal, no deadline, and rent that keeps compounding. It ends when you can't make rent, because that is the only ending it has. <b>Never interrupted by an ad</b> &mdash; there is no cleared state for one to land on.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MODE 03</span>
+          <h3 class="cell__title">DAILY SHIFT</h3>
+          <p class="cell__text">Five days, seeded from the date, <b>identical on every device on earth</b> &mdash; same widgets, same dice, same twist of the day (two of them every third day). Scored on sales. The streak counts days you <b>played</b>, not days you won, because showing up is the part we can fairly ask of you.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== MONETIZATION ===================== -->
+    <section class="section" id="cost" aria-labelledby="cost-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; THE HONEST BIT</p>
+        <h2 class="section__title chrome" id="cost-h">WHAT IT COSTS</h2>
+      </div>
+      <p class="section__lead">
+        Widgetastrophe is free with ads. The ad rules below are conditions in the code, not
+        intentions in a blog post: the placement cubit has exactly one placement, and it is the
+        moment you leave a <b>cleared</b> contract's results card.
+      </p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">FREE &nbsp;//&nbsp; AD-SUPPORTED</span>
+          <h3 class="cell__title">ADS, ON A LEASH</h3>
+          <p class="cell__text">A full-screen ad can appear <b>only after a contract you cleared</b>. Never after a loss, never after the Daily Shift, never in Endless, and never during play. Your first three cleared contracts are never interrupted at all, then it's at most every second clear, never inside two minutes of the last one, and four in a session is the hard stop.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">ONE-TIME PURCHASE</span>
+          <h3 class="cell__title">REMOVE ADS</h3>
+          <p class="cell__text">Buy it once and the between-contract ad never appears again. The <b>opt-in</b> video stays available, so you can still trade thirty seconds for a Bailout if you want one &mdash; you just never get shown an ad you didn't ask for.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">THE HEX NUT</span>
+          <h3 class="cell__title">BOLTS</h3>
+          <p class="cell__text">Bolts are earned by clearing contracts, turning up for the Daily and surviving Endless days. They buy <b>Bailouts</b>, <b>Quiet Hours</b> (a day with no interruption ads) and <b>factory palettes</b> &mdash; Day Shift and Night Shift are free, Blueprint, Bubblegum Plant, Rustbelt and Mint Condition are 500 each. Bolt packs exist for anyone who would rather buy the nuts than earn them.</p>
+        </li>
+      </ul>
+      <p class="app-note">
+        A Bailout is the revive, and it is the one thing money touches that isn't cosmetic &mdash;
+        which is why it is also available once a run for an opt-in video, at no cost, in every mode.
+        Palettes repaint the factory and change nothing about what a widget is worth.
+      </p>
+    </section>
+
+    <!-- ===================== PRIVACY TEASER ===================== -->
+    <section class="section section--alt" id="privacy" aria-labelledby="privacy-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; ON THE RECORD</p>
+        <h2 class="section__title chrome" id="privacy-h">YOUR DATA STAYS YOURS</h2>
+      </div>
+      <p class="section__lead">
+        There is <b>no account</b>, no sign-in and no server of ours to talk to. The whole game is
+        a simulation running on your own device, in portrait or landscape, on a plane if you like
+        &mdash; progress, Bolts, stats, streaks and saved shifts sit in your phone's own storage
+        and go when the app goes. It asks for no camera, no microphone, no location and no
+        contacts. Two things reach the network at all: Google's ad network, which serves the ads,
+        and the App Store or Google Play, which handle purchases &mdash; we never see payment
+        details. The full, plainly-worded version lives on the privacy page, the same one we file
+        with both stores.
+      </p>
+      <p>
+        <a class="btn btn--ghost" href="/widgetastrophe/privacy/">READ THE WIDGETASTROPHE PRIVACY POLICY</a>
+      </p>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER (status bar) ===================== -->
+  <footer class="footer footer--bar">
+    <div class="statusbar">
+      <span class="sb sb--branch"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="5" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="6" cy="19" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="9" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 7.6v8.8M18 11.6c0 3.2-3 3.6-6 4.2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>main &#10003;</span>
+      <span class="sb">0 problems</span>
+      <span class="sb">temperature 1.0</span>
+      <span class="sb sb--warm">GPU 88.4&deg;C</span>
+      <span class="sb">Ln &#8734;, Col 1</span>
+      <span class="sb sb--flow">prompt &#8594; accept &#8594; deploy</span>
+      <span class="sb sb--right">autocomplete: on &nbsp;&middot;&nbsp; brakes: off</span>
+    </div>
+
+    <div class="footer__body">
+      <img class="footer__logo" src="/logo.png" alt="" width="44" height="44" />
+
+      <p class="vibe vibe--foot">Nobody knows what a Widget is. It sells anyway.</p>
+
+      <nav class="footer__links" aria-label="Footer">
+        <a href="/">Home</a>
+        <a href="/widgetastrophe/">Widgetastrophe</a>
+        <a href="/widgetastrophe/privacy/">Privacy Policy</a>
+        <a href="/spellheir/">Spellheir</a>
+        <a href="/slateveil/">Slateveil</a>
+        <a href="/starknell/">STARKNELL</a>
+        <a href="/space-couch-command/">Space Couch Command</a>
+        <a href="/voicecmd/">VoiceCmd</a>
+        <a href="/tooter/">Tooter</a>
+        <a href="/emberseam/">Emberseam</a>
+        <a href="/anvilspell/">Anvilspell</a>
+        <a href="/hushword/">Hushword</a>
+        <a href="/crittergram/">Critter Gram</a>
+      </nav>
+
+      <p class="footer__text">
+        Widgetastrophe is a game by MACHINAUT STUDIOS LLC &mdash; vibe-coded at temperature 1.0
+        and merged the moment main went green. Ship first. Panic later. The rent does not care
+        which.
+        <span class="footer__cursor cursor" aria-hidden="true"></span>
+      </p>
+
+      <p class="footer__fine">&copy; 2026 Machinaut Studios LLC. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
