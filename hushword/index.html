@@ -134,14 +134,20 @@
       </p>
 
       <!-- ========= THE HIDDEN LINE — the signature loop for this page =========
-           One 6x6 board, thirteen seconds. Five listed words are traced out one
+           One 6x6 board, eighteen seconds. Five listed words are traced out one
            at a time — MOON down, ORBIT across, STAR down-left, COMET backwards,
            PLANET on the long diagonal — and each sweep spends the letters it
-           eats and strikes the word off the list. When the list goes clear the
-           twelve cells nothing ever touched wake up, lift out of the grid, and
-           land in order along the bottom: THE QUIET PART. Then it redeals.
-           The board below is a real one: those five words are genuinely in it,
-           and the cells none of them cross genuinely spell the phrase. -->
+           eats and strikes the word off the list. Clearing the list hands over
+           nothing: LIST CLEAR flips to YOUR TURN, the twelve masked slots along
+           the bottom arm, and the guessing act opens. Then the leftovers are
+           PICKED — a double-tap ring on a cell, that letter going lime and
+           dropping into its own slot, twelve times over, in reading order,
+           tightening as the line fills — until it reads THE QUIET PART. The
+           phrase is spelled out, never revealed: nothing on that line got there
+           by itself, every letter is there because a tap sent it. Then it
+           redeals. The board below is a real one: those five words are
+           genuinely in it, and the cells none of them cross genuinely spell the
+           phrase. -->
       <div class="stage stage--hushword" aria-hidden="true">
         <div class="stage__grid"></div>
         <div class="motes hw__air">
@@ -164,6 +170,21 @@
             <i class="hw__sweep hw__sweep--3" style="--c:4;--r:1;--len:4;--k:1.41421;--a:135deg"></i>
             <i class="hw__sweep hw__sweep--4" style="--c:4;--r:5;--len:5;--k:1;--a:180deg"></i>
             <i class="hw__sweep hw__sweep--5" style="--c:0;--r:0;--len:6;--k:1.41421;--a:45deg"></i>
+
+            <!-- one tap ring per leftover cell: the guess, in reading
+                 order, each firing at the moment its letter is chosen -->
+            <i class="hw__tap" style="--r:1;--c:2;--d:8.15s"></i>
+            <i class="hw__tap" style="--r:1;--c:3;--d:8.77s"></i>
+            <i class="hw__tap" style="--r:1;--c:5;--d:9.35s"></i>
+            <i class="hw__tap" style="--r:2;--c:1;--d:9.90s"></i>
+            <i class="hw__tap" style="--r:2;--c:4;--d:10.43s"></i>
+            <i class="hw__tap" style="--r:2;--c:5;--d:10.94s"></i>
+            <i class="hw__tap" style="--r:3;--c:1;--d:11.44s"></i>
+            <i class="hw__tap" style="--r:3;--c:4;--d:11.93s"></i>
+            <i class="hw__tap" style="--r:3;--c:5;--d:12.41s"></i>
+            <i class="hw__tap" style="--r:4;--c:2;--d:12.88s"></i>
+            <i class="hw__tap" style="--r:4;--c:3;--d:13.34s"></i>
+            <i class="hw__tap" style="--r:4;--c:5;--d:13.79s"></i>
 
             <!-- the 24 cells the list uses: w1 MOON, w2 ORBIT, w3 STAR,
                  w4 COMET, w5 PLANET -->
@@ -209,11 +230,15 @@
               <p class="hw__word hw__word--4">COMET</p>
               <p class="hw__word hw__word--5">PLANET</p>
             </div>
-            <span class="hw__clear">LIST CLEAR</span>
+            <div class="hw__state">
+              <span class="hw__clear">LIST CLEAR</span>
+              <span class="hw__turn">YOUR TURN</span>
+            </div>
           </div>
 
-          <!-- twelve waiting slots: the shape of the secret is on show from
-               the first frame, the letters are not -->
+          <!-- twelve masked slots: the shape of the secret is on show from
+               the first frame, the letters never are. They arm when the list
+               clears and are filled only by letters tapped into them. -->
           <div class="hw__tray">
             <span class="hw__glow"></span>
             <i class="hw__slot" style="--i:0;--w:0"></i>
@@ -231,35 +256,42 @@
             <span class="hw__shine"></span>
           </div>
 
-          <!-- the spares. Each one carries the cell it sits in (--r/--c) and
-               the place on the answer line it belongs to (--i/--w). -->
-          <span class="hw__fly" style="--r:1;--c:2;--i:0;--w:0">T</span>
-          <span class="hw__fly" style="--r:1;--c:3;--i:1;--w:0">H</span>
-          <span class="hw__fly" style="--r:1;--c:5;--i:2;--w:0">E</span>
-          <span class="hw__fly" style="--r:2;--c:1;--i:3;--w:1">Q</span>
-          <span class="hw__fly" style="--r:2;--c:4;--i:4;--w:1">U</span>
-          <span class="hw__fly" style="--r:2;--c:5;--i:5;--w:1">I</span>
-          <span class="hw__fly" style="--r:3;--c:1;--i:6;--w:1">E</span>
-          <span class="hw__fly" style="--r:3;--c:4;--i:7;--w:1">T</span>
-          <span class="hw__fly" style="--r:3;--c:5;--i:8;--w:2">P</span>
-          <span class="hw__fly" style="--r:4;--c:2;--i:9;--w:2">A</span>
-          <span class="hw__fly" style="--r:4;--c:3;--i:10;--w:2">R</span>
-          <span class="hw__fly" style="--r:4;--c:5;--i:11;--w:2">T</span>
+          <!-- the spares. Each one carries the cell it sits in (--r/--c), the
+               place on the answer line it belongs to (--i/--w), and a class
+               numbered with that same --i — its place in the phrase, and so
+               its turn to be picked. -->
+          <span class="hw__fly hw__fly--0" style="--r:1;--c:2;--i:0;--w:0">T</span>
+          <span class="hw__fly hw__fly--1" style="--r:1;--c:3;--i:1;--w:0">H</span>
+          <span class="hw__fly hw__fly--2" style="--r:1;--c:5;--i:2;--w:0">E</span>
+          <span class="hw__fly hw__fly--3" style="--r:2;--c:1;--i:3;--w:1">Q</span>
+          <span class="hw__fly hw__fly--4" style="--r:2;--c:4;--i:4;--w:1">U</span>
+          <span class="hw__fly hw__fly--5" style="--r:2;--c:5;--i:5;--w:1">I</span>
+          <span class="hw__fly hw__fly--6" style="--r:3;--c:1;--i:6;--w:1">E</span>
+          <span class="hw__fly hw__fly--7" style="--r:3;--c:4;--i:7;--w:1">T</span>
+          <span class="hw__fly hw__fly--8" style="--r:3;--c:5;--i:8;--w:2">P</span>
+          <span class="hw__fly hw__fly--9" style="--r:4;--c:2;--i:9;--w:2">A</span>
+          <span class="hw__fly hw__fly--10" style="--r:4;--c:3;--i:10;--w:2">R</span>
+          <span class="hw__fly hw__fly--11" style="--r:4;--c:5;--i:11;--w:2">T</span>
 
+          <!-- one spark per landing, over the slot it lands in -->
           <div class="hw__sparks">
-            <i style="--x:14%;--dx:-9px;--d:0.05s"></i>
-            <i class="is-m" style="--x:25%;--dx:7px;--d:0.32s"></i>
-            <i style="--x:37%;--dx:-6px;--d:0.14s"></i>
-            <i class="is-c" style="--x:48%;--dx:10px;--d:0.46s"></i>
-            <i class="is-m" style="--x:59%;--dx:-11px;--d:0.22s"></i>
-            <i style="--x:70%;--dx:8px;--d:0.55s"></i>
-            <i class="is-c" style="--x:81%;--dx:-7px;--d:0.38s"></i>
-            <i style="--x:90%;--dx:9px;--d:0.62s"></i>
+            <i style="--i:0;--w:0;--dx:-9px;--d:8.67s"></i>
+            <i class="is-m" style="--i:1;--w:0;--dx:7px;--d:9.25s"></i>
+            <i style="--i:2;--w:0;--dx:-6px;--d:9.81s"></i>
+            <i class="is-c" style="--i:3;--w:1;--dx:10px;--d:10.34s"></i>
+            <i class="is-m" style="--i:4;--w:1;--dx:-11px;--d:10.85s"></i>
+            <i style="--i:5;--w:1;--dx:8px;--d:11.35s"></i>
+            <i class="is-c" style="--i:6;--w:1;--dx:-7px;--d:11.85s"></i>
+            <i style="--i:7;--w:1;--dx:9px;--d:12.33s"></i>
+            <i class="is-m" style="--i:8;--w:2;--dx:-8px;--d:12.80s"></i>
+            <i class="is-c" style="--i:9;--w:2;--dx:6px;--d:13.26s"></i>
+            <i style="--i:10;--w:2;--dx:-10px;--d:13.71s"></i>
+            <i class="is-c" style="--i:11;--w:2;--dx:7px;--d:14.33s"></i>
           </div>
         </div>
 
         <span class="stage__tag">THE HIDDEN LINE</span>
-        <span class="stage__tag stage__tag--end stage__tag--bottom">LEFTOVERS SPELL IT</span>
+        <span class="stage__tag stage__tag--end stage__tag--bottom">NOW YOU SPELL IT</span>
       </div>
 
       <div class="stage-static stage-static--hushword" aria-hidden="true">
@@ -301,19 +333,32 @@
           <span class="stage-static__arrow">&#9656;</span>
           <span class="stage-static__step stage-static__step--secret">
             <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-              <g fill="#b6ff3a">
-                <circle cx="11" cy="13" r="3.2" /><circle cx="24" cy="8" r="3.2" /><circle cx="37" cy="13" r="3.2" />
+              <!-- three leftover cells, the third taking a double-tap -->
+              <g fill="none" stroke="rgba(47,228,255,0.4)" stroke-width="1.5">
+                <rect x="4.5" y="5" width="11" height="11" rx="2" />
+                <rect x="18.5" y="5" width="11" height="11" rx="2" />
               </g>
-              <g fill="none" stroke="#b6ff3a" stroke-width="2" stroke-dasharray="3 3" opacity="0.75">
-                <path d="M11 19v6M24 14v11M37 19v6" />
+              <rect x="32.5" y="5" width="11" height="11" rx="2"
+                    fill="rgba(182,255,58,0.18)" stroke="#b6ff3a" stroke-width="2" />
+              <g fill="none" stroke="#b6ff3a" stroke-width="1.5" opacity="0.7">
+                <rect x="29.5" y="2" width="17" height="17" rx="4" />
               </g>
+              <!-- and dropping into the next blank -->
+              <path d="M38 21v4.5" fill="none" stroke="#b6ff3a" stroke-width="2"
+                    stroke-linecap="round" stroke-dasharray="3 3" />
+              <path d="M34.5 24.5L38 28l3.5-3.5" fill="none" stroke="#b6ff3a"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
               <g fill="none" stroke="#b6ff3a" stroke-width="2">
-                <rect x="5" y="28" width="11" height="13" rx="2" />
-                <rect x="18.5" y="28" width="11" height="13" rx="2" />
-                <rect x="32" y="28" width="11" height="13" rx="2" />
+                <rect x="4.5" y="31" width="11" height="12" rx="2" />
+                <rect x="18.5" y="31" width="11" height="12" rx="2" />
+                <rect x="32.5" y="31" width="11" height="12" rx="2" stroke-dasharray="3 2.5" opacity="0.75" />
+              </g>
+              <g fill="#b6ff3a">
+                <rect x="7.5" y="34" width="5" height="6" rx="1" />
+                <rect x="21.5" y="34" width="5" height="6" rx="1" />
               </g>
             </svg>
-            THE LEFTOVERS SPELL IT
+            NOW YOU SPELL IT
           </span>
         </div>
       </div>
