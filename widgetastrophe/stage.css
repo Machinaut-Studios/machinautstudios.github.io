@@ -34,8 +34,9 @@ body.wa {
   --field:     #fffaf0;
 
   --ink:       #2a2018;   /* every outline in this game     */
-  --muted:     #6d5c46;   /* 5.9:1 on cream                 */
-  --muted-2:   #7a6a52;   /* 4.8:1 on cream                 */
+  --muted:     #6d5c46;   /* 5.9:1 on cream, 4.8:1 on the band */
+  --muted-2:   #6d5f4c;   /* the footer's fine print sits on the
+                             band, so this clears 4.5:1 there too */
 
   --magenta:   #ff8a34;   /* accent        */
   --violet:    #e86a15;   /* accent, dark  */

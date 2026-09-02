@@ -123,16 +123,24 @@
           <b>Widgetastrophe itself requests none.</b> No camera, no microphone, no
           location, no contacts, no photo library, no notifications. The app's own
           Android manifest declares not a single <code>uses-permission</code>, and its
-          iOS <code>Info.plist</code> declares not a single usage description. Any
-          entries that appear in the built Android app are merged in from the manifests
-          of the software development kits it bundles: Google's ad SDK, which declares
-          <code>INTERNET</code> and the network-state and advertising-identifier
-          entries it needs to request, cap and measure ads, and Google Play Billing,
-          which declares the entry it needs to sell you something. The share plugin
-          adds a private file provider and a receiver, not a permission, and the audio
-          plugin adds nothing at all. None of those is a runtime permission — not one
-          of them shows you a prompt, and not one of them reaches anything on the list
-          above.
+          iOS <code>Info.plist</code> declares not a single usage description. Every
+          entry in the built Android app is merged in from the software development
+          kits it bundles, and this is the whole list, read off the release build's
+          own merged manifest:
+        </p>
+        <ul>
+          <li><code>INTERNET</code> and <code>ACCESS_NETWORK_STATE</code> — loading ads, and noticing when there is no connection to load them over.</li>
+          <li><code>com.google.android.gms.permission.AD_ID</code> and the three <code>ACCESS_ADSERVICES_*</code> entries — Google's ad SDK, for the resettable advertising identifier and Android's own privacy-sandbox interfaces for attribution and topics.</li>
+          <li><code>WAKE_LOCK</code> and <code>FOREGROUND_SERVICE</code> — pulled in by the background-work library that Google's ads stack depends on. Widgetastrophe schedules no background work of its own.</li>
+          <li><code>com.android.vending.BILLING</code> — Google Play Billing, so a purchase can be offered and confirmed.</li>
+          <li>One permission named after the app itself, ending <code>DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION</code> — an Android platform convention that keeps a component private to this app rather than granting it anything.</li>
+        </ul>
+        <p>
+          The share plugin adds a private file provider and a receiver, not a
+          permission, and the audio plugin adds nothing at all. <b>None of these is a
+          runtime permission</b> — not one of them shows you a prompt, and not one of
+          them reaches the camera, the microphone, your location, your contacts, your
+          photos or your notifications.
         </p>
         <p>
           On iOS there is <b>no App Tracking Transparency prompt</b>, because there is
