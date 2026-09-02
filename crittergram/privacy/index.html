@@ -66,7 +66,7 @@
           ("we", "us"). This policy explains what data the app handles. The short version:
           there is no account, grams are generated on your device, and we do not build a
           profile of you. If you choose to send grams straight to a friend, they pass
-          through one small relay of ours that holds no names, cannot read what it
+          through one small relay of ours that holds no names, never reads what it
           carries, and deletes it on delivery.
         </p>
 
@@ -93,12 +93,13 @@
 
         <h2>Microphone and camera</h2>
         <p>
-          <b>Critter Gram does not use your microphone or camera.</b> Every critter voice is
-          synthesized, never recorded. On iOS you may see microphone and camera notices in
-          the app's store listing or system settings; those exist only because the video
-          encoder the app links against contains Apple's capture code, which causes iOS to
-          require the declarations. The app never opens either device, and we never receive
-          audio or images from you.
+          <b>Critter Gram does not use your microphone or camera.</b> We never record you.
+          Speaking critters are synthesized offline on your phone; the handful of animal
+          calls (such as the duck's quack and the woodpecker's peck) are sound files shipped
+          inside the app. On iOS you may see microphone and camera notices in the app's store
+          listing or system settings; those exist only because the video encoder the app links
+          against contains Apple's capture code, which causes iOS to require the declarations.
+          The app never opens either device, and we never receive audio or images from you.
         </p>
 
         <h2>Sending grams to a friend (the critter relay)</h2>
@@ -143,8 +144,9 @@
           dialogue. Downloading it fetches a file over the network; after that, it runs
           entirely on your device. <b>Your messages are never sent anywhere to be written
           &mdash; generation is always local.</b> The feature is optional, can be switched off,
-          and the download can be removed at any time. Without it, every critter still works
-          using a built-in procedural engine.
+          and the download can be removed at any time. Without it, almost every critter still
+          works: the generative ones improvise from a built-in procedural engine instead, and
+          only the dodo waits for the model before it will write.
         </p>
 
         <h2>Reporting abuse</h2>

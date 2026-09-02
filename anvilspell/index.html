@@ -8,7 +8,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Anvilspell — Spell words. Forge letters. | Machinaut Studios LLC</title>
-  <meta name="description" content="Anvilspell is a word game with a crafting economy. Trace words across a 6x8 board to clear it, or drag two identical letters together to forge one rarer, hotter letter — heat doubles that tile's score, up to 8x. Endless mode and a daily seeded board. An iOS and Android game by Machinaut Studios LLC — out now on the App Store and Google Play." />
+  <meta name="description" content="Anvilspell is a word game with a crafting economy. Trace words across a 6x8 board to clear it, or drag two identical letters together to forge one rarer, hotter letter — heat doubles that tile's score, up to 8x. Endless mode, a timed Rush, and a daily seeded board. An iOS and Android game by Machinaut Studios LLC — out now on the App Store and Google Play." />
   <meta name="copyright" content="© 2026 Machinaut Studios LLC. All rights reserved." />
   <meta name="theme-color" content="#07060f" />
   <meta name="color-scheme" content="dark" />
@@ -319,7 +319,7 @@
           <p class="cell__text">One free hint per run. It finds the best word currently on the board and shows you. It is free, it is not limited by anything you can buy, and it will occasionally be humbling.</p>
         </li>
         <li class="cell">
-          <span class="cell__stamp">OPTIONAL &nbsp;//&nbsp; ENDLESS ONLY</span>
+          <span class="cell__stamp">OPTIONAL &nbsp;//&nbsp; NOT ON THE DAILY</span>
           <h3 class="cell__title">SECOND WIND</h3>
           <p class="cell__text">Watch a rewarded ad, once per game, and the top two tiles of every column burn off so a dead run keeps going. Never offered on the daily board — everyone gets the same 26 moves and no one gets a 27th.</p>
         </li>
@@ -329,14 +329,15 @@
     <!-- ===================== MODES ===================== -->
     <section class="section section--alt" id="modes" aria-labelledby="modes-h">
       <div class="section__head">
-        <p class="stamp">&#9654; TWO WAYS IN</p>
+        <p class="stamp">&#9654; THREE WAYS IN</p>
         <h2 class="section__title chrome" id="modes-h">THE MODES</h2>
       </div>
       <p class="section__lead">
-        One mode is a test of endurance against a machine designed to outlast you. The
-        other is a test of whether you played today's board better than everyone else did.
+        One mode is a test of endurance against a machine designed to outlast you. One is
+        a test of whether you played today's board better than everyone else did. The last
+        is a test of nerve on a clock that never stops accelerating.
       </p>
-      <ul class="grid" role="list">
+      <ul class="grid grid--3" role="list">
         <li class="cell">
           <span class="cell__stamp">MODE 01</span>
           <h3 class="cell__title">ENDLESS</h3>
@@ -346,6 +347,11 @@
           <span class="cell__stamp">MODE 02</span>
           <h3 class="cell__title">THE DAILY FORGE</h3>
           <p class="cell__text">One board per calendar day, generated from that date's seed, <b>identical on every device on earth</b>. Twenty-six moves, no more. Finish and you get a flame-tier result you can paste to whoever needs to see it — and a streak the game quietly keeps for you. No revives, ever. That is the point of it.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MODE 03</span>
+          <h3 class="cell__title">RUSH</h3>
+          <p class="cell__text">Words spawn nothing here — spelling is pure relief. The board fills on a clock instead: the first tile drops at four seconds, and every drop shortens the next gap to <b>0.972&times;</b> the last, decaying from 3.2s toward a floor of 1.15s. One tile per drop, forever, faster.</p>
         </li>
       </ul>
     </section>
@@ -358,7 +364,7 @@
       </div>
       <p class="section__lead">
         Anvilspell is free to play. <b>Nothing you can buy affects scoring</b> — not a
-        point, not a multiplier, not in either mode. What money buys you is fewer
+        point, not a multiplier, not in any mode. What money buys you is fewer
         interruptions and prettier tiles. Here is every way it enters the picture, and
         that is the complete list.
       </p>

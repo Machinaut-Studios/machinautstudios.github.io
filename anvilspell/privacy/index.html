@@ -84,7 +84,7 @@
           and stays there. That is:
         </p>
         <ul>
-          <li>high scores and endless-run statistics;</li>
+          <li>high scores and endless- and rush-run statistics;</li>
           <li>Daily Forge results, flame tiers, and your streak;</li>
           <li>settings — sound, haptics, and the tile theme you picked;</li>
           <li>the run in progress, so a game survives the app being closed or killed;</li>
@@ -108,9 +108,13 @@
         <h2>Permissions</h2>
         <p>
           <b>Anvilspell requests none.</b> No camera, no microphone, no location, no
-          contacts, no photo library, no notifications. Neither the Android manifest nor the
-          iOS <code>Info.plist</code> declares a single permission or usage description; the
-          only thing the ad SDK adds is ordinary network access.
+          contacts, no photo library, no notifications. Neither the app's own Android
+          manifest nor its iOS <code>Info.plist</code> declares a single permission or usage
+          description. The bundled SDKs do add a handful of install-time entries to the
+          final Android build — network access, Google's advertising-ID and ad-services
+          permissions from the ad SDK, the Play billing permission, and wake-lock and
+          foreground-service entries from their support libraries — but not one of them
+          is a permission Android ever stops to ask you to grant.
         </p>
 
         <h2>Advertising</h2>
@@ -120,7 +124,7 @@
         </p>
         <ul>
           <li><b>Interstitials between games</b> — never during play, at most every third game over, and never less than two minutes apart.</li>
-          <li><b>One optional rewarded ad</b> — Second Wind, which you choose to watch to revive an endless run. Nothing makes you watch it.</li>
+          <li><b>One optional rewarded ad</b> — Second Wind, which you choose to watch to revive an endless or Rush run (never the Daily Forge). Nothing makes you watch it.</li>
         </ul>
         <p>
           We hand Google nothing about you, because we have nothing to hand over. But an ad
