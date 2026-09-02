@@ -211,8 +211,15 @@
           <li><b>Diagnostics</b> — the SDK's own performance, such as how long it took to load an ad.</li>
         </ul>
         <p>
-          Apple's <b>App Privacy</b> label answers with one type: the advertising
-          identifier, used for third-party advertising.
+          Apple's <b>App Privacy</b> label answers the same question in its own
+          vocabulary, and lists six, every one of them filed as <b>Data Not Linked
+          to You</b>: Coarse Location, Device ID, Product Interaction, Advertising
+          Data, Crash Data and Performance Data. The first four are used for
+          third-party advertising and analytics; the last two only for analytics.
+          The crash and performance entries are the ad SDK reporting on itself —
+          how long an ad took to load, whether its own code fell over. The app
+          ships no crash reporter of its own and nothing about your game reaches
+          either list.
         </p>
         <p>
           On both stores the same two things are true. It is <b>not linked to your
