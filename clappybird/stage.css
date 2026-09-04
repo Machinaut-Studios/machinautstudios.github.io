@@ -123,9 +123,9 @@
   position: absolute;
   left: 24%;
   top: 36%;
-  width: 34px;
-  height: 26px;
-  margin-top: -13px;
+  width: 40px;
+  height: 30px;
+  margin-top: -15px;
   z-index: 3;
   animation: cb-flap var(--clap) infinite;
 }
@@ -141,10 +141,10 @@
 .cb__body::before {
   content: "";
   position: absolute;
-  left: 26%;
-  right: 14%;
-  bottom: 6%;
-  height: 46%;
+  left: 30%;
+  right: 16%;
+  bottom: 7%;
+  height: 42%;
   border-radius: 50%;
   background: #fdf6e6;
 }
@@ -152,8 +152,8 @@
 .cb__body::after {
   content: "";
   position: absolute;
-  right: -8px;
-  top: 38%;
+  right: -9px;
+  top: 40%;
   width: 0;
   height: 0;
   border-top: 5px solid transparent;
@@ -177,9 +177,9 @@
 .cb__wing {
   position: absolute;
   left: 14%;
-  top: 8%;
-  width: 17px;
-  height: 12px;
+  top: 10%;
+  width: 20px;
+  height: 14px;
   border-radius: 60% 44% 52% 48%;
   background: linear-gradient(140deg, #8b5cf0 0%, #5227ad 100%);
   transform-origin: 82% 40%;
@@ -193,9 +193,9 @@
   position: absolute;
   left: 24%;
   top: 36%;
-  width: 26px;
-  height: 26px;
-  margin: -13px 0 0 -13px;
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
   z-index: 2;
   border-radius: 50%;
   border: 2px solid var(--cyan);
