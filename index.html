@@ -45,7 +45,7 @@
 </head>
 <body id="top">
   <a class="skip-link" href="#main">Skip to main content</a>
-  <a class="skip-link" href="#complaint">Skip to the issue tracker</a>
+  <a class="skip-link" href="#complaint">Skip to feedback</a>
 
   <!-- ============ Reusable parts (hidden symbol defs) ============ -->
   <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
@@ -58,6 +58,12 @@
       </symbol>
       <symbol id="ic-folder" viewBox="0 0 24 24">
         <path d="M3 6.5h6l1.6 2H21v9.5H3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+      </symbol>
+      <!-- Fill and stroke are both currentColor here: an unlit star sets
+           fill:none and reads as an outline, a lit one fills in. -->
+      <symbol id="ic-star" viewBox="0 0 24 24">
+        <path d="M12 2.6l2.86 5.98 6.54.9-4.75 4.6 1.15 6.52L12 17.5l-5.8 3.1 1.15-6.52-4.75-4.6 6.54-.9z"
+              stroke-width="1.6" stroke-linejoin="round"/>
       </symbol>
       <symbol id="ic-rocket" viewBox="0 0 48 48">
         <path d="M24 3c7 5 9 13 9 20l-4 6H19l-4-6c0-7 2-15 9-20z" fill="#16244a" stroke="#2fe4ff" stroke-width="2"/>
@@ -133,7 +139,7 @@
         <a class="tab" href="#pipeline"><span class="tab__dot tab__dot--c"></span>pipeline.yml</a>
         <a class="tab" href="#ship"><span class="tab__dot tab__dot--l"></span>products/</a>
         <a class="tab" href="#studio"><span class="tab__dot tab__dot--v"></span>studio.blame</a>
-        <a class="tab tab--cta" href="#complaint"><span class="tab__dot tab__dot--m"></span>rage-quit.sh</a>
+        <a class="tab tab--cta" href="#complaint"><span class="tab__dot tab__dot--m"></span>feedback.sh</a>
       </nav>
     </div>
   </header>
@@ -784,7 +790,6 @@
       </div>
     </section>
 
-    <!-- ===================== RAGE QUIT (the tokenizer) ===================== -->
     <!-- ===================== CREDITS (the one thing we don't generate) ===================== -->
     <section class="section" id="credits" aria-labelledby="credits-h">
       <div class="section__head">
@@ -839,38 +844,64 @@
       </ul>
     </section>
 
+    <!-- ===================== FEEDBACK (five stars, or the tokenizer) ===================== -->
     <section class="section section--complaint" id="complaint" aria-labelledby="complaint-h">
       <div class="section__head">
-        <p class="stamp">&#9654; NEW ISSUE &nbsp;//&nbsp; ASSIGNEE: /dev/null</p>
-        <h2 class="section__title chrome" id="complaint-h">RAGE QUIT</h2>
+        <p class="stamp">&#9654; POST /api/feedback &nbsp;//&nbsp; SUPPORTED RATINGS: 5</p>
+        <h2 class="section__title chrome" id="complaint-h">FEEDBACK</h2>
       </div>
       <p class="section__lead">
-        Got a complaint? Outstanding. We take feedback so seriously that we feed it straight into
-        the tokenizer. Type your grievance, hit <b>PUSH TO /dev/null</b>, and watch it come apart
-        into tokens and fall out of the context window. Read by no one. Felt by everyone. Easily
-        our most finished feature, because an agent shipped it without asking.
+        We want to hear from you, and we mean that. Pick a rating, say what happened, hit
+        <b>SUBMIT FEEDBACK</b>. Our feedback service has held <b>100% uptime</b> on five-star
+        submissions since the day it was generated. The cluster that handles four stars and below
+        is having a harder time of it, and an agent is on that, in the sense that an agent has been
+        told about it.
       </p>
 
       <form class="issue" id="issueForm" novalidate>
         <div class="issue__bar">
-          <span class="issue__name">new-issue.md</span>
-          <span class="issue__meta">status: <b>will be tokenized</b></span>
+          <span class="issue__name">feedback.md</span>
+          <span class="issue__meta">feedback-svc: <b id="serverState">healthy</b></span>
         </div>
-        <label class="issue__label" for="issue-input">BODY &mdash; markdown supported, comprehension not</label>
+
+        <fieldset class="rating" id="rating">
+          <legend class="issue__label">RATING &mdash; required</legend>
+          <div class="rating__row" id="ratingRow">
+            <input class="rating__radio" type="radio" name="stars" id="star-1" value="1" />
+            <label class="rating__star" for="star-1"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ic-star"/></svg><span class="vh">1 star</span></label>
+            <input class="rating__radio" type="radio" name="stars" id="star-2" value="2" />
+            <label class="rating__star" for="star-2"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ic-star"/></svg><span class="vh">2 stars</span></label>
+            <input class="rating__radio" type="radio" name="stars" id="star-3" value="3" />
+            <label class="rating__star" for="star-3"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ic-star"/></svg><span class="vh">3 stars</span></label>
+            <input class="rating__radio" type="radio" name="stars" id="star-4" value="4" />
+            <label class="rating__star" for="star-4"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ic-star"/></svg><span class="vh">4 stars</span></label>
+            <input class="rating__radio" type="radio" name="stars" id="star-5" value="5" />
+            <label class="rating__star" for="star-5"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ic-star"/></svg><span class="vh">5 stars</span></label>
+          </div>
+          <p class="rating__hint" id="ratingHint">no rating yet. the server is waiting, patiently, for a five.</p>
+        </fieldset>
+
+        <label class="issue__label" for="issue-input">WHAT HAPPENED &mdash; markdown supported, comprehension conditional</label>
         <div class="issue__wrap" id="issueWrap">
           <textarea
             id="issue-input"
             class="issue__input"
             name="issue"
             rows="6"
-            placeholder="Begin grievance. Be as specific as you like — it changes nothing, but the tokenizer respects thorough work..."
+            placeholder="Tell us what happened. Be as specific as you like — the five-star endpoint reads every word of it..."
             spellcheck="true"
             autocomplete="off"></textarea>
         </div>
         <div class="issue__controls">
-          <button type="submit" class="btn btn--primary btn--submit" id="pushBtn">PUSH TO /dev/null</button>
+          <button type="submit" class="btn btn--primary btn--submit" id="pushBtn">SUBMIT FEEDBACK</button>
           <p class="issue__status" id="issueStatus" role="status" aria-live="polite"></p>
         </div>
+        <p class="issue__fine">
+          Full disclosure, since this is a form and forms imply a server: there is no server.
+          Nothing you type here leaves this page, at any star rating. If you want a reply from a
+          person, <a href="mailto:info@machinautstudios.com">info@machinautstudios.com</a> is read
+          by one.
+        </p>
       </form>
     </section>
   </main>
@@ -1070,86 +1101,162 @@
       }, 2200);
     }
 
-    /* ---------------- the tokenizer ----------------
-       Your grievance is read out of the textarea, destroyed there, and the
-       characters are re-laid-out over the empty field as tokens so they can
-       fall out of the context window in front of you. */
+    /* ---------------- the feedback service ----------------
+       A real rating widget in front of a service that only ever comes up for
+       fives. Four or fewer and the text is tokenized in front of you and the
+       server apologises. Nothing is sent anywhere in either branch — there is
+       no endpoint, there never was, and that is the joke. */
     var form = document.getElementById('issueForm');
     var wrap = document.getElementById('issueWrap');
     var input = document.getElementById('issue-input');
     var status = document.getElementById('issueStatus');
-    var MESSAGES = [
-      'Issue #8,442 opened, then closed as <b>wontfix</b> by agent-7 in 0.2s. 412 tokens returned to the environment.',
-      'Tokenized and dropped from the context window. The model has no memory of this. Neither, soon, will you.',
-      'Merged into /dev/null. 1 file changed, 0 insertions, 0 deletions, 0 readers. Main is still green.',
-      'Your feedback compiled. We did not read it. An agent has already marked it resolved and moved on.',
-      'Regenerated your complaint at temperature 1.0 and shipped the result as a feature. You are welcome.'
+    var rating = document.getElementById('rating');
+    var ratingRow = document.getElementById('ratingRow');
+    var ratingHint = document.getElementById('ratingHint');
+    var serverState = document.getElementById('serverState');
+
+    /* ---- the stars ---- */
+    var picked = 0;
+    if (rating && ratingRow) {
+      var radios = Array.prototype.slice.call(ratingRow.querySelectorAll('.rating__radio'));
+      var starsEls = Array.prototype.slice.call(ratingRow.querySelectorAll('.rating__star'));
+      var HINTS = [
+        'no rating yet. the server is waiting, patiently, for a five.',
+        'one star. bold of you. routing to the cluster that is down.',
+        'two stars. we hear you, and so, briefly, did a server.',
+        'three stars. the diplomat. still the wrong cluster.',
+        'four stars. agonisingly close to a rating we can persist.',
+        'five stars. the only rating this service has ever kept down.'
+      ];
+
+      var light = function (n) {
+        starsEls.forEach(function (el, i) { el.classList.toggle('is-lit', i < n); });
+        rating.classList.toggle('is-five', n === 5);
+      };
+      var setHint = function (n) {
+        ratingHint.textContent = HINTS[n];
+        ratingHint.classList.toggle('is-five', n === 5);
+      };
+
+      radios.forEach(function (r, i) {
+        r.addEventListener('change', function () { picked = i + 1; light(picked); setHint(picked); });
+      });
+      /* preview on hover, snap back to the real choice on the way out */
+      starsEls.forEach(function (el, i) {
+        el.addEventListener('mouseenter', function () { light(i + 1); });
+      });
+      ratingRow.addEventListener('mouseleave', function () { light(picked); });
+      light(0);
+    }
+
+    /* ---- what the service says when it is up, and when it is not ---- */
+    var OUTAGE =
+      'Woops. It appears our feedback server that accepts 4 or less stars is ' +
+      'experiencing issues. Try resubmitting your feedback with 5 stars.';
+    var OUTAGE_HEADS = [
+      '<b>503</b> feedback-svc[rating&#8804;4] &mdash; unreachable',
+      '<b>503</b> feedback-svc[rating&#8804;4] &mdash; still unreachable',
+      '<b>502</b> feedback-svc[rating&#8804;4] &mdash; bad gateway, good vibes',
+      '<b>504</b> feedback-svc[rating&#8804;4] &mdash; timed out being told things'
     ];
+    var THANKS = [
+      'Five stars accepted by the only cluster we have ever managed to keep running. Thank you.',
+      'Five stars, logged in 0.2s and immediately framed. The other cluster remains down.',
+      'Five stars persisted. An agent tried to reword it for you and was asked to stop.',
+      'Five stars received. We are choosing to believe you meant every single one of them.'
+    ];
+
     if (form && wrap && input && status) {
-      var mi = 0;
+      var oi = 0, ti = 0;
+      var say = function (kind, head, body) {
+        status.className = 'issue__status is-on issue__status--' + kind;
+        status.innerHTML =
+          '<span class="issue__head"><span class="issue__code issue__code--' + kind + '">' +
+          head + '</span></span>' + body;
+      };
+      var plain = function (msg) {
+        status.className = 'issue__status is-on';
+        status.innerHTML = msg;
+      };
+
+      /* Read the text out of the field, destroy it there, then re-lay the
+         characters over the empty field as tokens so they can fall out of
+         the context window in front of you. */
+      var tokenize = function (text) {
+        if (STILL) { input.value = ''; return; }
+        var cs = getComputedStyle(input);
+        var ghost = document.createElement('div');
+        ghost.className = 'tokfx';
+        ghost.style.font = cs.font;
+        ghost.style.lineHeight = cs.lineHeight;
+        ghost.style.letterSpacing = cs.letterSpacing;
+        ghost.style.padding = cs.padding;
+        ghost.style.width = input.offsetWidth + 'px';
+        ghost.style.height = input.offsetHeight + 'px';
+
+        var chunks = text.match(/\s*\S{1,4}|\s+/g) || [];
+        var spans = chunks.map(function (c) {
+          var sp = document.createElement('span');
+          sp.className = 'tok';
+          sp.textContent = c;
+          ghost.appendChild(sp);
+          return sp;
+        });
+        wrap.appendChild(ghost);
+
+        /* destroy the real thing before anything animates */
+        input.value = '';
+
+        var box = ghost.getBoundingClientRect();
+        var pos = spans.map(function (sp) {
+          var r = sp.getBoundingClientRect();
+          return { x: r.left - box.left, y: r.top - box.top };
+        });
+        spans.forEach(function (sp, i) {
+          sp.style.left = pos[i].x + 'px';
+          sp.style.top = pos[i].y + 'px';
+          sp.classList.add('is-fixed');
+        });
+        void ghost.offsetHeight;
+        spans.forEach(function (sp, i) {
+          var dx = (Math.random() - 0.5) * 220;
+          var dy = 120 + Math.random() * 200;
+          var rot = (Math.random() - 0.5) * 120;
+          sp.style.transitionDelay = (i * 9 + Math.random() * 90) + 'ms';
+          sp.style.transform = 'translate(' + dx + 'px,' + dy + 'px) rotate(' + rot + 'deg)';
+          sp.style.opacity = '0';
+          sp.style.color = i % 3 === 0 ? '#ff5cae' : (i % 3 === 1 ? '#57ecff' : '#c6ff5e');
+        });
+        wrap.classList.add('is-eating');
+        setTimeout(function () { ghost.remove(); wrap.classList.remove('is-eating'); }, 1800 + spans.length * 9);
+      };
+
       form.addEventListener('submit', function (e) {
         e.preventDefault();
         var text = input.value;
+
+        if (!picked) {
+          plain('Pick a rating first. The service needs to know which of its two moods to be in.');
+          return;
+        }
         if (!text.trim()) {
-          status.innerHTML = 'Empty prompt. The tokenizer produced nothing, which is also what we do.';
-          status.classList.add('is-on');
+          plain('Empty body. Nothing to send, which is also true of the full ones.');
           return;
         }
 
-        if (!STILL) {
-          /* Mirror the field exactly, then freeze every token where it sits. */
-          var cs = getComputedStyle(input);
-          var ghost = document.createElement('div');
-          ghost.className = 'tokfx';
-          ghost.style.font = cs.font;
-          ghost.style.lineHeight = cs.lineHeight;
-          ghost.style.letterSpacing = cs.letterSpacing;
-          ghost.style.padding = cs.padding;
-          ghost.style.width = input.offsetWidth + 'px';
-          ghost.style.height = input.offsetHeight + 'px';
-
-          var chunks = text.match(/\s*\S{1,4}|\s+/g) || [];
-          var spans = chunks.map(function (c) {
-            var s = document.createElement('span');
-            s.className = 'tok';
-            s.textContent = c;
-            ghost.appendChild(s);
-            return s;
-          });
-          wrap.appendChild(ghost);
-
-          /* destroy the real thing before anything animates */
+        if (picked === 5) {
           input.value = '';
-
-          var box = ghost.getBoundingClientRect();
-          var pos = spans.map(function (s) {
-            var r = s.getBoundingClientRect();
-            return { x: r.left - box.left, y: r.top - box.top };
-          });
-          spans.forEach(function (s, i) {
-            s.style.left = pos[i].x + 'px';
-            s.style.top = pos[i].y + 'px';
-            s.classList.add('is-fixed');
-          });
-          void ghost.offsetHeight;
-          spans.forEach(function (s, i) {
-            var dx = (Math.random() - 0.5) * 220;
-            var dy = 120 + Math.random() * 200;
-            var rot = (Math.random() - 0.5) * 120;
-            s.style.transitionDelay = (i * 9 + Math.random() * 90) + 'ms';
-            s.style.transform = 'translate(' + dx + 'px,' + dy + 'px) rotate(' + rot + 'deg)';
-            s.style.opacity = '0';
-            s.style.color = i % 3 === 0 ? '#ff5cae' : (i % 3 === 1 ? '#57ecff' : '#c6ff5e');
-          });
-          wrap.classList.add('is-eating');
-          setTimeout(function () { ghost.remove(); wrap.classList.remove('is-eating'); }, 1800 + spans.length * 9);
-        } else {
-          input.value = '';
+          if (serverState) { serverState.textContent = 'healthy'; serverState.classList.remove('is-degraded'); }
+          say('ok', '<b>200</b> feedback-svc &mdash; ok', THANKS[ti % THANKS.length]);
+          ti++;
+          return;
         }
 
-        status.innerHTML = MESSAGES[mi % MESSAGES.length];
-        status.classList.add('is-on');
-        mi++;
+        /* four or fewer: the cluster is down, and so is your paragraph */
+        tokenize(text);
+        if (serverState) { serverState.textContent = 'degraded'; serverState.classList.add('is-degraded'); }
+        say('err', OUTAGE_HEADS[oi % OUTAGE_HEADS.length], OUTAGE);
+        oi++;
       });
     }
 

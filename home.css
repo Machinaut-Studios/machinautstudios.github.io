@@ -1376,7 +1376,7 @@ a.tree__row:hover { background: rgba(47, 228, 255, 0.12); color: var(--cyan-t); 
 .telemetry__unit--cool .meter__fill { background: linear-gradient(90deg, var(--violet), var(--cyan)); box-shadow: 0 0 12px rgba(47,228,255,0.5); animation-duration: 6.2s; }
 @keyframes meter-breathe { 0%, 100% { width: 58%; } 50% { width: 92%; } }
 
-/* ============================== RAGE QUIT ============================== */
+/* ============================== FEEDBACK =============================== */
 .section--complaint {
   background: var(--bg-2); max-width: none;
   border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
@@ -1415,9 +1415,71 @@ a.tree__row:hover { background: rgba(47, 228, 255, 0.12); color: var(--cyan-t); 
   display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
   padding: 0.9rem 1.1rem 1.1rem;
 }
-.issue__status { font-size: 0.78rem; color: var(--lime-t); opacity: 0; transition: opacity 0.25s var(--ease); }
+.issue__status {
+  flex: 1 1 280px; min-width: 0;
+  font-size: 0.78rem; line-height: 1.55; color: var(--muted);
+  opacity: 0; transition: opacity 0.25s var(--ease);
+}
 .issue__status.is-on { opacity: 1; }
 .issue__status b { color: var(--magenta-t); }
+.issue__status--err { color: var(--magenta-t); }
+.issue__status--ok  { color: var(--lime-t); }
+/* the HTTP code the service did not really return */
+.issue__code {
+  display: inline-block; margin-right: 0.4rem; padding: 0.05rem 0.36rem;
+  border-radius: 4px; font-size: 0.7rem; letter-spacing: 0.06em;
+  border: 1px solid currentColor; color: var(--muted-2);
+}
+.issue__code--err { color: var(--magenta); background: rgba(255, 46, 151, 0.12); }
+.issue__code--ok  { color: var(--lime);    background: rgba(182, 255, 58, 0.12); }
+.issue__head { display: block; color: var(--muted-2); }
+/* the one line in here that is not a bit */
+.issue__fine {
+  margin: 0; padding: 0 1.1rem 1.1rem;
+  font-size: 0.72rem; line-height: 1.6; color: var(--muted-2);
+}
+.issue__fine a { color: var(--cyan-t); }
+
+/* ------------------------------ the rating -----------------------------
+   Five radios in a fieldset, so arrow keys and screen readers work without
+   help. The stars themselves are labels; JS lights the first N of them on
+   hover and on change. Unlit is an outline, lit is filled. */
+.vh {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  border: 0; overflow: hidden; white-space: nowrap; clip-path: inset(50%);
+}
+.rating { border: 0; margin: 0; padding: 0; min-width: 0; }
+.rating__row { display: flex; align-items: center; gap: 0.3rem; padding: 0 1.05rem; }
+.rating__radio {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  border: 0; overflow: hidden; clip-path: inset(50%);
+}
+.rating__star {
+  display: inline-flex; padding: 3px; border-radius: 7px; line-height: 0;
+  color: rgba(150, 120, 255, 0.45); cursor: pointer;
+  transition: color 0.16s var(--ease), transform 0.16s var(--ease);
+}
+.rating__star svg {
+  display: block; width: 34px; height: 34px;
+  fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linejoin: round;
+}
+.rating__star.is-lit { color: var(--amber); transform: translateY(-1px); }
+.rating__star.is-lit svg { fill: currentColor; filter: drop-shadow(0 0 7px rgba(255, 200, 87, 0.75)); }
+.rating__radio:focus-visible + .rating__star { outline: 2px solid var(--cyan); outline-offset: 1px; }
+/* five is the one the service can actually keep down */
+.rating.is-five .rating__star.is-lit { color: var(--lime); }
+.rating.is-five .rating__star.is-lit svg { filter: drop-shadow(0 0 9px rgba(182, 255, 58, 0.8)); }
+.rating__hint {
+  margin: 0.5rem 0 0; padding: 0 1.1rem;
+  font-size: 0.74rem; color: var(--muted-2);
+  transition: color 0.2s var(--ease);
+}
+.rating__hint.is-five { color: var(--lime-t); }
+.issue__meta b.is-degraded { color: var(--magenta); }
+
+@media (prefers-reduced-motion: reduce) {
+  .rating__star, .rating__star.is-lit { transform: none; transition: color 0.16s linear; }
+}
 
 /* the tokenizer overlay */
 .tokfx {
@@ -1474,7 +1536,7 @@ a.tree__row:hover { background: rgba(47, 228, 255, 0.12); color: var(--cyan-t); 
    CHANGE: neutralise this query, then binary-search the narrowest viewport at
    which document.documentElement.scrollWidth - clientWidth is 0.
    Measured 2026-08-26 with pipeline.yml / products/ / studio.blame /
-   rage-quit.sh — this bar needs 792px and every inner page needs less, so
+   feedback.sh — this bar needs 792px and every inner page needs less, so
    900px clears the widest with headroom. styles.css carries the same number;
    keep them in step. It shipped at 780px for one afternoon, which overflowed
    this page by up to 45px between 781px and 825px. */
