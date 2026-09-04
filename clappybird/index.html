@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<!--
+  Clappy Bird — a game by Machinaut Studios LLC
+  Copyright © 2026 Machinaut Studios LLC. All rights reserved. See /LICENSE.
+
+  Same skeleton as every other product page (/styles.css does the chrome); the
+  signature strip is in /clappybird/stage.css.
+
+  PRE-LAUNCH. The app is on neither store. Both store controls are disabled
+  <button>s, not links — see the .app-note under them. They become real
+  <a href> links the day the store records exist, and not before.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Clappy Bird — Hands off the glass. Clap to fly. | Machinaut Studios LLC</title>
+  <meta name="description" content="Clappy Bird is an endless flyer you play with your hands off the glass: a bird falls, and a sharp sound — a clap, a shout, a snap, a whistle — shoves it back up. There is no touch control during play. Three modes on one simulation: Endless, a Daily course identical for everyone that day, and 12 Flight School lessons. 412 courses ship, every one proved flyable first. The microphone is measured for loudness on your device and never recorded or transmitted. An iPhone and Android game by Machinaut Studios LLC, coming soon to the App Store and Google Play." />
+  <meta name="copyright" content="© 2026 Machinaut Studios LLC. All rights reserved." />
+  <meta name="theme-color" content="#07060f" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="canonical" href="https://machinautstudios.com/clappybird/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Clappy Bird — Hands off the glass. Clap to fly." />
+  <meta property="og:description" content="A bird falls. A clap shoves it back up. That is the whole control scheme — nothing in this game answers a touch. Coming soon to the App Store and Google Play." />
+  <meta property="og:url" content="https://machinautstudios.com/clappybird/" />
+  <meta property="og:image" content="https://machinautstudios.com/clappybird/clappybird-og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="1200" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="Clappy Bird — a deep-purple bird with an orange beak on a pale disc against a blue sky." />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <!-- Fonts: Orbitron (chrome display) + VT323 (arcade accents) + IBM Plex Mono
+       (body), plus Londrina Solid — the face the game itself is set in. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&amp;family=Londrina+Solid:wght@400;900&amp;family=Orbitron:wght@600;800;900&amp;family=VT323&amp;display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/clappybird/stage.css" />
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ===================== NAV (editor tab bar) ===================== -->
+  <header class="nav tabbar">
+    <div class="tabbar__inner">
+      <a class="brand" href="/">
+        <img class="brand__logo" src="/logo.png" alt="" width="28" height="28" />
+        <span class="brand__name">MACHINAUT</span>
+        <span class="brand__sub">STUDIOS&nbsp;LLC</span>
+      </a>
+
+      <button class="tabbar__toggle" id="navToggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span aria-hidden="true"></span>
+      </button>
+
+      <nav class="tabs" id="nav-menu" aria-label="Primary">
+        <a class="tab" href="/#pipeline"><span class="tab__dot tab__dot--c"></span>pipeline.yml</a>
+        <a class="tab" href="/#ship"><span class="tab__dot tab__dot--l"></span>products/</a>
+        <a class="tab" href="/#studio"><span class="tab__dot tab__dot--v"></span>studio.blame</a>
+        <a class="tab tab--cta" href="/#complaint"><span class="tab__dot tab__dot--m"></span>rage-quit.sh</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <!-- ===================== HERO ===================== -->
+    <section class="hero hero--compact" aria-labelledby="clappybird-title">
+      <div class="hero__scanlines" aria-hidden="true"></div>
+      <div class="motes" aria-hidden="true">
+        <span class="mote" style="--x:8%;--s:4px;--dur:18s;--d:-2s;--c:var(--cyan);--drift:22px;--rise:-240px"></span>
+        <span class="mote" style="--x:19%;--s:3px;--dur:23s;--d:-9s;--c:var(--violet);--drift:-18px;--rise:-280px"></span>
+        <span class="mote" style="--x:32%;--s:5px;--dur:16s;--d:-14s;--c:var(--cyan);--drift:26px;--rise:-220px"></span>
+        <span class="mote" style="--x:44%;--s:3px;--dur:21s;--d:-5s;--c:var(--lime);--drift:-24px;--rise:-300px"></span>
+        <span class="mote" style="--x:58%;--s:4px;--dur:25s;--d:-17s;--c:var(--cyan);--drift:20px;--rise:-260px"></span>
+        <span class="mote" style="--x:70%;--s:5px;--dur:19s;--d:-7s;--c:var(--violet);--drift:-22px;--rise:-230px"></span>
+        <span class="mote" style="--x:83%;--s:3px;--dur:22s;--d:-12s;--c:var(--cyan);--drift:28px;--rise:-290px"></span>
+        <span class="mote" style="--x:93%;--s:4px;--dur:17s;--d:-3s;--c:var(--violet);--drift:-20px;--rise:-250px"></span>
+      </div>
+      <div class="hero__inner">
+        <div class="app-hero__layout">
+          <img class="app-hero__icon" src="/clappybird/clappybird_icon.png" alt="Clappy Bird app icon — a deep-purple bird with an orange beak on a pale disc against a blue sky" width="152" height="152" />
+          <div class="app-hero__text">
+            <p class="stamp stamp--hero">&#9654; COMING SOON &nbsp;//&nbsp; iOS + ANDROID</p>
+            <h1 class="hero__title" id="clappybird-title"><span class="n1">Clappy Bird<span class="cursor" aria-hidden="true"></span></span></h1>
+            <p class="app-hero__tagline">Hands off the glass.<br />Clap to fly.</p>
+            <p class="hero__sub">
+              A bird falls. A sharp sound &mdash; a clap, a shout, a snap, a
+              whistle &mdash; shoves it back up. That is the entire control
+              scheme: <b>there is no touch input during play</b>. You clap to
+              start and you clap to stay up, and the phone can sit on the table
+              the whole time. Level flight works out at about
+              <b>1.86 claps a second</b>, which is not a number we picked &mdash;
+              it falls out of the physics, and it is a comfortable rate for a
+              pair of hands.
+            </p>
+            <div class="hero__actions">
+              <button class="btn btn--primary btn--play" type="button" disabled aria-disabled="true"
+                      aria-label="Coming soon to the App Store">
+                <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M16.37 1.43c0 1.06-.43 2.07-1.13 2.83-.76.82-1.99 1.45-3 1.37-.13-.99.39-2.05 1.05-2.74.74-.78 2.01-1.37 3.01-1.42.03.32.06.64.07-.04zm3.4 16.05c-.5 1.16-.74 1.67-1.38 2.7-.9 1.43-2.16 3.21-3.73 3.22-1.39.01-1.75-.91-3.64-.9-1.89.01-2.28.92-3.68.9-1.57-.01-2.77-1.62-3.67-3.05-2.51-3.98-2.77-8.65-1.23-11.13 1.1-1.76 2.83-2.79 4.46-2.79 1.66 0 2.7.91 4.07.91 1.33 0 2.14-.91 4.06-.91 1.45 0 2.99.79 4.08 2.16-3.59 1.96-3.01 7.09.66 8.89z" fill="currentColor"/>
+                </svg>
+                <span>Coming soon to the App Store</span>
+              </button>
+              <button class="btn btn--primary btn--play" type="button" disabled aria-disabled="true"
+                      aria-label="Coming soon to Google Play">
+                <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M4 3.5v17a1 1 0 0 0 1.5.87l14-8.5a1 1 0 0 0 0-1.74l-14-8.5A1 1 0 0 0 4 3.5z" fill="currentColor"/>
+                </svg>
+                <span>Coming soon to Google Play</span>
+              </button>
+              <a class="btn btn--ghost" href="/clappybird/privacy/">PRIVACY POLICY</a>
+            </div>
+            <p class="app-note">
+              Both store buttons are dead on purpose. Clappy Bird is not on the App Store
+              and not on Google Play yet, so there is nothing behind them to link to
+              &mdash; they become real links the day it is live, and not one day earlier.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== HOW IT PLAYS ===================== -->
+    <section class="section" id="how-it-plays" aria-labelledby="how-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; THE LOOP</p>
+        <h2 class="section__title chrome" id="how-h">HOW IT PLAYS</h2>
+        <p class="vibe vibe--head">One input. It is not a finger.</p>
+      </div>
+      <p class="section__lead">
+        Gravity is always on and the bird is always losing height. A sharp sound
+        gives it one fixed shove upward &mdash; one sound, one flap, no matter how
+        loud. Everything else in the game is the consequence of those two
+        sentences: the pipes, the ceiling that kills you exactly as dead as the
+        floor, and the fact that panic-clapping does nothing at all.
+      </p>
+
+      <!-- ========= THE CLAP LINE — the signature loop for this page =========
+           Bottom strip: the microphone level, which is the only thing the game
+           ever reads off the mic. It spikes past the threshold line, the bird
+           flaps, and between spikes gravity has it. Everything in the strip
+           beats on one number, 0.538s — the 1.86 claps a second level flight
+           actually costs. The pipes come the other way; the bird never moves
+           along the screen, because in the real game it does not either. -->
+      <div class="stage stage--clappybird" aria-hidden="true">
+        <div class="stage__grid"></div>
+
+        <div class="cb">
+          <div class="cb__clouds"></div>
+
+          <div class="cb__track">
+            <i class="cb__pipe" style="--x:0%;--o:-10px"></i>
+            <i class="cb__pipe" style="--x:12.5%;--o:8px"></i>
+            <i class="cb__pipe" style="--x:25%;--o:-4px"></i>
+            <i class="cb__pipe" style="--x:37.5%;--o:10px"></i>
+            <i class="cb__pipe" style="--x:50%;--o:-10px"></i>
+            <i class="cb__pipe" style="--x:62.5%;--o:8px"></i>
+            <i class="cb__pipe" style="--x:75%;--o:-4px"></i>
+            <i class="cb__pipe" style="--x:87.5%;--o:10px"></i>
+          </div>
+
+          <div class="cb__ground"></div>
+
+          <i class="cb__ring"></i>
+          <i class="cb__ring cb__ring--2"></i>
+
+          <div class="cb__bird">
+            <span class="cb__body"></span>
+            <span class="cb__wing"></span>
+            <span class="cb__eye"></span>
+          </div>
+
+          <div class="cb__meter">
+            <span class="cb__meter-label">MIC LEVEL</span>
+            <span class="cb__meter-rail">
+              <span class="cb__meter-fill"></span>
+              <span class="cb__meter-thresh"></span>
+            </span>
+            <span class="cb__meter-label">FLAP</span>
+          </div>
+        </div>
+
+        <span class="stage__tag">AMPLITUDE ONLY</span>
+        <span class="stage__tag stage__tag--end stage__tag--bottom">1.86 CLAPS / SEC</span>
+      </div>
+
+      <div class="stage-static stage-static--clappybird" aria-hidden="true">
+        <div class="stage-static__row">
+          <span class="stage-static__step">
+            <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+              <!-- two hands meeting, with the sound coming off them -->
+              <g fill="none" stroke="#2fe4ff" stroke-width="2.5" stroke-linecap="round">
+                <path d="M20 12v24" /><path d="M28 12v24" />
+                <path d="M12 18l-5-4M12 30l-5 4M36 18l5-4M36 30l5 4" opacity="0.65" />
+              </g>
+              <rect x="21.5" y="10" width="5" height="28" rx="2.5" fill="rgba(47,228,255,0.3)" />
+            </svg>
+            MAKE A SHARP SOUND
+          </span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step">
+            <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+              <!-- the level jumping past the line that counts as a clap -->
+              <rect x="5" y="20" width="38" height="9" rx="4.5"
+                    fill="rgba(47,228,255,0.14)" stroke="rgba(47,228,255,0.4)" stroke-width="1.5" />
+              <rect x="6" y="21" width="26" height="7" rx="3.5" fill="#2fe4ff" />
+              <path d="M32 15v19" stroke="#ff2e97" stroke-width="2.5" stroke-linecap="round" />
+            </svg>
+            IT CLEARS THE LINE
+          </span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step stage-static__step--clear">
+            <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+              <path d="M24 40V12" fill="none" stroke="#b6ff3a" stroke-width="3" stroke-linecap="round" />
+              <path d="M15 21l9-9 9 9" fill="none" stroke="#b6ff3a" stroke-width="3.5"
+                    stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            THE BIRD RISES
+          </span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step stage-static__step--secret">
+            <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+              <!-- a pipe gap, and the bird falling back down through it -->
+              <g fill="rgba(182,255,58,0.16)" stroke="#8bd06a" stroke-width="2">
+                <rect x="30" y="3" width="13" height="15" rx="2" />
+                <rect x="30" y="30" width="13" height="15" rx="2" />
+              </g>
+              <path d="M10 12v20" fill="none" stroke="#c48cff" stroke-width="3" stroke-linecap="round" />
+              <path d="M4 25l6 7 6-7" fill="none" stroke="#c48cff" stroke-width="3.5"
+                    stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            THEN GRAVITY HAS IT
+          </span>
+        </div>
+      </div>
+
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">STEP ONE &nbsp;//&nbsp; MAKE A NOISE</span>
+          <h3 class="cell__title">CLAP. OR DON'T.</h3>
+          <p class="cell__text">Clap, shout, snap your fingers, whistle, thump the table. The game is not listening for a clap in particular &mdash; it is watching for a <b>sudden jump in loudness</b>, so whatever sharp sound you can make works. Clapping is just the one everybody already knows how to do.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STEP TWO &nbsp;//&nbsp; THE POINT</span>
+          <h3 class="cell__title">ONE SOUND, ONE FLAP</h3>
+          <p class="cell__text">A flap is a fixed shove upward. A burst of three claps lifts you exactly as high as one, and a louder clap lifts you no higher than a quiet one that cleared the bar. Panic will not save you here; rhythm will. And the ceiling is as deadly as the ground, so the answer is never simply "clap more".</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STEP THREE &nbsp;//&nbsp; NOTHING</span>
+          <h3 class="cell__title">GRAVITY DOES THE REST</h3>
+          <p class="cell__text">Between sounds the bird is falling, and that is the only other force in the simulation. Flying level is a steady beat at roughly 1.86 claps a second; climbing is faster than that; descending is the sound of you doing nothing. The whole difficulty curve is how long the game lets you stop.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">NOT A TOUCHSCREEN GAME</span>
+          <h3 class="cell__title">HANDS OFF THE GLASS</h3>
+          <p class="cell__text">There is no tap-to-flap, no hidden backup control, no on-screen button that also works. Menus are taps, because menus are menus. From the moment a run starts, sound is the only thing that moves the bird &mdash; which is the whole reason the game exists.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">YOUR ROOM, NOT OURS</span>
+          <h3 class="cell__title">FIVE SENSITIVITY STEPS</h3>
+          <p class="cell__text">A quiet bedroom and a loud kitchen are not the same problem, so the detector tracks the room's noise floor and gets <b>stricter</b> when the room is loud rather than firing forever. Settings has five sensitivity steps and a <b>Test my mic</b> meter, so you can watch your own clap clear the line before you fly.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">OFFLINE</span>
+          <h3 class="cell__title">WORKS IN A TUNNEL</h3>
+          <p class="cell__text">All 412 courses, every bird, every sound effect and the physics itself ship inside the app. Nothing is fetched, nothing is scored on a server, and there is no account to be logged out of. Only the ads want a signal.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== WHAT'S IN IT ===================== -->
+    <section class="section section--alt" id="contents" aria-labelledby="contents-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; THREE MODES, ONE SIMULATION</p>
+        <h2 class="section__title chrome" id="contents-h">WHAT'S IN THE BOX</h2>
+      </div>
+      <p class="section__lead">
+        One physics engine, running at a fixed 120&nbsp;Hz so a course lands
+        identically on a cheap phone and an expensive one, with three things
+        pointed at it. Nothing in here is generated while you wait: the
+        <b>412 courses that ship &mdash; 12 lessons and 400 dailies &mdash; were each
+        flown to the end by a solver through the real physics before they were
+        allowed into the build</b>. No player can be handed an impossible board.
+      </p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">MODE 01 &nbsp;//&nbsp; ENDLESS</span>
+          <h3 class="cell__title">THE SCORE CHASE</h3>
+          <p class="cell__text">Procedural, unbounded, and the reason you came. One pipe cleared is one point and one coin. Beat your own best and the game stops and asks for three initials, arcade-style, for a high-score table that lives on your phone and goes no further.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MODE 02 &nbsp;//&nbsp; DAILY</span>
+          <h3 class="cell__title">EVERYONE, THE SAME 40 PIPES</h3>
+          <p class="cell__text">One baked course a day, 40 pipes long, <b>identical for every player on earth that day</b> &mdash; not because a server handed it out, but because it was built, proved and shipped inside the app long before you opened it. Replay it as often as you like &mdash; the day keeps your best run &mdash; and the streak counts the days you turned up, not the days you finished.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MODE 03 &nbsp;//&nbsp; FLIGHT SCHOOL</span>
+          <h3 class="cell__title">12 BAKED LESSONS</h3>
+          <p class="cell__text">First Flight, Finding the Beat, Up and Over, The Long Glide, Staircase, Down Draft, Tight Squeeze, Switchback, Roof and Floor, Needle Threading, Storm Front, Graduation. Fifteen pipes at the start, twenty-five by the end, each one teaching a single thing your hands have to learn.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">NINE BIRDS</span>
+          <h3 class="cell__title">COSMETIC, AND ONLY THAT</h3>
+          <p class="cell__text">Pip, Sunny, Bluebell, Rusty, Mint, Cocoa, Violet, Ash and Ember. Pip is yours from the first launch; the other eight cost 350 coins each &mdash; coins, which you earn by flying. A test asserts that no skin field can reach the physics, because a bird you paid for must not fly better than one you didn't.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">LOCAL TABLES</span>
+          <h3 class="cell__title">THREE INITIALS, NO LEADERBOARD</h3>
+          <p class="cell__text">Every mode keeps its own top ten on the device. Three characters, upper case, the way an arcade cabinet did it &mdash; which also means the table can never hold anything that looks like a name. There is no online leaderboard, no account and no server to upload to.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">ONE MORE GO</span>
+          <h3 class="cell__title">A SINGLE REVIVE</h3>
+          <p class="cell__text">Crash and you can take exactly one revive per run &mdash; a watched ad, or 75 coins if you would rather pay in the currency you flew for. One. After that the run is over and the score is the score.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== MONETIZATION ===================== -->
+    <section class="section" id="cost" aria-labelledby="cost-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; THE HONEST BIT</p>
+        <h2 class="section__title chrome" id="cost-h">WHAT IT COSTS</h2>
+      </div>
+      <p class="section__lead">
+        Clappy Bird is free. Nothing you can buy makes the bird fly better,
+        nothing expires or refills on a timer, and there is no energy meter
+        because we did not build one. Money buys fewer interruptions and a
+        faster route to a different-coloured bird. That is the whole list.
+      </p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">FREE &nbsp;//&nbsp; AD-SUPPORTED</span>
+          <h3 class="cell__title">ADS, ON A LEASH</h3>
+          <p class="cell__text">A full-screen ad can only appear when you <b>leave a game-over screen</b> &mdash; never mid-flight, never over a run. Your first five lifetime runs are ad-free entirely, then at most every third run, never less than 90 seconds after the last one, and never more than four in one session. Those four limits are in the code, not in a promise.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">ONE-TIME PURCHASE</span>
+          <h3 class="cell__title">REMOVE ADS</h3>
+          <p class="cell__text">Ends the between-run interruptions permanently, on this account, restorable on a new phone. The opt-in revive ad stays available on purpose &mdash; you just never get shown one you did not ask for.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">COINS &nbsp;//&nbsp; OPTIONAL</span>
+          <h3 class="cell__title">THREE COIN PACKS</h3>
+          <p class="cell__text">If you would rather buy the birds than fly for them. Coins also fall out of ordinary play at one per pipe cleared, in every mode, forever. Buying is a shortcut past the grind, never a gate in front of the game.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">NOT IN HERE</span>
+          <h3 class="cell__title">NO SUBSCRIPTION</h3>
+          <p class="cell__text">No monthly anything, no season pass, no loot box, no daily-login casino, no "watch an ad to keep your streak". A streak you clapped for is not for sale back to you.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">NEEDS</span>
+          <h3 class="cell__title">A MICROPHONE, AND THAT'S IT</h3>
+          <p class="cell__text">iPhone on iOS 15 or later; Android 7.0 or later. The game asks for the microphone and nothing else &mdash; no camera, no location, no contacts, no notifications, no photo library. Decline the mic and the game tells you plainly that it cannot be played, because it can't.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">SUITABLE FOR</span>
+          <h3 class="cell__title">EVERYONE</h3>
+          <p class="cell__text">No chat, no accounts, no player-made content, nobody to be matched against, and nothing typed in but three initials chosen off a wheel. The loudest thing in the room is you.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== PRIVACY TEASER ===================== -->
+    <section class="section section--alt" id="privacy" aria-labelledby="privacy-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; ON THE RECORD</p>
+        <h2 class="section__title chrome" id="privacy-h">THE MICROPHONE QUESTION</h2>
+      </div>
+      <p class="section__lead">
+        It is the first thing anyone asks about a game you play by clapping, so
+        here is the plain answer. The microphone is used <b>only to measure how
+        loud the room is</b>. Audio is analysed for amplitude on your device, in
+        memory, and is <b>never recorded, never written to disk, and never
+        transmitted anywhere</b>. It is not speech recognition; it is not
+        listening for words; there is no waveform kept, because the game never
+        keeps one. The mic opens when you enter the game screen and closes when
+        you leave it, and the only other place it ever opens is the
+        <b>Test my mic</b> button in Settings. It is never open on a menu.
+        Everything else stays local too &mdash; scores, coins, birds, Daily
+        results and settings live in your phone's own storage, with no account
+        and no server of ours anywhere. Exactly two things reach the network:
+        Google's ad network, which serves the ads, and the App Store or Google
+        Play, which handle purchases.
+      </p>
+      <p>
+        <a class="btn btn--ghost" href="/clappybird/privacy/">READ THE CLAPPY BIRD PRIVACY POLICY</a>
+      </p>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER (status bar) ===================== -->
+  <footer class="footer footer--bar">
+    <div class="statusbar">
+      <span class="sb sb--branch"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="5" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="6" cy="19" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="9" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 7.6v8.8M18 11.6c0 3.2-3 3.6-6 4.2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>main &#10003;</span>
+      <span class="sb">0 problems</span>
+      <span class="sb">temperature 1.0</span>
+      <span class="sb sb--warm">GPU 88.4&deg;C</span>
+      <span class="sb">Ln &#8734;, Col 1</span>
+      <span class="sb sb--flow">prompt &#8594; accept &#8594; deploy</span>
+      <span class="sb sb--right">autocomplete: on &nbsp;&middot;&nbsp; brakes: off</span>
+    </div>
+
+    <div class="footer__body">
+      <img class="footer__logo" src="/logo.png" alt="" width="44" height="44" />
+
+      <nav class="footer__links" aria-label="Footer">
+        <a href="/">Home</a>
+        <a href="/clappybird/">Clappy Bird</a>
+        <a href="/clappybird/privacy/">Privacy Policy</a>
+        <a href="/spellheir/">Spellheir</a>
+        <a href="/slateveil/">Slateveil</a>
+        <a href="/starknell/">STARKNELL</a>
+        <a href="/space-couch-command/">Space Couch Command</a>
+        <a href="/voicecmd/">VoiceCmd</a>
+        <a href="/tooter/">Tooter</a>
+        <a href="/emberseam/">Emberseam</a>
+        <a href="/anvilspell/">Anvilspell</a>
+        <a href="/hushword/">Hushword</a>
+        <a href="/crittergram/">Critter Gram</a>
+      </nav>
+
+      <p class="footer__text">
+        Clappy Bird is a game by MACHINAUT STUDIOS LLC &mdash; one prompt, one build,
+        no follow-up questions. Put the phone down. Now clap.
+        <span class="footer__cursor cursor" aria-hidden="true"></span>
+      </p>
+
+      <p class="footer__fine">&copy; 2026 Machinaut Studios LLC. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

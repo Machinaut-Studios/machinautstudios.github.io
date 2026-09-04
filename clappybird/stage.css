@@ -1,0 +1,302 @@
+/* =============================================================================
+   Clappy Bird — the signature loop for /clappybird/
+   Copyright © 2026 Machinaut Studios LLC. All rights reserved. See /LICENSE.
+
+   THE POINT OF THIS ANIMATION. Nothing here is a touch. The strip is a mic
+   level meter at the bottom, a bird above it, and pipes coming the other way.
+   Every spike in the meter is a clap; every clap is a flap; between claps the
+   only thing acting on the bird is gravity. The flap period is 0.538s — the
+   1.86 claps a second the physics asks for at level flight — and the meter,
+   the ring and the wingbeat all run off that one number, so the picture and
+   the game agree.
+
+   Everything is one <div class="stage stage--clappybird"> deep. The chrome
+   (.stage, .stage__grid, .stage__tag) and the reduced-motion twin's frame both
+   live in /styles.css; only this game's own parts are below.
+   ========================================================================= */
+
+.stage--clappybird {
+  --stage-h: clamp(230px, 42vw, 340px);
+  /* One clap. 1 / 1.86 s, rounded to the millisecond. Everything that beats
+     in this stage divides into it — change this and the whole strip stays in
+     time with itself. */
+  --clap: 0.538s;
+  /* How long a pipe takes to cross the strip. Sixteen claps, which puts four
+     claps between one pipe and the next — so the bird's rise and the gap it is
+     aiming at never drift apart on screen. */
+  --cross: 8.608s;
+  --sky-1: #10214a;
+  --sky-2: #1b3a72;
+  --pipe: #2f8f5b;
+  --pipe-lip: #56d089;
+}
+
+/* ---- The sky the whole thing happens in --------------------------------- */
+.cb {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 50% 110%, rgba(47, 228, 255, 0.16) 0%, transparent 62%),
+    linear-gradient(to bottom, var(--sky-1) 0%, var(--sky-2) 78%, #24508f 100%);
+}
+
+/* Clouds, parallaxed slower than the pipes so the strip reads as depth
+   rather than as one flat sheet sliding past. */
+.cb__clouds {
+  position: absolute;
+  inset: 0 0 34% 0;
+  width: 200%;
+  opacity: 0.5;
+  animation: cb-scroll calc(var(--cross) * 3.4) linear infinite;
+  background-repeat: no-repeat;
+  background-image:
+    radial-gradient(38px 15px at 6% 26%, rgba(255, 255, 255, 0.75), transparent 70%),
+    radial-gradient(26px 11px at 9% 30%, rgba(255, 255, 255, 0.6), transparent 70%),
+    radial-gradient(44px 17px at 21% 58%, rgba(255, 255, 255, 0.5), transparent 70%),
+    radial-gradient(30px 12px at 36% 20%, rgba(255, 255, 255, 0.62), transparent 70%),
+    radial-gradient(38px 15px at 56% 26%, rgba(255, 255, 255, 0.75), transparent 70%),
+    radial-gradient(26px 11px at 59% 30%, rgba(255, 255, 255, 0.6), transparent 70%),
+    radial-gradient(44px 17px at 71% 58%, rgba(255, 255, 255, 0.5), transparent 70%),
+    radial-gradient(30px 12px at 86% 20%, rgba(255, 255, 255, 0.62), transparent 70%);
+}
+
+/* ---- The pipes ---------------------------------------------------------- */
+/* One track, twice the width of the stage, sliding left by exactly half
+   itself. Eight pipes sit on it, and pipe i and pipe i+4 carry the identical
+   gap offset — which is what makes the wrap invisible. */
+.cb__track {
+  position: absolute;
+  inset: 0 0 28% 0;
+  width: 200%;
+  animation: cb-scroll var(--cross) linear infinite;
+}
+
+.cb__pipe {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--x);
+  width: 26px;
+}
+
+/* The gap is 100px tall and the bird's whole bob is 35px, so it threads every
+   pipe with room to spare at every stage height this strip is rendered at. */
+.cb__pipe::before,
+.cb__pipe::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to right, #1d6b41 0%, var(--pipe) 38%, #7ae8ac 62%, #1d6b41 100%);
+  border: 2px solid #14512f;
+  border-radius: 3px;
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.35);
+}
+.cb__pipe::before {
+  top: -4px;
+  height: calc(50% + var(--o, 0px) - 50px);
+  border-bottom: 5px solid var(--pipe-lip);
+}
+.cb__pipe::after {
+  top: calc(50% + var(--o, 0px) + 50px);
+  bottom: -4px;
+  border-top: 5px solid var(--pipe-lip);
+}
+
+/* ---- The ground --------------------------------------------------------- */
+.cb__ground {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 22%;
+  height: 6%;
+  background: linear-gradient(to bottom, #6ac06a 0%, #3f8a45 55%, #2c6733 100%);
+  border-top: 2px solid #a6e6a0;
+}
+
+/* ---- The bird ----------------------------------------------------------- */
+/* Held at a fixed x — the world moves, the bird does not — and given the only
+   vertical motion in the strip: up on the clap, down on gravity. */
+.cb__bird {
+  position: absolute;
+  left: 24%;
+  top: 36%;
+  width: 34px;
+  height: 26px;
+  margin-top: -13px;
+  z-index: 3;
+  animation: cb-flap var(--clap) infinite;
+}
+
+.cb__body {
+  position: absolute;
+  inset: 0;
+  border-radius: 52% 46% 48% 54%;
+  background: radial-gradient(70% 70% at 32% 30%, #6b3fd4 0%, #3b1d78 62%, #2a1259 100%);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.45);
+}
+/* Belly. */
+.cb__body::before {
+  content: "";
+  position: absolute;
+  left: 26%;
+  right: 14%;
+  bottom: 6%;
+  height: 46%;
+  border-radius: 50%;
+  background: #fdf6e6;
+}
+/* Beak. */
+.cb__body::after {
+  content: "";
+  position: absolute;
+  right: -8px;
+  top: 38%;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 10px solid #ffa33a;
+}
+
+.cb__eye {
+  position: absolute;
+  right: 22%;
+  top: 22%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: inset -2px 1px 0 0 #16103a;
+}
+
+/* The wing beats on the clap, not on a loop of its own: it is down at the
+   moment the bird starts to rise and swept back by the time it falls. */
+.cb__wing {
+  position: absolute;
+  left: 14%;
+  top: 8%;
+  width: 17px;
+  height: 12px;
+  border-radius: 60% 44% 52% 48%;
+  background: linear-gradient(140deg, #8b5cf0 0%, #5227ad 100%);
+  transform-origin: 82% 40%;
+  animation: cb-wing var(--clap) infinite;
+}
+
+/* ---- The clap ----------------------------------------------------------- */
+/* A ring off the bird on every flap. It is the only thing in the strip that
+   stands in for the sound, so it fires on the beat and nowhere else. */
+.cb__ring {
+  position: absolute;
+  left: 24%;
+  top: 36%;
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
+  z-index: 2;
+  border-radius: 50%;
+  border: 2px solid var(--cyan);
+  animation: cb-ring var(--clap) infinite;
+}
+.cb__ring--2 { animation-delay: calc(var(--clap) * 0.18); opacity: 0.55; }
+
+/* ---- The level meter ---------------------------------------------------- */
+/* What the microphone actually hands the game: one number, how loud the room
+   is right now. No waveform, because the game never keeps one. */
+.cb__meter {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 22%;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0 0.85rem;
+  background: linear-gradient(to bottom, rgba(7, 6, 15, 0.72), rgba(7, 6, 15, 0.94));
+  border-top: 1px solid var(--line-2);
+}
+
+.cb__meter-label {
+  font-family: var(--font-arcade);
+  font-size: 0.9rem;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  color: var(--cyan-t);
+  white-space: nowrap;
+}
+
+.cb__meter-rail {
+  position: relative;
+  flex: 1 1 auto;
+  height: 9px;
+  border-radius: 5px;
+  overflow: hidden;
+  background: rgba(47, 228, 255, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(47, 228, 255, 0.22);
+}
+
+.cb__meter-fill {
+  position: absolute;
+  inset: 0;
+  transform-origin: left center;
+  border-radius: 5px;
+  background: linear-gradient(to right, var(--cyan) 0%, var(--lime) 62%, var(--magenta) 100%);
+  animation: cb-level var(--clap) infinite;
+}
+
+/* The line the level has to cross to count as a clap. Nothing quieter moves
+   the bird, which is the whole of the sensitivity slider in Settings. */
+.cb__meter-thresh {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  left: 62%;
+  width: 2px;
+  background: var(--magenta);
+  box-shadow: var(--glow-m);
+}
+
+/* ---- Keyframes ---------------------------------------------------------- */
+@keyframes cb-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Fast up, then a fall that accelerates. The shape of one clap. */
+@keyframes cb-flap {
+  0%   { transform: translateY(16px)  rotate(14deg); animation-timing-function: cubic-bezier(0.15, 0.85, 0.3, 1); }
+  26%  { transform: translateY(-16px) rotate(-17deg); animation-timing-function: ease-out; }
+  42%  { transform: translateY(-19px) rotate(-7deg); animation-timing-function: cubic-bezier(0.55, 0, 0.9, 0.45); }
+  100% { transform: translateY(16px)  rotate(14deg); }
+}
+
+@keyframes cb-wing {
+  0%   { transform: rotate(38deg) scaleY(0.72); }
+  16%  { transform: rotate(-46deg) scaleY(1.06); }
+  55%  { transform: rotate(16deg) scaleY(0.9); }
+  100% { transform: rotate(38deg) scaleY(0.72); }
+}
+
+@keyframes cb-ring {
+  0%   { transform: scale(0.35); opacity: 0.9; }
+  70%  { transform: scale(2.4);  opacity: 0; }
+  100% { transform: scale(2.4);  opacity: 0; }
+}
+
+@keyframes cb-level {
+  0%   { transform: scaleX(0.14); }
+  8%   { transform: scaleX(0.94); }
+  30%  { transform: scaleX(0.34); }
+  70%  { transform: scaleX(0.17); }
+  100% { transform: scaleX(0.14); }
+}
+
+/* ---- The still twin ----------------------------------------------------- */
+/* /styles.css swaps .stage for .stage-static under prefers-reduced-motion;
+   these are only the bits particular to this game. */
+.stage-static--clappybird .stage-static__step svg { width: 46px; height: 46px; }
