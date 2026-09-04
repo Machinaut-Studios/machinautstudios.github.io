@@ -5,10 +5,12 @@
    THE POINT OF THIS ANIMATION. Nothing here is a touch. The strip is a mic
    level meter at the bottom, a bird above it, and pipes coming the other way.
    Every spike in the meter is a clap; every clap is a flap; between claps the
-   only thing acting on the bird is gravity. The flap period is 0.538s — the
-   1.86 claps a second the physics asks for at level flight — and the meter,
+   only thing acting on the bird is gravity. The flap period is 0.662s — the
+   1.51 claps a second the physics asks for at level flight — and the meter,
    the ring and the wingbeat all run off that one number, so the picture and
-   the game agree.
+   the game agree. (It was 0.538s / 1.86 until the game's gravity came down
+   from 1600 to 1300; the interval is 2 * flapImpulse / gravity, so it moves
+   whenever that dial does and this file has to move with it.)
 
    Everything is one <div class="stage stage--clappybird"> deep. The chrome
    (.stage, .stage__grid, .stage__tag) and the reduced-motion twin's frame both
@@ -17,14 +19,14 @@
 
 .stage--clappybird {
   --stage-h: clamp(230px, 42vw, 340px);
-  /* One clap. 1 / 1.86 s, rounded to the millisecond. Everything that beats
+  /* One clap. 1 / 1.51 s, rounded to the millisecond. Everything that beats
      in this stage divides into it — change this and the whole strip stays in
      time with itself. */
-  --clap: 0.538s;
+  --clap: 0.662s;
   /* How long a pipe takes to cross the strip. Sixteen claps, which puts four
      claps between one pipe and the next — so the bird's rise and the gap it is
-     aiming at never drift apart on screen. */
-  --cross: 8.608s;
+     aiming at never drift apart on screen. Keep it at 16 * --clap. */
+  --cross: 10.592s;
   --sky-1: #10214a;
   --sky-2: #1b3a72;
   --pipe: #2f8f5b;
