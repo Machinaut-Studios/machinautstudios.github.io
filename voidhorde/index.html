@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<!--
+  Voidhorde — a game by Machinaut Studios LLC
+  Copyright © 2026 Machinaut Studios LLC. All rights reserved. See /LICENSE.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Voidhorde — One ship. Thirty minutes. A horde that never stops. | Machinaut Studios LLC</title>
+  <meta name="description" content="Voidhorde is a top-down space bullet heaven. You only steer — every weapon fires itself. Six hulls with one ability each, ten weapons that evolve, and a warp every five minutes where you pick the next sector, its rule and the boss that guards it. At 30:00 the Ark closes the void. Premium at $4.99: no ads, no in-app purchases, no account, no network. Coming to iOS and Android; not on either store yet, and no date." />
+  <meta name="copyright" content="© 2026 Machinaut Studios LLC. All rights reserved." />
+  <meta name="theme-color" content="#07060f" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="canonical" href="https://machinautstudios.com/voidhorde/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Voidhorde — One ship. Thirty minutes. A horde that never stops." />
+  <meta property="og:description" content="A top-down space bullet heaven. You steer; the guns fire themselves. Six hulls, ten weapons that evolve, a warp every five minutes that lets you choose the sector, its rule and its boss — and the Ark at 30:00. One flat price, no ads, no IAP, no account, no network." />
+  <meta property="og:url" content="https://machinautstudios.com/voidhorde/" />
+  <meta property="og:image" content="https://machinautstudios.com/voidhorde/voidhorde-og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="1200" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="Voidhorde — a single cyan arrowhead ship at the bottom of a black field, with a wall of glowing green alien chevrons pressing down on it from above." />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <!-- Fonts: Orbitron (chrome display) + VT323 (arcade accents) + IBM Plex Mono (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Orbitron:wght@600;800;900&family=VT323&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ===================== NAV (editor tab bar) ===================== -->
+  <header class="nav tabbar">
+    <div class="tabbar__inner">
+      <a class="brand" href="/">
+        <img class="brand__logo" src="/logo.png" alt="" width="28" height="28" />
+        <span class="brand__name">MACHINAUT</span>
+        <span class="brand__sub">STUDIOS&nbsp;LLC</span>
+      </a>
+
+      <button class="tabbar__toggle" id="navToggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span aria-hidden="true"></span>
+      </button>
+
+      <nav class="tabs" id="nav-menu" aria-label="Primary">
+        <a class="tab" href="/#pipeline"><span class="tab__dot tab__dot--c"></span>pipeline.yml</a>
+        <a class="tab" href="/#ship"><span class="tab__dot tab__dot--l"></span>products/</a>
+        <a class="tab" href="/#studio"><span class="tab__dot tab__dot--v"></span>studio.blame</a>
+        <a class="tab tab--cta" href="/#complaint"><span class="tab__dot tab__dot--m"></span>feedback.sh</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <!-- ===================== HERO ===================== -->
+    <section class="hero hero--compact" aria-labelledby="voidhorde-title">
+      <div class="scanlines" aria-hidden="true"></div>
+      <!-- Drive plume and drifting scrap, in the ship's cyan and the horde's lime -->
+      <div class="motes" aria-hidden="true">
+        <span class="mote" style="--x:6%;--s:4px;--dur:18s;--d:-2s;--c:var(--cyan);--drift:22px;--rise:-240px"></span>
+        <span class="mote" style="--x:17%;--s:3px;--dur:23s;--d:-9s;--c:var(--lime);--drift:-18px;--rise:-280px"></span>
+        <span class="mote" style="--x:29%;--s:5px;--dur:16s;--d:-14s;--c:var(--cyan);--drift:26px;--rise:-220px"></span>
+        <span class="mote" style="--x:41%;--s:3px;--dur:21s;--d:-5s;--c:var(--lime);--drift:-24px;--rise:-300px"></span>
+        <span class="mote" style="--x:55%;--s:4px;--dur:25s;--d:-17s;--c:var(--cyan);--drift:20px;--rise:-260px"></span>
+        <span class="mote" style="--x:67%;--s:5px;--dur:19s;--d:-7s;--c:var(--violet);--drift:-22px;--rise:-230px"></span>
+        <span class="mote" style="--x:79%;--s:3px;--dur:22s;--d:-12s;--c:var(--lime);--drift:28px;--rise:-290px"></span>
+        <span class="mote" style="--x:91%;--s:4px;--dur:17s;--d:-3s;--c:var(--cyan);--drift:-20px;--rise:-250px"></span>
+      </div>
+      <div class="hero__inner">
+        <div class="app-hero__layout">
+          <img class="app-hero__icon" src="/voidhorde/voidhorde_icon.png" alt="Voidhorde icon — one cyan arrowhead ship below a descending wall of glowing green alien chevrons" width="152" height="152" />
+          <div class="app-hero__text">
+            <p class="stamp stamp--hero">&#9654; COMING SOON &nbsp;//&nbsp; iOS + ANDROID</p>
+            <h1 class="hero__title" id="voidhorde-title"><span class="n1">VOIDHORDE</span><span class="cursor" aria-hidden="true"></span></h1>
+            <p class="app-hero__tagline">One ship. Thirty minutes.<br />A horde that never stops.</p>
+            <p class="hero__sub">
+              A top-down <b>space bullet heaven</b>. You steer; the guns fire themselves. Kills
+              drop XP, level-ups deal three cards, and every five minutes a <b>warp</b> opens:
+              three sectors on three cards, each showing the rule it imposes and the boss that
+              guards its far end &mdash; pick one before the horde follows you through. At
+              <b>30:00</b> the Ark closes the void. Reaching it is the win; what you reached it
+              with is the score. Vampire Survivors gives you one map for thirty minutes.
+              Voidhorde gives you a route, chosen five times.
+            </p>
+            <div class="hero__actions">
+              <button class="btn btn--primary btn--play" type="button" disabled aria-disabled="true"
+                      aria-label="Coming soon to the App Store">
+                <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M16.37 1.43c0 1.06-.43 2.07-1.13 2.83-.76.82-1.99 1.45-3 1.37-.13-.99.39-2.05 1.05-2.74.74-.78 2.01-1.37 3.01-1.42.03.32.06.64.07-.04zm3.4 16.05c-.5 1.16-.74 1.67-1.38 2.7-.9 1.43-2.16 3.21-3.73 3.22-1.39.01-1.75-.91-3.64-.9-1.89.01-2.28.92-3.68.9-1.57-.01-2.77-1.62-3.67-3.05-2.51-3.98-2.77-8.65-1.23-11.13 1.1-1.76 2.83-2.79 4.46-2.79 1.66 0 2.7.91 4.07.91 1.33 0 2.14-.91 4.06-.91 1.45 0 2.99.79 4.08 2.16-3.59 1.96-3.01 7.09.66 8.89z" fill="currentColor"/>
+                </svg>
+                <span>Coming soon to the App Store</span>
+              </button>
+              <button class="btn btn--primary btn--play" type="button" disabled aria-disabled="true"
+                      aria-label="Coming soon to Google Play">
+                <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M4 3.5v17a1 1 0 0 0 1.5.87l14-8.5a1 1 0 0 0 0-1.74l-14-8.5A1 1 0 0 0 4 3.5z" fill="currentColor"/>
+                </svg>
+                <span>Coming soon to Google Play</span>
+              </button>
+              <a class="btn btn--ghost" href="/voidhorde/privacy/">PRIVACY POLICY</a>
+            </div>
+            <p class="app-note">
+              Both store buttons are dead on purpose. Voidhorde is not on the App Store and not
+              on Google Play yet, so there is nothing behind them to link to &mdash; they become
+              real links the day it is live, and not one day earlier. We are not going to give
+              you a date we cannot keep. What we can tell you now is the price and the shape:
+              <b>$4.99 once</b>, no ads, no in-app purchases, no account, no network.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== HOW IT PLAYS ===================== -->
+    <section class="section" id="how-it-plays" aria-labelledby="how-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; THE LOOP</p>
+        <h2 class="section__title chrome" id="how-h">HOW IT PLAYS</h2>
+      </div>
+      <p class="section__lead">
+        Spawn, survive, level up, warp, boss, repeat, Ark. Thirty minutes end to end, and the
+        only thing you ever do with your thumb is <b>move</b>. A darksynth score runs under all
+        of it.
+      </p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">THE CONTROL</span>
+          <h3 class="cell__title">STEER ONLY</h3>
+          <p class="cell__text">One thumb, or WASD, or a stick. <b>Every weapon fires itself</b>, and where you point the ship is where the forward guns aim &mdash; so movement is the whole skill, and there is nothing to explain. No aiming, no fire button, no reload.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">THE HULLS</span>
+          <h3 class="cell__title">SIX SHIPS, ONE BUTTON</h3>
+          <p class="cell__text">Lancer, Bastion, Warden, Reaver, Chorus, Shard. Each has its own stat spread, its own starting weapon and exactly one <b>Boost</b> on a cooldown &mdash; the only button in the game. Lancer dashes untouchable; Bastion throws up a shield wall; Warden fires an EMP; Reaver rams and heals off the kills; Chorus regrows hull; Shard halves every cooldown. A hull changes how you play, not how you look.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">THE ARSENAL</span>
+          <h3 class="cell__title">TEN WEAPONS THAT EVOLVE</h3>
+          <p class="cell__text">Pulse Laser, Flak Cannon, Seeker Missiles, Railgun, Orbital Drones, Ion Field, Arc Coil, Mine Layer, Plasma Orbs, Beam Turret &mdash; each with its range, fire rate, pierce and aim mode <b>stated on the card</b>. Max one out, pair it with the right one of twelve passives, and it becomes something else: a Railgun becomes a Mass Driver, Plasma Orbs become a Singularity. Six weapon slots, six passive slots. Builds happen.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">THE WARP</span>
+          <h3 class="cell__title">A RUN THAT IS A ROUTE</h3>
+          <p class="cell__text">At 5, 10, 15, 20 and 25 minutes a warp opens and deals three sector cards, seeded by the run. Seven sectors &mdash; the Open Void, an asteroid belt, a nebula, the Pirate Straits, the Hive, a ship graveyard, the Dark Expanse &mdash; and nine rules that can ride on them: meteors drift through, shields stop regenerating, scrap pays double, sensors go dark. <b>The boss is on the card before you commit</b>, and arrival buys you a three-second calm the genre never gives you.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">THE HORDE</span>
+          <h3 class="cell__title">THREE FACTIONS, SEVEN BOSSES</h3>
+          <p class="cell__text">Seventeen enemy types across the green organic <b>Swarm</b>, the rust-and-brass <b>Rust Covenant</b> that shoots back, and the violet machine <b>Provenance</b> that shields and splits &mdash; plus drifting meteors you can shoot for scrap and mines you should not touch. Six bosses guard the sectors. The seventh is the Ark, it is unkillable, and it arrives at 30:00 to close the void.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">BETWEEN RUNS</span>
+          <h3 class="cell__title">THE HANGAR, AND THE DAILY</h3>
+          <p class="cell__text">Salvage converts at the end of every run &mdash; win or die &mdash; and buys twelve permanent <b>refits</b>: more hull, more damage, a wider pickup radius, a reroll charge, a fourth card. Hulls and weapons unlock by <b>doing things</b> (survive ten minutes, reach level 20, kill 500 Rust Covenant, beat the Hive Matriarch), never by paying. And there is one <b>Daily</b>: a date-seeded run, the same ship and the same seed for everybody, with a local best and a streak that counts days played &mdash; it pays out whether you reached the Ark or died at minute two.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== WHAT IT COSTS ===================== -->
+    <section class="section section--alt" id="cost" aria-labelledby="cost-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; THE HONEST BIT</p>
+        <h2 class="section__title chrome" id="cost-h">ONE PRICE, FOREVER</h2>
+      </div>
+      <p class="section__lead">
+        Voidhorde is a premium game and nothing else. <b>No ads. No in-app purchases. No
+        account, no sign-in. Fully offline.</b> There is no currency to buy, no energy meter, no
+        season pass and no DLC bait &mdash; none of those things were built, so none of them can
+        arrive in an update you didn't ask for. The meta progression is the player's, not the
+        store's: every hull, weapon and refit is earned by playing.
+      </p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">MOBILE</span>
+          <h3 class="cell__title">iOS + ANDROID &mdash; $4.99</h3>
+          <p class="cell__text">The same price on both stores, paid once, up front. iPhone and iPad; Android phones and tablets. Nothing to restore, because there is nothing to buy inside.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">DESKTOP</span>
+          <h3 class="cell__title">macOS &mdash; SAME BUILD</h3>
+          <p class="cell__text">The Mac version comes off the same codebase and the same deterministic sim, signed and notarised by the same pipeline. It has no store page of its own yet, so there is no button here for it.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">DESKTOP &nbsp;//&nbsp; LATER</span>
+          <h3 class="cell__title">STEAM &mdash; $6.99 PLANNED</h3>
+          <p class="cell__text">A Windows and macOS release on Steam is what we want to do next. That figure is the intended launch price in USD and nothing more: there is <b>no Steamworks page, no build and no date</b>, and there will be no link here until all three exist.</p>
+        </li>
+      </ul>
+      <p class="app-note">
+        The mobile price is the price the store records will carry at launch. The Steam figure is
+        a plan, not a listing.
+      </p>
+    </section>
+
+    <!-- ===================== WHERE IT RUNS ===================== -->
+    <section class="section" id="platforms" aria-labelledby="platforms-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; ONE CODEBASE</p>
+        <h2 class="section__title chrome" id="platforms-h">WHERE IT RUNS</h2>
+      </div>
+      <p class="section__lead">
+        Built with Flutter and Flame across iOS, Android and macOS. The simulation underneath is
+        pure Dart with <b>no floating-point numbers anywhere</b> &mdash; fixed-point positions, a
+        committed sine table, integer square roots &mdash; so it is bit-identical on every device
+        that runs it.
+      </p>
+      <ul class="grid" role="list">
+        <li class="cell">
+          <span class="cell__stamp">DETERMINISM</span>
+          <h3 class="cell__title">THE SAME SEED IS THE SAME RUN</h3>
+          <p class="cell__text">A run is a seed plus your inputs, and replaying those reproduces it <b>tick for tick</b>, on a phone or on a Mac. That is why today's Daily is genuinely the same challenge for everyone who plays it, rather than approximately the same one.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">PERFORMANCE</span>
+          <h3 class="cell__title">A THOUSAND ENEMIES, ONE DRAW</h3>
+          <p class="cell__text">The world is parallel integer arrays &mdash; a thousand enemies and two thousand projectiles &mdash; sorted through a counting-sort grid, and the whole field is drawn from one packed sprite atlas in a single call per blend mode per frame. Reduced motion is honoured by every painter, particle and camera shake, not most of them.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== PRIVACY TEASER ===================== -->
+    <section class="section section--alt" id="privacy" aria-labelledby="privacy-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; ON THE RECORD</p>
+        <h2 class="section__title chrome" id="privacy-h">IT COLLECTS NOTHING</h2>
+      </div>
+      <p class="section__lead">
+        Voidhorde has no server, no account, no analytics and no crash reporter, and it makes
+        <b>no network requests at all</b>. The merged Android release manifest &mdash; the one
+        that actually ships, after every plugin's manifest is folded in &mdash; declares no
+        <b>INTERNET</b> permission, no camera, microphone, location, contacts, storage or
+        notification permission, and nothing a phone would ever prompt you about. Its iOS
+        property list declares no usage strings, and the macOS release build is sandboxed with no
+        network entitlement. Your settings, your Hangar, your records and your Daily streak are
+        four small entries in your own device's local storage and they stay there. Purchases are
+        handled by the store you bought from; we never see payment details. The full details
+        &mdash; including the one signature-level entry that Android's own libraries generate,
+        and how to erase every byte the game stored &mdash; are on the privacy page.
+      </p>
+      <p>
+        <a class="btn btn--ghost" href="/voidhorde/privacy/">READ THE VOIDHORDE PRIVACY POLICY</a>
+      </p>
+    </section>
+
+    <!-- ===================== CREDITS ===================== -->
+    <section class="section" id="credits" aria-labelledby="credits-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; WHO MADE THE NOISE</p>
+        <h2 class="section__title chrome" id="credits-h">CREDITS</h2>
+      </div>
+      <p class="section__lead">
+        Music by <b>Karl Casey @ White Bat Audio</b>. Sound effects by
+        <b>Magic Sound Effects</b>. Pixel art curated from licensed
+        <b>CraftPix</b> packs. Everything else came off our own line.
+      </p>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER (status bar) ===================== -->
+  <footer class="footer footer--bar">
+    <div class="statusbar">
+      <span class="sb sb--branch"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="5" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="6" cy="19" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="9" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 7.6v8.8M18 11.6c0 3.2-3 3.6-6 4.2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>main &#10003;</span>
+      <span class="sb">0 problems</span>
+      <span class="sb">temperature 1.0</span>
+      <span class="sb sb--warm">GPU 88.4&deg;C</span>
+      <span class="sb">Ln &#8734;, Col 1</span>
+      <span class="sb sb--flow">prompt &#8594; accept &#8594; deploy</span>
+      <span class="sb sb--right">autocomplete: on &nbsp;&middot;&nbsp; brakes: off</span>
+    </div>
+
+    <div class="footer__body">
+      <img class="footer__logo" src="/logo.png" alt="" width="44" height="44" />
+
+      <p class="vibe vibe--foot">You steer. The guns argue.</p>
+
+      <nav class="footer__links" aria-label="Footer">
+        <a href="/">Home</a>
+        <a href="/voidhorde/">Voidhorde</a>
+        <a href="/voidhorde/privacy/">Privacy Policy</a>
+        <a href="/clappybird/">Clappy Bird</a>
+        <a href="/spellheir/">Spellheir</a>
+        <a href="/slateveil/">Slateveil</a>
+        <a href="/starknell/">STARKNELL</a>
+        <a href="/space-couch-command/">Space Couch Command</a>
+        <a href="/voicecmd/">VoiceCmd</a>
+        <a href="/tooter/">Tooter</a>
+        <a href="/emberseam/">Emberseam</a>
+        <a href="/anvilspell/">Anvilspell</a>
+        <a href="/hushword/">Hushword</a>
+        <a href="/crittergram/">Critter Gram</a>
+      </nav>
+
+      <p class="footer__text">
+        Voidhorde is a game by MACHINAUT STUDIOS LLC &mdash; prompt &#8594; accept &#8594; deploy,
+        no roadmap, no follow-up questions. One ship, thirty minutes, and a horde that does not
+        care how your build was going.
+        <span class="footer__cursor cursor" aria-hidden="true"></span>
+      </p>
+
+      <p class="footer__fine">&copy; 2026 Machinaut Studios LLC. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
