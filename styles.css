@@ -1163,13 +1163,26 @@ html.js-motion .stage:not(.is-live) *::after { animation-play-state: paused; }
 /* ---- Reveal on scroll -------------------------------------------------- */
 /* JS tags only what is still below the fold, so nothing on screen can flash
    blank while waiting for this stylesheet's opinion. */
-html.js-motion [data-reveal] {
+/* Deliberately an animation with `backwards` fill rather than a transition to
+   an `.is-in { transform: none }` end state. That end state would need
+   `html.js-motion [data-reveal].is-in` — specificity (0,3,1) — which outranks
+   `.cell:hover` at (0,2,0) and would permanently kill the card hover lift on
+   every panel that had ever been revealed. `backwards` applies the `from`
+   keyframe only BEFORE the animation starts (covering the stagger delay), and
+   nothing after it ends, so a finished panel is back on its own styles and
+   :hover works normally again. */
+html.js-motion [data-reveal]:not(.is-in) {
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
-  transition-delay: calc(var(--i, 0) * 80ms);
 }
-html.js-motion [data-reveal].is-in { opacity: 1; transform: none; }
+html.js-motion [data-reveal].is-in {
+  animation: reveal-rise 0.55s var(--ease) backwards;
+  animation-delay: calc(var(--i, 0) * 80ms);
+}
+@keyframes reveal-rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
 
 /* Spec cards get their stamp thumped on once the card lands. */
 html.js-motion .cell[data-reveal].is-in .cell__stamp {
