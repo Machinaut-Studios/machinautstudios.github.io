@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<!--
+  Privacy Policy for Clackyard — Machinaut Studios LLC
+  Copyright © 2026 Machinaut Studios LLC. All rights reserved. See /LICENSE.
+
+  Both stores link here. Every claim below was checked against the app's
+  source on 2026-09-23 (Machinaut-Studios/clackyard): lib/services/net/
+  eos_*.dart and lan_transport.dart, lib/data/persistence/*, the Android
+  manifest (and the Epic SDK's own .aar manifest, which merges into it), the
+  iOS and macOS Info.plists and entitlements, and pubspec.yaml. If the app
+  starts sending anything new, this page changes BEFORE that build ships.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Privacy Policy for Clackyard | Machinaut Studios LLC</title>
+  <meta name="description" content="Privacy policy for Clackyard by Machinaut Studios LLC. We collect nothing: no account, no sign-in, no server of ours, no analytics, no crash reporting, no advertising and no in-app purchases. Settings, stats and saved games stay on your device. Solo games and same-Wi-Fi tables never leave your own network. Online play is opt-in and uses Epic Online Services for room discovery and for carrying packets between players; this page lists exactly what reaches Epic and what does not, and how to erase everything the game saved." />
+  <meta name="robots" content="index, follow" />
+  <meta name="copyright" content="© 2026 Machinaut Studios LLC. All rights reserved." />
+  <meta name="theme-color" content="#07060f" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="canonical" href="https://machinautstudios.com/clackyard/privacy/" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Privacy Policy for Clackyard" />
+  <meta property="og:description" content="No account, no analytics, no ads, no in-app purchases, and no server of ours. Solo and same-Wi-Fi tables never leave your network. Online play is opt-in, anonymous and per-device — and this page says exactly what reaches Epic Online Services." />
+  <meta property="og:url" content="https://machinautstudios.com/clackyard/privacy/" />
+
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <!-- Fonts: Orbitron (chrome display) + VT323 (arcade accents) + IBM Plex Mono (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Orbitron:wght@600;800;900&family=VT323&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ===================== NAV (editor tab bar) ===================== -->
+  <header class="nav tabbar">
+    <div class="tabbar__inner">
+      <a class="brand" href="/">
+        <img class="brand__logo" src="/logo.png" alt="" width="28" height="28" />
+        <span class="brand__name">MACHINAUT</span>
+        <span class="brand__sub">STUDIOS&nbsp;LLC</span>
+      </a>
+
+      <button class="tabbar__toggle" id="navToggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span aria-hidden="true"></span>
+      </button>
+
+      <nav class="tabs" id="nav-menu" aria-label="Primary">
+        <a class="tab" href="/#pipeline"><span class="tab__dot tab__dot--c"></span>pipeline.yml</a>
+        <a class="tab" href="/#ship"><span class="tab__dot tab__dot--l"></span>products/</a>
+        <a class="tab" href="/#studio"><span class="tab__dot tab__dot--v"></span>studio.blame</a>
+        <a class="tab tab--cta" href="/#complaint"><span class="tab__dot tab__dot--m"></span>feedback.sh</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="section">
+      <article class="legal">
+        <h1>Privacy Policy for Clackyard</h1>
+        <p class="legal__meta">Effective September 23, 2026 &middot; Last updated September 23, 2026</p>
+
+        <p class="legal__lead">
+          Clackyard ("the game") is a dominoes game &mdash; Mexican Train and
+          Chicken Foot &mdash; developed and published by Machinaut Studios LLC
+          ("we", "us"). This policy explains what data the game handles. The
+          short version: <b>we collect nothing, we run no server, and there is
+          no account to make.</b> There is no analytics, no crash reporter, no
+          advertising and no in-app purchase code in the build. Your name, your
+          avatar, your settings, your lifetime stats and your saved games are
+          written to your own device and stay there. A solo game against bots
+          and a table played over your own Wi-Fi send nothing past your own
+          network. Online play is the one exception, it is off until you choose
+          it, and <a href="#online">the section below</a> says exactly what it
+          sends, to whom, and what it still does not send.
+        </p>
+
+        <h2>Information we collect</h2>
+        <p>
+          None. We operate no server for Clackyard and we receive nothing from
+          it. There is no analytics SDK, no crash-reporting SDK, no advertising
+          SDK and no attribution SDK in the build. There is no account to create
+          and no sign-up: we never ask for your name, email address, phone
+          number, contacts or anything else. We build no profile of you, we have
+          nothing to sell, rent or trade, and we hold no record that you exist.
+          The name and avatar you pick are for the other players at your table
+          to see; they are not sent to us, because there is no us to send them
+          to.
+        </p>
+
+        <h2>What the game stores, and where</h2>
+        <p>
+          Everything Clackyard remembers is written to your device's own private
+          app storage and stays there. It is kept under a handful of keys:
+        </p>
+        <ul>
+          <li><b>Your settings and your identity</b> (<code>cy.settings</code>) &mdash; the display name you typed (up to 16 characters, and blank until you type one), which of the twelve avatars you picked, sound, haptics, reduce motion, whether tiles show pips or numerals, whether your hand's running total is shown, the last room name you used, the house rules you last hosted with, and a random player id. That id is sixteen hexadecimal characters drawn from your device's cryptographic random source on first run. It is not a device identifier, an advertising identifier or anything derived from your hardware, your account or your name &mdash; it exists so that a host can recognise you if your phone drops off the table mid-round and comes back.</li>
+          <li><b>Your lifetime stats</b> (<code>cy.stats</code>) &mdash; games and rounds played and won, rounds you went out in, rounds that ended blocked, your best game, total points, the largest table you have sat at, and games played and won of each of the two games. Numbers only, never sent over the network, and there is a "Reset stats" button in Settings.</li>
+          <li><b>The table in progress</b> (<code>cy.table</code>) &mdash; so that closing the game mid-round and coming back does not lose it. If you are the host this is the whole table: the room name, the rules, the roster (every player's display name, avatar and player id), every hand, the trains on the board and the boneyard. If you joined someone else's table it is only what your device needs to dial back in: the host's address or join code, and the door code you knocked with if the table was private.</li>
+          <li><b>Your saved games</b> (<code>cy.saves</code> and one <code>cy.save.&hellip;</code> entry per game) &mdash; up to twenty unfinished games, each a whole table as described above, plus the few facts the shelf lists: room name, which game, which network, the round, the seat names and when it was saved. The oldest falls off when a twenty-first is saved, and any of them can be deleted from the shelf.</li>
+        </ul>
+        <p>
+          On every platform these live in the ordinary per-app storage the
+          platform gives every app. None of it is uploaded to us or synced
+          between your devices &mdash; we have nowhere to put it. The one copy
+          that can exist elsewhere is your platform's own device backup
+          (iCloud Backup, or Android's backup to your Google account), which may
+          include it along with every other app's data, under your account and
+          not ours. To erase it, see
+          <a href="#data-deletion">Deleting your data</a>.
+        </p>
+        <p>
+          The game also writes diagnostic lines to your platform's ordinary
+          developer console while it runs. Those lines are not saved to a file
+          and are not sent anywhere; they exist for a developer with the device
+          in hand, and they disappear when the app closes.
+        </p>
+
+        <h2>Permissions</h2>
+        <p>
+          Clackyard is a multiplayer game, so it needs networking, and
+          networking is the <b>whole</b> permission story. It asks for no
+          camera, no microphone, no location, no contacts, no photo library, no
+          files of yours and no notifications, and it uses no advertising
+          identifier.
+        </p>
+        <ul>
+          <li><b>Android</b> &mdash; the app declares exactly four permissions: <code>INTERNET</code>, <code>ACCESS_NETWORK_STATE</code>, <code>ACCESS_WIFI_STATE</code> and <code>CHANGE_WIFI_MULTICAST_STATE</code>. All four are normal install-time permissions, so none of them shows you a prompt. They are what lets the host open a table on your network, announce it so other devices can find it, and keep Android from dropping those announcements while the screen is on battery. Epic's Android library, which a build with online play carries, adds nothing to that list but a second declaration of <code>INTERNET</code>; it also brings package-visibility queries for a web browser and Custom Tabs, and an activity that receives the return from an Epic account sign-in, which this game never performs. Beyond that there is the package-visibility <code>queries</code> block for the system "process text" action that the Flutter engine includes as standard, and a link filter that lets an invite link open in the app (see <a href="#invites">Invite links</a>). None of those is a permission, and none grants access to anything.</li>
+          <li><b>iOS / iPadOS</b> &mdash; the only usage description in the app's <code>Info.plist</code> is the local-network one, which is what iOS shows you, once, the first time you host or look for a table on your Wi-Fi. The two Bonjour service types the app declares (<code>_clackyard._tcp</code> and <code>_clackyard._udp</code>) belong to that same local-network permission. No other usage description is declared, so there is nothing else iOS can prompt you for. The app also declares that it uses no non-exempt encryption.</li>
+          <li><b>macOS</b> &mdash; the release build runs inside the App Sandbox and declares exactly two capabilities beyond it: outgoing network connections and incoming ones. Those are what let a sandboxed Mac join a table and host one. There is no camera, microphone, location, contacts or file-access entitlement. Recent versions of macOS may also ask once for Local Network access.</li>
+          <li><b>Windows and Linux</b> &mdash; the desktop builds request nothing beyond their own network sockets and their own settings folder. Windows may ask whether to let Clackyard through its firewall the first time you host; that is the operating system's question, and allowing private networks is enough for a table on your own Wi-Fi.</li>
+        </ul>
+        <p>
+          Development builds of any Flutter app carry extra permissions so the
+          tooling can hot-reload over a cable. Those debug and profile builds
+          are never distributed; the release that goes to Google Play carries
+          the four permissions described above.
+        </p>
+
+        <h2>Playing solo, and playing on the same Wi-Fi</h2>
+        <p>
+          <b>Play vs bots</b> uses no network at all. The whole game &mdash;
+          tiles, rules, opponents &mdash; runs on the device in your hand.
+        </p>
+        <p>
+          A <b>Same Wi-Fi</b> table stays on your own network and does not
+          touch the internet. One device hosts: it listens on a TCP port and
+          announces the room by UDP broadcast about once a second, so the other
+          devices on the same network can list it without anyone typing an
+          address. The announcement carries the room name the host typed (up to
+          twenty characters), the host's chosen display name, the host's random
+          player id described above, the port, how many seats are taken, how
+          many there are, whether the game has started, whether the table is
+          private, which of the two games it plays, and which app and protocol
+          version sent it. Once a player joins, what travels between the
+          devices is the game: names, avatars, player ids, moves, the seven
+          built-in emotes, and each seat's own view of the table. It goes to the
+          other players' devices and to nothing else. It does not pass through
+          us, and it does not leave your network.
+        </p>
+        <p>
+          One device holds the only true state of the game and sends every other
+          seat a copy with every other player's hand and the whole boneyard
+          removed before it is sent. A tile you are not holding is not "hidden
+          by the interface" &mdash; its value is simply not in the message.
+          Nobody at the table, the host included, is sent a tile they are not
+          entitled to see.
+        </p>
+
+        <h2 id="online">Online play, and exactly what reaches Epic</h2>
+        <p>
+          Playing across the internet is the one part of Clackyard that involves
+          a company other than the store you bought it from, and it is opt-in
+          twice over.
+        </p>
+        <ul>
+          <li>The <b>build</b> has to carry Epic Online Services credentials, which are supplied at build time and are not in the source. A build without them cannot offer online play at all; the Online option is greyed out and says so.</li>
+          <li><b>You</b> have to choose it: switch the table from <b>Same Wi-Fi</b> to <b>Online</b> on the Host or Join screen, open an invite link (which opens the Join screen already set to Online, with the code filled in), or resume a saved game that was played online. Wi-Fi is what is selected every time you open the Host or Join screen yourself.</li>
+        </ul>
+        <p>
+          If you never do any of those, the game never contacts Epic. It does
+          not check in, does not log in in the background, and does not start
+          Epic's SDK at all &mdash; that happens the first time an online table
+          is opened or searched for, and not before.
+        </p>
+        <p>When you do choose Online, this is the complete list of what happens:</p>
+        <ul>
+          <li><b>An anonymous, per-device sign-in.</b> The game asks Epic for a Device ID credential and logs in with it. There is no Epic account, no email, no password, no web page and no prompt &mdash; nothing for you to sign up for and nothing for you to remember. Two values go with that request: a coarse device model, which is literally the name of your operating system ("ios", "android", "macos", "windows" or "linux") and nothing more specific; and a display name, which is hard-coded to the word "Player" rather than anything you typed. Epic returns an anonymous per-device id, and Epic's SDK keeps the credential in local storage it manages on your device. Like any online service, Epic also sees your internet address and the ordinary technical details its SDK sends with each request, such as the SDK's own version and your platform.</li>
+          <li><b>Hosting publishes a room record to Epic.</b> While your table is open, Epic holds a lobby record for it so other players can find it. It carries the six-character join code, which app and protocol version it is, which of the two games it plays, a listed flag, <b>the room name you typed</b>, <b>the display name you typed in Settings</b>, the random player id described above, how many seats are taken, the maximum, and whether the game has started. A listed table can be seen by anyone searching from a compatible build. A table you mark <b>private</b> is left out of that room list and is found only by its code, but its record carries the same fields. If you would rather not publish a name, change it in Settings before you host &mdash; the field is yours and the game does not require it. The record is deleted when the table closes.</li>
+          <li><b>Joining searches Epic's lobbies</b> for that code, or lists the listed tables of the same protocol version, and joining a table adds your anonymous Epic id to that table's lobby while you are at it.</li>
+          <li><b>The game's packets travel over an Epic peer-to-peer connection</b> between the players' devices. They are the same messages the Wi-Fi game sends &mdash; names, avatars, player ids, moves, emotes, and each seat's masked view of the table. Epic's job is to get the devices talking: it first tries to connect them directly, in which case each device learns the other's internet address, as with any peer-to-peer connection; where a direct connection cannot be made, Epic relays the bytes between them. Epic is a US company and operates that service on its own infrastructure and under its own policies; see the <a href="https://www.epicgames.com/site/en-US/privacypolicy" target="_blank" rel="noopener noreferrer">Epic Games privacy policy</a>.</li>
+        </ul>
+        <p>And this is what does <b>not</b> happen, even then:</p>
+        <ul>
+          <li><b>The game is still yours.</b> The host's device holds the only true state, runs every rule, and masks every other seat exactly as it does on Wi-Fi. Epic carries bytes and lists rooms. It does not hold the boneyard, decide a turn, or see anyone's hand.</li>
+          <li><b>There is still no account</b> &mdash; nothing to create, nothing to sign into, nothing to delete, and no way to link one table to another except by the anonymous per-device identity Epic issued.</li>
+          <li><b>We still receive nothing.</b> There is no Clackyard server, no database and no telemetry of ours anywhere in the picture. Nothing about your game reaches Machinaut Studios, online or otherwise.</li>
+          <li><b>There is no chat.</b> The only things a player can put in front of another player are seven fixed emotes, a display name of at most sixteen characters, and &mdash; if they are the host &mdash; a room name of at most twenty. There is no message box, no voice, no images and no friends list; those two names are the only text anyone types, and the room name of an online table is published to Epic's room record along with the host's display name.</li>
+        </ul>
+
+        <h2 id="invites">Invite links</h2>
+        <p>
+          The host of an online table can send an invite link of the form
+          <code>machinautstudios.com/<wbr />clackyard/<wbr />join/<wbr />?c=CODE</code>.
+          Building that link is plain text work inside the app; it is handed to
+          your device's own share sheet, and you pick the recipient in your own
+          messaging app. The game never sees your contacts. The link carries the
+          join code and nothing else.
+        </p>
+        <p>
+          On a device that has Clackyard, the operating system opens the link in
+          the app instead of a browser &mdash; it confirms the app may do that
+          by checking a file on our website, and involves no data of yours. On a
+          device that does not, the link opens an ordinary web page on this
+          site, which shows the code and where to get the game. That page runs no
+          analytics and sets no cookies. Like any web page it is fetched from our
+          host (GitHub Pages) and loads fonts from Google Fonts, and those
+          services see the request, including the code in the address, the way
+          they see any visit to any site.
+        </p>
+
+        <h2>Purchases</h2>
+        <p>
+          Clackyard is a premium game: <b>one flat price, no ads, no in-app
+          purchases, no subscription and no currency of any kind.</b> There is
+          nothing to buy inside the game, which is why the build contains no
+          billing or in-app-purchase library at all and why "restore purchases"
+          does not exist. Your purchase of the game itself is processed entirely
+          by the store you bought it from. We do not receive or store your
+          payment details, card information or billing address; what reaches us
+          is an aggregate sales figure, never anything about an individual
+          buyer. The stores handle your purchase under their own policies:
+          <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">Apple</a>
+          and
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google</a>.
+        </p>
+
+        <h2>Data sharing</h2>
+        <p>
+          We do not sell, rent or trade your data, and we have none to share. No
+          third party receives anything from a solo game or a same-Wi-Fi table,
+          because those send nothing off your network. The only third parties in
+          the picture at all are the store that distributes Clackyard and
+          processes its purchase, and &mdash; only if you choose an online table
+          &mdash; Epic Online Services, for the room discovery and packet
+          carriage described above.
+        </p>
+
+        <h2>Children's privacy</h2>
+        <p>
+          Clackyard is a dominoes game with no gambling, no advertising, no
+          accounts and no chat: the only things one player can put in front of
+          another are seven fixed emotes, a display name capped at sixteen
+          characters and, from the host, a room name capped at twenty. We do not
+          knowingly collect personal information from anyone, children included
+          &mdash; we collect none from anybody, and there is no advertising
+          identifier in use. A display name is typed by the person playing, so
+          if a child is playing on a shared device it is worth picking a display
+          name that is not their real one &mdash; particularly before hosting an
+          online table, where that name and the room name go into Epic's room
+          record for other players to read. Solo and same-Wi-Fi play publish
+          nothing anywhere.
+        </p>
+
+        <h2>Your choices</h2>
+        <ul>
+          <li>Play solo or on your own Wi-Fi and nothing leaves the building. That is the default, on every screen, every time.</li>
+          <li>Leave the name field blank or type any name you like; the game shows "Player" if you leave it empty, and it is editable in Settings whenever you want. The room name you host under is the other thing anyone reads, so name an online table with that in mind.</li>
+          <li>Never choose Online, and the game never contacts Epic.</li>
+          <li>Mark an online table private and it stays out of the room list; only people you give the code can find it.</li>
+          <li>Reset your lifetime stats from Settings, with a confirmation, and delete any saved game from the shelf, at any time.</li>
+          <li>Erase everything the game saved, with no request to file and nobody to ask &mdash; see below.</li>
+          <li>Delete the app, which removes everything it stored along with it.</li>
+        </ul>
+
+        <h2 id="data-deletion">Deleting your data</h2>
+        <p>
+          Every piece of Clackyard data lives on your device, so you delete it
+          yourself and it is gone for good. There is no account for us to close,
+          no copy on a server, no backup of ours, and no request to file with us
+          &mdash; we could not delete your data if you asked, because we never
+          had it. To erase it:
+        </p>
+        <ol>
+          <li><b>1.</b> <b>Android</b> &mdash; open <b>Settings &rarr; Apps &rarr; Clackyard &rarr; Storage</b> and tap <b>Clear storage</b>. Your name, avatar, settings, lifetime stats, the table in progress and every saved game are erased; the app stays installed and starts as if new.</li>
+          <li><b>2.</b> <b>Android</b> &mdash; or touch and hold the Clackyard icon and choose <b>Uninstall</b>. The app and all of its data go together.</li>
+          <li><b>3.</b> <b>iOS / iPadOS</b> &mdash; touch and hold the Clackyard icon, tap <b>Remove App</b>, then <b>Delete App</b>. This removes the app along with everything it stored. (Choosing <b>Offload App</b> instead deliberately keeps the data for when you reinstall.)</li>
+          <li><b>4.</b> <b>macOS</b> &mdash; quit the game, then drag <b>Clackyard</b> from your Applications folder to the Trash and delete the folder <b>~/Library/<wbr />Containers/<wbr />com.machinautstudios.<wbr />clackyard</b> (in Finder, use <b>Go &rarr; Go to Folder&hellip;</b> and paste that path). The app is sandboxed, so everything it saved is inside that one container.</li>
+          <li><b>5.</b> <b>Windows</b> &mdash; quit the game, then delete the <b>Machinaut Studios LLC\<wbr />Clackyard</b> folder inside <b>%APPDATA%</b> (paste <b>%APPDATA%</b> into the File Explorer address bar to get there). Uninstalling the game does not remove that folder; deleting it does.</li>
+          <li><b>6.</b> <b>Linux</b> &mdash; quit the game and delete the folder <b>~/.local/<wbr />share/<wbr />com.machinautstudios.<wbr />clackyard</b> (or the same name under <b>$XDG_DATA_HOME</b>, if you have set it).</li>
+          <li><b>7.</b> <b>If you played online</b> &mdash; removing the app removes the game's own data, including anything it kept about an online table. The anonymous device credential belongs to Epic's SDK rather than to us, and any record Epic keeps of it is governed by the <a href="https://www.epicgames.com/site/en-US/privacypolicy" target="_blank" rel="noopener noreferrer">Epic Games privacy policy</a>; Epic is who to ask about it, and there is no name, email or account attached to it in the first place. A room record disappears from Epic's lobby list when the table closes.</li>
+          <li><b>8.</b> <b>Any platform</b> &mdash; that is the entire procedure. Nothing about you exists on any machine of ours, so there is nothing left to request, revoke, export or wait on.</li>
+        </ol>
+        <p>
+          Your purchase is the one thing this does not erase, and it is not ours
+          to erase: the record of what you bought is held by the store. Deleting
+          the game does not refund or cancel it, and reinstalling from the same
+          store account gives you the game back &mdash; without your old stats
+          and saved games, which are gone.
+        </p>
+
+        <h2>Changes to this policy</h2>
+        <p>
+          We may update this policy from time to time. Material changes will be
+          reflected by updating the "Last updated" date above. If Clackyard ever
+          gained a feature that sent something new anywhere, this page would say
+          so before that version shipped.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+          Clackyard is published by Machinaut Studios LLC. Questions about this
+          policy, or about the game, can be sent to
+          <a href="mailto:info@machinautstudios.com">info@machinautstudios.com</a>.
+        </p>
+      </article>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER (status bar) ===================== -->
+  <footer class="footer footer--bar">
+    <div class="statusbar">
+      <span class="sb sb--branch"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="5" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="6" cy="19" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="9" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 7.6v8.8M18 11.6c0 3.2-3 3.6-6 4.2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>main &#10003;</span>
+      <span class="sb">0 problems</span>
+      <span class="sb">temperature 1.0</span>
+      <span class="sb sb--warm">GPU 88.4&deg;C</span>
+      <span class="sb">Ln &#8734;, Col 1</span>
+      <span class="sb sb--flow">prompt &#8594; accept &#8594; deploy</span>
+      <span class="sb sb--right">autocomplete: on &nbsp;&middot;&nbsp; brakes: off</span>
+    </div>
+
+    <div class="footer__body">
+      <img class="footer__logo" src="/logo.png" alt="" width="44" height="44" />
+
+      <p class="vibe vibe--foot">Nothing collected. Nothing to declare.</p>
+
+      <nav class="footer__links" aria-label="Footer">
+        <a href="/">Home</a>
+        <a href="/clackyard/">Clackyard</a>
+        <a href="/clackyard/privacy/">Privacy Policy</a>
+        <a href="/ninehole/">Ninehole</a>
+        <a href="/voidhorde/">Voidhorde</a>
+        <a href="/clappybird/">Clappy Bird</a>
+        <a href="/widgetastrophe/">Widgetastrophe</a>
+        <a href="/spellheir/">Spellheir</a>
+        <a href="/slateveil/">Slateveil</a>
+        <a href="/starknell/">STARKNELL</a>
+        <a href="/space-couch-command/">Space Couch Command</a>
+        <a href="/voicecmd/">VoiceCmd</a>
+        <a href="/tooter/">Tooter</a>
+        <a href="/emberseam/">Emberseam</a>
+        <a href="/anvilspell/">Anvilspell</a>
+        <a href="/hushword/">Hushword</a>
+        <a href="/crittergram/">Critter Gram</a>
+      </nav>
+
+      <p class="footer__fine">&copy; 2026 Machinaut Studios LLC. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

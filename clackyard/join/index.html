@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<!--
+  Clackyard — invite landing page.
+  Copyright © 2026 Machinaut Studios LLC. All rights reserved. See /LICENSE.
+
+  THIS PAGE IS THE FALLBACK, NOT THE DESTINATION.
+
+  An invite is https://machinautstudios.com/clackyard/join/?c=ABC123 (the
+  app builds it in lib/services/net/invite_link.dart: kInviteBase + "?c=").
+  On a device that HAS Clackyard, iOS (via /.well-known/apple-app-site-
+  association) and Android (via /.well-known/assetlinks.json, once it lists
+  the Play app-signing key) hand that URL straight to the app, which opens
+  on the join screen with the code filled in — this HTML is never fetched.
+  It renders only for someone who does not have the app yet, or is on a
+  desktop browser, which is exactly the person who needs a store link.
+
+  So the job here is small and specific: show the code big enough to
+  retype, and get them to the right store. Neither store carries the code
+  through an install (the SDKs that could collect device signals we have
+  told both stores we do not collect) — so the code is shown, not smuggled.
+
+  PRE-LAUNCH (2026-09-23): both store buttons are disabled on purpose. The
+  day a store goes live, swap that one for an <a class="store"> — App Store
+  id6815087937 (one listing for iPhone, iPad and Mac), Google Play
+  com.machinautstudios.clackyard — and trim the #soon note to match.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Join a Clackyard table</title>
+  <meta name="description" content="Someone invited you to a table of dominoes — Mexican Train or Chicken Foot. Clackyard is coming soon for iPhone, iPad, Mac and Android; join with the room code." />
+  <meta name="theme-color" content="#07060f" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="robots" content="noindex" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Join a Clackyard table" />
+  <meta property="og:description" content="Someone invited you to a table of dominoes. Mexican Train and Chicken Foot for two to sixteen players, every seat its own device." />
+  <meta property="og:image" content="https://machinautstudios.com/clackyard/clackyard-og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="1200" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .invite {
+      max-width: 34rem;
+      margin: 0 auto;
+      padding: 3rem 1.25rem 4rem;
+      text-align: center;
+    }
+    .invite__icon {
+      width: 88px; height: 88px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,.55);
+    }
+    .invite__title {
+      font-family: Orbitron, system-ui, sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.5rem, 6vw, 2.1rem);
+      margin: 1.25rem 0 .35rem;
+      color: var(--ink, #f3f1ff);
+    }
+    .invite__sub { color: var(--muted, #b0a8dd); margin: 0 0 2rem; }
+
+    /* The code is the one thing on this page that has to survive being
+       read off a screen and typed into a phone, so it gets the size. */
+    .code {
+      display: block;
+      font-family: 'IBM Plex Mono', ui-monospace, monospace;
+      font-weight: 600;
+      font-size: clamp(2rem, 11vw, 3.25rem);
+      letter-spacing: .28em;
+      text-indent: .28em;      /* letter-spacing pads the right; recentre */
+      color: var(--amber, #ffc857);
+      background: var(--panel-2, #170f30);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 16px;
+      padding: 1rem .75rem;
+      word-break: break-all;
+    }
+    .code-label {
+      display: block;
+      font-size: .82rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted-2, #8a83b8);
+      margin-bottom: .6rem;
+    }
+    .copy {
+      margin-top: .75rem;
+      background: none;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 999px;
+      color: var(--muted, #b0a8dd);
+      font: inherit;
+      font-size: .9rem;
+      padding: .45rem 1.1rem;
+      cursor: pointer;
+    }
+    .copy:hover, .copy:focus-visible { color: var(--ink, #f3f1ff); border-color: rgba(255,255,255,.4); }
+
+    .stores {
+      display: flex; flex-wrap: wrap; gap: .75rem;
+      justify-content: center;
+      margin: 2.25rem 0 .9rem;
+    }
+    .store {
+      display: inline-block;
+      padding: .85rem 1.5rem;
+      border-radius: 12px;
+      font: inherit;
+      font-weight: 600;
+      text-decoration: none;
+      background: var(--panel-2, #170f30);
+      border: 1px solid rgba(255,255,255,.14);
+      color: var(--ink, #f3f1ff);
+    }
+    .store:not([disabled]):hover, .store:not([disabled]):focus-visible { border-color: var(--amber, #ffc857); color: var(--amber, #ffc857); }
+    /* Pre-launch: a store that is not live is a dead button, never a link
+       to a listing that 404s. */
+    .store[disabled] { opacity: .55; cursor: not-allowed; }
+    .store small {
+      display: block;
+      font-size: .74rem;
+      font-weight: 400;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted, #b0a8dd);
+      margin-top: .2rem;
+    }
+    .soon { color: var(--muted, #b0a8dd); font-size: .9rem; line-height: 1.6; margin: 0 auto 1.75rem; max-width: 28rem; }
+
+    .steps {
+      /* The site reset strips list markers; these are ordered steps and
+         the numbers are the point. */
+      list-style: decimal;
+      text-align: left;
+      color: var(--muted, #b0a8dd);
+      line-height: 1.65;
+      margin: 0 auto;
+      max-width: 26rem;
+      padding-left: 1.2rem;
+    }
+    .steps code {
+      color: var(--ink, #f3f1ff);
+      font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    }
+    .fineprint { color: var(--muted-2, #8a83b8); font-size: .85rem; margin-top: 2.5rem; }
+    .fineprint a { color: inherit; }
+  </style>
+</head>
+<body>
+  <main class="invite">
+    <img class="invite__icon" src="/clackyard/clackyard_icon.png"
+         alt="Clackyard — an ivory double-six domino with orange pips on midnight-blue felt." />
+
+    <h1 class="invite__title">You&rsquo;re invited to a table</h1>
+    <p class="invite__sub">Clackyard &mdash; Mexican Train and Chicken Foot dominoes for two to sixteen players.</p>
+
+    <!-- Filled in from ?c=. Hidden entirely when there is no code, because
+         "Room code: —" is worse than no room code panel at all. -->
+    <div id="code-panel" hidden>
+      <span class="code-label">Room code</span>
+      <strong class="code" id="code"></strong>
+      <button class="copy" id="copy" type="button">Copy code</button>
+    </div>
+
+    <div class="stores">
+      <button class="store" id="ios" type="button" disabled aria-disabled="true"
+              aria-label="Coming soon to the App Store">iPhone, iPad &amp; Mac<small>coming soon</small></button>
+      <button class="store" id="android" type="button" disabled aria-disabled="true"
+              aria-label="Coming soon to Google Play">Android<small>coming soon</small></button>
+    </div>
+    <p class="soon" id="soon">
+      Clackyard is not on the App Store or Google Play yet, so these buttons are
+      dead on purpose &mdash; they become real links the day it is live. The code
+      works for as long as the host keeps the table open.
+    </p>
+
+    <ol class="steps" id="steps">
+      <li>Install Clackyard.</li>
+      <li>Open it and tap <code>Join a table</code>.</li>
+      <li>Switch to <code>Online</code> and enter the room code above.</li>
+    </ol>
+
+    <p class="fineprint">
+      Already have Clackyard? Tapping this link on your phone opens the app straight
+      into the table. &middot; <a href="/clackyard/">About Clackyard</a>
+      &middot; <a href="/clackyard/privacy/">Privacy</a>
+      &middot; <a href="mailto:info@machinautstudios.com">info@machinautstudios.com</a>
+    </p>
+  </main>
+
+  <script>
+    (function () {
+      // Same rule as the app's normalizeInviteCode (invite_link.dart):
+      // letters and digits, uppercased, at most twelve. Anything else in the
+      // query string is somebody else's business, and a code that cannot be
+      // typed into the app is not worth displaying.
+      var raw = new URLSearchParams(location.search).get('c') || '';
+      var code = raw.toUpperCase().replace(/[^A-Z0-9]/g, '');
+      if (code.length > 12) code = '';
+
+      if (code) {
+        document.getElementById('code').textContent = code;
+        document.getElementById('code-panel').hidden = false;
+        document.title = 'Join Clackyard table ' + code;
+      } else {
+        // No code: this is just a "get the app" page, so do not tell them
+        // to type a code that is not there.
+        document.getElementById('steps').innerHTML =
+          '<li>Install Clackyard.</li>' +
+          '<li>Open it and tap <code>Join a table</code>.</li>' +
+          '<li>Ask whoever invited you for the room code.</li>';
+        document.getElementById('soon').textContent =
+          'Clackyard is not on the App Store or Google Play yet, so these ' +
+          'buttons are dead on purpose — they become real links the day it is live.';
+      }
+
+      var copy = document.getElementById('copy');
+      copy.addEventListener('click', function () {
+        // clipboard.writeText needs a secure context and can still be
+        // refused; the code is on screen either way, so a failure here is
+        // not worth an error message.
+        var done = function () {
+          copy.textContent = 'Copied';
+          setTimeout(function () { copy.textContent = 'Copy code'; }, 1600);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(code).then(done, function () {});
+        }
+      });
+
+      // Lead with the store this visitor can actually use. Both stay
+      // visible — a Mac gets the App Store, and someone reading on a
+      // laptop may want to send it to their own phone.
+      var ua = navigator.userAgent;
+      if (/Android/i.test(ua)) {
+        var stores = document.querySelector('.stores');
+        stores.insertBefore(document.getElementById('android'), stores.firstChild);
+      }
+    })();
+  </script>
+</body>
+</html>
