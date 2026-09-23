@@ -2,10 +2,33 @@
   "applinks": {
     "details": [
       {
-        "appIDs": ["8S3CH89365.com.machinautstudios.ninehole"],
+        "appIDs": [
+          "8S3CH89365.com.machinautstudios.ninehole"
+        ],
         "components": [
-          { "/": "/ninehole/join", "comment": "Ninehole invite link, bare" },
-          { "/": "/ninehole/join/*", "comment": "Ninehole invite link with a room code" }
+          {
+            "/": "/ninehole/join",
+            "comment": "Ninehole invite link, bare"
+          },
+          {
+            "/": "/ninehole/join/*",
+            "comment": "Ninehole invite link with a room code"
+          }
+        ]
+      },
+      {
+        "appIDs": [
+          "8S3CH89365.com.machinautstudios.clackyard"
+        ],
+        "components": [
+          {
+            "/": "/clackyard/join",
+            "comment": "Clackyard invite link, bare"
+          },
+          {
+            "/": "/clackyard/join/*",
+            "comment": "Clackyard invite link with a room code"
+          }
         ]
       }
     ]
