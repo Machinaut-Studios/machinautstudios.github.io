@@ -59,7 +59,7 @@
     <section class="section">
       <article class="legal">
         <h1>Privacy Policy for Critter Gram</h1>
-        <p class="legal__meta">Last updated: July 29, 2026</p>
+        <p class="legal__meta">Last updated: September 23, 2026</p>
 
         <p class="legal__lead">
           Critter Gram ("the app") is developed and published by Machinaut Studios LLC
@@ -73,8 +73,8 @@
         <h2>Information we collect</h2>
         <p>
           We do not ask for your name, email address, phone number, or contacts, and there
-          is no account to create. We run no analytics, no advertising, and no tracking of
-          any kind, and we do not sell or rent data to anyone.
+          is no account to create. We run no analytics or tracking tools and no advertising,
+          and we do not sell or rent data to anyone.
         </p>
         <p>
           If you never use the friend-to-friend features, the app makes no request to our
@@ -111,16 +111,22 @@
         <ul>
           <li><b>Payloads are opaque.</b> The relay never parses gram bodies. It stores bytes and forwards bytes.</li>
           <li><b>No names, ever.</b> It holds no display names, profiles, phone numbers, or email addresses. A device is identified only by a random identifier generated on your phone.</li>
-          <li><b>Deleted on delivery.</b> A gram is deleted the moment the recipient's app acknowledges it. Anything undelivered expires automatically after 7 days.</li>
+          <li><b>Deleted on delivery.</b> A gram is deleted from the relay the moment the recipient's app acknowledges it. Anything never collected expires automatically 7 days after it was due: for most grams that is 7 days after sending, and for the snail, whose letters take three days on purpose, it is 7 days after those three. Versions of the app after 1.0 collect a snail's letter the next time they check in with the relay, which then deletes it, and keep it out of sight on the recipient's phone until its day. Once your friend's phone has collected a snail letter you sent, unpairing from them or erasing your messaging identity can no longer take it back.</li>
           <li><b>Pairing is by invite only.</b> You reach someone by sharing a single-use invite code, which expires after 24 hours. There is no directory, no search, and no way for a stranger to reach you.</li>
           <li><b>Credentials are stored hashed.</b> Only a one-way hash of your device secret and of invite codes is ever written to disk.</li>
-          <li><b>Logs are minimal and anonymized.</b> Gram contents and pairing blobs are never logged, and device identifiers are truncated in logs. IP addresses are used transiently to rate-limit abuse and are not used to build any profile.</li>
+          <li><b>Logs are minimal and anonymized.</b> Gram contents and pairing blobs are never logged, and device identifiers are truncated in logs. The relay's web server logs each request as only the time, the kind of request, its outcome, its size and how long it took, with no IP address and no web address (web addresses are where invite codes travel). The one exception is a rare serious server fault, such as the server running out of resources: its error message can name the address and the request involved. IP addresses are used only to rate-limit abuse. The relay keeps a shortened form of the address, enough to tell networks apart but not devices, for at most three days after it was last used, and never uses it to build any profile.</li>
+          <li><b>App generation.</b> Versions of the app after 1.0 send a small generation number with each request (currently 2). Everyone on the same release sends the same number, so it identifies no one. The relay keeps the most recent one it has seen from each device, so we can tell when an old version can safely stop being supported, and deletes it along with the device. Once per session the app also asks the relay whether its version is still supported.</li>
+          <li><b>Backups leave pending grams out.</b> Once a night the relay copies its own records: device records (the random identifier, the hashed secret, when it registered, any ban and the app generation), pairings and unpair records, blocks, notification tokens, hashes of unused invite codes, and abuse reports with the reason given and the material the reporter chose to quote. Every gram still waiting on the relay is removed from the copy first. The server keeps the latest copy as a restore point, and each night a computer we operate (not a cloud storage service) also pulls a copy and stores it encrypted, keeping the 14 most recent (normally two weeks) so those records survive a server failure. Anything deleted from the relay, such as an erased device or an expired report, drops out of the backups as older copies are replaced.</li>
         </ul>
         <p>
           You can block a paired friend, unpair from them, or erase this phone's messaging
           identity entirely from within the app &mdash; the last of which deletes the device,
-          its pairings, any pending grams, and its notification tokens from the relay. Grams
-          you have already received stay on your phone.
+          its pairings, any pending grams, and its notification tokens from the relay, and
+          from its backups as those are replaced, normally within two weeks. Blocking,
+          reporting or unpairing a friend also throws away any snail letter from that friend
+          that your phone is holding and has not opened yet, and erasing your messaging
+          identity throws away all of them. Grams that have already arrived stay on your
+          phone.
         </p>
 
         <h2>Notifications</h2>
@@ -135,6 +141,12 @@
           <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener noreferrer">Firebase privacy documentation</a>
           and the
           <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a>.
+          If your phone has already collected a snail's letter before its day (versions after
+          1.0 do this whenever the app checks in), your phone schedules that notification
+          itself, with the same words, so it never passes through Google's or Apple's push
+          services. A letter
+          your phone has not collected by then is announced by the relay's usual
+          notification instead.
           Notifications are only ever a hint to check for grams; the app works without them.
         </p>
 
@@ -154,7 +166,8 @@
           If someone sends you something abusive, you can report it. This is the one place
           where we deliberately keep content: a report includes the reason you give and the
           material you chose to quote, so that a person can review it and act. Reports are
-          automatically deleted after 90 days, and filing one also blocks that sender for you.
+          automatically deleted from the relay after 90 days, and drop out of our backups
+          normally within two weeks after that. Filing one also blocks that sender for you.
           If you never file a report, we never receive any gram content.
         </p>
 
@@ -178,10 +191,12 @@
         <h2>Data sharing</h2>
         <p>
           We do not sell, rent, or trade your data, and we do not share it for advertising.
-          The only third parties involved are the infrastructure providers described above:
-          Apple and Google for app distribution and payments, and Google's Firebase Cloud
-          Messaging for notification delivery. Grams sent through our relay are passed only
-          to the friend you addressed them to.
+          The only third parties involved are infrastructure providers: Apple and Google for
+          app distribution and payments; Google's Firebase Cloud Messaging for notification
+          delivery, which on iOS hands notifications to Apple's push service; Google Cloud, which hosts our relay server in the United States; and
+          Hugging Face, which serves the optional model download. The relay's nightly backup
+          is kept on a computer we operate, not with a cloud storage provider. Grams sent
+          through our relay are passed only to the friend you addressed them to.
         </p>
 
         <h2>Children's privacy</h2>
