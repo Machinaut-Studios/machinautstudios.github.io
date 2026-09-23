@@ -8,7 +8,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Privacy Policy for Ninehole | Machinaut Studios LLC</title>
-  <meta name="description" content="Privacy policy for Ninehole by Machinaut Studios LLC. The game collects nothing: no account, no sign-in, no server of ours, no analytics, no crash reporting, no advertising and no in-app purchases. Solo games and same-Wi-Fi tables never leave your own network. Online play is opt-in and uses Epic Online Services for room discovery and for carrying packets between players; this page lists exactly what reaches Epic and what does not, and how to erase everything the game saved." />
+  <meta name="description" content="Privacy policy for Ninehole by Machinaut Studios LLC. No account of ours, no server of ours, no analytics, no crash reporting, no advertising and no in-app purchases. Solo games and same-Wi-Fi tables never leave your own network, and your stats and a few preferences are kept in your own iCloud or Android backup, which we cannot read. Two things are opt-in: online play, which uses Epic Online Services for room discovery and for carrying packets between players, and the cross-platform save, which keeps your lifetime stats with Epic after you sign in with Google or Apple. This page lists exactly what each one sends and how to erase everything." />
   <meta name="robots" content="index, follow" />
   <meta name="copyright" content="© 2026 Machinaut Studios LLC. All rights reserved." />
   <meta name="theme-color" content="#07060f" />
@@ -17,7 +17,7 @@
 
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Privacy Policy for Ninehole" />
-  <meta property="og:description" content="No account, no analytics, no ads, no in-app purchases, and no server of ours. Solo and same-Wi-Fi tables never leave your network. Online play is opt-in, anonymous and per-device — and this page says exactly what reaches Epic Online Services." />
+  <meta property="og:description" content="No account of ours, no analytics, no ads, no in-app purchases, and no server of ours. Solo and same-Wi-Fi tables never leave your network, and your stats ride your own iCloud or Android backup. Online play and the cross-platform save are both opt-in — and this page says exactly what reaches Epic Online Services for each." />
   <meta property="og:url" content="https://machinautstudios.com/ninehole/privacy/" />
 
   <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
@@ -59,51 +59,76 @@
     <section class="section">
       <article class="legal">
         <h1>Privacy Policy for Ninehole</h1>
-        <p class="legal__meta">Last updated: September 6, 2026</p>
+        <p class="legal__meta">Last updated: September 23, 2026</p>
 
         <p class="legal__lead">
           Ninehole ("the game") is developed and published by Machinaut Studios
           LLC ("we", "us"). This policy explains what data the game handles.
-          The short version: <b>we collect nothing, we run no server, and there
-          is no account to make.</b> There is no analytics, no crash reporter,
-          no advertising and no in-app purchase code in the build. Your name,
-          your avatar, your settings, your lifetime stats and the table you are
-          in the middle of are written to your own device and stay there. A
-          solo game against bots and a table played over your own Wi-Fi send
-          nothing past your own network. Online play is the one exception, it
-          is off until you choose it, and <a href="#online">the section below</a>
-          says exactly what it sends, to whom, and what it still does not send.
+          The short version: <b>we run no server, there is no account of ours
+          to make, and unless you sign in to the cross-platform save we collect
+          nothing.</b> There is no analytics, no crash reporter, no advertising
+          and no in-app purchase code in the build. Your name, your avatar,
+          your settings, your lifetime stats and the table you are in the
+          middle of are written to your own device, and your stats and a few
+          preferences are also kept in <a href="#sync">your own iCloud or
+          Android backup</a> &mdash; storage that belongs to your Apple or
+          Google account, which we cannot read &mdash; so that deleting the
+          game or changing phones does not lose them. The game itself sends
+          nothing past your own network from a solo game against bots or a
+          table played over your own Wi-Fi. Two things are off until you choose
+          them:
+          <a href="#online">online play</a>, and the
+          <a href="#cross-platform-save">cross-platform save</a>, which keeps
+          your lifetime stats with Epic Online Services if you sign in with
+          Google or Apple. The sections below say exactly what each one sends,
+          to whom, and what it still does not send.
         </p>
 
         <h2>Information we collect</h2>
         <p>
-          None. We operate no server for Ninehole and we receive nothing from
-          it. There is no analytics SDK, no crash-reporting SDK, no advertising
-          SDK and no attribution SDK in the build. There is no account to create
+          Unless you sign in to the cross-platform save, none. We operate no
+          server for Ninehole and we receive nothing from it. There is no
+          analytics SDK, no crash-reporting SDK, no advertising SDK and no
+          attribution SDK in the build. There is no account of ours to create
           and no sign-up: we never ask for your name, email address, phone
           number, contacts or anything else. We build no profile of you, we have
           nothing to sell, rent or trade, and we hold no record that you exist.
           The name and avatar you pick are for the other players at your table
-          to see; they are not sent to us, because there is no us to send them
-          to.
+          to see, and for your own other devices through your own iCloud or
+          Android backup; they are not sent to us, because there is no us to
+          send them to.
+        </p>
+        <p>
+          The cross-platform save is the one exception, and only once you sign
+          in to it: then your lifetime stats, and an id Epic assigns you, are
+          stored by Epic Online Services, which we use as a service provider to
+          keep that save for you. <a href="#cross-platform-save">Its section</a>
+          says exactly what is stored, what the sign-in involves, and how to
+          delete it. Even then nothing reaches a machine of ours.
         </p>
 
         <h2>What the game stores, and where</h2>
         <p>
           Everything Ninehole remembers is written to your device's own private
-          app storage and stays there. It is kept under three keys:
+          app storage. It is kept under these keys:
         </p>
         <ul>
           <li><b>Your settings and your identity</b> (<code>nh.settings</code>) &mdash; the display name you typed (up to 16 characters, and blank until you type one), which of the twelve avatars you picked, sound, haptics, reduce motion, whether card values are shown, which card drawing you prefer, the last room name you used, and a random player id. That id is sixteen hexadecimal characters drawn from your device's cryptographic random source on first run. It is not a device identifier, an advertising identifier or anything derived from your hardware, your account or your name &mdash; it exists so that a host can recognise you if your phone drops off the table mid-hand and comes back.</li>
-          <li><b>Your lifetime stats</b> (<code>nh.stats</code>) &mdash; games and holes played, games won, your best and worst hole, best game, lines cleared, times you knocked, times that knock cost you 50, total points, and the largest table you have sat at. Numbers only, and there is a "Reset stats" button in Settings.</li>
+          <li><b>Your lifetime stats</b> (<code>nh.stats.ledger</code>) &mdash; games and holes played, games won, your best and worst hole, best game, lines cleared, times you knocked, times that knock cost you 50, total points, and the largest table you have sat at. Numbers only. Each installation of the game keeps its own tally, filed under a random install code (<code>nh.install</code>: thirty-two hexadecimal characters drawn from your device's cryptographic random source on first run &mdash; like the player id, not a device identifier, an advertising identifier or anything derived from your hardware, your accounts or your name), and the stats you see are every installation's tally added together. That is what lets two of your devices, or a reinstall, add up instead of overwriting each other. Versions before this one kept a single record under <code>nh.stats</code>; it becomes this installation's tally and is left where it was. There is a "Reset stats" button in Settings.</li>
           <li><b>The table in progress</b> (<code>nh.table</code>) &mdash; so that closing the game mid-hole and coming back does not lose the hole: the room name, the rules in play, whether you are hosting, the seats, the shoe, the bot count, and (for a table you joined) the host's address or join code so the game can redial it.</li>
+          <li><b>Games you paused</b> (<code>nh.saves</code>, and one <code>nh.save.&hellip;</code> per game) &mdash; up to twenty games you hosted and stopped part-way, so the table can finish one another day: the same contents as a table in progress. Only the device that hosted a game keeps it.</li>
+          <li><b>A little bookkeeping for the sync</b> &mdash; when you last changed a setting on this device (<code>nh.settings.at</code>), so the newest change wins when your devices compare notes; and, only if you signed in to the cross-platform save, whether that was with Google or Apple (<code>nh.cloud.provider</code>), so the game knows whom to ask next time. Never a password and never a sign-in token: those are not written down anywhere.</li>
         </ul>
         <p>
           On iOS, iPadOS, Android, macOS and Windows these live in the ordinary
-          per-app storage the platform gives every app. None of it is uploaded,
-          backed up to us, or synced between your devices &mdash; we have
-          nowhere to sync it to, and no copy of it exists anywhere but on the
-          device that wrote it. To erase it, see
+          per-app storage the platform gives every app. None of it is uploaded
+          to us &mdash; we have nowhere to put it. Copies beyond the device
+          exist only in places that belong to you: your own iCloud or Android
+          backup, <a href="#sync">described next</a>; the cross-platform save,
+          only if you signed in to it (and Epic's SDK may keep an encrypted
+          working copy of that one file in the game's own storage); and, as
+          for any app, the device backups you make of an iPhone, iPad or Mac.
+          We cannot read any of them. To erase it all, see
           <a href="#data-deletion">Deleting your data</a>.
         </p>
         <p>
@@ -112,6 +137,21 @@
           and are not sent anywhere; they exist for a developer with the device
           in hand, and they disappear when the app closes.
         </p>
+
+        <h2 id="sync">Your own iCloud, and Android's backup</h2>
+        <p>
+          So that deleting the game, reinstalling it or moving to a new device
+          does not cost you your record, a copy of some of it is kept in storage
+          that belongs to your own Apple or Google account. This is on unless
+          you switch it off, it is not collected by us &mdash; nothing of ours
+          sits in between, and we cannot read it &mdash; and you control it in
+          your device's own settings.
+        </p>
+        <ul>
+          <li><b>iPhone, iPad, and the Mac App Store version</b> &mdash; the game keeps two things in its own space in your iCloud key-value storage, the small private store Apple gives an app inside your iCloud account: your lifetime stats (each installation's tally, as above) and a few preferences &mdash; your display name, your avatar, sound, haptics, reduce motion, whether card values are shown, and which card drawing you prefer. They come back when you reinstall, they reach a new iPhone, iPad or Mac signed into the same Apple Account, and a preference you change on one reaches the others. Nothing else goes there: never your player id (it identifies your seat at a table and stays with one device), never the last room name you used, never a table in progress or a paused game. Apple holds it under the <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">Apple privacy policy</a>. To stop it, switch iCloud off for Ninehole &mdash; on iPhone or iPad under <b>Settings &rarr; [your name] &rarr; iCloud</b>, among the apps using iCloud; on a Mac under <b>System Settings &rarr; [your name] &rarr; iCloud</b> &mdash; and the game carries on with what is on the device.</li>
+          <li><b>Android</b> &mdash; the game lets Android's own backup include its settings file: your name, avatar and settings, your lifetime stats, and any table in progress or paused game. When backup is on, Android copies that file into your Google account &mdash; encrypted on the phone with your screen lock, if you have one &mdash; and restores it when you reinstall the game or set up a new phone from that backup. Android decides when a backup runs, usually about once a day while the phone is idle, charging and on Wi-Fi. Nothing else the game or Epic's SDK keeps on the phone is included. Google holds the backup under the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google privacy policy</a>, and you control it in your phone's backup settings (usually <b>Settings &rarr; Google &rarr; Backup</b>; the path varies by phone maker).</li>
+          <li><b>Windows, and a Mac copy not bought from the Mac App Store,</b> have neither: everything stays on that one computer.</li>
+        </ul>
 
         <h2>Permissions</h2>
         <p>
@@ -122,9 +162,9 @@
           identifier.
         </p>
         <ul>
-          <li><b>Android</b> &mdash; the shipping manifest declares exactly four permissions: <code>INTERNET</code>, <code>ACCESS_NETWORK_STATE</code>, <code>ACCESS_WIFI_STATE</code> and <code>CHANGE_WIFI_MULTICAST_STATE</code>. All four are normal install-time permissions, so none of them shows you a prompt. They are what lets the host open a table on your network, advertise it so other phones can find it, and keep Android from dropping those announcements while the screen is on battery. There is nothing else in the manifest but a package-visibility <code>queries</code> block for the system "process text" action, which the Flutter engine includes as standard; it is not a permission and grants access to nothing.</li>
-          <li><b>iOS / iPadOS</b> &mdash; the only usage string in the app's <code>Info.plist</code> is the local-network one, and it reads: "Ninehole finds and joins card tables hosted by other players on your local network." That is the one-time prompt iOS shows you the first time you host or look for a table. No other usage description is declared, so there is nothing else iOS can prompt you for. The app also declares that it uses no non-exempt encryption.</li>
-          <li><b>macOS</b> &mdash; the release build runs inside the App Sandbox and declares exactly two capabilities beyond it: outgoing network connections and incoming ones. Those are what let a sandboxed Mac join a table and host one. There is no camera, microphone, location, contacts or file-access entitlement.</li>
+          <li><b>Android</b> &mdash; the shipping manifest declares exactly four permissions: <code>INTERNET</code>, <code>ACCESS_NETWORK_STATE</code>, <code>ACCESS_WIFI_STATE</code> and <code>CHANGE_WIFI_MULTICAST_STATE</code>. All four are normal install-time permissions, so none of them shows you a prompt. They are what lets the host open a table on your network, advertise it so other phones can find it, and keep Android from dropping those announcements while the screen is on battery. Nothing else in the manifest is a permission: the rest is the ordinary machinery of an app, including the rule naming the one file Android's backup may copy, and a package-visibility <code>queries</code> block for the system "process text" action, which the Flutter engine includes as standard. Neither Android's backup nor Google sign-in adds a permission.</li>
+          <li><b>iOS / iPadOS</b> &mdash; the only usage string in the app's <code>Info.plist</code> is the local-network one, and it reads: "Ninehole finds and joins card tables hosted by other players on your local network." That is the one-time prompt iOS shows you the first time you host or look for a table. No other usage description is declared, so there is nothing else iOS can prompt you for. The app also declares that it uses no non-exempt encryption. It carries two capabilities that are not permissions &mdash; neither shows a prompt and neither reaches anything on the device: iCloud key-value storage, which gives the game its own small store in your iCloud (above) and nothing else of your iCloud; and Sign in with Apple, which lets the game show Apple's sign-in sheet when you ask for it.</li>
+          <li><b>macOS</b> &mdash; the release build runs inside the App Sandbox and declares outgoing network connections and incoming ones, which are what let a sandboxed Mac join a table and host one. The Mac App Store version adds the same two capabilities as iOS, iCloud key-value storage and Sign in with Apple; a Mac copy from anywhere else has only the two network ones. There is no camera, microphone, location, contacts or file-access entitlement.</li>
           <li><b>Windows</b> &mdash; the desktop build requests nothing beyond its own network sockets and its own settings folder.</li>
         </ul>
         <p>
@@ -138,6 +178,9 @@
         <p>
           <b>Play vs bots</b> uses no network at all. The whole game &mdash;
           deck, rules, opponents &mdash; runs on the device in your hand.
+          (The stats it adds to your record are copied to your own iCloud or
+          Android backup like any others, as described above; that is your
+          platform's sync, not the table's.)
         </p>
         <p>
           A <b>Same Wi-Fi</b> table stays on your own network and does not
@@ -163,19 +206,20 @@
 
         <h2 id="online">Online play, and exactly what reaches Epic</h2>
         <p>
-          Playing across the internet is the one part of Ninehole that involves
-          a company other than the store you bought it from, and it is opt-in
-          twice over.
+          Playing across the internet involves a company other than the store
+          you bought the game from, and it is opt-in twice over.
         </p>
         <ul>
           <li>The <b>build</b> has to carry Epic Online Services credentials, which are supplied at build time and are not in the source. A build without them cannot offer online play at all; the Online option is greyed out and says so.</li>
           <li><b>You</b> have to switch the table from <b>Same Wi-Fi</b> to <b>Online</b> on the Host or Join screen. Wi-Fi is what is selected when you get there.</li>
         </ul>
         <p>
-          If you never do that, the game never contacts Epic. It does not check
-          in, does not log in in the background, and does not even load Epic's
-          library &mdash; that happens the first time an online table is opened
-          or searched for, and not before.
+          If you never do that &mdash; and never sign in to the
+          <a href="#cross-platform-save">cross-platform save</a> &mdash; the
+          game never contacts Epic. It does not check in, does not log in in
+          the background, and does not even load Epic's library &mdash; that
+          happens the first time an online table is opened or searched for, or
+          the first time a signed-in save syncs, and not before.
         </p>
         <p>When you do choose Online, this is the complete list of what happens:</p>
         <ul>
@@ -187,9 +231,49 @@
         <p>And this is what does <b>not</b> happen, even then:</p>
         <ul>
           <li><b>The game is still yours.</b> The host's device holds the only true state, runs every rule, and masks every other seat exactly as it does on Wi-Fi. Epic carries bytes and lists rooms. It does not hold the deck, decide a turn, or see a face-down card.</li>
-          <li><b>There is still no account</b> &mdash; nothing to create, nothing to sign into, nothing to delete, and no way to link one table to another except by the anonymous per-device identity Epic issued.</li>
+          <li><b>Online play still needs no account</b> &mdash; nothing to create, nothing to sign into, nothing to delete, and no way to link one table to another except by the anonymous per-device identity Epic issued. The cross-platform save's sign-in, below, is separate and is never used for online play.</li>
           <li><b>We still receive nothing.</b> There is no Ninehole server, no database and no telemetry of ours anywhere in the picture. Nothing about your game reaches Machinaut Studios, online or otherwise.</li>
           <li><b>There is no chat.</b> The only things a player can put in front of another player are six fixed emotes, a display name of at most sixteen characters, and &mdash; if they are the host &mdash; a room name of at most twenty. There is no message box, no voice, no images and no friends list; those two names are the only text anyone types, and the room name of a listed online table is published to Epic's room list along with the host's display name.</li>
+        </ul>
+
+        <h2 id="cross-platform-save">The cross-platform save, and exactly what reaches Epic</h2>
+        <p>
+          Your iCloud stays among Apple devices and Android's backup among
+          Android phones. To carry your lifetime stats between an iPhone and an
+          Android phone you can sign in to the cross-platform save. It is off
+          until you do, and like online play it is opt-in twice over:
+        </p>
+        <ul>
+          <li>The <b>build</b> has to carry the storage key and the sign-in settings, which are supplied at build time and are not in the source. A build without them does not show the option at all.</li>
+          <li><b>You</b> have to sign in, in Settings: with Google on iPhone, iPad and Android, or with Apple on iPhone, iPad and the Mac App Store version. Windows, and a Mac copy not bought from the Mac App Store, do not offer it.</li>
+        </ul>
+        <p>If you never sign in, nothing in this section happens. When you do, this is the complete list of what happens:</p>
+        <ul>
+          <li><b>Google or Apple signs you in</b> and hands the game a short-lived sign-in token that says who you are to them. The game asks Apple for no name and no email, so Apple's token carries neither. Google's sign-in always puts your Google account's name, email address and profile picture into its token, whatever the app asks for &mdash; that is why Google's sheet says it will share them with Ninehole. The game does not show, store or use them, and they leave your device only inside that token. The token is kept in memory while it is valid and never written down.</li>
+          <li><b>Epic checks the token.</b> The game passes it to Epic Online Services, which verifies it with Google or Apple and gives you a product user id: a random id, scoped to Ninehole, that Epic links to the account you signed in with. What Epic documents keeping about that link is which provider it was, your account's id with that provider (an opaque code, not your email address), a display name &mdash; which the game always sets to the word "Player" &mdash; and when you last signed in. On an iPhone or iPad, where both are offered, you can add the other provider to the same save; Epic then links both accounts to the one id, so either opens it.</li>
+          <li><b>The game reads your save, adds this device's stats, and writes it back.</b> The save is one file, <code>ninehole-stats.json</code>, and it holds your lifetime stats and nothing else: the numbers listed above, one tally per installation under that installation's random install code. No name, no avatar, no settings, no tables or games. It is encrypted on your device, with a key built into the game, before it is uploaded, and Epic stores it in its Player Data Storage.</li>
+          <li><b>The sign-in lasts only as long as that read and write</b>; the game then signs the account out of Epic again. It is a separate sign-in from the anonymous one online play uses and never replaces it, so it never changes a join code and never ties an online table to your Google or Apple account. The game remembers on this device which provider you chose, so it can sync again later.</li>
+        </ul>
+        <p>And this is what does <b>not</b> happen:</p>
+        <ul>
+          <li><b>We still receive nothing.</b> The save goes to Epic, not to us. We run no server, and we do not download or read players' saves.</li>
+          <li><b>Nothing else about you goes to Epic.</b> Not the display name you typed, your avatar, your settings, your tables or your games. What online play sends, if you use it, is described above and does not change when you sign in.</li>
+          <li><b>No advertising and no tracking.</b> The save exists to keep your stats. It is not used to advertise to you, to track you across other apps or websites, or for anything else we do.</li>
+        </ul>
+        <p>
+          Epic is a US company and holds the save on its own infrastructure, as
+          our service provider, under the
+          <a href="https://www.epicgames.com/site/en-US/privacypolicy" target="_blank" rel="noopener noreferrer">Epic Games privacy policy</a>.
+          Google and Apple see that you signed in to Ninehole, as with any
+          sign-in, under their own policies. The save stays until you delete it.
+        </p>
+
+        <h2 id="delete-cloud-save">Signing out of the cross-platform save, and deleting it</h2>
+        <ul>
+          <li><b>Sign out</b> (in Settings) stops this device syncing. The save stays with Epic for the next time you sign in, on any device, and your stats stay on this device.</li>
+          <li><b>Delete cloud save</b> (in Settings, with a confirmation) deletes the save file from Epic and unlinks every Google or Apple account linked to it, so signing in again starts an empty save. It does not touch the stats on your devices, or in your iCloud or Android backup. What remains at Epic is an id with no file and no account attached, governed by the <a href="https://www.epicgames.com/site/en-US/privacypolicy" target="_blank" rel="noopener noreferrer">Epic Games privacy policy</a>.</li>
+          <li><b>Removing Ninehole from your Google or Apple account</b> &mdash; in your Google Account under <b>Security &rarr; Your connections to third-party apps &amp; services</b>, or in your Apple Account settings under <b>Sign in with Apple</b> &mdash; means the game can no longer sign in as you without asking you again. It does not delete a save already on Epic, so use Delete cloud save first.</li>
+          <li><b>Without the game.</b> We keep no list of who has a save, and a save can only be found by signing in to it, so the quickest way is any device you can install Ninehole on &mdash; reinstalling it from the store account you bought it with costs nothing &mdash; then sign in and choose Delete cloud save. If that is not possible, email <a href="mailto:info@machinautstudios.com">info@machinautstudios.com</a> with the subject "Delete my Ninehole cloud save". We will answer, and do what Epic's tools allow; because we hold no record connecting your Google or Apple account to a save, we will tell you plainly if we cannot find it.</li>
         </ul>
 
         <h2>Purchases</h2>
@@ -213,22 +297,29 @@
         <p>
           We do not sell, rent or trade your data, and we have none to share. No
           third party receives anything from a solo game or a same-Wi-Fi table,
-          because those send nothing off your network. The only third parties in
-          the picture at all are the store that distributes Ninehole and
-          processes its purchase, and &mdash; only if you choose an online table
-          &mdash; Epic Online Services, for the room discovery and packet
-          carriage described above.
+          because those send nothing off your network. The companies in the
+          picture are the store that distributes Ninehole and processes its
+          purchase; Apple or Google, which hold your iCloud or Android backup
+          for you, in your own account; Google or Apple again, only if you sign
+          in to the cross-platform save; and Epic Online Services, only if you
+          choose an online table or sign in to the cross-platform save &mdash;
+          as our service provider, for the room discovery, packet carriage and
+          save storage described above.
         </p>
 
         <h2>Children's privacy</h2>
         <p>
-          Ninehole is a card game with no gambling, no advertising, no accounts
-          and no chat: the only things one player can put in front of another are
-          six fixed emotes, a display name capped at sixteen characters and, from
-          the host, a room name capped at twenty. We
-          do not knowingly collect personal information from anyone, children
-          included &mdash; we collect none from anybody, and there is no
-          advertising identifier in use. A display name is typed by the person
+          Ninehole is a card game with no gambling, no advertising, no account
+          of ours and no chat: the only things one player can put in front of
+          another are six fixed emotes, a display name capped at sixteen
+          characters and, from the host, a room name capped at twenty. We do
+          not knowingly collect personal information from anyone, children
+          included; by default the game collects nothing from anybody, and
+          there is no advertising identifier in use. The cross-platform save is
+          the one feature that stores anything with a third party, and it
+          needs a Google or Apple sign-in that the player &mdash; or, for a
+          child's account, the parent who manages it &mdash; has to choose; it
+          stores numbers and an id, not a name. A display name is typed by the person
           playing, so if a child is playing on a shared device it is worth
           picking a display name that is not their real one &mdash; particularly
           before hosting an online table, where that name and the room name go
@@ -238,37 +329,45 @@
 
         <h2>Your choices</h2>
         <ul>
-          <li>Play solo or on your own Wi-Fi and nothing leaves the building. That is the default, on every screen, every time.</li>
+          <li>Play solo or on your own Wi-Fi and the game sends nothing past your own network; only your own iCloud or Android backup of your record leaves the building, and you can switch that off. That is the default, on every screen, every time.</li>
           <li>Leave the name field blank or type any name you like; the game shows "Player" if you leave it empty, and it is editable in Settings whenever you want. The room name you host under is the other thing anyone reads, so name a listed online table with that in mind.</li>
-          <li>Never choose Online, and the game never contacts Epic &mdash; it does not even load Epic's library.</li>
-          <li>Reset your lifetime stats from Settings, with a confirmation, at any time.</li>
+          <li>Never choose Online and never sign in to the cross-platform save, and the game never contacts Epic &mdash; it does not even load Epic's library.</li>
+          <li>Leave iCloud on for Ninehole and your record survives a reinstall and follows you between your Apple devices; switch it off and it stays on each device alone. On Android, your phone's backup setting decides the same thing.</li>
+          <li>Sign in to the cross-platform save only if you want your stats on both Apple and Android; sign out to stop a device syncing, or delete the save outright &mdash; <a href="#delete-cloud-save">see above</a>.</li>
+          <li>Reset your lifetime stats from Settings, with a confirmation, at any time. The reset reaches every device that syncs with that one, through iCloud or the cross-platform save.</li>
           <li>Erase everything the game saved, with no request to file and nobody to ask &mdash; see below.</li>
           <li>Delete the app, which removes everything it stored along with it.</li>
         </ul>
 
         <h2 id="data-deletion">Deleting your data</h2>
         <p>
-          Every piece of Ninehole data lives on your device, so you delete it
-          yourself and it is gone for good. There is no account for us to close,
-          no copy on a server, no backup of ours, and no request to file with us
-          &mdash; we could not delete your data if you asked, because we never
-          had it. To erase it:
+          Ninehole data lives on your device and in places that belong to you,
+          so you delete it yourself. There is no account of ours to close, no
+          copy on a server of ours, no backup of ours, and no request to file
+          with us &mdash; we could not delete your data if you asked, because we
+          never had it. The copies beyond the device are your iCloud or Android
+          backup and, only if you signed in, the cross-platform save on Epic.
+          To erase it:
         </p>
         <ol>
-          <li><b>1.</b> <b>Android</b> &mdash; open <b>Settings &rarr; Apps &rarr; Ninehole &rarr; Storage</b> and tap <b>Clear storage</b>. Your name, avatar, settings, lifetime stats and any saved table are erased; the app stays installed and starts as if new.</li>
-          <li><b>2.</b> <b>Android</b> &mdash; or touch and hold the Ninehole icon and choose <b>Uninstall</b>. The app and all of its data go together.</li>
-          <li><b>3.</b> <b>iOS / iPadOS</b> &mdash; touch and hold the Ninehole icon, tap <b>Remove App</b>, then <b>Delete App</b>. This removes the app along with everything it stored. (Choosing <b>Offload App</b> instead deliberately keeps the data for when you reinstall.)</li>
-          <li><b>4.</b> <b>macOS</b> &mdash; quit the game, then drag <b>Ninehole</b> from your Applications folder to the Trash and delete the folder <b>~/Library/<wbr />Containers/<wbr />com.machinautstudios.<wbr />ninehole</b> (in Finder, use <b>Go &rarr; Go to Folder&hellip;</b> and paste that path). The app is sandboxed, so everything it saved is inside that one container.</li>
+          <li><b>1.</b> <b>Android</b> &mdash; open <b>Settings &rarr; Apps &rarr; Ninehole &rarr; Storage</b> and tap <b>Clear storage</b>. Your name, avatar, settings, lifetime stats and any saved table are erased from the phone; the app stays installed and starts as if new.</li>
+          <li><b>2.</b> <b>Android</b> &mdash; or touch and hold the Ninehole icon and choose <b>Uninstall</b>. The app and all of its data on the phone go together. A copy in your Android backup is kept by Google so a reinstall can restore it &mdash; see item 7.</li>
+          <li><b>3.</b> <b>iOS / iPadOS</b> &mdash; touch and hold the Ninehole icon, tap <b>Remove App</b>, then <b>Delete App</b>. This removes the app along with everything it stored on the device. (Choosing <b>Offload App</b> instead deliberately keeps the data for when you reinstall.) The copy in your iCloud is deliberately kept too, so a reinstall brings your record back &mdash; see item 6.</li>
+          <li><b>4.</b> <b>macOS</b> &mdash; quit the game, then drag <b>Ninehole</b> from your Applications folder to the Trash and delete the folder <b>~/Library/<wbr />Containers/<wbr />com.machinautstudios.<wbr />ninehole</b> (in Finder, use <b>Go &rarr; Go to Folder&hellip;</b> and paste that path). The app is sandboxed, so everything it saved on the Mac is inside that one container. The Mac App Store version's iCloud copy is covered by item 6.</li>
           <li><b>5.</b> <b>Windows</b> &mdash; quit the game, then delete the <b>Machinaut Studios LLC\<wbr />Ninehole</b> folder inside <b>%APPDATA%</b> (paste <b>%APPDATA%</b> into the File Explorer address bar to get there). Uninstalling the game does not remove that folder; deleting it does.</li>
-          <li><b>6.</b> <b>If you played online</b> &mdash; removing the app removes the game's own data, including anything it kept about an online table. The anonymous device credential belongs to Epic's SDK rather than to us, and any record Epic keeps of it is governed by the <a href="https://www.epicgames.com/site/en-US/privacypolicy" target="_blank" rel="noopener noreferrer">Epic Games privacy policy</a>; Epic is who to ask about it, and there is no name, email or account attached to it in the first place. A room record disappears from Epic's lobby list when the table closes.</li>
-          <li><b>7.</b> <b>Any platform</b> &mdash; that is the entire procedure. Nothing about you exists on any machine of ours, so there is nothing left to request, revoke, export or wait on.</li>
+          <li><b>6.</b> <b>Your iCloud copy</b> &mdash; it is in your own Apple Account, not with us. <b>Reset stats</b> in Settings zeroes the record on every device that syncs, and switching iCloud off for Ninehole (see <a href="#sync">above</a>) stops the game using it. The store itself is part of your iCloud account and is kept and erased with it, under the Apple privacy policy.</li>
+          <li><b>7.</b> <b>Your Android backup</b> &mdash; it is in your own Google account. You can turn backup off, or delete a phone's backup, in your phone's backup settings or the Google One app; deleting a phone's backup removes it for every app on that phone.</li>
+          <li><b>8.</b> <b>The cross-platform save</b> &mdash; <b>Delete cloud save</b> in Settings removes it from Epic; <a href="#delete-cloud-save">the section above</a> has that and the way to ask without the game.</li>
+          <li><b>9.</b> <b>If you played online</b> &mdash; removing the app removes the game's own data, including anything it kept about an online table. The anonymous device credential belongs to Epic's SDK rather than to us, and any record Epic keeps of it is governed by the <a href="https://www.epicgames.com/site/en-US/privacypolicy" target="_blank" rel="noopener noreferrer">Epic Games privacy policy</a>; Epic is who to ask about it, and there is no name, email or account attached to it in the first place. A room record disappears from Epic's lobby list when the table closes.</li>
+          <li><b>10.</b> <b>Any platform</b> &mdash; that is the entire procedure. Nothing about you exists on any machine of ours, so there is nothing left to request from us, revoke, export or wait on.</li>
         </ol>
         <p>
           Your purchase is the one thing this does not erase, and it is not ours
           to erase: the record of what you bought is held by Apple or Google.
           Deleting the game does not refund or cancel it, and reinstalling from
-          the same store account gives you the game back &mdash; without your
-          old stats, which are gone.
+          the same store account gives you the game back &mdash; with your
+          stats, if your iCloud or Android backup still holds them or you
+          signed in to the cross-platform save, and without them otherwise.
         </p>
 
         <h2>Changes to this policy</h2>
@@ -303,7 +402,7 @@
     <div class="footer__body">
       <img class="footer__logo" src="/logo.png" alt="" width="44" height="44" />
 
-      <p class="vibe vibe--foot">Nothing collected. Nothing to declare.</p>
+      <p class="vibe vibe--foot">Nothing collected unless you sign in.</p>
 
       <nav class="footer__links" aria-label="Footer">
         <a href="/">Home</a>
