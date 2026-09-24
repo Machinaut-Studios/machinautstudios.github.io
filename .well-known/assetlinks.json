@@ -9,5 +9,16 @@
         "C3:20:00:CF:BA:4D:D5:D2:03:8E:B8:21:CC:7F:41:F1:D6:F6:96:91:E7:7C:98:E1:64:AC:DF:AE:D6:AE:4B:B9"
       ]
     }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.machinautstudios.clackyard",
+      "sha256_cert_fingerprints": [
+        "E6:DD:1C:95:EC:1B:13:72:A7:4F:8B:41:DA:91:A5:00:72:39:40:00:09:25:99:F8:07:1C:36:71:AB:F0:5F:6E",
+        "C3:20:00:CF:BA:4D:D5:D2:03:8E:B8:21:CC:7F:41:F1:D6:F6:96:91:E7:7C:98:E1:64:AC:DF:AE:D6:AE:4B:B9"
+      ]
+    }
   }
 ]
