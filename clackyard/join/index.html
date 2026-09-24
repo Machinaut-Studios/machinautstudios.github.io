@@ -7,6 +7,8 @@
 
   An invite is https://machinautstudios.com/clackyard/join/?c=ABC123 (the
   app builds it in lib/services/net/invite_link.dart: kInviteBase + "?c=").
+  A public online table's code is six characters; a private one's is
+  twelve (the lobby code, then the door code), shown here as two lines.
   On a device that HAS Clackyard, iOS (via /.well-known/apple-app-site-
   association) and Android (via /.well-known/assetlinks.json, once it lists
   the Play app-signing key) hand that URL straight to the app, which opens
@@ -85,6 +87,13 @@
       padding: 1rem .75rem;
       word-break: break-all;
     }
+    /* A private online table's code is twelve characters: the lobby code,
+       then the door code. On one line at this size it is wider than a
+       320px phone, so it is shown as two lines of six at the SAME size
+       as a public code — each line is exactly as wide as a six-character
+       code, which already fits. Each line inherits the text-indent, so
+       both stay centred. Only the display is split; Copy copies the code. */
+    .code__group { display: block; line-height: 1.3; }
     .code-label {
       display: block;
       font-size: .82rem;
@@ -187,7 +196,7 @@
     <ol class="steps" id="steps">
       <li>Install Clackyard.</li>
       <li>Open it and tap <code>Join a table</code>.</li>
-      <li>Switch to <code>Online</code> and enter the room code above.</li>
+      <li id="enter">Switch to <code>Online</code> and enter the room code above.</li>
     </ol>
 
     <p class="fineprint">
@@ -209,7 +218,24 @@
       if (code.length > 12) code = '';
 
       if (code) {
-        document.getElementById('code').textContent = code;
+        var shown = document.getElementById('code');
+        if (code.length > 6) {
+          // Lobby code on the first line, door code on the second. The
+          // groups are for reading; `code` itself stays one plain string,
+          // and that is what Copy puts on the clipboard.
+          [code.slice(0, 6), code.slice(6)].forEach(function (part) {
+            var line = document.createElement('span');
+            line.className = 'code__group';
+            line.textContent = part;
+            shown.appendChild(line);
+          });
+          // Two lines could pass for two codes; the app wants one.
+          document.getElementById('enter').innerHTML =
+            'Switch to <code>Online</code> and type both lines of the code ' +
+            'above as one code, top line first.';
+        } else {
+          shown.textContent = code;
+        }
         document.getElementById('code-panel').hidden = false;
         document.title = 'Join Clackyard table ' + code;
       } else {
