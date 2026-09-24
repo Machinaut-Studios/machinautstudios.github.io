@@ -8,7 +8,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Privacy Policy for Ninehole | Machinaut Studios LLC</title>
-  <meta name="description" content="Privacy policy for Ninehole by Machinaut Studios LLC. No account of ours, no server of ours, no analytics, no crash reporting, no advertising and no in-app purchases. Solo games and same-Wi-Fi tables never leave your own network, and your stats and a few preferences are kept in your own iCloud or Android backup, which we cannot read. Two things are opt-in: online play, which uses Epic Online Services for room discovery and for carrying packets between players, and the cross-platform save, which keeps your lifetime stats with Epic after you sign in with Google or Apple. This page lists exactly what each one sends and how to erase everything." />
+  <meta name="description" content="Privacy policy for Ninehole by Machinaut Studios LLC. No account of ours, no server of ours, no analytics, no crash reporting, no advertising and no in-app purchases. Solo and same-Wi-Fi tables never leave your own network, and your stats and a few preferences are kept in your own iCloud or Android backup, which we cannot read. Two things are opt-in: online play, which uses Epic Online Services for room discovery and for carrying packets between players, and the cross-platform save, which keeps your lifetime stats with Epic after you sign in with Google or Apple. This page lists exactly what each one sends and how to erase everything." />
   <meta name="robots" content="index, follow" />
   <meta name="copyright" content="© 2026 Machinaut Studios LLC. All rights reserved." />
   <meta name="theme-color" content="#07060f" />
@@ -75,8 +75,10 @@
           Google account, which we cannot read &mdash; so that deleting the
           game or changing phones does not lose them. The game itself sends
           nothing past your own network from a solo game against bots or a
-          table played over your own Wi-Fi. Two things are off until you choose
-          them:
+          table played over your own Wi-Fi &mdash; except that, if you signed
+          in to the cross-platform save, the stats a finished game adds are
+          synced to Epic, usually a few seconds after it ends. Two things are
+          off until you choose them:
           <a href="#online">online play</a>, and the
           <a href="#cross-platform-save">cross-platform save</a>, which keeps
           your lifetime stats with Epic Online Services if you sign in with
@@ -176,11 +178,14 @@
 
         <h2>Playing solo, and playing on the same Wi-Fi</h2>
         <p>
-          <b>Play vs bots</b> uses no network at all. The whole game &mdash;
-          deck, rules, opponents &mdash; runs on the device in your hand.
-          (The stats it adds to your record are copied to your own iCloud or
-          Android backup like any others, as described above; that is your
-          platform's sync, not the table's.)
+          A <b>Play vs bots</b> table uses no network at all. The whole game
+          &mdash; deck, rules, opponents &mdash; runs on the device in your
+          hand. (The stats it adds to your record are copied to your own
+          iCloud or Android backup like any others, as described above; that
+          is your platform's sync, not the table's. And if you signed in to
+          the <a href="#cross-platform-save">cross-platform save</a>, they are
+          also synced to Epic after the game, as that section describes
+          &mdash; usually a few seconds after it ends.)
         </p>
         <p>
           A <b>Same Wi-Fi</b> table stays on your own network and does not
@@ -195,6 +200,8 @@
           avatars, moves, the six built-in emotes, and each seat's own view of
           the table. It goes to the other players' devices and to nothing else.
           It does not pass through us, and it does not leave your network.
+          (What the game adds to your stats afterwards travels as a solo
+          game's does, above.)
         </p>
         <p>
           One device holds the only true state of the game and sends every other
@@ -219,7 +226,9 @@
           game never contacts Epic. It does not check in, does not log in in
           the background, and does not even load Epic's library &mdash; that
           happens the first time an online table is opened or searched for, or
-          the first time a signed-in save syncs, and not before.
+          the first time a signed-in save syncs (at launch, a few seconds after
+          any game ends, solo and Wi-Fi games included, or when you tap Sync
+          now), and not before.
         </p>
         <p>When you do choose Online, this is the complete list of what happens:</p>
         <ul>
@@ -247,13 +256,13 @@
           <li>The <b>build</b> has to carry the storage key and the sign-in settings, which are supplied at build time and are not in the source. A build without them does not show the option at all.</li>
           <li><b>You</b> have to sign in, in Settings: with Google on iPhone, iPad and Android, or with Apple on iPhone, iPad and the Mac App Store version. Windows, and a Mac copy not bought from the Mac App Store, do not offer it.</li>
         </ul>
-        <p>If you never sign in, nothing in this section happens. When you do, this is the complete list of what happens:</p>
+        <p>If you never sign in, nothing in this section happens. When you do, the game syncs when you sign in, at launch, a few seconds after every game ends &mdash; solo and Wi-Fi games included &mdash; and when you tap Sync now. (A device signed in with Apple alone syncs after a game only within a few minutes of your last sign-in there, because Apple cannot sign you in without asking; otherwise it waits for Sync now.) Each sync is this complete list of what happens:</p>
         <ul>
           <li><b>The same anonymous per-device sign-in online play uses</b> (described above: a Device ID credential kept on the device, your operating system's name and the display name "Player") is made first, because Epic's library needs it running; it lasts as long as the sync, and the game then shuts the library down again unless you are at an online table.</li>
-          <li><b>Google or Apple signs you in</b> and hands the game a short-lived sign-in token that says who you are to them. The game asks Apple for no name and no email, so Apple's token carries neither. Google's sign-in always puts your Google account's name, email address and profile picture into its token, whatever the app asks for &mdash; that is why Google's sheet says it will share them with Ninehole. The game does not show, store or use them, and they leave your device only inside that token. The game keeps the token in memory while it is valid and never writes it down. On iPhone and iPad, Google's own sign-in library keeps its sign-in &mdash; a renewal token and the last sign-in token, with the name, email and picture in it &mdash; in your device's Keychain, which is what lets the game sync after a game without asking you again; it stays until you choose Sign out or Delete cloud save, and iOS may keep it after the app is deleted, until Google's library next starts. It never leaves the device. On Android, if Google cannot sign you in quietly after a game it may show its account chooser once; after that the game stops asking in the background until you tap Sync now.</li>
+          <li><b>Google or Apple signs you in</b> and hands the game a short-lived sign-in token that says who you are to them. The game asks Apple for no name and no email, so Apple's token carries neither. Google's sign-in always puts your Google account's name, email address and profile picture into its token, whatever the app asks for &mdash; that is why Google's sheet says it will share them with Ninehole. The game does not show, store or use them, and they leave your device only inside that token. The game keeps the token in memory while it is valid and never writes it down. On iPhone and iPad, Google's own sign-in library keeps its sign-in &mdash; a renewal token and the last sign-in token, with the name, email and picture in it &mdash; in your device's Keychain, which is what lets the game sync after a game without asking you again; it stays until you choose Sign out or Delete cloud save, and iOS may keep it after the app is deleted, until Google's library next starts. It never leaves the device. On Android, when the game syncs after a game, Google's quiet sign-in can show its account chooser if it cannot pick the account by itself &mdash; as when more than one Google account on the phone has used Ninehole. Choosing the save's account lets that sync go ahead, and the chooser can appear again after a later game; dismissing it, or choosing a different account, stops the game asking in the background until you tap Sync now.</li>
           <li><b>Epic checks the token.</b> The game passes it to Epic Online Services, which verifies it with Google or Apple and gives you a product user id: a random id, scoped to Ninehole, that Epic links to the account you signed in with. What Epic documents keeping about that link is which provider it was, your account's id with that provider (an opaque code, not your email address), a display name &mdash; which the game always sets to the word "Player" &mdash; and when you last signed in. On an iPhone or iPad, where both are offered, you can add the other provider to the same save; Epic then links both accounts to the one id, so either opens it.</li>
           <li><b>The game reads your save, adds this device's stats, and writes it back.</b> The save is one file, <code>ninehole-stats.json</code>, and it holds your lifetime stats and nothing else: the numbers listed above, one tally per installation under that installation's random install code. No name, no avatar, no settings, no tables or games. It is encrypted on your device, with a key built into the game, before it is uploaded, and Epic stores it in its Player Data Storage.</li>
-          <li><b>The sign-in lasts only as long as that read and write</b>; the game then signs the account out of Epic again. It is a separate sign-in from the anonymous one online play uses and never replaces it, so it never changes a join code and never ties an online table to your Google or Apple account. The game remembers on this device which provider you chose, so it can sync again later.</li>
+          <li><b>The sign-in lasts only as long as that read and write</b>; the game then signs the account out of Epic again. It is a separate sign-in from the anonymous one online play uses and never replaces it, so it never changes a join code and never ties an online table to your Google or Apple account. Once your first sign-in has read the save, the game remembers on this device which provider you chose, so it can sync again later.</li>
         </ul>
         <p>And this is what does <b>not</b> happen:</p>
         <ul>
@@ -272,7 +281,7 @@
         <h2 id="delete-cloud-save">Signing out of the cross-platform save, and deleting it</h2>
         <ul>
           <li><b>Sign out</b> (in Settings) stops this device syncing. The save stays with Epic for the next time you sign in, on any device, and your stats stay on this device.</li>
-          <li><b>Delete cloud save</b> (in Settings, with a confirmation) replaces the save file at Epic with a marker that says it was deleted and holds no stats, so your stats are gone from Epic at once, and unlinks the Google or Apple account that device signed in with. Epic only lets a device unlink the account it signed in with, so any other device of yours signed in to that save sees the marker the next time it syncs, unlinks its own account and signs out &mdash; it never fills the save back up. Signing in again by choice starts a new, empty save. It does not touch the stats on your devices, or in your iCloud or Android backup. What remains at Epic is an id with that empty marker and, until each of your other devices has synced once, the account links those devices hold, governed by the <a href="https://www.epicgames.com/site/en-US/privacypolicy" target="_blank" rel="noopener noreferrer">Epic Games privacy policy</a>.</li>
+          <li><b>Delete cloud save</b> (in Settings, with a confirmation) replaces the save file at Epic with a marker that says it was deleted and holds no stats, so your stats are gone from Epic at once, and unlinks the Google or Apple account that device signed in with. If that device holds both and one of them cannot be reached once the save is marked &mdash; you back out of Apple's sheet, say, or the network drops &mdash; the device keeps that sign-in and asks you to tap Delete cloud save again to unlink it. Epic only lets a device unlink the account it signed in with, so any other device of yours signed in to that save sees the marker the next time it syncs, unlinks its own account and signs out &mdash; it never fills the save back up. A device signed in with both Google and Apple lets go of them one at a time: when one of them reaches the deleted save &mdash; reading the marker, or finding its link already removed &mdash; the device drops only that one and reaches the marker through the other before it signs out &mdash; quietly for Google, and for Apple, which cannot sign in without asking, the next time you tap Sync now there. Signing in again by choice starts a new save, holding the stats of the device you sign in on. It does not touch the stats on your devices, or in your iCloud or Android backup. What remains at Epic is an id with that empty marker and, until each device holding one has synced through it (or, on the deleting device, until you tap Delete cloud save again), the account links those devices hold, governed by the <a href="https://www.epicgames.com/site/en-US/privacypolicy" target="_blank" rel="noopener noreferrer">Epic Games privacy policy</a>.</li>
           <li><b>Removing Ninehole from your Google or Apple account</b> &mdash; in your Google Account under <b>Security &rarr; Your connections to third-party apps &amp; services</b>, or in your Apple Account settings under <b>Sign in with Apple</b> &mdash; means the game can no longer sign in as you without asking you again. It does not delete a save already on Epic, so use Delete cloud save first.</li>
           <li><b>Without the game.</b> We keep no list of who has a save, and a save can only be found by signing in to it, so the quickest way is any device you can install Ninehole on &mdash; reinstalling it from the store account you bought it with costs nothing &mdash; then sign in and choose Delete cloud save. If that is not possible, email <a href="mailto:info@machinautstudios.com">info@machinautstudios.com</a> with the subject "Delete my Ninehole cloud save". We will answer, and do what Epic's tools allow; because we hold no record connecting your Google or Apple account to a save, we will tell you plainly if we cannot find it.</li>
         </ul>
@@ -298,7 +307,9 @@
         <p>
           We do not sell, rent or trade your data, and we have none to share. No
           third party receives anything from a solo game or a same-Wi-Fi table,
-          because those send nothing off your network. The companies in the
+          because those send nothing off your network &mdash; except, if you
+          signed in to the cross-platform save, the stats a finished game adds,
+          which reach Epic at the sync that follows it. The companies in the
           picture are the store that distributes Ninehole and processes its
           purchase; Apple or Google, which hold your iCloud or Android backup
           for you, in your own account; Google or Apple again, only if you sign
@@ -330,12 +341,12 @@
 
         <h2>Your choices</h2>
         <ul>
-          <li>Play solo or on your own Wi-Fi and the game sends nothing past your own network; only your own iCloud or Android backup of your record leaves the building, and you can switch that off. That is the default, on every screen, every time.</li>
+          <li>Play solo or on your own Wi-Fi and the game sends nothing past your own network; only your own iCloud or Android backup of your record leaves the building, and you can switch that off. That is the default, on every screen, every time. If you sign in to the cross-platform save, the stats each finished game adds are also synced to Epic, usually a few seconds after it ends, until you sign out.</li>
           <li>Leave the name field blank or type any name you like; the game shows "Player" if you leave it empty, and it is editable in Settings whenever you want. The room name you host under is the other thing anyone reads, so name a listed online table with that in mind.</li>
           <li>Never choose Online and never sign in to the cross-platform save, and the game never contacts Epic &mdash; it does not even load Epic's library.</li>
           <li>Leave iCloud on for Ninehole and your record survives a reinstall and follows you between your Apple devices; switch it off and it stays on each device alone. On Android, your phone's backup setting decides the same thing.</li>
           <li>Sign in to the cross-platform save only if you want your stats on both Apple and Android; sign out to stop a device syncing, or delete the save outright &mdash; <a href="#delete-cloud-save">see above</a>.</li>
-          <li>Reset your lifetime stats from Settings, with a confirmation, at any time. The reset reaches every device that syncs with that one, through iCloud or the cross-platform save.</li>
+          <li>Reset your lifetime stats from Settings, with a confirmation, at any time. It forgets every game the device you reset on knows about, there and on your other devices as they sync, through iCloud or the cross-platform save. Games from a device it has not synced with yet still count.</li>
           <li>Erase everything the game saved, with no request to file and nobody to ask &mdash; see below.</li>
           <li>Delete the app, which removes everything it stored along with it.</li>
         </ul>
@@ -356,7 +367,7 @@
           <li><b>3.</b> <b>iOS / iPadOS</b> &mdash; touch and hold the Ninehole icon, tap <b>Remove App</b>, then <b>Delete App</b>. This removes the app along with everything it stored on the device. (Choosing <b>Offload App</b> instead deliberately keeps the data for when you reinstall.) The copy in your iCloud is deliberately kept too, so a reinstall brings your record back &mdash; see item 6.</li>
           <li><b>4.</b> <b>macOS</b> &mdash; quit the game, then drag <b>Ninehole</b> from your Applications folder to the Trash and delete the folder <b>~/Library/<wbr />Containers/<wbr />com.machinautstudios.<wbr />ninehole</b> (in Finder, use <b>Go &rarr; Go to Folder&hellip;</b> and paste that path). The app is sandboxed, so everything it saved on the Mac is inside that one container. The Mac App Store version's iCloud copy is covered by item 6.</li>
           <li><b>5.</b> <b>Windows</b> &mdash; quit the game, then delete the <b>Machinaut Studios LLC\<wbr />Ninehole</b> folder inside <b>%APPDATA%</b> (paste <b>%APPDATA%</b> into the File Explorer address bar to get there). Uninstalling the game does not remove that folder; deleting it does.</li>
-          <li><b>6.</b> <b>Your iCloud copy</b> &mdash; it is in your own Apple Account, not with us. <b>Reset stats</b> in Settings zeroes the record on every device that syncs, and switching iCloud off for Ninehole (see <a href="#sync">above</a>) stops the game using it. The store itself is part of your iCloud account and is kept and erased with it, under the Apple privacy policy.</li>
+          <li><b>6.</b> <b>Your iCloud copy</b> &mdash; it is in your own Apple Account, not with us. <b>Reset stats</b> in Settings forgets every game the device you reset on knows about, there and on your other devices as they sync (games from a device it has not synced with yet still count), and switching iCloud off for Ninehole (see <a href="#sync">above</a>) stops the game using it. The store itself is part of your iCloud account and is kept and erased with it, under the Apple privacy policy.</li>
           <li><b>7.</b> <b>Your Android backup</b> &mdash; it is in your own Google account. You can turn backup off, or delete a phone's backup, in your phone's backup settings or the Google One app; deleting a phone's backup removes it for every app on that phone.</li>
           <li><b>8.</b> <b>The cross-platform save</b> &mdash; <b>Delete cloud save</b> in Settings removes it from Epic; <a href="#delete-cloud-save">the section above</a> has that and the way to ask without the game.</li>
           <li><b>9.</b> <b>If you played online</b> &mdash; removing the app removes the game's own data, including anything it kept about an online table. The anonymous device credential belongs to Epic's SDK rather than to us, and any record Epic keeps of it is governed by the <a href="https://www.epicgames.com/site/en-US/privacypolicy" target="_blank" rel="noopener noreferrer">Epic Games privacy policy</a>; Epic is who to ask about it, and there is no name, email or account attached to it in the first place. A room record disappears from Epic's lobby list when the table closes.</li>
