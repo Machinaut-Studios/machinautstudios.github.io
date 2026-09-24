@@ -7,15 +7,19 @@
   source on 2026-09-23 (Machinaut-Studios/clackyard): lib/services/net/
   eos_*.dart and lan_transport.dart, lib/data/persistence/*, the Android
   manifest (and the Epic SDK's own .aar manifest, which merges into it), the
-  iOS and macOS Info.plists and entitlements, and pubspec.yaml. If the app
-  starts sending anything new, this page changes BEFORE that build ships.
+  iOS and macOS Info.plists and entitlements, and pubspec.yaml. The online
+  paragraph on what Epic's SDK collects for Epic follows Epic's own SDK
+  privacy manifest (EOSSDK.framework/PrivacyInfo.xcprivacy, EOS SDK
+  1.19.1.2), checked 2026-09-24, and matches the Apple App Privacy and
+  Google Play Data safety declarations filed that day. If the app starts
+  sending anything new, this page changes BEFORE that build ships.
 -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Privacy Policy for Clackyard | Machinaut Studios LLC</title>
-  <meta name="description" content="Privacy policy for Clackyard by Machinaut Studios LLC. We collect nothing: no account, no sign-in, no server of ours, no analytics, no crash reporting, no advertising and no in-app purchases. Settings, stats and saved games stay on your device. Solo games and same-Wi-Fi tables never leave your own network. Online play is opt-in and uses Epic Online Services for room discovery and for carrying packets between players; this page lists exactly what reaches Epic and what does not, and how to erase everything the game saved." />
+  <meta name="description" content="Privacy policy for Clackyard by Machinaut Studios LLC. We collect nothing: no account, no sign-in, no server of ours, no analytics or crash reporting of ours, no advertising and no in-app purchases. Settings, stats and saved games stay on your device. Solo games and same-Wi-Fi tables never leave your own network. Online play is opt-in and uses Epic Online Services for room discovery and for carrying packets between players; this page lists exactly what reaches Epic, including what Epic's own SDK collects for Epic, what does not, and how to erase everything the game saved." />
   <meta name="robots" content="index, follow" />
   <meta name="copyright" content="© 2026 Machinaut Studios LLC. All rights reserved." />
   <meta name="theme-color" content="#07060f" />
@@ -24,7 +28,7 @@
 
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Privacy Policy for Clackyard" />
-  <meta property="og:description" content="No account, no analytics, no ads, no in-app purchases, and no server of ours. Solo and same-Wi-Fi tables never leave your network. Online play is opt-in, anonymous and per-device — and this page says exactly what reaches Epic Online Services." />
+  <meta property="og:description" content="No account, no analytics of ours, no ads, no in-app purchases, and no server of ours. Solo and same-Wi-Fi tables never leave your network. Online play is opt-in, anonymous and per-device — and this page says exactly what reaches Epic Online Services." />
   <meta property="og:url" content="https://machinautstudios.com/clackyard/privacy/" />
 
   <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
@@ -66,28 +70,34 @@
     <section class="section">
       <article class="legal">
         <h1>Privacy Policy for Clackyard</h1>
-        <p class="legal__meta">Effective September 23, 2026 &middot; Last updated September 23, 2026</p>
+        <p class="legal__meta">Effective September 23, 2026 &middot; Last updated September 24, 2026</p>
 
         <p class="legal__lead">
           Clackyard ("the game") is a dominoes game &mdash; Mexican Train and
           Chicken Foot &mdash; developed and published by Machinaut Studios LLC
           ("we", "us"). This policy explains what data the game handles. The
           short version: <b>we collect nothing, we run no server, and there is
-          no account to make.</b> There is no analytics, no crash reporter, no
-          advertising and no in-app purchase code in the build. Your name, your
-          avatar, your settings, your lifetime stats and your saved games are
-          written to your own device and stay there. A solo game against bots
-          and a table played over your own Wi-Fi send nothing past your own
-          network. Online play is the one exception, it is off until you choose
-          it, and <a href="#online">the section below</a> says exactly what it
-          sends, to whom, and what it still does not send.
+          no account to make.</b> There is no analytics or crash reporter of
+          ours, no advertising and no in-app purchase code in the build. Your
+          name, your avatar, your settings, your lifetime stats and your saved
+          games are written to your own device and stay there. A solo game
+          against bots and a table played over your own Wi-Fi send nothing past
+          your own network. Online play is the one exception, it is off until
+          you choose it, and <a href="#online">the section below</a> says
+          exactly what it
+          sends, to whom, what Epic's own SDK collects for Epic while you play
+          online, and what it still does not send.
         </p>
 
         <h2>Information we collect</h2>
         <p>
           None. We operate no server for Clackyard and we receive nothing from
-          it. There is no analytics SDK, no crash-reporting SDK, no advertising
-          SDK and no attribution SDK in the build. There is no account to create
+          it. There is no analytics SDK of ours, no crash-reporting SDK, no
+          advertising SDK and no attribution SDK in the build. The one
+          third-party SDK that can collect anything is Epic's, which only a
+          build with online play carries and which starts only when you choose
+          Online; what it collects goes to Epic, never to us, and is described
+          under <a href="#online">Online play</a>. There is no account to create
           and no sign-up: we never ask for your name, email address, phone
           number, contacts or anything else. We build no profile of you, we have
           nothing to sell, rent or trade, and we hold no record that you exist.
@@ -164,7 +174,11 @@
           devices is the game: names, avatars, player ids, moves, the seven
           built-in emotes, and each seat's own view of the table. It goes to the
           other players' devices and to nothing else. It does not pass through
-          us, and it does not leave your network.
+          us, and it does not leave your network. It is not encrypted on that
+          network, though: neither the room announcement nor the game messages
+          are, so another device on the same Wi-Fi that listens for them could
+          read the names and moves in them, and the view of the table each seat
+          is sent. Host Same Wi-Fi tables on a network you trust.
         </p>
         <p>
           One device holds the only true state of the game and sends every other
@@ -173,6 +187,12 @@
           by the interface" &mdash; its value is simply not in the message.
           Nobody at the table, the host included, is sent a tile they are not
           entitled to see.
+        </p>
+        <p>
+          Nothing in the online section below applies to a solo game or a Same
+          Wi-Fi table &mdash; including the data Epic's SDK collects for Epic.
+          Neither of them ever starts Epic's SDK, and a build without Epic
+          credentials does not contain it at all.
         </p>
 
         <h2 id="online">Online play, and exactly what reaches Epic</h2>
@@ -191,13 +211,31 @@
           Epic's SDK at all &mdash; that happens the first time an online table
           is opened or searched for, and not before.
         </p>
-        <p>When you do choose Online, this is the complete list of what happens:</p>
+        <p>When you do choose Online, this is what the game itself does and sends, and to whom &mdash; with what Epic's SDK collects on its own account in the paragraph after it:</p>
         <ul>
           <li><b>An anonymous, per-device sign-in.</b> The game asks Epic for a Device ID credential and logs in with it. There is no Epic account, no email, no password, no web page and no prompt &mdash; nothing for you to sign up for and nothing for you to remember. Two values go with that request: a coarse device model, which is literally the name of your operating system ("ios", "android", "macos", "windows" or "linux") and nothing more specific; and a display name, which is hard-coded to the word "Player" rather than anything you typed. Epic returns an anonymous per-device id, and Epic's SDK keeps the credential in local storage it manages on your device. Like any online service, Epic also sees your internet address and the ordinary technical details its SDK sends with each request, such as the SDK's own version and your platform.</li>
           <li><b>Hosting publishes a room record to Epic.</b> While your table is open, Epic holds a lobby record for it so other players can find it. It carries the six-character join code, which app and protocol version it is, which of the two games it plays, a listed flag, <b>the room name you typed</b>, <b>the display name you typed in Settings</b>, the random player id described above, how many seats are taken, the maximum, and whether the game has started. A listed table can be seen by anyone searching from a compatible build. A table you mark <b>private</b> is left out of that room list and is found only by its code, but its record carries the same fields. If you would rather not publish a name, change it in Settings before you host &mdash; the field is yours and the game does not require it. The record is deleted when the table closes.</li>
           <li><b>Joining searches Epic's lobbies</b> for that code, or lists the listed tables of the same protocol version, and joining a table adds your anonymous Epic id to that table's lobby while you are at it.</li>
           <li><b>The game's packets travel over an Epic peer-to-peer connection</b> between the players' devices. They are the same messages the Wi-Fi game sends &mdash; names, avatars, player ids, moves, emotes, and each seat's masked view of the table. Epic's job is to get the devices talking: it first tries to connect them directly, in which case each device learns the other's internet address, as with any peer-to-peer connection; where a direct connection cannot be made, Epic relays the bytes between them. Epic is a US company and operates that service on its own infrastructure and under its own policies; see the <a href="https://www.epicgames.com/site/en-US/privacypolicy" target="_blank" rel="noopener noreferrer">Epic Games privacy policy</a>.</li>
         </ul>
+        <p>
+          <b>Epic's SDK also collects data of its own, for Epic.</b> A build
+          with online play carries Epic's SDK, and once you choose Online that
+          SDK may also collect data for Epic's own purposes. According to Epic's
+          own privacy manifest for the SDK, that is <b>product interaction
+          data</b> (how the app and its online features are used), which is
+          linked to the anonymous per-device Epic id and used for Epic's
+          analytics and to run the service, and <b>performance data</b>
+          (diagnostics), which is not linked to that id and is used for Epic's
+          analytics. The same manifest lists a name, a user id and gameplay
+          content, used to make online play work; those are the names, ids,
+          room record and packets already described above. It also lists an
+          email address, which applies only to signing in with an Epic account,
+          and Clackyard never does that. Epic's manifest declares that none of
+          this is used for tracking. We do not receive any of it and have no
+          access to it: it is collected by Epic and governed by the
+          <a href="https://www.epicgames.com/site/privacypolicy" target="_blank" rel="noopener noreferrer">Epic Games privacy policy</a>.
+        </p>
         <p>And this is what does <b>not</b> happen, even then:</p>
         <ul>
           <li><b>The game is still yours.</b> The host's device holds the only true state, runs every rule, and masks every other seat exactly as it does on Wi-Fi. Epic carries bytes and lists rooms. It does not hold the boneyard, decide a turn, or see anyone's hand.</li>
@@ -251,7 +289,8 @@
           the picture at all are the store that distributes Clackyard and
           processes its purchase, and &mdash; only if you choose an online table
           &mdash; Epic Online Services, for the room discovery and packet
-          carriage described above.
+          carriage described above, and for the usage and performance data
+          Epic's own SDK collects for Epic while you play online.
         </p>
 
         <h2>Children's privacy</h2>
@@ -274,7 +313,7 @@
         <ul>
           <li>Play solo or on your own Wi-Fi and nothing leaves the building. That is the default, on every screen, every time.</li>
           <li>Leave the name field blank or type any name you like; the game shows "Player" if you leave it empty, and it is editable in Settings whenever you want. The room name you host under is the other thing anyone reads, so name an online table with that in mind.</li>
-          <li>Never choose Online, and the game never contacts Epic.</li>
+          <li>Never choose Online, and the game never starts Epic's SDK or contacts Epic.</li>
           <li>Mark an online table private and it stays out of the room list; only people you give the code can find it.</li>
           <li>Reset your lifetime stats from Settings, with a confirmation, and delete any saved game from the shelf, at any time.</li>
           <li>Erase everything the game saved, with no request to file and nobody to ask &mdash; see below.</li>
@@ -340,7 +379,7 @@
     <div class="footer__body">
       <img class="footer__logo" src="/logo.png" alt="" width="44" height="44" />
 
-      <p class="vibe vibe--foot">Nothing collected. Nothing to declare.</p>
+      <p class="vibe vibe--foot">Nothing reaches us. Epic hears only from Online tables.</p>
 
       <nav class="footer__links" aria-label="Footer">
         <a href="/">Home</a>
