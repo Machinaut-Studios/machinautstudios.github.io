@@ -16,6 +16,8 @@
       "namespace": "android_app",
       "package_name": "com.machinautstudios.clackyard",
       "sha256_cert_fingerprints": [
+        "36:17:B7:B3:8B:62:E3:D4:5B:E3:6C:31:C3:D7:3D:01:C7:EF:C8:9B:49:39:0D:6C:13:A5:7E:7F:AC:51:DB:4C",
+        "A9:29:97:63:34:2E:07:52:B4:B0:B2:0A:F9:11:6C:B0:AE:63:8E:C9:64:94:08:81:8A:FB:0A:68:4B:06:8E:B6",
         "E6:DD:1C:95:EC:1B:13:72:A7:4F:8B:41:DA:91:A5:00:72:39:40:00:09:25:99:F8:07:1C:36:71:AB:F0:5F:6E",
         "C3:20:00:CF:BA:4D:D5:D2:03:8E:B8:21:CC:7F:41:F1:D6:F6:96:91:E7:7C:98:E1:64:AC:DF:AE:D6:AE:4B:B9"
       ]
