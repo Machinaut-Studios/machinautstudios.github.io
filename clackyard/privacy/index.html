@@ -3,23 +3,35 @@
   Privacy Policy for Clackyard — Machinaut Studios LLC
   Copyright © 2026 Machinaut Studios LLC. All rights reserved. See /LICENSE.
 
-  Both stores link here. Every claim below was checked against the app's
-  source on 2026-09-23 (Machinaut-Studios/clackyard): lib/services/net/
-  eos_*.dart and lan_transport.dart, lib/data/persistence/*, the Android
-  manifest (and the Epic SDK's own .aar manifest, which merges into it), the
-  iOS and macOS Info.plists and entitlements, and pubspec.yaml. The online
-  paragraph on what Epic's SDK collects for Epic follows Epic's own SDK
-  privacy manifest (EOSSDK.framework/PrivacyInfo.xcprivacy, EOS SDK
-  1.19.1.2), checked 2026-09-24, and matches the Apple App Privacy and
-  Google Play Data safety declarations filed that day. If the app starts
-  sending anything new, this page changes BEFORE that build ships.
+  Both stores link here, and Google Play's Delete account URL points at
+  #delete-cloud-save. Every claim below was checked against the app's source
+  on 2026-09-23 (Machinaut-Studios/clackyard): lib/services/net/eos_*.dart
+  and lan_transport.dart, lib/data/persistence/*, the Android manifest (and
+  the Epic SDK's own .aar manifest, which merges into it), the iOS and macOS
+  Info.plists and entitlements, and pubspec.yaml. The online paragraph on
+  what Epic's SDK collects for Epic follows Epic's own SDK privacy manifest
+  (EOSSDK.framework/PrivacyInfo.xcprivacy, EOS SDK 1.19.1.2), checked
+  2026-09-24. On 2026-09-25 the whole page was checked again against
+  Machinaut-Studios/clackyard at commit fc12f7a (branch dev), whose builds
+  sync through iCloud key-value storage and Android backup, sign the Mac App
+  Store build with the iCloud and Sign in with Apple entitlements, carry
+  Google's sign-in SDK in every Apple build, and offer the cross-platform
+  save wherever Settings shows it: docs/CLOUD_SAVE.md (§5), docs/
+  ARCHITECTURE.md (§12 and §15), store/STORE_LISTING.md (§8.1 to §8.5),
+  CLAUDE.md, ios/Runner/Runner.entitlements, macos/Runner/AppStore.
+  entitlements and Release.entitlements, the Android backup rules, lib/
+  domain/meta/lifetime_stats.dart, lib/services/cloud/* and lib/app/widgets/
+  cloud/cloud_save_section.dart. The paragraph on Google's sign-in library
+  follows GoogleSignIn-iOS 9.2.0's PrivacyInfo.xcprivacy as STORE_LISTING
+  §8.1 records it. If the app starts sending anything new, this page
+  changes BEFORE that build ships.
 -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Privacy Policy for Clackyard | Machinaut Studios LLC</title>
-  <meta name="description" content="Privacy policy for Clackyard by Machinaut Studios LLC. We collect nothing: no account, no sign-in, no server of ours, no analytics or crash reporting of ours, no advertising and no in-app purchases. Settings, stats and saved games stay on your device. Solo games and same-Wi-Fi tables never leave your own network. Online play is opt-in and uses Epic Online Services for room discovery and for carrying packets between players; this page lists exactly what reaches Epic, including what Epic's own SDK collects for Epic, what does not, and how to erase everything the game saved." />
+  <meta name="description" content="Privacy policy for Clackyard by Machinaut Studios LLC. No account of ours, no server of ours, no analytics or crash reporting of ours, no advertising and no in-app purchases. Solo games and same-Wi-Fi tables never leave your own network, and your stats and a few settings are kept in your own iCloud or Android backup, which we cannot read. Two things are opt-in: online play, which uses Epic Online Services for room discovery and for carrying packets between players, and the cross-platform save, which keeps your lifetime stats with Epic after you sign in with Apple or Google. This page lists exactly what each one sends, what Epic's SDK and Google's sign-in library declare for themselves, and how to erase everything, the cloud save included." />
   <meta name="robots" content="index, follow" />
   <meta name="copyright" content="© 2026 Machinaut Studios LLC. All rights reserved." />
   <meta name="theme-color" content="#07060f" />
@@ -28,7 +40,7 @@
 
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Privacy Policy for Clackyard" />
-  <meta property="og:description" content="No account, no analytics of ours, no ads, no in-app purchases, and no server of ours. Solo and same-Wi-Fi tables never leave your network. Online play is opt-in, anonymous and per-device — and this page says exactly what reaches Epic Online Services." />
+  <meta property="og:description" content="No account of ours, no analytics of ours, no ads, no in-app purchases, and no server of ours. Solo and same-Wi-Fi tables never leave your network, and your stats ride your own iCloud or Android backup. Online play and the cross-platform save are both opt-in — and this page says exactly what reaches Epic Online Services for each, and how to delete the save." />
   <meta property="og:url" content="https://machinautstudios.com/clackyard/privacy/" />
 
   <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
@@ -70,61 +82,88 @@
     <section class="section">
       <article class="legal">
         <h1>Privacy Policy for Clackyard</h1>
-        <p class="legal__meta">Effective September 23, 2026 &middot; Last updated September 24, 2026</p>
+        <p class="legal__meta">Effective September 23, 2026 &middot; Last updated September 25, 2026</p>
 
         <p class="legal__lead">
           Clackyard ("the game") is a dominoes game &mdash; Mexican Train and
           Chicken Foot &mdash; developed and published by Machinaut Studios LLC
           ("we", "us"). This policy explains what data the game handles. The
-          short version: <b>we collect nothing, we run no server, and there is
-          no account to make.</b> There is no analytics or crash reporter of
-          ours, no advertising and no in-app purchase code in the build. Your
-          name, your avatar, your settings, your lifetime stats and your saved
-          games are written to your own device and stay there. A solo game
-          against bots and a table played over your own Wi-Fi send nothing past
-          your own network. Online play is the one exception, it is off until
-          you choose it, and <a href="#online">the section below</a> says
-          exactly what it
-          sends, to whom, what Epic's own SDK collects for Epic while you play
-          online, and what it still does not send.
+          short version: <b>we run no server, there is no account of ours to
+          make, and nothing about you is ever sent to us.</b> There is no
+          analytics or crash reporter of ours, no advertising and no in-app
+          purchase code in the build. Your name, your avatar, your settings,
+          your lifetime stats and your saved games are written to your own
+          device, and your stats and a few settings are also kept in
+          <a href="#sync">your own iCloud or Android backup</a> &mdash; storage
+          that belongs to your Apple or Google account, which we cannot read
+          &mdash; so that deleting the game or changing devices does not lose
+          them. A solo game against bots and a table played over your own Wi-Fi
+          send nothing past your own network &mdash; except that, if you signed
+          in to the cross-platform save, the stats a finished game adds are
+          synced to Epic afterwards, usually a few seconds after it ends. Two
+          things are off until you choose them: <a href="#online">online
+          play</a>, and the <a href="#cross-platform-save">cross-platform
+          save</a>, which keeps your lifetime stats with Epic Online Services if
+          you sign in with Apple or Google. The sections below say exactly what
+          each one sends, to whom, what Epic's SDK and Google's sign-in library
+          declare they collect for themselves, and what is still not sent.
         </p>
 
         <h2>Information we collect</h2>
         <p>
-          None. We operate no server for Clackyard and we receive nothing from
-          it. There is no analytics SDK of ours, no crash-reporting SDK, no
-          advertising SDK and no attribution SDK in the build. The one
-          third-party SDK that can collect anything is Epic's, which only a
-          build with online play carries and which starts only when you choose
-          Online; what it collects goes to Epic, never to us, and is described
-          under <a href="#online">Online play</a>. There is no account to create
-          and no sign-up: we never ask for your name, email address, phone
+          Nothing reaches us, from any part of the game. We operate no server
+          for Clackyard and we receive nothing from it. There is no analytics
+          SDK of ours, no crash-reporting SDK, no advertising SDK and no
+          attribution SDK in the build. There is no account of ours to create
+          and no sign-up: we never ask you for your name, email address, phone
           number, contacts or anything else. We build no profile of you, we have
           nothing to sell, rent or trade, and we hold no record that you exist.
           The name and avatar you pick are for the other players at your table
-          to see; they are not sent to us, because there is no us to send them
-          to.
+          to see, and for your own other devices through your own iCloud or
+          Android backup; they are not sent to us, because there is no us to
+          send them to.
         </p>
-
-        <h2>What the game stores, and where</h2>
         <p>
-          Everything Clackyard remembers is written to your device's own private
-          app storage and stays there. It is kept under a handful of keys:
+          The cross-platform save is the one place anything of yours is kept
+          for you by a company we chose, and only once you sign in to it: then
+          your lifetime stats, and an id Epic assigns you, are stored by Epic
+          Online Services, which we use as a service provider to keep that save
+          for you. <a href="#cross-platform-save">Its section</a> says exactly
+          what is stored, what the sign-in involves, and
+          <a href="#delete-cloud-save">how to delete it</a>. Even then nothing
+          reaches a machine of ours.
+        </p>
+        <p>
+          Two third-party SDKs in the game declare that they can collect data
+          for their own makers, and neither sends anything to us:
         </p>
         <ul>
-          <li><b>Your settings and your identity</b> (<code>cy.settings</code>) &mdash; the display name you typed (up to 16 characters, and blank until you type one), which of the twelve avatars you picked, sound, haptics, reduce motion, whether tiles show pips or numerals, whether your hand's running total is shown, the last room name you used, the house rules you last hosted with, and a random player id. That id is sixteen hexadecimal characters drawn from your device's cryptographic random source on first run. It is not a device identifier, an advertising identifier or anything derived from your hardware, your account or your name &mdash; it exists so that a host can recognise you if your phone drops off the table mid-round and comes back.</li>
-          <li><b>Your lifetime stats</b> (<code>cy.stats</code>) &mdash; games and rounds played and won, rounds you went out in, rounds that ended blocked, your best game, total points, the largest table you have sat at, and games played and won of each of the two games. Numbers only, never sent over the network, and there is a "Reset stats" button in Settings.</li>
-          <li><b>The table in progress</b> (<code>cy.table</code>) &mdash; so that closing the game mid-round and coming back does not lose it. If you are the host this is the whole table: the room name, the rules, the roster (every player's display name, avatar and player id), every hand, the trains on the board and the boneyard. If you joined someone else's table it is only what your device needs to dial back in: the host's address or join code, and the door code you knocked with if the table was private.</li>
+          <li><b>Epic's SDK</b>, which only a build with Epic credentials carries, and which starts only when you choose an online table or when a cross-platform save you signed in to syncs. What it collects goes to Epic and is described under <a href="#online">Online play</a>.</li>
+          <li><b>Google's sign-in library</b> (Google Sign-In for iOS), which is built into every iPhone, iPad and Mac version of the game &mdash; whether or not that version offers Sign in with Google, and although the Mac never does. It does nothing until you choose <b>Sign in with Google</b> in a version that offers it; the button appears in Settings only where it is offered. Its own privacy manifest, the statement Apple reads into the App Store's privacy label, declares that it may collect a <b>name</b>, an <b>email address</b>, a <b>phone number</b> and a <b>coarse location</b>, for app functionality; a <b>user id</b> and <b>other data types</b>, for app functionality and analytics; and a <b>device id</b> and <b>other usage data</b>, for analytics &mdash; all linked to the person signing in, and none used for tracking. That is why Clackyard's App Store privacy label lists those types. Google's own published disclosure for the library names less: an identifier for your account, to record the permissions you grant, and your internet address, which may be used to estimate a general location to prevent fraud. What the library collects goes to Google under the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google privacy policy</a>, never to us. The Android version carries Google's sign-in library too, and it likewise does nothing until you choose Sign in with Google.</li>
+        </ul>
+
+        <h2 id="stored">What the game stores, and where</h2>
+        <p>
+          Everything Clackyard remembers is written to your device's own private
+          app storage. It is kept under these keys:
+        </p>
+        <ul>
+          <li><b>Your settings and your identity</b> (<code>cy.settings</code>) &mdash; the display name you typed (up to 16 characters, and blank until you type one), which of the twelve avatars you picked, sound, haptics, reduce motion, whether tiles show pips or numerals, whether your hand's running total is shown, the last room name you used, the house rules you last hosted with, and a random player id. That id is sixteen hexadecimal characters drawn from your device's cryptographic random source on first run. It is not a device identifier, an advertising identifier or anything derived from your hardware, your account or your name &mdash; it exists so that a host can recognise you if your phone drops off the table mid-round and comes back. Beside it is a <b>seat key</b> (<code>cy.seatKey</code>): another random secret made on first run, never shown, which your device sends to the host of a table you join and to nobody else, so that only your device can take your seat back.</li>
+          <li><b>Your lifetime stats</b> (<code>cy.stats.ledger</code>) &mdash; games and rounds played and won, rounds you went out in, rounds that ended blocked, your best game, total points, the largest table you have sat at, and games played and won of each of the two games. Numbers only. Each installation of the game keeps its own tally, filed under a random install code (<code>cy.install</code>: thirty-two hexadecimal characters drawn from your device's cryptographic random source on first run &mdash; like the player id, not a device identifier, an advertising identifier or anything derived from your hardware, your accounts or your name. It is kept in the game's cache folder, which no backup or phone transfer copies, so a restored or copied device starts a tally of its own), and the stats you see are every installation's tally added together. That is what lets two of your devices, or a reinstall, add up instead of overwriting each other. Versions before this one kept a single record under <code>cy.stats</code>; it becomes this installation's tally and is left where it was. There is a "Reset stats" button in Settings.</li>
+          <li><b>The table in progress</b> (<code>cy.table</code>) &mdash; so that closing the game mid-round and coming back does not lose it. If you are the host this is the whole table: the room name, the rules, the roster (every player's display name, avatar and player id, and the seat key each player's device took its seat with), the door code if the table is private, every hand, the trains on the board and the boneyard. If you joined someone else's table it is only what your device needs to dial back in: the host's address or join code, and the door code you knocked with if the table was private.</li>
           <li><b>Your saved games</b> (<code>cy.saves</code> and one <code>cy.save.&hellip;</code> entry per game) &mdash; up to twenty unfinished games, each a whole table as described above, plus the few facts the shelf lists: room name, which game, which network, the round, the seat names and when it was saved. The oldest falls off when a twenty-first is saved, and any of them can be deleted from the shelf.</li>
+          <li><b>A little bookkeeping for the sync</b> &mdash; for each setting that follows you between devices (the ones listed under iCloud below), when you last changed it, by the clock of the device you changed it on, or zero if you never have (<code>cy.settings.at</code>), so the newest change to each setting wins when your devices compare notes, and a change you make on one device is not undone by an older one from another; and, only if you signed in to the cross-platform save, whether that was with Apple or Google (<code>cy.cloud.provider</code>, and <code>cy.cloud.linked</code> if you added the other one), when it last synced (<code>cy.cloud.synced</code>), and a one-way fingerprint of the account you signed in with (<code>cy.cloud.subject.&hellip;</code>: a salted hash of that provider's id for your account, never the id itself, an email address or a name), so the game knows whom to ask next time and can tell you if you pick a different account. The game also notes, on the device alone and in the same cache folder as the install code, when it has stopped asking Google in the background until you tap Sync now (<code>cy.cloud.paused</code>). The game never writes down a password or a sign-in token. (Google's own sign-in library on iPhone and iPad keeps its sign-in in your device's Keychain &mdash; see <a href="#cross-platform-save">the cross-platform save</a>.)</li>
         </ul>
         <p>
           On every platform these live in the ordinary per-app storage the
-          platform gives every app. None of it is uploaded to us or synced
-          between your devices &mdash; we have nowhere to put it. The one copy
-          that can exist elsewhere is your platform's own device backup
-          (iCloud Backup, or Android's backup to your Google account), which may
-          include it along with every other app's data, under your account and
-          not ours. To erase it, see
+          platform gives every app. None of it is uploaded to us &mdash; we have
+          nowhere to put it. Copies beyond the device exist only in places that
+          belong to you: your own iCloud or Android backup,
+          <a href="#sync">described next</a>; the cross-platform save, only if
+          you signed in to it (and Epic's SDK may keep an encrypted working copy
+          of that one file in the game's own storage on the device); and, as for
+          any app, the device backups you make of an iPhone, iPad or Mac. We
+          cannot read any of them. To erase it all, see
           <a href="#data-deletion">Deleting your data</a>.
         </p>
         <p>
@@ -133,6 +172,22 @@
           and are not sent anywhere; they exist for a developer with the device
           in hand, and they disappear when the app closes.
         </p>
+
+        <h2 id="sync">Your own iCloud, and Android's backup</h2>
+        <p>
+          So that deleting the game, reinstalling it or moving to a new device
+          does not cost you your record, a copy of some of it is kept in storage
+          that belongs to your own Apple or Google account. This needs no
+          sign-in and is on unless you switch it off. It is not collected by us
+          &mdash; nothing of ours sits in between, and neither we nor anyone
+          working for us can read it &mdash; and you control it in your device's
+          own settings.
+        </p>
+        <ul>
+          <li><b>iPhone, iPad, and the Mac App Store version</b> &mdash; the game keeps two things in its own space in your iCloud key-value storage, the small private store Apple gives an app inside your iCloud account: your lifetime stats (each installation's tally, as above, with any reset you made) and a few settings &mdash; your display name, your avatar, sound, haptics, reduce motion, whether tiles show pips or numerals, whether your hand's running total is shown, and the house rules you last hosted with &mdash; each with the time you last changed it, as described in the bookkeeping above. They come back when you reinstall, they reach a new iPhone, iPad or Mac signed into the same Apple Account, and a setting you change on one reaches the others: each setting takes its newest change, wherever it was made, so changing your name on one device and your avatar on another keeps both. A new installation on which you have changed nothing takes your settings from iCloud and never puts its own defaults over them. Nothing else goes there: never your player id or your seat key (they identify your seat at a table, so each device keeps its own), never the last room name you used, never a table in progress or a saved game, never your install code or anything about a cross-platform save sign-in. When iCloud is on, Settings in the game says "Stats and settings sync through iCloud automatically." Apple holds the store under the <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">Apple privacy policy</a>. To stop it, switch iCloud off for Clackyard &mdash; on iPhone or iPad under <b>Settings &rarr; [your name] &rarr; iCloud</b>, among the apps using iCloud; on a Mac under <b>System Settings &rarr; [your name] &rarr; iCloud</b> &mdash; and the game carries on with what is on the device.</li>
+          <li><b>Android</b> &mdash; the game lets Android's own backup include its settings file, and only that file: your name, avatar and settings, when you last changed each of those settings (<code>cy.settings.at</code>), your player id together with its seat key, your lifetime stats, the table in progress and your saved games (on a device that hosted them, with the other players' seat keys and a private table's door code), and, if you signed in to the cross-platform save, the sign-in bookkeeping listed above, so a restored phone wakes up signed in. When backup is on, Android copies that file into your Google account &mdash; encrypted on the phone with your screen lock, if you have one &mdash; and restores it when you reinstall the game or set up a new phone from that backup; setting up a new phone by copying from the old one carries the same file. Android decides when a backup runs, usually about once a day while the phone is idle, charging and on Wi-Fi. Nothing else the game or Epic's SDK keeps on the phone is included: not the install code, not the note that Google is paused, and not Epic's device credential, which is encrypted with a key that never leaves the phone. Google holds the backup under the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google privacy policy</a>, and you control it in your phone's backup settings (usually <b>Settings &rarr; Google &rarr; Backup</b>; the path varies by phone maker).</li>
+          <li><b>Windows, Linux, and a Mac copy not bought from the Mac App Store,</b> have neither: everything stays on that one computer.</li>
+        </ul>
 
         <h2>Permissions</h2>
         <p>
@@ -143,10 +198,10 @@
           identifier.
         </p>
         <ul>
-          <li><b>Android</b> &mdash; the app declares exactly four permissions: <code>INTERNET</code>, <code>ACCESS_NETWORK_STATE</code>, <code>ACCESS_WIFI_STATE</code> and <code>CHANGE_WIFI_MULTICAST_STATE</code>. All four are normal install-time permissions, so none of them shows you a prompt. They are what lets the host open a table on your network, announce it so other devices can find it, and keep Android from dropping those announcements while the screen is on battery. Epic's Android library, which a build with online play carries, adds nothing to that list but a second declaration of <code>INTERNET</code>; it also brings package-visibility queries for a web browser and Custom Tabs, and an activity that receives the return from an Epic account sign-in, which this game never performs. Beyond that there is the package-visibility <code>queries</code> block for the system "process text" action that the Flutter engine includes as standard, and a link filter that lets an invite link open in the app (see <a href="#invites">Invite links</a>). None of those is a permission, and none grants access to anything.</li>
-          <li><b>iOS / iPadOS</b> &mdash; the only usage description in the app's <code>Info.plist</code> is the local-network one, which is what iOS shows you, once, the first time you host or look for a table on your Wi-Fi. The two Bonjour service types the app declares (<code>_clackyard._tcp</code> and <code>_clackyard._udp</code>) belong to that same local-network permission. No other usage description is declared, so there is nothing else iOS can prompt you for. The app also declares that it uses no non-exempt encryption.</li>
-          <li><b>macOS</b> &mdash; the release build runs inside the App Sandbox and declares exactly two capabilities beyond it: outgoing network connections and incoming ones. Those are what let a sandboxed Mac join a table and host one. There is no camera, microphone, location, contacts or file-access entitlement. Recent versions of macOS may also ask once for Local Network access.</li>
-          <li><b>Windows and Linux</b> &mdash; the desktop builds request nothing beyond their own network sockets and their own settings folder. Windows may ask whether to let Clackyard through its firewall the first time you host; that is the operating system's question, and allowing private networks is enough for a table on your own Wi-Fi.</li>
+          <li><b>Android</b> &mdash; the app asks the system for exactly four permissions: <code>INTERNET</code>, <code>ACCESS_NETWORK_STATE</code>, <code>ACCESS_WIFI_STATE</code> and <code>CHANGE_WIFI_MULTICAST_STATE</code>. All four are normal install-time permissions, so none of them shows you a prompt. They are what lets the host open a table on your network, announce it so other devices can find it, and keep Android from dropping those announcements while the screen is on battery. The libraries the game is built with add one more entry that asks for nothing of yours: a signature permission belonging to the app's own package, which an Android support library declares so that no other app can send the game its internal broadcasts. Epic's Android library, which a build with online play carries, adds nothing to that list but a second declaration of <code>INTERNET</code>; it also brings package-visibility queries for a web browser and Custom Tabs, and an activity that receives the return from an Epic account sign-in, which this game never performs. Google's sign-in library would bring two fingerprint and biometric permissions with it; the game removes them, because its sign-in does not use them. Neither Android's backup nor Google sign-in adds a permission, and the release build is checked for exactly this set before it ships. Beyond that there is the package-visibility <code>queries</code> block for the system "process text" action that the Flutter engine includes as standard, and a link filter that lets an invite link open in the app (see <a href="#invites">Invite links</a>). None of those is a permission, and none grants access to anything.</li>
+          <li><b>iOS / iPadOS</b> &mdash; the only usage description in the app's <code>Info.plist</code> is the local-network one, which is what iOS shows you, once, the first time you host or look for a table on your Wi-Fi. The two Bonjour service types the app declares (<code>_clackyard._tcp</code> and <code>_clackyard._udp</code>) belong to that same local-network permission. No other usage description is declared, so there is nothing else iOS can prompt you for. The app also declares that it uses no non-exempt encryption. It carries three capabilities that are not permissions &mdash; none shows a prompt and none reaches anything on the device: associated domains, which let an invite link on machinautstudios.com open the game; iCloud key-value storage, which gives the game its own small store in your iCloud (<a href="#sync">above</a>) and nothing else of your iCloud; and Sign in with Apple, which lets the game show Apple's sign-in sheet when you ask for it.</li>
+          <li><b>macOS</b> &mdash; the release build runs inside the App Sandbox and declares outgoing network connections and incoming ones, which are what let a sandboxed Mac join a table and host one. The Mac App Store version adds the same two capabilities as iOS, iCloud key-value storage and Sign in with Apple; a Mac copy from anywhere else (the Developer ID download) keeps only the two network ones, and has no iCloud and no sign-in. There is no camera, microphone, location, contacts or file-access entitlement. Recent versions of macOS may also ask once for Local Network access.</li>
+          <li><b>Windows and Linux</b> &mdash; the desktop builds request nothing beyond their own network sockets and their own settings and cache folders. Windows may ask whether to let Clackyard through its firewall the first time you host; that is the operating system's question, and allowing private networks is enough for a table on your own Wi-Fi.</li>
         </ul>
         <p>
           Development builds of any Flutter app carry extra permissions so the
@@ -158,7 +213,13 @@
         <h2>Playing solo, and playing on the same Wi-Fi</h2>
         <p>
           <b>Play vs bots</b> uses no network at all. The whole game &mdash;
-          tiles, rules, opponents &mdash; runs on the device in your hand.
+          tiles, rules, opponents &mdash; runs on the device in your hand. (The
+          stats it adds to your record are copied to your own iCloud or Android
+          backup like any others, <a href="#sync">as described above</a>; that
+          is your platform's sync, not the table's. And if you signed in to the
+          <a href="#cross-platform-save">cross-platform save</a>, they are also
+          synced to Epic after the game, as that section describes &mdash;
+          usually a few seconds after it ends.)
         </p>
         <p>
           A <b>Same Wi-Fi</b> table stays on your own network and does not
@@ -174,11 +235,13 @@
           devices is the game: names, avatars, player ids, moves, the seven
           built-in emotes, and each seat's own view of the table. It goes to the
           other players' devices and to nothing else. It does not pass through
-          us, and it does not leave your network. It is not encrypted on that
-          network, though: neither the room announcement nor the game messages
-          are, so another device on the same Wi-Fi that listens for them could
-          read the names and moves in them, and the view of the table each seat
-          is sent. Host Same Wi-Fi tables on a network you trust.
+          us, and it does not leave your network. (What the game adds to your
+          stats afterwards travels as a solo game's does, above.) It is not
+          encrypted on that network, though: neither the room announcement nor
+          the game messages are, so another device on the same Wi-Fi that
+          listens for them could read the names and moves in them, and the view
+          of the table each seat is sent. Host Same Wi-Fi tables on a network
+          you trust.
         </p>
         <p>
           One device holds the only true state of the game and sends every other
@@ -191,25 +254,32 @@
         <p>
           Nothing in the online section below applies to a solo game or a Same
           Wi-Fi table &mdash; including the data Epic's SDK collects for Epic.
-          Neither of them ever starts Epic's SDK, and a build without Epic
-          credentials does not contain it at all.
+          Neither of them starts Epic's SDK while you play, and a build without
+          Epic credentials does not contain it at all. The one exception comes
+          after the game, not during it: if you signed in to the cross-platform
+          save, the game starts Epic's SDK a few seconds after the game ends to
+          sync your stats, and <a href="#cross-platform-save">that section</a>
+          lists everything it sends then. The tiles, the hands and the moves
+          never leave your network.
         </p>
 
         <h2 id="online">Online play, and exactly what reaches Epic</h2>
         <p>
-          Playing across the internet is the one part of Clackyard that involves
-          a company other than the store you bought it from, and it is opt-in
-          twice over.
+          Playing across the internet is the one part of the table that
+          involves a company other than the store you bought the game from, and
+          it is opt-in twice over.
         </p>
         <ul>
           <li>The <b>build</b> has to carry Epic Online Services credentials, which are supplied at build time and are not in the source. A build without them cannot offer online play at all; the Online option is greyed out and says so.</li>
           <li><b>You</b> have to choose it: switch the table from <b>Same Wi-Fi</b> to <b>Online</b> on the Host or Join screen, open an invite link (which opens the Join screen already set to Online, with the code filled in), or resume a saved game that was played online. Wi-Fi is what is selected every time you open the Host or Join screen yourself.</li>
         </ul>
         <p>
-          If you never do any of those, the game never contacts Epic. It does
-          not check in, does not log in in the background, and does not start
-          Epic's SDK at all &mdash; that happens the first time an online table
-          is opened or searched for, and not before.
+          If you never do any of those &mdash; and never sign in to the
+          <a href="#cross-platform-save">cross-platform save</a> &mdash; the
+          game never contacts Epic. It does not check in, does not log in in the
+          background, and does not start Epic's SDK at all &mdash; that happens
+          the first time an online table is opened or searched for, or the first
+          time a save you signed in to syncs, and not before.
         </p>
         <p>When you do choose Online, this is what the game itself does and sends, and to whom &mdash; with what Epic's SDK collects on its own account in the paragraph after it:</p>
         <ul>
@@ -220,28 +290,88 @@
         </ul>
         <p>
           <b>Epic's SDK also collects data of its own, for Epic.</b> A build
-          with online play carries Epic's SDK, and once you choose Online that
-          SDK may also collect data for Epic's own purposes. According to Epic's
-          own privacy manifest for the SDK, that is <b>product interaction
-          data</b> (how the app and its online features are used), which is
-          linked to the anonymous per-device Epic id and used for Epic's
-          analytics and to run the service, and <b>performance data</b>
-          (diagnostics), which is not linked to that id and is used for Epic's
-          analytics. The same manifest lists a name, a user id and gameplay
-          content, used to make online play work; those are the names, ids,
-          room record and packets already described above. It also lists an
-          email address, which applies only to signing in with an Epic account,
-          and Clackyard never does that. Epic's manifest declares that none of
-          this is used for tracking. We do not receive any of it and have no
-          access to it: it is collected by Epic and governed by the
+          with online play carries Epic's SDK, and whenever that SDK is running
+          &mdash; at an online table you chose, or during a sync of a
+          cross-platform save you signed in to &mdash; it may also collect data
+          for Epic's own purposes. According to Epic's own privacy manifest for
+          the SDK, that is <b>product interaction data</b> (how the app and its
+          online features are used), which is linked to the anonymous
+          per-device Epic id and used for Epic's analytics and to run the
+          service, and <b>performance data</b> (diagnostics), which is not
+          linked to that id and is used for Epic's analytics. The same manifest
+          lists a name, a user id and gameplay content, used to make the service
+          work; those are the names, ids, room record and packets already
+          described above, and, for the cross-platform save, the save file and
+          the id it is kept under. It also lists an email address, which applies
+          only to signing in with an Epic account, and Clackyard never does
+          that. Epic's manifest declares that none of this is used for tracking.
+          We do not receive any of it and have no access to it: it is collected
+          by Epic and governed by the
           <a href="https://www.epicgames.com/site/privacypolicy" target="_blank" rel="noopener noreferrer">Epic Games privacy policy</a>.
         </p>
         <p>And this is what does <b>not</b> happen, even then:</p>
         <ul>
           <li><b>The game is still yours.</b> The host's device holds the only true state, runs every rule, and masks every other seat exactly as it does on Wi-Fi. Epic carries bytes and lists rooms. It does not hold the boneyard, decide a turn, or see anyone's hand.</li>
-          <li><b>There is still no account</b> &mdash; nothing to create, nothing to sign into, nothing to delete, and no way to link one table to another except by the anonymous per-device identity Epic issued.</li>
+          <li><b>Online play still needs no account</b> &mdash; nothing to create, nothing to sign into, nothing to delete, and no way to link one table to another except by the anonymous per-device identity Epic issued. The cross-platform save's sign-in, below, is separate and is never used for online play.</li>
           <li><b>We still receive nothing.</b> There is no Clackyard server, no database and no telemetry of ours anywhere in the picture. Nothing about your game reaches Machinaut Studios, online or otherwise.</li>
           <li><b>There is no chat.</b> The only things a player can put in front of another player are seven fixed emotes, a display name of at most sixteen characters, and &mdash; if they are the host &mdash; a room name of at most twenty. There is no message box, no voice, no images and no friends list; those two names are the only text anyone types, and the room name of an online table is published to Epic's room record along with the host's display name.</li>
+        </ul>
+
+        <h2 id="cross-platform-save">The cross-platform save, and exactly what reaches Epic</h2>
+        <p>
+          Your iCloud stays among Apple devices and Android's backup among
+          Android phones. To carry your lifetime stats between an iPhone and an
+          Android phone you can sign in to the cross-platform save. It is off
+          until you do. It exists only in a version of the game whose Settings
+          screen shows a
+          <b>Cross-platform save</b> section: if yours shows none, nothing in
+          this section applies to it, and that version never contacts Epic for
+          a save. Like online play it is opt-in twice over:
+        </p>
+        <ul>
+          <li>The <b>build</b> has to carry Epic Online Services credentials, the save's storage key and, for Google, Google's sign-in settings, all supplied at build time and not in the source. A build without them does not show the section at all.</li>
+          <li><b>You</b> have to sign in, in Settings: with Apple on iPhone, iPad and the Mac App Store version, and with Google on iPhone, iPad and Android in a version that offers it. Android does not offer Apple, so an Apple sign-in alone reaches only your Apple devices; on an iPhone or iPad you can add Google to the same save so an Android phone can open it too. Windows, Linux, and a Mac copy not bought from the Mac App Store do not offer the save.</li>
+        </ul>
+        <p>If you never sign in, nothing in this section happens. When you do, the game syncs when you sign in, at launch, a few seconds after every game ends &mdash; solo and Wi-Fi games included &mdash; after you reset your stats (or a reset reaches this device through iCloud), and when you tap <b>Sync now</b>. (A device signed in with Apple alone syncs in the background only within a few minutes of your last sign-in there, because Apple cannot sign you in without asking; otherwise it waits for Sync now.) Each sync is this complete list of what happens:</p>
+        <ul>
+          <li><b>The same anonymous per-device sign-in online play uses</b> (<a href="#online">described above</a>: a Device ID credential that Epic's SDK keeps on the device, your operating system's name and the display name "Player", and an anonymous per-device id at Epic) is made first, even if you never play online, because Epic's SDK needs it running. It lasts as long as the sync, and the game then shuts the SDK down again unless you are at an online table. While it runs, Epic's SDK may collect for Epic the usage and performance data described under online play.</li>
+          <li><b>Apple or Google signs you in</b> and hands the game a short-lived sign-in token that says who you are to them. The game asks Apple for no name and no email, so Apple's token carries neither. Google's sign-in always puts your Google account's name, email address and profile picture into its token, whatever the app asks for &mdash; that is why Google's sheet says it will share them with Clackyard. The game never shows, stores or uses them, and they leave your device only inside that token, which goes to Epic for Epic to verify. The game keeps the token in memory while it is valid, so you are not asked after every game, and never writes it down. On iPhone and iPad, Google's own sign-in library keeps its sign-in &mdash; a renewal token and the last sign-in token, with the name, email and picture in it &mdash; in your device's Keychain, which is what lets the game sync after a game without asking you again; it stays until you choose Sign out or Delete cloud save, and iOS may keep it after the app is deleted, until Google's library next starts. It never leaves the device. Android keeps no sign-in token for the game, and Sign in with Apple keeps no session on the device at all. On Android, when the game syncs after a game, Google's quiet sign-in can show its account chooser if it cannot pick the account by itself &mdash; as when more than one Google account on the phone has used Clackyard. Choosing the save's account lets that sync go ahead, and the chooser can appear again after a later game; dismissing it, or choosing a different account, stops the game asking in the background until you tap Sync now.</li>
+          <li><b>Epic checks the token.</b> The game passes it to Epic Online Services, which verifies it with Apple or Google and gives you a product user id: a random id, scoped to Clackyard, that Epic links to the account you signed in with. What Epic documents keeping about that link is which provider it was and that provider's environment, your account's id with that provider (an opaque code, not your email address), a display name &mdash; which the game always sets to the word "Player" &mdash; and when you last signed in. Your email address is not on that list. On an iPhone or iPad, where both are offered, you can add the other provider to the same save; Epic then links both accounts to the one id, so either opens it. If the account you add already has a save of its own, the game asks first: <b>Combine</b> adds the two saves' stats up in this one and marks the other deleted, the way Delete cloud save does below; <b>Keep apart</b> changes nothing.</li>
+          <li><b>The game reads your save, adds this device's stats, and writes it back.</b> The save is one file, <code>clackyard-stats.json</code>, and it holds your lifetime stats and nothing else: the numbers listed above, one tally per installation under that installation's random install code, with any reset you made. No name, no avatar, no settings, no house rules, no tables or games. It is encrypted on your device, with a key built into the game, before it is uploaded, and Epic stores it in its Player Data Storage.</li>
+          <li><b>The sign-in lasts only as long as that read and write</b>; the game then signs the account out of Epic again. It is a separate sign-in from the anonymous one online play uses and sits beside it rather than replacing it, so it never changes a join code and never ties an online table to your Apple or Google account. Once your first sign-in has read the save, the game remembers on this device which provider you chose, when it last synced, and the one-way account fingerprint described under <a href="#stored">What the game stores</a>, so it can sync again later. Those notes never go to iCloud or Epic, but they ride your Android backup and your device backups with the rest of the game's settings file, so a restored device wakes up signed in.</li>
+        </ul>
+        <p>And this is what does <b>not</b> happen:</p>
+        <ul>
+          <li><b>We still receive nothing.</b> The save goes to Epic, not to us. We run no server, and we do not download or read players' saves.</li>
+          <li><b>Nothing else about you goes to Epic.</b> Not the display name you typed, your avatar, your settings, your house rules, your tables or your games. What online play sends, if you use it, is described above and does not change when you sign in.</li>
+          <li><b>No advertising and no tracking.</b> The save exists to keep your stats. It is not used to advertise to you, to track you across other apps or websites, or for anything else we do.</li>
+        </ul>
+        <p>
+          Epic is a US company and holds the save on its own infrastructure, as
+          our service provider, under the
+          <a href="https://www.epicgames.com/site/en-US/privacypolicy" target="_blank" rel="noopener noreferrer">Epic Games privacy policy</a>.
+          Apple and Google see that you signed in to Clackyard, as with any
+          sign-in, under their own policies. The save stays until you delete it.
+        </p>
+
+        <h2 id="delete-cloud-save">Signing out of the cross-platform save, and deleting it</h2>
+        <p>
+          This is how to delete Clackyard's cross-platform save, in the game or
+          without it. It applies only if you signed in to the save in a version
+          of the game that offers it (Settings shows a Cross-platform save
+          section). If you never signed in, there is no save at Epic to delete:
+          your stats are only on your devices and in your own iCloud or Android
+          backup, and the last item below says how to clear those.
+        </p>
+        <ul>
+          <li><b>Sign out</b> (Settings &rarr; Cross-platform save &rarr; <b>Sign out</b>) stops this device syncing. The save stays with Epic for the next time you sign in, on any device, and your stats stay on this device.</li>
+          <li><b>Delete cloud save</b> (Settings &rarr; Cross-platform save &rarr; <b>Delete cloud save</b>, then <b>Delete</b> to confirm; there is no undo) replaces the save file at Epic with a marker that says it was deleted and holds no stats, so your stats are gone from Epic at once, and unlinks the Apple or Google account (or both) that device signed in with. If that device holds both and one of them cannot be reached once the save is marked &mdash; you back out of Apple's sheet, say, or the network drops &mdash; the device keeps that sign-in and asks you to tap Delete cloud save again to unlink it.</li>
+          <li><b>Your other devices.</b> Epic only lets a device unlink the account it signed in with, so any other device of yours signed in to that save sees the marker the next time it syncs, unlinks its own account and signs out, telling you the save was deleted on another device &mdash; it never fills the save back up. If that unlink fails &mdash; the network drops, say &mdash; the device stays signed in and tries again the next time it syncs, still without writing anything. A device signed in with both Apple and Google lets go of them one at a time: when one of them reaches the deleted save &mdash; reading the marker and unlinking, or finding its link already removed &mdash; the device drops only that one and reaches the marker through the other before it signs out: quietly for Google, and for Apple, which cannot sign in without asking, the next time you tap Sync now there.</li>
+          <li><b>What Epic keeps afterwards.</b> The product user id with that empty marker, and &mdash; until each device holding a link has synced through it and unlinked (a device signed in with Apple alone at its next Sync now; one whose unlink failed at the sync after), or, on the deleting device, until you tap Delete cloud save again &mdash; the account links those devices hold. Nothing with a stat, a name or an email address in it. Once the last link is gone, no sign-in can reach that id, and signing in again by choice starts a new save, holding the stats of the device you sign in on. What Epic keeps is governed by the <a href="https://www.epicgames.com/site/en-US/privacypolicy" target="_blank" rel="noopener noreferrer">Epic Games privacy policy</a>. Nothing of ours ever held a copy, so there is nothing of ours left to delete or keep.</li>
+          <li><b>What it does not touch.</b> Delete cloud save does not touch the stats on your devices, or in your iCloud or Android backup (the last item below). On iPhone and iPad it also ends Google's own sign-in in the Keychain, as Sign out does.</li>
+          <li><b>Removing Clackyard from your Apple or Google account</b> &mdash; in your Apple Account settings under <b>Sign in with Apple</b>, or in your Google Account under <b>Security &rarr; Your connections to third-party apps &amp; services</b> &mdash; means the game can no longer sign in as you without asking you again. The game never exchanges Apple's sign-in for a longer-lived Apple token, so it holds none to revoke, and we have no server that could; removing Clackyard there is how you end the link on Apple's side. It does not delete a save already on Epic, so use Delete cloud save first.</li>
+          <li><b>Without the game.</b> We keep no list of who has a save, and a save can only be found by signing in to it, so the quickest way is any device you can install Clackyard on &mdash; reinstalling it from the store account you bought it with costs nothing &mdash; then sign in with the same Apple or Google account and choose Delete cloud save. If that is not possible, email <a href="mailto:info@machinautstudios.com">info@machinautstudios.com</a> with the subject "Delete my Clackyard cloud save". We will answer, and do what Epic's tools allow; but we hold no record connecting your Apple or Google account to a save, so what we can do by email is limited, and we will tell you plainly if we cannot find it.</li>
+          <li><b>Your iCloud and Android copies</b> are not part of the cross-platform save and are not with us; they are in your own Apple or Google account (<a href="#sync">described above</a>). <b>iCloud</b>: <b>Reset stats</b> in Settings empties this installation's tally and marks every other tally this device knows about, so that none of them counts any more, there or on your other devices as they sync; each of your devices still in use then empties its own tally, including the games it played before the reset reached it, while games from a device this one has not synced with yet still count. The tally of an installation that no longer exists, such as one a reinstall left behind, stays in the store with its mark and no longer counts, because only the installation that wrote it could empty it. Switching iCloud off for Clackyard stops the game using the store; the store itself is part of your iCloud account, and Apple keeps and erases it with that account under the Apple privacy policy. <b>Android</b>: you can turn backup off, or delete a phone's backup, in your phone's backup settings (usually <b>Settings &rarr; Google &rarr; Backup</b>) or the Google One app; deleting a phone's backup removes it for every app on that phone.</li>
         </ul>
 
         <h2 id="invites">Invite links</h2>
@@ -285,23 +415,34 @@
         <p>
           We do not sell, rent or trade your data, and we have none to share. No
           third party receives anything from a solo game or a same-Wi-Fi table,
-          because those send nothing off your network. The only third parties in
-          the picture at all are the store that distributes Clackyard and
-          processes its purchase, and &mdash; only if you choose an online table
-          &mdash; Epic Online Services, for the room discovery and packet
-          carriage described above, and for the usage and performance data
-          Epic's own SDK collects for Epic while you play online.
+          because those send nothing off your network &mdash; except, if you
+          signed in to the cross-platform save, the stats a finished game adds,
+          which reach Epic at the sync that follows it. The companies in the
+          picture are the store that distributes Clackyard and processes its
+          purchase; Apple or Google, which hold your iCloud or Android backup
+          for you, in your own account; Apple or Google again, only if you sign
+          in to the cross-platform save with them, and Google's sign-in library
+          for whatever it collects for Google once you choose Sign in with
+          Google; and Epic Online Services, only if you choose an online table
+          or sign in to the cross-platform save &mdash; as our service provider,
+          for the room discovery, packet carriage and save storage described
+          above, and for the usage and performance data Epic's own SDK collects
+          for Epic while it runs.
         </p>
 
         <h2>Children's privacy</h2>
         <p>
           Clackyard is a dominoes game with no gambling, no advertising, no
-          accounts and no chat: the only things one player can put in front of
-          another are seven fixed emotes, a display name capped at sixteen
-          characters and, from the host, a room name capped at twenty. We do not
-          knowingly collect personal information from anyone, children included
-          &mdash; we collect none from anybody, and there is no advertising
-          identifier in use. A display name is typed by the person playing, so
+          account of ours and no chat: the only things one player can put in
+          front of another are seven fixed emotes, a display name capped at
+          sixteen characters and, from the host, a room name capped at twenty.
+          We do not knowingly collect personal information from anyone, children
+          included; nothing about anybody reaches us, and there is no
+          advertising identifier in use. The cross-platform save is the one
+          feature that keeps anything with a third party, and it needs an Apple
+          or Google sign-in that the player &mdash; or, for a child's account,
+          the parent who manages it &mdash; has to choose; it stores numbers and
+          an id, not a name. A display name is typed by the person playing, so
           if a child is playing on a shared device it is worth picking a display
           name that is not their real one &mdash; particularly before hosting an
           online table, where that name and the room name go into Epic's room
@@ -311,39 +452,49 @@
 
         <h2>Your choices</h2>
         <ul>
-          <li>Play solo or on your own Wi-Fi and nothing leaves the building. That is the default, on every screen, every time.</li>
+          <li>Play solo or on your own Wi-Fi and the table never leaves the building: the game sends nothing past your own network. Only your record goes further &mdash; to your own iCloud or Android backup, which you can switch off, and, if you signed in to the cross-platform save, to Epic, usually a few seconds after each game ends, until you sign out. Solo and Wi-Fi are the default, on every screen, every time.</li>
           <li>Leave the name field blank or type any name you like; the game shows "Player" if you leave it empty, and it is editable in Settings whenever you want. The room name you host under is the other thing anyone reads, so name an online table with that in mind.</li>
-          <li>Never choose Online, and the game never starts Epic's SDK or contacts Epic.</li>
+          <li>Never choose Online and never sign in to the cross-platform save, and the game never starts Epic's SDK or contacts Epic.</li>
+          <li>Never choose Sign in with Google, and Google's sign-in library never does anything.</li>
+          <li>Leave iCloud on for Clackyard and your record survives a reinstall and follows you between your Apple devices; switch it off and it stays on each device alone. On Android, your phone's backup setting decides the same thing.</li>
+          <li>Sign in to the cross-platform save only if you want your stats on both Apple and Android; sign out to stop a device syncing, or delete the save outright &mdash; <a href="#delete-cloud-save">see above</a>.</li>
           <li>Mark an online table private and it stays out of the room list; only people you give the code can find it.</li>
-          <li>Reset your lifetime stats from Settings, with a confirmation, and delete any saved game from the shelf, at any time.</li>
-          <li>Erase everything the game saved, with no request to file and nobody to ask &mdash; see below.</li>
-          <li>Delete the app, which removes everything it stored along with it.</li>
+          <li>Reset your lifetime stats from Settings, with a confirmation, at any time. It forgets every game and round the device you reset on knows about, there and on your other devices as they sync through iCloud or the cross-platform save &mdash; and every game those devices play before the reset reaches them. Games from a device it has not synced with yet still count. Delete any saved game from the shelf, at any time.</li>
+          <li>Erase everything the game saved, with no request to file with us and nobody of ours to ask &mdash; see below.</li>
+          <li>Delete the app, which removes everything it stored on that device; the copies in your own iCloud or Android backup, and a cross-platform save, stay until you clear them.</li>
         </ul>
 
         <h2 id="data-deletion">Deleting your data</h2>
         <p>
-          Every piece of Clackyard data lives on your device, so you delete it
-          yourself and it is gone for good. There is no account for us to close,
-          no copy on a server, no backup of ours, and no request to file with us
-          &mdash; we could not delete your data if you asked, because we never
-          had it. To erase it:
+          Clackyard data lives on your device and in places that belong to you,
+          so you delete it yourself. There is no account of ours to close, no
+          copy on a server of ours, no backup of ours, and no request to file
+          with us &mdash; we could not delete your data if you asked, because we
+          never had it. The copies beyond the device are your iCloud or Android
+          backup and, only if you signed in, the cross-platform save on Epic.
+          To erase it:
         </p>
         <ol>
-          <li><b>1.</b> <b>Android</b> &mdash; open <b>Settings &rarr; Apps &rarr; Clackyard &rarr; Storage</b> and tap <b>Clear storage</b>. Your name, avatar, settings, lifetime stats, the table in progress and every saved game are erased; the app stays installed and starts as if new.</li>
-          <li><b>2.</b> <b>Android</b> &mdash; or touch and hold the Clackyard icon and choose <b>Uninstall</b>. The app and all of its data go together.</li>
-          <li><b>3.</b> <b>iOS / iPadOS</b> &mdash; touch and hold the Clackyard icon, tap <b>Remove App</b>, then <b>Delete App</b>. This removes the app along with everything it stored. (Choosing <b>Offload App</b> instead deliberately keeps the data for when you reinstall.)</li>
-          <li><b>4.</b> <b>macOS</b> &mdash; quit the game, then drag <b>Clackyard</b> from your Applications folder to the Trash and delete the folder <b>~/Library/<wbr />Containers/<wbr />com.machinautstudios.<wbr />clackyard</b> (in Finder, use <b>Go &rarr; Go to Folder&hellip;</b> and paste that path). The app is sandboxed, so everything it saved is inside that one container.</li>
-          <li><b>5.</b> <b>Windows</b> &mdash; quit the game, then delete the <b>Machinaut Studios LLC\<wbr />Clackyard</b> folder inside <b>%APPDATA%</b> (paste <b>%APPDATA%</b> into the File Explorer address bar to get there). Uninstalling the game does not remove that folder; deleting it does.</li>
-          <li><b>6.</b> <b>Linux</b> &mdash; quit the game and delete the folder <b>~/.local/<wbr />share/<wbr />com.machinautstudios.<wbr />clackyard</b> (or the same name under <b>$XDG_DATA_HOME</b>, if you have set it).</li>
-          <li><b>7.</b> <b>If you played online</b> &mdash; removing the app removes the game's own data, including anything it kept about an online table. The anonymous device credential belongs to Epic's SDK rather than to us, and any record Epic keeps of it is governed by the <a href="https://www.epicgames.com/site/en-US/privacypolicy" target="_blank" rel="noopener noreferrer">Epic Games privacy policy</a>; Epic is who to ask about it, and there is no name, email or account attached to it in the first place. A room record disappears from Epic's lobby list when the table closes.</li>
-          <li><b>8.</b> <b>Any platform</b> &mdash; that is the entire procedure. Nothing about you exists on any machine of ours, so there is nothing left to request, revoke, export or wait on.</li>
+          <li><b>1.</b> <b>Android</b> &mdash; open <b>Settings &rarr; Apps &rarr; Clackyard &rarr; Storage</b> and tap <b>Clear storage</b>. Your name, avatar, settings, lifetime stats, the table in progress and every saved game are erased from the phone; the app stays installed and starts as if new. A copy in your Android backup is kept by Google so a reinstall can restore it &mdash; see item 8.</li>
+          <li><b>2.</b> <b>Android</b> &mdash; or touch and hold the Clackyard icon and choose <b>Uninstall</b>. The app and all of its data on the phone go together, with the same exception for your Android backup.</li>
+          <li><b>3.</b> <b>iOS / iPadOS</b> &mdash; touch and hold the Clackyard icon, tap <b>Remove App</b>, then <b>Delete App</b>. This removes the app along with everything it stored on the device. (Choosing <b>Offload App</b> instead deliberately keeps the data for when you reinstall.) The copy in your iCloud is deliberately kept too, so a reinstall brings your record back &mdash; see item 7. If you signed in with Google on that device, choose Sign out or Delete cloud save first: Google's sign-in library keeps its sign-in in the Keychain, and iOS may keep it after the app is deleted.</li>
+          <li><b>4.</b> <b>macOS</b> &mdash; quit the game, then drag <b>Clackyard</b> from your Applications folder to the Trash and delete the folder <b>~/Library/<wbr />Containers/<wbr />com.machinautstudios.<wbr />clackyard</b> (in Finder, use <b>Go &rarr; Go to Folder&hellip;</b> and paste that path). The app is sandboxed, so everything it saved on the Mac is inside that one container. The Mac App Store version's iCloud copy is covered by item 7.</li>
+          <li><b>5.</b> <b>Windows</b> &mdash; quit the game, then delete the <b>Machinaut Studios LLC\<wbr />Clackyard</b> folder inside <b>%APPDATA%</b>, and the folder of the same name inside <b>%LOCALAPPDATA%</b>, which holds the install code (paste <b>%APPDATA%</b> or <b>%LOCALAPPDATA%</b> into the File Explorer address bar to get there). Uninstalling the game does not remove those folders; deleting them does.</li>
+          <li><b>6.</b> <b>Linux</b> &mdash; quit the game and delete the folder <b>~/.local/<wbr />share/<wbr />com.machinautstudios.<wbr />clackyard</b> (or the same name under <b>$XDG_DATA_HOME</b>, if you have set it), and the cache folder <b>~/.cache/<wbr />com.machinautstudios.<wbr />clackyard</b> (or the same name under <b>$XDG_CACHE_HOME</b>), which holds the install code.</li>
+          <li><b>7.</b> <b>Your iCloud copy</b> &mdash; it is in your own Apple Account, not with us. <b>Reset stats</b> in Settings forgets every game the device you reset on knows about, there and on your other devices as they sync, and every game those devices play before the reset reaches them (games from a device it has not synced with yet still count), and switching iCloud off for Clackyard (see <a href="#sync">above</a>) stops the game using it. The store itself is part of your iCloud account and is kept and erased with it, under the Apple privacy policy. <a href="#delete-cloud-save">The cloud save section</a> says exactly what a reset leaves in the store.</li>
+          <li><b>8.</b> <b>Your Android backup</b> &mdash; it is in your own Google account. You can turn backup off, or delete a phone's backup, in your phone's backup settings or the Google One app; deleting a phone's backup removes it for every app on that phone.</li>
+          <li><b>9.</b> <b>The cross-platform save</b> &mdash; <b>Delete cloud save</b> in Settings removes your stats from Epic; <a href="#delete-cloud-save">the section above</a> has what it does on your other devices, what Epic keeps until they sync, and the way to ask without the game.</li>
+          <li><b>10.</b> <b>If you played online</b> &mdash; removing the app removes the game's own data, including anything it kept about an online table. The anonymous device credential belongs to Epic's SDK rather than to us, and any record Epic keeps of it is governed by the <a href="https://www.epicgames.com/site/en-US/privacypolicy" target="_blank" rel="noopener noreferrer">Epic Games privacy policy</a>; Epic is who to ask about it, and there is no name, email or account attached to it in the first place. A room record disappears from Epic's lobby list when the table closes.</li>
+          <li><b>11.</b> <b>Any platform</b> &mdash; that is the entire procedure. Nothing about you exists on any machine of ours, so there is nothing left to request from us, revoke, export or wait on.</li>
         </ol>
         <p>
           Your purchase is the one thing this does not erase, and it is not ours
           to erase: the record of what you bought is held by the store. Deleting
           the game does not refund or cancel it, and reinstalling from the same
-          store account gives you the game back &mdash; without your old stats
-          and saved games, which are gone.
+          store account gives you the game back &mdash; with your stats and
+          settings if your iCloud or Android backup still holds them (on
+          Android, your saved games too), or with your stats once you sign in to
+          a cross-platform save you kept; and without them otherwise.
         </p>
 
         <h2>Changes to this policy</h2>
@@ -379,7 +530,7 @@
     <div class="footer__body">
       <img class="footer__logo" src="/logo.png" alt="" width="44" height="44" />
 
-      <p class="vibe vibe--foot">Nothing reaches us. Epic hears only from Online tables.</p>
+      <p class="vibe vibe--foot">Nothing reaches us. Epic hears only from Online tables and a save you signed in to.</p>
 
       <nav class="footer__links" aria-label="Footer">
         <a href="/">Home</a>
