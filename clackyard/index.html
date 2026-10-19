@@ -3,14 +3,11 @@
   Clackyard — a game by Machinaut Studios LLC
   Copyright © 2026 Machinaut Studios LLC. All rights reserved. See /LICENSE.
 
-  PRE-LAUNCH (2026-09-23). Neither store is live, so both store buttons are
-  disabled <button>s on purpose — never an <a href> to a listing that 404s.
-  The records exist and these are the links to swap in, per store, the day
-  each one goes live (and in /clackyard/join/, and in the footer below):
+  LIVE (2026-10-17). Available on the App Store and Google Play. The hero,
+  footer and /clackyard/join/ link to the live listings:
 
-    App Store  id6815087937 — one Universal Purchase record for iPhone, iPad
-               and Mac. Use the slug form Apple's Lookup API returns
-               (trackViewUrl), not a bare /id link.
+    App Store  https://apps.apple.com/us/app/clackyard-mexican-train/id6815087937
+               One Universal Purchase record for iPhone, iPad and Mac.
     Play       https://play.google.com/store/apps/details?id=com.machinautstudios.clackyard
 
   Name rule: "Chicken Foot" is two words everywhere on this site.
@@ -20,7 +17,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Clackyard — Mexican Train &amp; Chicken Foot dominoes | Machinaut Studios LLC</title>
-  <meta name="description" content="Clackyard is Mexican Train and Chicken Foot dominoes for a table of two to sixteen. Every player brings their own phone, tablet or laptop; one device hosts the table and empty seats are filled by bots. Match the pips and run your own train out from the centre double — and the turn you can't, your train is open for the whole table to play on. Premium: one price, no ads, no in-app purchases, no accounts, no analytics. An iPhone, iPad, Mac and Android game by Machinaut Studios LLC, coming soon." />
+  <meta name="description" content="Clackyard is Mexican Train and Chicken Foot dominoes for a table of two to sixteen. Every player brings their own phone, tablet or laptop; one device hosts the table and empty seats are filled by bots. Match the pips and run your own train out from the centre double — and the turn you can't, your train is open for the whole table to play on. Premium: one price, no ads, no in-app purchases, no accounts, no analytics. Available now on the App Store for iPhone, iPad and Mac, and on Google Play for Android, by Machinaut Studios LLC." />
   <meta name="copyright" content="© 2026 Machinaut Studios LLC. All rights reserved." />
   <meta name="theme-color" content="#07060f" />
   <meta name="color-scheme" content="dark" />
@@ -29,7 +26,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Clackyard — Mexican Train &amp; Chicken Foot dominoes" />
-  <meta property="og:description" content="Dominoes for two to sixteen players, each on their own device, one of them hosting the table. Run your own train, cover every double, and never leave your train open for long. One price, no ads, no in-app purchases, no accounts. Coming soon." />
+  <meta property="og:description" content="Dominoes for two to sixteen players, each on their own device, one of them hosting the table. Run your own train, cover every double, and never leave your train open for long. One price, no ads, no in-app purchases, no accounts. Available now on the App Store and Google Play." />
   <meta property="og:url" content="https://machinautstudios.com/clackyard/" />
   <meta property="og:image" content="https://machinautstudios.com/clackyard/clackyard-og.png" />
   <meta property="og:image:width" content="1200" />
@@ -92,7 +89,7 @@
         <div class="app-hero__layout">
           <img class="app-hero__icon" src="/clackyard/clackyard_icon.png" alt="Clackyard app icon — an ivory double-six domino, tilted, with orange pips and a brass spinner stud on its divider, on midnight-blue felt" width="152" height="152" />
           <div class="app-hero__text">
-            <p class="stamp stamp--hero">&#9654; COMING SOON &nbsp;//&nbsp; iOS + ANDROID + MAC + PC</p>
+            <p class="stamp stamp--hero">&#9654; NOW SHIPPING &nbsp;//&nbsp; iPHONE + iPAD + MAC + ANDROID</p>
             <h1 class="hero__title" id="clackyard-title"><span class="n1">Clackyard</span><span class="cursor" aria-hidden="true"></span></h1>
             <p class="app-hero__tagline">Match the ends. Cover every double.<br />Lowest count wins.</p>
             <p class="hero__sub">
@@ -108,29 +105,28 @@
               lowest total at the end wins.
             </p>
             <div class="hero__actions">
-              <button class="btn btn--primary btn--play" type="button" disabled aria-disabled="true"
-                      aria-label="Coming soon to the App Store">
+              <a class="btn btn--primary btn--play"
+                 href="https://apps.apple.com/us/app/clackyard-mexican-train/id6815087937"
+                 aria-label="Download Clackyard on the App Store">
                 <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                   <path d="M16.37 1.43c0 1.06-.43 2.07-1.13 2.83-.76.82-1.99 1.45-3 1.37-.13-.99.39-2.05 1.05-2.74.74-.78 2.01-1.37 3.01-1.42.03.32.06.64.07-.04zm3.4 16.05c-.5 1.16-.74 1.67-1.38 2.7-.9 1.43-2.16 3.21-3.73 3.22-1.39.01-1.75-.91-3.64-.9-1.89.01-2.28.92-3.68.9-1.57-.01-2.77-1.62-3.67-3.05-2.51-3.98-2.77-8.65-1.23-11.13 1.1-1.76 2.83-2.79 4.46-2.79 1.66 0 2.7.91 4.07.91 1.33 0 2.14-.91 4.06-.91 1.45 0 2.99.79 4.08 2.16-3.59 1.96-3.01 7.09.66 8.89z" fill="currentColor"/>
                 </svg>
-                <span>Coming soon to the App Store</span>
-              </button>
-              <button class="btn btn--primary btn--play" type="button" disabled aria-disabled="true"
-                      aria-label="Coming soon to Google Play">
+                <span>Download on the App Store</span>
+              </a>
+              <a class="btn btn--primary btn--play"
+                 href="https://play.google.com/store/apps/details?id=com.machinautstudios.clackyard"
+                 aria-label="Get Clackyard on Google Play">
                 <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                   <path d="M4 3.5v17a1 1 0 0 0 1.5.87l14-8.5a1 1 0 0 0 0-1.74l-14-8.5A1 1 0 0 0 4 3.5z" fill="currentColor"/>
                 </svg>
-                <span>Coming soon to Google Play</span>
-              </button>
+                <span>Get it on Google Play</span>
+              </a>
               <a class="btn btn--ghost" href="/clackyard/privacy/">PRIVACY POLICY</a>
             </div>
             <p class="app-note">
-              Both store buttons are dead on purpose. Clackyard is not on the App Store
-              and not on Google Play yet, so there is nothing behind them to link to
-              &mdash; they become real links the day it is live, and not one day earlier.
-              What we can tell you now is the shape: <b>paid once</b>, and one App Store
-              purchase covers iPhone, iPad and Mac. No ads, no in-app purchases, no
-              account, no sign-in. Questions before then:
+              Out now on the <b>App Store</b> and <b>Google Play</b>, <b>paid once</b>.
+              One App Store purchase covers <b>iPhone, iPad and Mac</b>.
+              No ads, no in-app purchases, no subscription. Questions:
               <a href="mailto:info@machinautstudios.com">info@machinautstudios.com</a>.
             </p>
           </div>
@@ -384,6 +380,8 @@
         <a href="/">Home</a>
         <a href="/clackyard/">Clackyard</a>
         <a href="/clackyard/privacy/">Privacy Policy</a>
+        <a href="https://apps.apple.com/us/app/clackyard-mexican-train/id6815087937">App Store</a>
+        <a href="https://play.google.com/store/apps/details?id=com.machinautstudios.clackyard">Google Play</a>
         <a href="mailto:info@machinautstudios.com">Support</a>
         <a href="/ninehole/">Ninehole</a>
         <a href="/voidhorde/">Voidhorde</a>

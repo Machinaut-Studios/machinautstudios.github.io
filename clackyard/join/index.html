@@ -21,24 +21,23 @@
   through an install (the SDKs that could collect device signals we have
   told both stores we do not collect) — so the code is shown, not smuggled.
 
-  PRE-LAUNCH (2026-09-23): both store buttons are disabled on purpose. The
-  day a store goes live, swap that one for an <a class="store"> — App Store
-  id6815087937 (one listing for iPhone, iPad and Mac), Google Play
-  com.machinautstudios.clackyard — and trim the #soon note to match.
+  LIVE (2026-10-17): both store links are active — App Store id6815087937
+  (one listing for iPhone, iPad and Mac), Google Play
+  com.machinautstudios.clackyard.
 -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Join a Clackyard table</title>
-  <meta name="description" content="Someone invited you to a table of dominoes — Mexican Train or Chicken Foot. Clackyard is coming soon for iPhone, iPad, Mac and Android; join with the room code." />
+  <meta name="description" content="Someone invited you to a table of dominoes — Mexican Train or Chicken Foot. Get Clackyard for iPhone, iPad and Mac on the App Store or for Android on Google Play, then join with the room code." />
   <meta name="theme-color" content="#07060f" />
   <meta name="color-scheme" content="dark" />
   <meta name="robots" content="noindex" />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Join a Clackyard table" />
-  <meta property="og:description" content="Someone invited you to a table of dominoes. Mexican Train and Chicken Foot for two to sixteen players, every seat its own device." />
+  <meta property="og:description" content="Someone invited you to a table of dominoes. Mexican Train and Chicken Foot for two to sixteen players, every seat its own device. Available now on the App Store and Google Play." />
   <meta property="og:image" content="https://machinautstudios.com/clackyard/clackyard-og.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="1200" />
@@ -131,10 +130,7 @@
       border: 1px solid rgba(255,255,255,.14);
       color: var(--ink, #f3f1ff);
     }
-    .store:not([disabled]):hover, .store:not([disabled]):focus-visible { border-color: var(--amber, #ffc857); color: var(--amber, #ffc857); }
-    /* Pre-launch: a store that is not live is a dead button, never a link
-       to a listing that 404s. */
-    .store[disabled] { opacity: .55; cursor: not-allowed; }
+    .store:hover, .store:focus-visible { border-color: var(--amber, #ffc857); color: var(--amber, #ffc857); }
     .store small {
       display: block;
       font-size: .74rem;
@@ -144,7 +140,7 @@
       color: var(--muted, #b0a8dd);
       margin-top: .2rem;
     }
-    .soon { color: var(--muted, #b0a8dd); font-size: .9rem; line-height: 1.6; margin: 0 auto 1.75rem; max-width: 28rem; }
+    .store-note { color: var(--muted, #b0a8dd); font-size: .9rem; line-height: 1.6; margin: 0 auto 1.75rem; max-width: 28rem; }
 
     .steps {
       /* The site reset strips list markers; these are ordered steps and
@@ -182,14 +178,14 @@
     </div>
 
     <div class="stores">
-      <button class="store" id="ios" type="button" disabled aria-disabled="true"
-              aria-label="Coming soon to the App Store">iPhone, iPad &amp; Mac<small>coming soon</small></button>
-      <button class="store" id="android" type="button" disabled aria-disabled="true"
-              aria-label="Coming soon to Google Play">Android<small>coming soon</small></button>
+      <a class="store" id="ios" href="https://apps.apple.com/us/app/clackyard-mexican-train/id6815087937"
+         aria-label="Download Clackyard on the App Store">iPhone, iPad &amp; Mac<small>App Store</small></a>
+      <a class="store" id="android" href="https://play.google.com/store/apps/details?id=com.machinautstudios.clackyard"
+         aria-label="Get Clackyard on Google Play">Android<small>Google Play</small></a>
     </div>
-    <p class="soon" id="soon">
-      Clackyard is not on the App Store or Google Play yet, so these buttons are
-      dead on purpose &mdash; they become real links the day it is live. The code
+    <p class="store-note" id="store-note">
+      Available now on the App Store and Google Play. After installing, return
+      to this invite or enter the code in the app. The code
       works for as long as the host keeps the table open.
     </p>
 
@@ -245,9 +241,9 @@
           '<li>Install Clackyard.</li>' +
           '<li>Open it and tap <code>Join a table</code>.</li>' +
           '<li>Ask whoever invited you for the room code.</li>';
-        document.getElementById('soon').textContent =
-          'Clackyard is not on the App Store or Google Play yet, so these ' +
-          'buttons are dead on purpose — they become real links the day it is live.';
+        document.getElementById('store-note').textContent =
+          'Available now on the App Store and Google Play. Install Clackyard, ' +
+          'then ask whoever invited you for the room code.';
       }
 
       var copy = document.getElementById('copy');
