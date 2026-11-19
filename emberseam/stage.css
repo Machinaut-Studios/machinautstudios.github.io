@@ -1,0 +1,590 @@
+/* =========================================================================
+   EMBERSEAM — "THE SEAM"
+   The page's signature animation. One board, one rule, one 12-second loop:
+
+     tap an arrow  ->  it slides off the board the way it faces
+                   ->  the lane it left is burning
+                   ->  a piece that would CROSS the fire is refused
+                   ->  a piece that FOLLOWS the fire walks straight out
+                   ->  the scar seals and the next board is dealt
+
+   The board is nine cells by four, sized off one custom property, so the
+   whole contraption fills the housing from 360px to 1400px and the housing
+   is only ever as tall as the board needs.
+
+   Everything is scoped under .stage--seam and every keyframe is prefixed
+   `seam-`. The housing, the back-wall grid, the reduced-motion swap and the
+   offscreen pausing all come from the MOTION KIT in /styles.css.
+   ========================================================================= */
+
+.stage--seam {
+  /* One cell. Everything else — board, housing height, flame heights, ember
+     rise — is a multiple of it. */
+  --seam-cell: clamp(46px, 8vw, 82px);
+  --seam-cols: 9;
+  --seam-rows: 4;
+
+  /* Housing hugs the board: four rows plus room for the two placards. */
+  --stage-h: calc(var(--seam-cell) * var(--seam-rows) + 4.9rem);
+
+  /* The fire. Magenta at the root, white-hot at the tip, and in between the
+     one warm ember tone this game is named after — the same orange that
+     drags behind the arrow on its icon. */
+  --seam-heat:  #ffc061;
+  --seam-flame: #ff6a2b;
+}
+
+/* ---- deck: board + HUD, centred as one unit ---------------------------- */
+.stage--seam .seam__deck {
+  position: absolute;
+  inset: 2.45rem 1rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.7rem, 2.2%, 1.5rem);
+}
+
+.stage--seam .seam__defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* ---- the board --------------------------------------------------------- */
+.stage--seam .seam__board {
+  position: relative;
+  flex: 0 0 auto;
+  width: calc(var(--seam-cell) * var(--seam-cols));
+  height: calc(var(--seam-cell) * var(--seam-rows));
+  border-radius: calc(var(--seam-cell) * 0.11);
+  /* Pieces genuinely leave: past this edge there is no board left to be on. */
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(12, 9, 34, 0.92), rgba(7, 6, 15, 0.96));
+  box-shadow:
+    0 0 0 1px rgba(47, 228, 255, 0.34),
+    0 0 26px rgba(47, 228, 255, 0.12),
+    0 14px 34px rgba(0, 0, 0, 0.55),
+    inset 0 0 30px rgba(168, 85, 255, 0.10);
+}
+/* Cell lattice — the cyan floor of the seam. */
+.stage--seam .seam__lattice {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(47, 228, 255, 0.17) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(47, 228, 255, 0.17) 1px, transparent 1px);
+  background-size: var(--seam-cell) var(--seam-cell);
+}
+
+/* ---- pieces ------------------------------------------------------------ */
+.stage--seam .seam__tile {
+  position: absolute;
+  left: calc(var(--c) * var(--seam-cell));
+  top:  calc(var(--r) * var(--seam-cell));
+  width: var(--seam-cell);
+  height: var(--seam-cell);
+  z-index: 4;
+}
+.stage--seam .seam__chip {
+  position: absolute;
+  inset: 11%;
+  z-index: 2;              /* the wake below draws behind the piece */
+  border-radius: 22%;
+  background: linear-gradient(180deg, rgba(182, 255, 58, 0.15), rgba(182, 255, 58, 0.03));
+  border: 1px solid rgba(182, 255, 58, 0.5);
+  box-shadow:
+    inset 0 0 10px rgba(182, 255, 58, 0.14),
+    0 0 10px rgba(182, 255, 58, 0.12);
+}
+.stage--seam .seam__glyph {
+  position: absolute;
+  left: 15%; top: 15%;
+  width: 70%; height: 70%;
+  color: var(--lime);
+  fill: currentColor;
+  transform: rotate(var(--rot, 0deg));
+  filter: drop-shadow(0 0 5px rgba(182, 255, 58, 0.7));
+}
+
+/* Stone. Never moves, never burns, nothing may face into it. */
+.stage--seam .seam__tile--wall .seam__chip {
+  background:
+    repeating-linear-gradient(45deg,
+      rgba(168, 85, 255, 0.42) 0 4px,
+      rgba(168, 85, 255, 0.10) 4px 9px);
+  border-color: rgba(168, 85, 255, 0.6);
+  box-shadow: inset 0 0 10px rgba(168, 85, 255, 0.25);
+}
+
+/* Speed streak, dragged behind a piece on its way out. */
+.stage--seam .seam__tile--a::after,
+.stage--seam .seam__tile--b::after {
+  content: "";
+  position: absolute;
+  right: 52%; top: 44%;
+  width: 320%; height: 13%;
+  z-index: 1;
+  border-radius: 99px;
+  transform-origin: 100% 50%;
+  opacity: 0;
+  filter: blur(2px);
+  background: linear-gradient(270deg, rgba(182, 255, 58, 0.85), rgba(182, 255, 58, 0));
+}
+/* B rides the burning lane out, so its wake carries the fire's colours. */
+.stage--seam .seam__tile--b::after {
+  height: 19%;
+  background: linear-gradient(270deg,
+    rgba(255, 255, 255, 0.9), var(--seam-heat) 22%,
+    rgba(255, 46, 151, 0.5) 60%, rgba(255, 46, 151, 0));
+}
+
+/* ---- the tap ring ------------------------------------------------------ */
+.stage--seam .seam__ring {
+  position: absolute;
+  left: calc(var(--c) * var(--seam-cell));
+  top:  calc(var(--r) * var(--seam-cell));
+  width: var(--seam-cell);
+  height: var(--seam-cell);
+  z-index: 6;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+.stage--seam .seam__ring::before {
+  content: "";
+  width: 82%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 2px solid var(--cyan);
+  box-shadow: 0 0 16px rgba(47, 228, 255, 0.75), inset 0 0 12px rgba(47, 228, 255, 0.35);
+  opacity: 0;
+  transform: scale(0.35);
+  animation: seam-tap 12s linear infinite both;
+  animation-delay: var(--t, 0s);
+}
+
+/* ---- the scar ---------------------------------------------------------- */
+/* Sits over row 2 with a head of clear air above it so the flames have
+   somewhere to lick. Revealed left-to-right by clip-path, chasing the piece
+   that lit it; sealed left-to-right by the same clip once the lap is done.
+   33.3333% is column 3 of 9 — the cell the tapped piece left from. */
+.stage--seam .seam__fire {
+  position: absolute;
+  left: 0; right: 0;
+  top: calc(var(--seam-cell) * 1.38);
+  height: calc(var(--seam-cell) * 1.62);
+  z-index: 3;
+  opacity: 0;
+  clip-path: inset(0 66.6667% 0 33.3333%);
+  animation: seam-fire 12s linear infinite;
+}
+/* heat wash on the floor around the lane */
+.stage--seam .seam__fire::before {
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: -12%; height: 84%;
+  background: radial-gradient(60% 100% at 50% 100%,
+    rgba(255, 46, 151, 0.45), rgba(255, 46, 151, 0.12) 55%, transparent 72%);
+  filter: blur(6px);
+}
+/* the ember bed: the lane itself, alight */
+.stage--seam .seam__bed {
+  position: absolute;
+  left: 0.4%; right: 0.4%; bottom: 6%;
+  height: 19%;
+  border-radius: 99px;
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.92), var(--seam-heat) 30%,
+    var(--seam-flame) 62%, var(--magenta) 100%);
+  filter: blur(1.5px);
+  animation: seam-bed 1.7s ease-in-out infinite alternate, seam-bedcool 12s linear infinite;
+}
+/* flame tongues, crawling along the lane */
+.stage--seam .seam__lick {
+  position: absolute;
+  left: -3%; right: -3%; bottom: 16%;
+  height: 50%;
+  transform-origin: 50% 100%;
+  background-repeat: repeat-x;
+  background-size: 4.4% 100%;
+  background-image: radial-gradient(ellipse 46% 92% at 50% 100%,
+    rgba(255, 255, 255, 0.95) 0%,
+    var(--seam-heat) 24%,
+    var(--seam-flame) 48%,
+    rgba(255, 46, 151, 0.35) 72%,
+    rgba(255, 46, 151, 0) 78%);
+  filter: blur(1.6px);
+  animation: seam-lick 1.05s linear infinite, seam-lickcool 12s linear infinite;
+}
+.stage--seam .seam__lick--far {
+  bottom: 22%;
+  height: 74%;
+  background-size: 7.3% 100%;
+  background-image: radial-gradient(ellipse 40% 92% at 50% 100%,
+    rgba(255, 200, 120, 0.55) 0%,
+    rgba(255, 46, 151, 0.42) 46%,
+    rgba(255, 46, 151, 0) 74%);
+  filter: blur(5px);
+  opacity: 0.85;
+  animation: seam-lick-far 1.75s linear infinite, seam-lickcool 12s linear infinite;
+}
+
+/* ---- embers off the seam ----------------------------------------------- */
+.stage--seam .seam__embers {
+  position: absolute; inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  animation: seam-emberwin 12s linear infinite;
+}
+.stage--seam .seam__ember {
+  position: absolute;
+  left: var(--x);
+  top: calc(var(--seam-cell) * 2.6);
+  width: var(--s, 4px);
+  height: var(--s, 4px);
+  border-radius: 50%;
+  background: currentColor;
+  color: var(--seam-heat);
+  box-shadow: 0 0 9px currentColor;
+  opacity: 0;
+  animation: seam-ember var(--dur, 2.6s) linear infinite;
+  animation-delay: var(--d, 0s);
+}
+.stage--seam .seam__ember--m { color: var(--magenta); }
+.stage--seam .seam__ember--l { color: var(--lime); }
+
+/* ---- the refusal ------------------------------------------------------- */
+/* A dashed probe drops from the piece that wants to cross and stops dead on
+   the burning lane, where a magenta cross marks the cell it may not enter. */
+.stage--seam .seam__probe {
+  position: absolute;
+  left: calc(6 * var(--seam-cell));
+  top: calc(0.5 * var(--seam-cell));
+  width: var(--seam-cell);
+  height: calc(1.5 * var(--seam-cell));
+  z-index: 5;
+  display: grid;
+  justify-items: center;
+  pointer-events: none;
+}
+.stage--seam .seam__probe::before {
+  content: "";
+  width: 11%;
+  height: 100%;
+  transform-origin: 50% 0;
+  transform: scaleY(0);
+  opacity: 0;
+  background: repeating-linear-gradient(180deg,
+    var(--cyan) 0 6px, rgba(47, 228, 255, 0) 6px 13px);
+  filter: drop-shadow(0 0 5px rgba(47, 228, 255, 0.7));
+  animation: seam-probe 12s linear infinite;
+}
+.stage--seam .seam__block {
+  position: absolute;
+  left: calc(6 * var(--seam-cell));
+  top:  calc(2 * var(--seam-cell));
+  width: var(--seam-cell);
+  height: var(--seam-cell);
+  z-index: 7;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+/* the badge: a dark plate so it still reads on top of the flames */
+.stage--seam .seam__block::before {
+  content: "";
+  grid-area: 1 / 1;
+  width: 82%; height: 82%;
+  border-radius: 24%;
+  border: 2px solid var(--magenta);
+  background:
+    repeating-linear-gradient(45deg,
+      rgba(255, 46, 151, 0.42) 0 5px, rgba(255, 46, 151, 0) 5px 12px),
+    rgba(9, 4, 18, 0.88);
+  box-shadow: 0 0 20px rgba(255, 46, 151, 0.85), inset 0 0 14px rgba(255, 46, 151, 0.45);
+  opacity: 0;
+  transform: scale(0.6);
+  animation: seam-block 12s linear infinite;
+}
+/* the cross itself, drawn as two bars */
+.stage--seam .seam__block::after {
+  content: "";
+  grid-area: 1 / 1;
+  width: 44%; height: 44%;
+  opacity: 0;
+  transform: scale(0.6) rotate(45deg);
+  background:
+    linear-gradient(to bottom, transparent calc(50% - 2px), var(--magenta) calc(50% - 2px) calc(50% + 2px), transparent calc(50% + 2px)),
+    linear-gradient(to right,  transparent calc(50% - 2px), var(--magenta) calc(50% - 2px) calc(50% + 2px), transparent calc(50% + 2px));
+  filter: drop-shadow(0 0 6px rgba(255, 46, 151, 0.9));
+  animation: seam-cross 12s linear infinite;
+}
+
+/* ---- the redeal -------------------------------------------------------- */
+/* Once the scar has sealed, a cyan bar sweeps the board and the two pieces
+   that left are back behind it — the next board, dealt. */
+.stage--seam .seam__deal {
+  position: absolute;
+  left: 0; top: 0;
+  width: calc(var(--seam-cell) * 0.5);
+  height: 100%;
+  z-index: 6;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(90deg,
+    rgba(47, 228, 255, 0) 0%,
+    rgba(47, 228, 255, 0.30) 55%,
+    rgba(234, 253, 255, 0.95) 100%);
+  box-shadow: 0 0 22px rgba(47, 228, 255, 0.55);
+  animation: seam-deal 12s linear infinite;
+}
+
+/* ---- HUD --------------------------------------------------------------- */
+.stage--seam .seam__hud {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  font-family: var(--font-arcade);
+  line-height: 1;
+}
+.stage--seam .seam__hud-label {
+  margin: 0 0 0.32rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+}
+.stage--seam .seam__hud-note {
+  margin: 0.15rem 0 0;
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  color: var(--muted-2);
+}
+.stage--seam .seam__pips { display: flex; gap: 4px; }
+.stage--seam .seam__pips i {
+  width: 11px; height: 11px;
+  border-radius: 2px;
+  border: 1px solid rgba(182, 255, 58, 0.3);
+  background: rgba(182, 255, 58, 0.06);
+}
+.stage--seam .seam__pips--heat i {
+  border-color: rgba(255, 46, 151, 0.32);
+  background: rgba(255, 46, 151, 0.06);
+}
+.stage--seam .seam__pips--moves i:nth-child(1) { animation: seam-move-1 12s linear infinite; }
+.stage--seam .seam__pips--moves i:nth-child(2) { animation: seam-move-2 12s linear infinite; }
+.stage--seam .seam__pips--moves i:nth-child(3) { animation: seam-move-3 12s linear infinite; }
+.stage--seam .seam__pips--heat  i:nth-child(1) { animation: seam-heat-1 12s linear infinite; }
+.stage--seam .seam__pips--heat  i:nth-child(2) { animation: seam-heat-2 12s linear infinite; }
+.stage--seam .seam__pips--heat  i:nth-child(3) { animation: seam-heat-3 12s linear infinite; }
+
+/* =========================== THE LOOP ==================================== */
+/* 12 seconds, and the board is never still for more than a beat:
+     0.03 tap A · 0.62 A leaves · 0.66 lane catches · 3.87 tap C (refused)
+     · 5.75 tap B · 7.37 B is out · 7.44 the scar seals · 9.80 next board
+   Percentages below are of those 12 seconds. */
+
+/* piece A — the one that gets tapped (col 3, row 2, facing right) */
+@keyframes seam-a {
+  0%, 3.4%    { transform: translate3d(0, 0, 0) scale(1); opacity: 1; }
+  4.3%        { transform: translate3d(-7%, 0, 0) scale(1); opacity: 1; }
+  5.2%        { transform: translate3d(0, 0, 0) scale(1); opacity: 1; }
+  6.6%        { transform: translate3d(60%, 0, 0) scale(1); opacity: 1; }
+  8.6%        { transform: translate3d(220%, 0, 0) scale(1); opacity: 1; }
+  12.6%       { transform: translate3d(640%, 0, 0) scale(1); opacity: 1; }
+  81.7%       { transform: translate3d(640%, 0, 0) scale(1); opacity: 1; }
+  81.8%       { transform: translate3d(0, 0, 0) scale(0.4); opacity: 0; }
+  84.6%       { transform: translate3d(0, 0, 0) scale(0.4); opacity: 0; }
+  85.4%       { transform: translate3d(0, 0, 0) scale(1.12); opacity: 1; }
+  86.6%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 1; }
+}
+/* piece B — the one that follows the fire out (col 0, row 2, facing right) */
+@keyframes seam-b {
+  0%, 48%     { transform: translate3d(0, 0, 0) scale(1); opacity: 1; }
+  48.9%       { transform: translate3d(-7%, 0, 0) scale(1); opacity: 1; }
+  49.8%       { transform: translate3d(0, 0, 0) scale(1); opacity: 1; }
+  51.2%       { transform: translate3d(60%, 0, 0) scale(1); opacity: 1; }
+  53.4%       { transform: translate3d(230%, 0, 0) scale(1); opacity: 1; }
+  61.4%       { transform: translate3d(940%, 0, 0) scale(1); opacity: 1; }
+  81.7%       { transform: translate3d(940%, 0, 0) scale(1); opacity: 1; }
+  81.8%       { transform: translate3d(0, 0, 0) scale(0.4); opacity: 0; }
+  82.0%       { transform: translate3d(0, 0, 0) scale(0.4); opacity: 0; }
+  82.8%       { transform: translate3d(0, 0, 0) scale(1.12); opacity: 1; }
+  84.0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 1; }
+}
+/* piece C — tries to cross, gets nothing but a spent move (col 6, row 0) */
+@keyframes seam-c {
+  0%, 32.4%   { transform: translate3d(0, 0, 0); }
+  33.6%       { transform: translate3d(0, 24%, 0); }
+  34.8%       { transform: translate3d(0, -7%, 0); }
+  35.9%       { transform: translate3d(0, 4%, 0); }
+  37%, 100%   { transform: translate3d(0, 0, 0); }
+}
+/* the tap itself — one keyframe, phase-shifted per piece by animation-delay */
+@keyframes seam-tap {
+  0%          { opacity: 0; transform: scale(0.35); }
+  1.8%        { opacity: 0.95; transform: scale(0.72); }
+  6.4%        { opacity: 0; transform: scale(1.5); }
+  100%        { opacity: 0; transform: scale(1.5); }
+}
+/* the chip takes the hit — same trick, same delays */
+@keyframes seam-hit {
+  0%          { filter: none; }
+  1.2%        { filter: brightness(2.6) saturate(0.35); }
+  4.6%, 100%  { filter: none; }
+}
+/* streaks */
+@keyframes seam-tail-a {
+  0%, 5.4%    { opacity: 0; transform: scaleX(0.15); }
+  6.8%        { opacity: 0.85; transform: scaleX(1); }
+  11.4%       { opacity: 0.8; transform: scaleX(1); }
+  12.9%, 100% { opacity: 0; transform: scaleX(1.1); }
+}
+@keyframes seam-tail-b {
+  0%, 50%     { opacity: 0; transform: scaleX(0.15); }
+  51.6%       { opacity: 0.9; transform: scaleX(1); }
+  60%         { opacity: 0.85; transform: scaleX(1); }
+  61.6%, 100% { opacity: 0; transform: scaleX(1.1); }
+}
+/* the scar: lit from the tapped cell, crawling to the board edge, holding
+   through the two moves that answer to it, then sealing shut the same way */
+@keyframes seam-fire {
+  0%, 5.2%    { clip-path: inset(0 66.6667% 0 33.3333%); opacity: 0; }
+  5.5%        { clip-path: inset(0 62% 0 33.3333%);      opacity: 1; }
+  8.6%        { clip-path: inset(0 34% 0 33.3333%);      opacity: 1; }
+  12.9%       { clip-path: inset(0 0 0 33.3333%);        opacity: 1; }
+  41%         { clip-path: inset(0 0 0 33.3333%);        opacity: 1; }
+  43.5%       { clip-path: inset(0 0 0 33.3333%);        opacity: 0.88; }
+  56%         { clip-path: inset(0 0 0 33.3333%);        opacity: 0.88; }
+  59%         { clip-path: inset(0 0 0 33.3333%);        opacity: 1; }
+  62%         { clip-path: inset(0 0 0 33.3333%);        opacity: 0.95; }
+  68%         { clip-path: inset(0 0 0 45%);             opacity: 0.9; }
+  74%         { clip-path: inset(0 0 0 62%);             opacity: 0.78; }
+  78%         { clip-path: inset(0 0 0 78%);             opacity: 0.55; }
+  81.5%       { clip-path: inset(0 0 0 100%);            opacity: 0.25; }
+  81.6%, 100% { clip-path: inset(0 66.6667% 0 33.3333%); opacity: 0; }
+}
+@keyframes seam-lick      { to { background-position-x: 4.4%; } }
+@keyframes seam-lick-far  { to { background-position-x: -7.3%; } }
+@keyframes seam-bed       { from { filter: blur(1.5px) brightness(0.92); } to { filter: blur(2.4px) brightness(1.12); } }
+@keyframes seam-bedcool {
+  0%, 41%     { transform: scaleY(1); }
+  43.5%, 56%  { transform: scaleY(0.88); }
+  59%         { transform: scaleY(1.05); }
+  68%         { transform: scaleY(0.8); }
+  81.5%, 100% { transform: scaleY(0.5); }
+}
+@keyframes seam-lickcool {
+  0%, 41%     { transform: scaleY(1); }
+  43.5%       { transform: scaleY(0.78); }
+  56%         { transform: scaleY(0.78); }
+  59%         { transform: scaleY(1.02); }
+  68%         { transform: scaleY(0.82); }
+  78%         { transform: scaleY(0.5); }
+  81.5%, 100% { transform: scaleY(0.28); }
+}
+@keyframes seam-emberwin {
+  0%, 5.4%    { opacity: 0; }
+  9%, 62%     { opacity: 1; }
+  74%         { opacity: 0.45; }
+  80%, 100%   { opacity: 0; }
+}
+@keyframes seam-ember {
+  0%   { transform: translate3d(0, 0, 0) scale(0.5); opacity: 0; }
+  14%  { opacity: 0.95; }
+  70%  { opacity: 0.45; }
+  100% {
+    transform: translate3d(
+      calc(var(--seam-cell) * var(--kx, 0.14)),
+      calc(var(--seam-cell) * var(--ky, -2.6)), 0) scale(1.15);
+    opacity: 0;
+  }
+}
+@keyframes seam-probe {
+  0%, 33.6%   { transform: scaleY(0); opacity: 0; }
+  34.6%       { transform: scaleY(1); opacity: 1; }
+  40%         { transform: scaleY(1); opacity: 1; }
+  42.5%, 100% { transform: scaleY(1); opacity: 0; }
+}
+@keyframes seam-block {
+  0%, 34.2%   { opacity: 0; transform: scale(0.6); }
+  35.4%       { opacity: 1; transform: scale(1.1); }
+  36.6%       { opacity: 1; transform: scale(0.98); }
+  41%         { opacity: 1; transform: scale(0.98); }
+  43.5%, 100% { opacity: 0; transform: scale(1.08); }
+}
+@keyframes seam-cross {
+  0%, 34.2%   { opacity: 0; transform: scale(0.6) rotate(45deg); }
+  35.4%       { opacity: 1; transform: scale(1.1) rotate(45deg); }
+  36.6%       { opacity: 1; transform: scale(0.98) rotate(45deg); }
+  41%         { opacity: 1; transform: scale(0.98) rotate(45deg); }
+  43.5%, 100% { opacity: 0; transform: scale(1.08) rotate(45deg); }
+}
+@keyframes seam-deal {
+  0%, 81.5%   { transform: translate3d(calc(var(--seam-cell) * -0.8), 0, 0); opacity: 0; }
+  81.9%       { opacity: 0.95; }
+  88.8%       { opacity: 0.95; }
+  89.8%       { transform: translate3d(calc(var(--seam-cell) * 9.3), 0, 0); opacity: 0; }
+  100%        { transform: translate3d(calc(var(--seam-cell) * 9.3), 0, 0); opacity: 0; }
+}
+/* HUD: a move spent on every tap, cleared by the redeal; and a scar gauge
+   that fills as the lane catches and drains as it seals */
+@keyframes seam-move-1 {
+  0%, 4.2%    { background: rgba(182, 255, 58, 0.06); box-shadow: none; }
+  4.3%, 81.9% { background: var(--lime); box-shadow: 0 0 8px rgba(182, 255, 58, 0.8); }
+  82%, 100%   { background: rgba(182, 255, 58, 0.06); box-shadow: none; }
+}
+@keyframes seam-move-2 {
+  0%, 33.5%    { background: rgba(182, 255, 58, 0.06); box-shadow: none; }
+  33.6%, 82.9% { background: var(--lime); box-shadow: 0 0 8px rgba(182, 255, 58, 0.8); }
+  83%, 100%    { background: rgba(182, 255, 58, 0.06); box-shadow: none; }
+}
+@keyframes seam-move-3 {
+  0%, 48.8%    { background: rgba(182, 255, 58, 0.06); box-shadow: none; }
+  48.9%, 83.9% { background: var(--lime); box-shadow: 0 0 8px rgba(182, 255, 58, 0.8); }
+  84%, 100%    { background: rgba(182, 255, 58, 0.06); box-shadow: none; }
+}
+@keyframes seam-heat-1 {
+  0%, 5.4%    { background: rgba(255, 46, 151, 0.06); box-shadow: none; }
+  5.5%, 68%   { background: var(--magenta); box-shadow: 0 0 8px rgba(255, 46, 151, 0.85); }
+  68.1%, 100% { background: rgba(255, 46, 151, 0.06); box-shadow: none; }
+}
+@keyframes seam-heat-2 {
+  0%, 8.5%    { background: rgba(255, 46, 151, 0.06); box-shadow: none; }
+  8.6%, 74%   { background: var(--magenta); box-shadow: 0 0 8px rgba(255, 46, 151, 0.85); }
+  74.1%, 100% { background: rgba(255, 46, 151, 0.06); box-shadow: none; }
+}
+@keyframes seam-heat-3 {
+  0%, 12.8%   { background: rgba(255, 46, 151, 0.06); box-shadow: none; }
+  12.9%, 81.5%{ background: var(--magenta); box-shadow: 0 0 8px rgba(255, 46, 151, 0.85); }
+  81.6%, 100% { background: rgba(255, 46, 151, 0.06); box-shadow: none; }
+}
+
+/* ---- wiring ------------------------------------------------------------ */
+.stage--seam .seam__tile--a,
+.stage--seam .seam__tile--b,
+.stage--seam .seam__tile--c { will-change: transform; }
+.stage--seam .seam__tile--a { animation: seam-a 12s linear infinite; }
+.stage--seam .seam__tile--b { animation: seam-b 12s linear infinite; }
+.stage--seam .seam__tile--c { animation: seam-c 12s linear infinite; }
+.stage--seam .seam__tile--a::after { animation: seam-tail-a 12s linear infinite; }
+.stage--seam .seam__tile--b::after { animation: seam-tail-b 12s linear infinite; }
+.stage--seam .seam__tile--a .seam__chip,
+.stage--seam .seam__tile--b .seam__chip,
+.stage--seam .seam__tile--c .seam__chip { animation: seam-hit 12s linear infinite both; }
+.stage--seam .seam__tile--a .seam__chip { animation-delay: 0.25s; }
+.stage--seam .seam__tile--c .seam__chip { animation-delay: 3.87s; }
+.stage--seam .seam__tile--b .seam__chip { animation-delay: 5.75s; }
+
+/* ---- small screens: the HUD steps out so the board can breathe --------- */
+@media (max-width: 720px) {
+  .stage--seam {
+    /* No HUD to make room for, so the board takes the whole width. */
+    --seam-cell: clamp(30px, 9.2vw, 62px);
+  }
+  .stage--seam .seam__hud { display: none; }
+  .stage--seam .seam__deck { inset: 2.45rem 0.6rem; }
+}
+
+/* ---- the still twin ---------------------------------------------------- */
+/* The kit swaps these in under prefers-reduced-motion; this only paints the
+   four beats a little warmer than the default. */
+.stage-static--seam .stage-static__step svg { filter: drop-shadow(0 0 8px rgba(47, 228, 255, 0.35)); }
+.stage-static--seam .stage-static__step--fire { color: var(--magenta-t); }
+.stage-static--seam .stage-static__step--fire svg { filter: drop-shadow(0 0 8px rgba(255, 46, 151, 0.5)); }

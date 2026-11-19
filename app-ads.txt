@@ -1,0 +1,13 @@
+# Authorized Sellers for Apps — https://iabtechlab.com/app-ads-txt/
+#
+# Proves to ad buyers that Google is authorized to sell Machinaut Studios app
+# inventory. Without this file, a large share of programmatic demand filters
+# our apps out entirely — silent lost revenue rather than a visible error.
+#
+# Google finds this file by taking the developer website from each store
+# listing and appending /app-ads.txt, so every listing's website field must
+# point at machinautstudios.com or the file is never crawled.
+#
+# Format: <exchange domain>, <publisher id>, <relationship>, <certification authority id>
+# f08c47fec0942fa0 is Google's own TAG certification authority id.
+google.com, pub-5516485016863733, DIRECT, f08c47fec0942fa0

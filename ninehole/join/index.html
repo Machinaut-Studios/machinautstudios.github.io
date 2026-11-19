@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<!--
+  Ninehole — invite landing page.
+  Copyright © 2026 Machinaut Studios LLC. All rights reserved. See /LICENSE.
+
+  THIS PAGE IS THE FALLBACK, NOT THE DESTINATION.
+
+  An invite is https://machinautstudios.com/ninehole/join/?c=ABC123. On a
+  phone that HAS Ninehole, iOS and Android intercept that URL before the
+  browser and hand it straight to the app, which opens on the join screen
+  with the code already filled in — this HTML is never fetched. It renders
+  only for someone who does not have the app yet, or is on a desktop
+  browser, which is exactly the person who needs a store link.
+
+  So the job here is small and specific: show the code big enough to
+  retype, and get them to the right store. Neither store carries the code
+  through an install (Firebase Dynamic Links, which used to solve that,
+  shut down in 2025, and the SDKs that remain collect device signals we
+  have told both stores we do not collect) — so the code is shown, not
+  smuggled. One retype for a first-time installer; nothing at all for
+  everyone who already has the app.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Join a Ninehole table</title>
+  <meta name="description" content="Someone invited you to a table of nine-card golf. Get Ninehole for iPhone, iPad, Mac or Android and join with the room code." />
+  <meta name="theme-color" content="#07060f" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="robots" content="noindex" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Join a Ninehole table" />
+  <meta property="og:description" content="Someone invited you to a table of nine-card golf. Nine cards, nine holes, lowest score wins." />
+  <meta property="og:image" content="https://machinautstudios.com/ninehole/ninehole_icon.png" />
+
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .invite {
+      max-width: 34rem;
+      margin: 0 auto;
+      padding: 3rem 1.25rem 4rem;
+      text-align: center;
+    }
+    .invite__icon {
+      width: 88px; height: 88px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,.55);
+    }
+    .invite__title {
+      font-family: Orbitron, system-ui, sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.5rem, 6vw, 2.1rem);
+      margin: 1.25rem 0 .35rem;
+      color: var(--ink, #f3f1ff);
+    }
+    .invite__sub { color: var(--muted, #b0a8dd); margin: 0 0 2rem; }
+
+    /* The code is the one thing on this page that has to survive being
+       read off a screen and typed into a phone, so it gets the size. */
+    .code {
+      display: block;
+      font-family: 'IBM Plex Mono', ui-monospace, monospace;
+      font-weight: 600;
+      font-size: clamp(2rem, 11vw, 3.25rem);
+      letter-spacing: .28em;
+      text-indent: .28em;      /* letter-spacing pads the right; recentre */
+      color: var(--amber, #ffc857);
+      background: var(--panel-2, #170f30);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 16px;
+      padding: 1rem .75rem;
+      word-break: break-all;
+    }
+    .code-label {
+      display: block;
+      font-size: .82rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted-2, #8a83b8);
+      margin-bottom: .6rem;
+    }
+    .copy {
+      margin-top: .75rem;
+      background: none;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 999px;
+      color: var(--muted, #b0a8dd);
+      font: inherit;
+      font-size: .9rem;
+      padding: .45rem 1.1rem;
+      cursor: pointer;
+    }
+    .copy:hover, .copy:focus-visible { color: var(--ink, #f3f1ff); border-color: rgba(255,255,255,.4); }
+
+    .stores {
+      display: flex; flex-wrap: wrap; gap: .75rem;
+      justify-content: center;
+      margin: 2.25rem 0 1.5rem;
+    }
+    .store {
+      display: inline-block;
+      padding: .85rem 1.5rem;
+      border-radius: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      background: var(--panel-2, #170f30);
+      border: 1px solid rgba(255,255,255,.14);
+      color: var(--ink, #f3f1ff);
+    }
+    .store:hover, .store:focus-visible { border-color: var(--amber, #ffc857); color: var(--amber, #ffc857); }
+
+    .steps {
+      /* The site reset strips list markers; these are ordered steps and
+         the numbers are the point. */
+      list-style: decimal;
+      text-align: left;
+      color: var(--muted, #b0a8dd);
+      line-height: 1.65;
+      margin: 0 auto;
+      max-width: 26rem;
+      padding-left: 1.2rem;
+    }
+    .steps code {
+      color: var(--ink, #f3f1ff);
+      font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    }
+    .fineprint { color: var(--muted-2, #8a83b8); font-size: .85rem; margin-top: 2.5rem; }
+    .fineprint a { color: inherit; }
+  </style>
+</head>
+<body>
+  <main class="invite">
+    <img class="invite__icon" src="/ninehole/ninehole_icon.png"
+         alt="Ninehole — a cream playing card on dark green felt with a bold 9 and a golf flag." />
+
+    <h1 class="invite__title">You&rsquo;re invited to a table</h1>
+    <p class="invite__sub">Ninehole &mdash; nine-card golf for two to sixteen players.</p>
+
+    <!-- Filled in from ?c=. Hidden entirely when there is no code, because
+         "Room code: —" is worse than no room code panel at all. -->
+    <div id="code-panel" hidden>
+      <span class="code-label">Room code</span>
+      <strong class="code" id="code"></strong>
+      <button class="copy" id="copy" type="button">Copy code</button>
+    </div>
+
+    <div class="stores">
+      <a class="store" id="ios" href="https://apps.apple.com/app/id6809277064">iPhone, iPad &amp; Mac</a>
+      <a class="store" id="android" href="https://play.google.com/store/apps/details?id=com.machinautstudios.ninehole">Android</a>
+    </div>
+
+    <ol class="steps" id="steps">
+      <li>Install Ninehole.</li>
+      <li>Open it and tap <code>Join a table</code>.</li>
+      <li>Switch to <code>Online</code> and enter the room code above.</li>
+    </ol>
+
+    <p class="fineprint">
+      Already have Ninehole? Tapping this link on your phone opens the app straight
+      into the table. &middot; <a href="/ninehole/">About Ninehole</a>
+      &middot; <a href="/ninehole/privacy/">Privacy</a>
+    </p>
+  </main>
+
+  <script>
+    (function () {
+      // Same character class the app's join field accepts: letters and
+      // digits, uppercased. Anything else in the query string is somebody
+      // else's business, and a code that cannot be typed into the app is
+      // not worth displaying.
+      var raw = new URLSearchParams(location.search).get('c') || '';
+      var code = raw.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 12);
+
+      if (code) {
+        document.getElementById('code').textContent = code;
+        document.getElementById('code-panel').hidden = false;
+        document.title = 'Join Ninehole table ' + code;
+      } else {
+        // No code: this is just a "get the app" page, so do not tell them
+        // to type a code that is not there.
+        document.getElementById('steps').innerHTML =
+          '<li>Install Ninehole.</li>' +
+          '<li>Open it and tap <code>Join a table</code>.</li>' +
+          '<li>Ask whoever invited you for the room code.</li>';
+      }
+
+      var copy = document.getElementById('copy');
+      copy.addEventListener('click', function () {
+        // clipboard.writeText needs a secure context and can still be
+        // refused; the code is on screen either way, so a failure here is
+        // not worth an error message.
+        var done = function () {
+          copy.textContent = 'Copied';
+          setTimeout(function () { copy.textContent = 'Copy code'; }, 1600);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(code).then(done, function () {});
+        }
+      });
+
+      // Lead with the store this visitor can actually use. Both stay
+      // visible — a Mac gets the App Store link, and someone reading on a
+      // laptop may want to send it to their own phone.
+      var ua = navigator.userAgent;
+      var androidFirst = /Android/i.test(ua);
+      if (androidFirst) {
+        var stores = document.querySelector('.stores');
+        stores.insertBefore(document.getElementById('android'), stores.firstChild);
+      }
+    })();
+  </script>
+</body>
+</html>

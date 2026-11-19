@@ -1,0 +1,115 @@
+/* Spellheir's signature stage: a leaf of the book. The gold-banded initial
+   is the app icon redrawn in CSS, so the page and the launcher tile are the
+   same product; the road beneath it runs from 40 to 80 and is the rule the
+   whole game is played under. */
+
+.sh-hero { display: flex; gap: clamp(24px, 5vw, 64px); align-items: center;
+           flex-wrap: wrap; }
+.sh-stage { flex: 0 0 auto; display: flex; flex-direction: column;
+            align-items: center; gap: 22px; }
+
+/* Parchment, an iron rule, the gold band, a second iron rule, and a thin
+   gold rule set inside the field — the icon's own construction, in insets. */
+.sh-leaf {
+  position: relative; width: 200px; height: 200px; border-radius: 22px;
+  background: #efe5d0; border: 5px solid #2b2418; overflow: hidden;
+  display: grid; place-items: center;
+  box-shadow: inset 0 0 0 12px #c9a227, inset 0 0 0 17px #2b2418,
+              inset 0 0 0 20px #efe5d0, inset 0 0 0 22px #c9a227;
+}
+.sh-initial {
+  font-family: 'Cinzel Decorative', 'Cinzel', Georgia, serif; font-weight: 700;
+  font-size: 118px; line-height: 1; color: #9e2b25;
+}
+
+/* Gold leaf catches the light once, slowly, and then does not. */
+.sh-gleam {
+  position: absolute; inset: -40%; pointer-events: none;
+  background: linear-gradient(105deg, transparent 44%,
+              rgba(255, 246, 214, .75) 50%, transparent 56%);
+}
+.sh-leaf .sh-gleam { animation: sh-gleam 7.5s ease-in-out infinite; }
+@keyframes sh-gleam {
+  0%, 70%   { transform: translateX(-120%); opacity: 0; }
+  74%       { opacity: .9; }
+  88%, 100% { transform: translateX(120%); opacity: 0; }
+}
+
+.sh-clock {
+  display: flex; align-items: center; gap: 12px;
+  font-family: 'Cinzel Decorative', 'Cinzel', Georgia, serif; font-weight: 700;
+  font-size: 15px; letter-spacing: .12em; color: #c9a227;
+}
+.sh-road {
+  position: relative; width: 190px; height: 3px; border-radius: 2px;
+  background: linear-gradient(90deg, #c9a227, rgba(201, 162, 39, .28));
+}
+.sh-road::after {
+  content: ''; position: absolute; top: 50%; left: 0;
+  width: 11px; height: 11px; margin: -5.5px 0 0 -5.5px; border-radius: 50%;
+  background: #9e2b25; box-shadow: 0 0 15px 3px rgba(158, 43, 37, .45);
+  animation: sh-walk 15s linear infinite;
+}
+@keyframes sh-walk { from { left: 0; } to { left: 100%; } }
+
+/* The reduced-motion twin. The gold band is still gold and the wizard is
+   still somewhere on the road between forty and eighty — the switch removes
+   motion, not meaning, exactly as it does in the game. */
+@media (prefers-reduced-motion: reduce) {
+  .sh-leaf .sh-gleam { animation: none; opacity: 0; }
+  .sh-road::after { animation: none; left: 58%; }
+}
+
+/* Set mixed-case, NOT uppercase, and never text-transform it.
+   Cinzel Decorative's capital L carries a swash that hooks right and runs
+   UNDER the following letter, so "SPELLHEIR" tangles its LLH into an
+   unreadable knot — more tracking does not help, because the swash extends
+   past the glyph's own advance. The lowercase codepoints render as small
+   caps with plain L's, which is the same face, the same colour, and legible
+   at feed-thumbnail size. It is also how the game sets its own chapter
+   heads: a large initial over small caps. */
+.sh-wordmark {
+  font-family: 'Cinzel Decorative', 'Cinzel', Georgia, serif; font-weight: 700;
+  font-size: clamp(34px, 6vw, 58px); letter-spacing: .16em;
+  text-transform: none;
+  margin: 0 0 18px; line-height: 1.1;
+}
+.sh-lede {
+  font-family: 'EB Garamond', Georgia, serif; font-weight: 400;
+  font-size: clamp(17px, 2.2vw, 21px); line-height: 1.55;
+  max-width: 60ch; margin: 0 0 14px;
+}
+.sh-lede strong { font-weight: 600; color: #d8b23f; }
+.sh-lede em { color: #e0796f; font-style: italic; }
+
+.sh-grid {
+  display: grid; gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.sh-card {
+  border: 1px solid rgba(201, 162, 39, .24); border-radius: 12px;
+  padding: 20px 22px; background: rgba(43, 36, 24, .5);
+}
+.sh-card h3 {
+  font-family: 'Cinzel Decorative', 'Cinzel', Georgia, serif; font-weight: 700;
+  font-size: 17px; letter-spacing: .04em; margin: 0 0 8px; color: #e8dcc0;
+}
+.sh-card p { font-family: 'EB Garamond', Georgia, serif; font-size: 17px;
+             line-height: 1.5; margin: 0; }
+.sh-card b { font-weight: 600; color: #d8b23f; }
+
+.sh-list { font-family: 'EB Garamond', Georgia, serif; font-size: 18px;
+           line-height: 1.75; max-width: 70ch; }
+.sh-list b { font-weight: 600; color: #d8b23f; }
+
+/* A rendered page of the game, framed the way the game frames its scenes:
+   an iron rule outside a gold one. */
+.sh-plate { margin: 0; max-width: 100%; }
+.sh-plate img {
+  width: 100%; height: auto; border-radius: 4px;
+  border: 3px solid #c9a227; outline: 3px solid #2b2418;
+}
+.sh-plate figcaption {
+  font-family: 'EB Garamond', Georgia, serif; font-style: italic;
+  font-size: 16px; color: #b0a8dd; margin-top: 18px; max-width: 70ch;
+}

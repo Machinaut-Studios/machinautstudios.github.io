@@ -1,0 +1,708 @@
+/* =========================================================================
+   SPACE COUCH COMMAND — "THE BRIDGE"
+   One screen on the wall, six phones around it. The scope sweeps, contacts
+   close, the shield takes one on the port arc, and a seventh hand scans in
+   halfway through the loop. 12s, no seam.
+
+   Everything is scoped to .stage--scc and every keyframe is prefixed scc-.
+   The housing, the grid, the corner placard, reduced motion and offscreen
+   pausing all come from the MOTION KIT in /styles.css.
+   ========================================================================= */
+
+.stage--scc {
+  --stage-h: clamp(320px, 40vw, 384px);
+  --scc-loop: 12s;
+}
+
+/* the icon sprite sits just outside the housing so the still twin can use it */
+.scc-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* ------------------------------------------------------------------ the TV */
+.stage--scc .scc-tv {
+  position: absolute;
+  z-index: 3;
+  left: 29%; right: 29%;
+  top: 17%; bottom: 21%;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(47, 228, 255, 0.45);
+  background:
+    radial-gradient(115% 95% at 50% 42%, #0d2233 0%, #061019 62%, #04070d 100%);
+  box-shadow:
+    0 0 0 3px #0b0918,
+    0 0 0 4px rgba(168, 85, 255, 0.22),
+    0 14px 30px rgba(0, 0, 0, 0.6),
+    inset 0 0 26px rgba(47, 228, 255, 0.10);
+}
+/* CRT scanlines + a slow phosphor breathe */
+.stage--scc .scc-tv__scan {
+  position: absolute; inset: 0; z-index: 5; pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.30) 0 1px,
+    rgba(0, 0, 0, 0) 1px 3px);
+  mix-blend-mode: multiply;
+  animation: scc-crt 4s steps(24) infinite;
+}
+@keyframes scc-crt { 0%, 100% { opacity: 0.75; } 50% { opacity: 0.5; } }
+
+/* ------------------------------------------------------------- radar scope */
+.stage--scc .scc-scope {
+  position: absolute;
+  /* The glass is wider than the drawn radar (the art's viewBox carries 6 units
+     of bleed on every side) so contacts and the tactical reticle can sit at the
+     rim without the round clip shaving them into slivers. */
+  left: 50%; top: 43%;
+  height: 78%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(47, 228, 255, 0.28);   /* bezel: makes the bleed read as glass */
+  border-radius: 50%;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(47, 228, 255, 0.13) 0%, rgba(9, 26, 34, 0.85) 62%, rgba(4, 10, 14, 0.95) 100%);
+  box-shadow:
+    inset 0 0 18px rgba(47, 228, 255, 0.22),
+    0 0 22px rgba(47, 228, 255, 0.18);
+}
+.stage--scc .scc-sweep {
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    rgba(47, 228, 255, 0) 0deg,
+    rgba(47, 228, 255, 0) 248deg,
+    rgba(47, 228, 255, 0.09) 318deg,
+    rgba(47, 228, 255, 0.36) 354deg,
+    rgba(190, 252, 255, 0.95) 359.5deg,
+    rgba(47, 228, 255, 0) 360deg);
+  animation: scc-sweep 3s linear infinite;
+}
+@keyframes scc-sweep { to { transform: rotate(360deg); } }
+
+.stage--scc .scc-scope__art { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.stage--scc .scc-scope__art g,
+.stage--scc .scc-scope__art circle,
+.stage--scc .scc-scope__art rect,
+.stage--scc .scc-scope__art path { transform-box: view-box; transform-origin: 50% 50%; }
+
+.stage--scc .scc-rings { fill: none; stroke: rgba(47, 228, 255, 0.26); stroke-width: 0.5; }
+.stage--scc .scc-rings .scc-ticks { stroke: rgba(47, 228, 255, 0.5); stroke-width: 0.9; }
+
+/* the shield bubble */
+.stage--scc .scc-shield {
+  fill: none;
+  stroke: var(--cyan);
+  stroke-width: 1.4;
+  stroke-dasharray: 5.6 2.1;
+  opacity: 0.55;
+  filter: drop-shadow(0 0 2px rgba(47, 228, 255, 0.8));
+  animation: scc-shield var(--scc-loop) linear infinite;
+}
+@keyframes scc-shield {
+  0%, 33%  { opacity: 0.55; stroke-width: 1.4; stroke: var(--cyan); }
+  37%      { opacity: 0.85; stroke-width: 2.0; stroke: var(--cyan); }
+  50%      { opacity: 0.95; stroke-width: 2.2; stroke: var(--cyan); }
+  51.7%    { opacity: 1;    stroke-width: 3.4; stroke: #ffffff; }
+  53.5%    { opacity: 0.30; stroke-width: 1.1; stroke: var(--magenta); }
+  55.5%    { opacity: 0.85; stroke-width: 1.4; stroke: var(--magenta); }
+  57.5%    { opacity: 0.22; stroke-width: 1.1; stroke: var(--magenta); }
+  62%      { opacity: 0.55; stroke-width: 1.3; stroke: var(--magenta); }
+  74%      { opacity: 0.34; stroke-width: 1.2; stroke: var(--cyan); }
+  92%      { opacity: 0.5;  stroke-width: 1.4; stroke: var(--cyan); }
+  100%     { opacity: 0.55; stroke-width: 1.4; stroke: var(--cyan); }
+}
+
+/* the hit: flare + crack, parked on the port bow */
+.stage--scc .scc-hit { transform: rotate(-40deg); }
+.stage--scc .scc-hit__flare {
+  fill: #fff;
+  filter: blur(1.6px) drop-shadow(0 0 6px var(--magenta));
+  opacity: 0;
+  transform-box: fill-box;      /* blow up about the flare itself, not the scope */
+  transform-origin: 50% 50%;
+  animation: scc-flare var(--scc-loop) ease-out infinite;
+}
+@keyframes scc-flare {
+  0%, 50.6% { opacity: 0; transform: scale(0.2); }
+  51.7%     { opacity: 1; transform: scale(1); }
+  54.5%     { opacity: 0; transform: scale(2.1); }
+  100%      { opacity: 0; transform: scale(0.2); }
+}
+.stage--scc .scc-crack {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 36;
+  stroke-dashoffset: 36;
+  opacity: 0;
+  filter: drop-shadow(0 0 3px var(--magenta)) drop-shadow(0 0 6px rgba(255, 46, 151, 0.9));
+  animation: scc-crack var(--scc-loop) linear infinite;
+}
+@keyframes scc-crack {
+  0%, 51%  { stroke-dashoffset: 36; opacity: 0; }
+  51.7%    { stroke-dashoffset: 36; opacity: 1; }
+  54%      { stroke-dashoffset: 0;  opacity: 1; }
+  84%      { stroke-dashoffset: 0;  opacity: 0.9; }
+  92%      { stroke-dashoffset: 0;  opacity: 0; }
+  100%     { stroke-dashoffset: 36; opacity: 0; }
+}
+
+/* our ship, dead centre */
+.stage--scc .scc-ship { animation: scc-ship var(--scc-loop) var(--ease) infinite; }
+.stage--scc .scc-ship__hull {
+  fill: var(--lime);
+  filter: drop-shadow(0 0 4px rgba(182, 255, 58, 0.9));
+}
+.stage--scc .scc-ship__flare {
+  fill: var(--lime);
+  opacity: 0;
+  filter: blur(1px);
+  animation: scc-thrust var(--scc-loop) linear infinite;
+}
+@keyframes scc-ship {
+  0%, 24% { transform: rotate(0deg); }
+  28%     { transform: rotate(-27deg); }
+  34%     { transform: rotate(-21deg); }
+  40%     { transform: rotate(9deg); }
+  46%     { transform: rotate(-3deg); }
+  60%     { transform: rotate(2deg); }
+  100%    { transform: rotate(0deg); }
+}
+@keyframes scc-thrust {
+  0%, 24% { opacity: 0; }
+  27%     { opacity: 0.95; }
+  40%     { opacity: 0.7; }
+  47%     { opacity: 0; }
+  87%     { opacity: 0; }
+  89%     { opacity: 0.9; }
+  93%     { opacity: 0; }
+  100%    { opacity: 0; }
+}
+
+/* the cannoneer's shot */
+.stage--scc .scc-beam rect {
+  fill: var(--lime);
+  filter: drop-shadow(0 0 5px rgba(182, 255, 58, 0.9));
+}
+.stage--scc .scc-beam {
+  opacity: 0;
+  animation: scc-beam var(--scc-loop) linear infinite;
+}
+@keyframes scc-beam {
+  0%, 87%  { opacity: 0; transform: rotate(-14deg) scaleY(0); }
+  88.3%    { opacity: 1; transform: rotate(-14deg) scaleY(1); }
+  90.6%    { opacity: 1; transform: rotate(-14deg) scaleY(1); }
+  92%      { opacity: 0; transform: rotate(-14deg) scaleY(1); }
+  100%     { opacity: 0; transform: rotate(-14deg) scaleY(0); }
+}
+
+/* splash one */
+.stage--scc .scc-boom {
+  opacity: 0;
+  animation: scc-boom var(--scc-loop) ease-out infinite;
+}
+.stage--scc .scc-boom__ring { fill: none; stroke: #ffffff; stroke-width: 1.4; }
+.stage--scc .scc-boom__core { fill: var(--magenta); filter: blur(1.2px); }
+@keyframes scc-boom {
+  0%, 90.2% { opacity: 0; transform: rotate(-14deg) translateY(-28px) scale(0.35); }
+  91%       { opacity: 1; transform: rotate(-14deg) translateY(-28px) scale(0.8); }
+  94.6%     { opacity: 0; transform: rotate(-14deg) translateY(-28px) scale(3.2); }
+  100%      { opacity: 0; transform: rotate(-14deg) translateY(-28px) scale(0.35); }
+}
+
+/* contacts */
+.stage--scc .scc-contact__dot {
+  fill: var(--magenta);
+  filter: drop-shadow(0 0 5px rgba(255, 46, 151, 0.85));
+  animation: scc-ping 3s linear var(--pd, 0s) infinite;
+}
+@keyframes scc-ping {
+  0%   { opacity: 1; }
+  26%  { opacity: 0.62; }
+  100% { opacity: 0.5; }
+}
+.stage--scc .scc-lock {
+  fill: none;
+  stroke: var(--lime);
+  stroke-width: 1.1;
+  stroke-linecap: square;
+  opacity: 0;
+  filter: drop-shadow(0 0 3px rgba(182, 255, 58, 0.8));
+  animation: scc-lock var(--scc-loop) var(--ease) infinite;
+}
+@keyframes scc-lock {
+  0%, 13% { opacity: 0; transform: scale(2.6); }
+  16%     { opacity: 1; transform: scale(1); }
+  25%     { opacity: 0.85; transform: scale(1); }
+  88%     { opacity: 0.85; transform: scale(1); }
+  90.8%   { opacity: 0; transform: scale(1); }
+  100%    { opacity: 0; transform: scale(2.6); }
+}
+
+.stage--scc .scc-contact--a { animation: scc-ca var(--scc-loop) linear infinite; }
+@keyframes scc-ca {
+  0%, 3%  { opacity: 0; transform: rotate(-40deg) translateY(-50px) scale(1); }
+  6%      { opacity: 1; transform: rotate(-40deg) translateY(-45.5px) scale(1); }
+  22%     { opacity: 1; transform: rotate(-43deg) translateY(-45px) scale(1); }
+  50%     { opacity: 1; transform: rotate(-40deg) translateY(-42.2px) scale(1); }
+  51.7%   { opacity: 1; transform: rotate(-40deg) translateY(-40.4px) scale(1); }
+  55%     { opacity: 1; transform: rotate(-31deg) translateY(-45.5px) scale(1); }
+  72%     { opacity: 1; transform: rotate(-20deg) translateY(-34px) scale(1); }
+  88.3%   { opacity: 1; transform: rotate(-14deg) translateY(-28px) scale(1); }
+  90.6%   { opacity: 1; transform: rotate(-14deg) translateY(-28px) scale(1); }
+  91.4%   { opacity: 0; transform: rotate(-14deg) translateY(-28px) scale(1); }
+  100%    { opacity: 0; transform: rotate(-40deg) translateY(-50px) scale(1); }
+}
+.stage--scc .scc-contact--b { animation: scc-cb var(--scc-loop) linear infinite; }
+@keyframes scc-cb {
+  0%, 4%  { opacity: 0; transform: rotate(133deg) translateY(-50px) scale(1); }
+  8%      { opacity: 1; transform: rotate(133deg) translateY(-46.5px) scale(1); }
+  46%     { opacity: 1; transform: rotate(126deg) translateY(-43px) scale(1); }
+  62%     { opacity: 1; transform: rotate(120deg) translateY(-45px) scale(1); }
+  86%     { opacity: 1; transform: rotate(112deg) translateY(-50px) scale(1); }
+  94%     { opacity: 0; transform: rotate(110deg) translateY(-50px) scale(1); }
+  100%    { opacity: 0; transform: rotate(133deg) translateY(-50px) scale(1); }
+}
+.stage--scc .scc-contact--c { animation: scc-cc var(--scc-loop) linear infinite; }
+@keyframes scc-cc {
+  0%, 6%  { opacity: 0; transform: rotate(214deg) translateY(-50px) scale(1); }
+  11%     { opacity: 1; transform: rotate(214deg) translateY(-46px) scale(1); }
+  66%     { opacity: 1; transform: rotate(206deg) translateY(-40px) scale(1); }
+  90%     { opacity: 1; transform: rotate(212deg) translateY(-46px) scale(1); }
+  96%     { opacity: 0; transform: rotate(214deg) translateY(-50px) scale(1); }
+  100%    { opacity: 0; transform: rotate(214deg) translateY(-50px) scale(1); }
+}
+
+/* dumb debris that just lights up when the sweep goes past */
+.stage--scc .scc-blip {
+  fill: rgba(47, 228, 255, 0.85);
+  animation: scc-ping 3s linear var(--pd, 0s) infinite;
+}
+
+/* ---------------------------------------------------------- TV side panels */
+.stage--scc .scc-meters {
+  position: absolute;
+  left: 3.5%; top: 46%;
+  width: 21%;
+  transform: translateY(-50%);
+  font-family: var(--font-arcade);
+  font-size: clamp(0.55rem, 1.5vw, 0.85rem);
+  line-height: 1;
+  letter-spacing: 0.08em;
+}
+.stage--scc .scc-meter { margin-bottom: 0.55em; }
+.stage--scc .scc-meter__k { display: block; color: var(--muted); margin-bottom: 0.24em; }
+.stage--scc .scc-meter__t {
+  display: block; height: 0.42em; min-height: 4px;
+  border: 1px solid rgba(47, 228, 255, 0.35);
+  border-radius: 99px;
+  background: #04090f;
+  overflow: hidden;
+}
+.stage--scc .scc-meter__f { display: block; height: 100%; border-radius: 99px; }
+.stage--scc .scc-meter--shld .scc-meter__k { color: var(--cyan-t); }
+.stage--scc .scc-meter--shld .scc-meter__f {
+  background: var(--cyan); box-shadow: 0 0 8px rgba(47, 228, 255, 0.7);
+  width: 86%; animation: scc-m-shld var(--scc-loop) linear infinite;
+}
+.stage--scc .scc-meter--pwr .scc-meter__k { color: var(--lime-t); }
+.stage--scc .scc-meter--pwr .scc-meter__f {
+  background: var(--lime); box-shadow: 0 0 8px rgba(182, 255, 58, 0.7);
+  width: 55%; animation: scc-m-pwr var(--scc-loop) linear infinite;
+}
+.stage--scc .scc-meter--heat .scc-meter__k { color: var(--magenta-t); }
+.stage--scc .scc-meter--heat .scc-meter__f {
+  background: var(--magenta); box-shadow: 0 0 8px rgba(255, 46, 151, 0.7);
+  width: 22%; animation: scc-m-heat var(--scc-loop) linear infinite;
+}
+@keyframes scc-m-shld {
+  0%, 36% { width: 86%; }
+  50%     { width: 92%; }
+  51.7%   { width: 30%; }
+  60%     { width: 34%; }
+  97%     { width: 86%; }
+  100%    { width: 86%; }
+}
+@keyframes scc-m-pwr {
+  0%, 34% { width: 55%; }
+  40%     { width: 92%; }
+  56%     { width: 70%; }
+  86%     { width: 70%; }
+  89%     { width: 96%; }
+  95%     { width: 55%; }
+  100%    { width: 55%; }
+}
+@keyframes scc-m-heat {
+  0%, 34% { width: 22%; }
+  60%     { width: 80%; }
+  70%     { width: 84%; }
+  82%     { width: 30%; }
+  100%    { width: 22%; }
+}
+
+.stage--scc .scc-qr {
+  position: absolute;
+  right: 3.5%; top: 46%;
+  width: 17%;
+  transform: translateY(-50%);
+  text-align: center;
+  color: var(--lime);
+  animation: scc-qr var(--scc-loop) var(--ease) infinite;
+}
+.stage--scc .scc-qr svg { display: block; width: 100%; height: auto; }
+.stage--scc .scc-qr__cap {
+  display: block;
+  margin-top: 0.3em;
+  font-family: var(--font-arcade);
+  font-size: clamp(0.55rem, 1.4vw, 0.8rem);
+  letter-spacing: 0.1em;
+  line-height: 1;
+  color: var(--lime-t);
+  white-space: nowrap;
+}
+@keyframes scc-qr {
+  0%, 72%   { opacity: 0.5; transform: translateY(-50%) scale(1); filter: none; }
+  75.5%     { opacity: 1;   transform: translateY(-50%) scale(1.14); filter: drop-shadow(0 0 9px rgba(182, 255, 58, 0.95)); }
+  79%       { opacity: 0.95; transform: translateY(-50%) scale(1); filter: drop-shadow(0 0 4px rgba(182, 255, 58, 0.6)); }
+  88%, 100% { opacity: 0.5; transform: translateY(-50%) scale(1); filter: none; }
+}
+
+/* ------------------------------------------------------------ the callouts */
+.stage--scc .scc-caption {
+  position: absolute;
+  left: 4%; right: 4%;
+  bottom: 3.5%;
+  height: 15%;
+}
+.stage--scc .scc-caption span {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-arcade);
+  font-size: clamp(0.62rem, 1.75vw, 0.98rem);
+  letter-spacing: 0.12em;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--cyan-t);
+  text-shadow: var(--glow-c);
+  opacity: 0;
+  animation: scc-cap var(--scc-loop) var(--ease) var(--t, 0s) infinite both;
+}
+.stage--scc .scc-caption .is-hot  { color: var(--magenta-t); text-shadow: var(--glow-m); }
+.stage--scc .scc-caption .is-join { color: var(--lime-t);    text-shadow: var(--glow-l); }
+@keyframes scc-cap {
+  0%        { opacity: 0; transform: translateY(30%); }
+  2%        { opacity: 1; transform: translateY(0); }
+  11%       { opacity: 1; transform: translateY(0); }
+  13%       { opacity: 0; transform: translateY(0); }
+  100%      { opacity: 0; transform: translateY(30%); }
+}
+
+/* ------------------------------------------------------------ the handsets */
+.stage--scc .scc-crew {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  top: 8%; bottom: 4%;
+  width: 17%;
+}
+.stage--scc .scc-crew--l { left: 2.5%; }
+.stage--scc .scc-crew--r { right: 2.5%; }
+
+.stage--scc .scc-phone {
+  position: relative;
+  height: 30%;
+  width: 100%;
+  --t: 0s;
+}
+.stage--scc .scc-phone__body {
+  position: relative;
+  height: 78%;
+  aspect-ratio: 1 / 2;
+  margin: 0 auto;
+  border-radius: 22% / 11%;
+  border: 1px solid rgba(150, 120, 255, 0.4);
+  background: linear-gradient(180deg, #1a1338, #100c24);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+.stage--scc .scc-phone__notch {
+  position: absolute;
+  left: 50%; top: 5%;
+  width: 26%; height: 5%;
+  min-height: 2px;
+  transform: translateX(-50%);
+  border-radius: 99px;
+  background: rgba(150, 120, 255, 0.4);
+}
+.stage--scc .scc-phone__scr {
+  position: absolute;
+  inset: 11% 9% 9%;
+  border-radius: 12% / 6%;
+  background: #07101a;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  animation: scc-scr-on var(--scc-loop) var(--ease) var(--t) infinite both;
+}
+.stage--scc .scc-phone__ico {
+  width: 66%; height: auto;
+  aspect-ratio: 1;
+  color: rgba(138, 131, 184, 0.9);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  animation: scc-ico-on var(--scc-loop) var(--ease) var(--t) infinite both;
+}
+.stage--scc .scc-phone__ring {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 100%; height: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid var(--lime);
+  box-shadow: 0 0 10px rgba(182, 255, 58, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  animation: scc-ring var(--scc-loop) ease-out var(--t) infinite both;
+}
+.stage--scc .scc-phone__name {
+  position: absolute;
+  left: 50%; bottom: 0;
+  transform: translateX(-50%);
+  font-family: var(--font-arcade);
+  font-size: clamp(0.6rem, 1.5vw, 0.88rem);
+  letter-spacing: 0.1em;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--muted-2);
+  animation: scc-name-on var(--scc-loop) var(--ease) var(--t) infinite both;
+}
+@keyframes scc-scr-on {
+  0%      { background: #07101a; box-shadow: inset 0 0 0 rgba(182, 255, 58, 0); }
+  2%      { background: #16260b; box-shadow: inset 0 0 12px rgba(182, 255, 58, 0.55); }
+  11%     { background: #16260b; box-shadow: inset 0 0 12px rgba(182, 255, 58, 0.55); }
+  15%     { background: #07101a; box-shadow: inset 0 0 0 rgba(182, 255, 58, 0); }
+  100%    { background: #07101a; box-shadow: inset 0 0 0 rgba(182, 255, 58, 0); }
+}
+@keyframes scc-ico-on {
+  0%   { color: rgba(138, 131, 184, 0.9); filter: none; transform: scale(1); }
+  2%   { color: var(--lime); filter: drop-shadow(0 0 5px rgba(182, 255, 58, 0.9)); transform: scale(1.1); }
+  11%  { color: var(--lime); filter: drop-shadow(0 0 5px rgba(182, 255, 58, 0.9)); transform: scale(1); }
+  15%  { color: rgba(138, 131, 184, 0.9); filter: none; transform: scale(1); }
+  100% { color: rgba(138, 131, 184, 0.9); filter: none; transform: scale(1); }
+}
+@keyframes scc-name-on {
+  0%   { color: var(--muted-2); text-shadow: none; }
+  2%   { color: var(--lime-t); text-shadow: var(--glow-l); }
+  11%  { color: var(--lime-t); text-shadow: var(--glow-l); }
+  15%  { color: var(--muted-2); text-shadow: none; }
+  100% { color: var(--muted-2); text-shadow: none; }
+}
+@keyframes scc-ring {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
+  2%   { opacity: 0.85; }
+  9%   { opacity: 0; transform: translate(-50%, -50%) scale(1.9); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
+}
+
+/* the uplink wire — wide layout only */
+.stage--scc .scc-phone__wire {
+  position: absolute;
+  left: 100%; top: 50%;
+  width: 370%; height: 1px;
+  opacity: 0.55;
+  background: repeating-linear-gradient(90deg,
+    rgba(47, 228, 255, 0.55) 0 5px,
+    rgba(47, 228, 255, 0) 5px 10px);
+  animation: scc-wire-lit var(--scc-loop) linear var(--t) infinite both;
+}
+.stage--scc .scc-crew--r .scc-phone__wire { left: auto; right: 100%; }
+/* one packet of somebody's decision, on its way to the screen */
+.stage--scc .scc-phone__wire::after {
+  content: "";
+  position: absolute;
+  top: 50%; left: 0;
+  width: 6px; height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: #d6fdff;
+  box-shadow: 0 0 9px rgba(47, 228, 255, 0.95);
+  opacity: 0;
+  animation:
+    scc-run 1.5s linear infinite,
+    scc-wire-on var(--scc-loop) linear var(--t) infinite both;
+}
+.stage--scc .scc-crew--r .scc-phone__wire::after { animation-direction: reverse, normal; }
+@keyframes scc-run { from { left: 0%; } to { left: 100%; } }
+@keyframes scc-wire-lit {
+  0%   { opacity: 0.55; }
+  2%   { opacity: 1; }
+  11%  { opacity: 1; }
+  15%  { opacity: 0.55; }
+  100% { opacity: 0.55; }
+}
+@keyframes scc-wire-on {
+  0%   { opacity: 0; }
+  2%   { opacity: 1; }
+  10%  { opacity: 1; }
+  13%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* ------------------------------------------------- the seat that fills late */
+.stage--scc .scc-phone--join .scc-phone__body {
+  animation: scc-join-body var(--scc-loop) var(--ease) infinite;
+}
+@keyframes scc-join-body {
+  0%, 75%   { border-color: rgba(150, 120, 255, 0.22); opacity: 0.72; }
+  78%       { border-color: rgba(182, 255, 58, 0.85); opacity: 1; }
+  96.5%     { border-color: rgba(182, 255, 58, 0.85); opacity: 1; }
+  99.5%     { border-color: rgba(150, 120, 255, 0.22); opacity: 0.72; }
+  100%      { border-color: rgba(150, 120, 255, 0.22); opacity: 0.72; }
+}
+.stage--scc .scc-phone__ghost {
+  position: absolute; inset: 6%;
+  border: 1px dashed rgba(182, 255, 58, 0.55);
+  border-radius: 18% / 9%;
+  background: rgba(7, 16, 26, 0.35);
+  pointer-events: none;
+  animation: scc-ghost var(--scc-loop) var(--ease) infinite;
+}
+@keyframes scc-ghost {
+  0%, 74%   { opacity: 1; }
+  78%       { opacity: 0; }
+  96.5%     { opacity: 0; }
+  99.5%     { opacity: 1; }
+  100%      { opacity: 1; }
+}
+/* both faces of the seat share one cell so they can cross-fade in place */
+.stage--scc .scc-phone--join .scc-phone__scr { display: grid; place-items: center; }
+.stage--scc .scc-phone--join .scc-phone__ico { grid-area: 1 / 1; }
+.stage--scc .scc-ico--qr {
+  color: var(--lime);
+  width: 70%;
+  animation:
+    scc-qr-phone var(--scc-loop) var(--ease) infinite;
+}
+@keyframes scc-qr-phone {
+  0%, 72%   { opacity: 0.8; filter: none; }
+  75.5%     { opacity: 1; filter: drop-shadow(0 0 6px rgba(182, 255, 58, 1)); }
+  77.5%     { opacity: 0; filter: none; }
+  96.5%     { opacity: 0; filter: none; }
+  99%       { opacity: 0.8; filter: none; }
+  100%      { opacity: 0.8; filter: none; }
+}
+.stage--scc .scc-ico--gun {
+  animation:
+    scc-ico-on var(--scc-loop) var(--ease) var(--t) infinite both,
+    scc-gun-in var(--scc-loop) var(--ease) infinite;
+}
+@keyframes scc-gun-in {
+  0%, 76.5% { opacity: 0; }
+  79%       { opacity: 1; }
+  96.5%     { opacity: 1; }
+  99%       { opacity: 0; }
+  100%      { opacity: 0; }
+}
+.stage--scc .scc-name--pre  { animation: scc-name-pre var(--scc-loop) var(--ease) infinite; }
+.stage--scc .scc-name--post { animation:
+    scc-name-on var(--scc-loop) var(--ease) var(--t) infinite both,
+    scc-name-post var(--scc-loop) var(--ease) infinite; }
+@keyframes scc-name-pre {
+  0%, 75%  { opacity: 1; }
+  77.5%    { opacity: 0; }
+  96.5%    { opacity: 0; }
+  99%      { opacity: 1; }
+  100%     { opacity: 1; }
+}
+@keyframes scc-name-post {
+  0%, 76.5% { opacity: 0; }
+  79%       { opacity: 1; }
+  96.5%     { opacity: 1; }
+  99%       { opacity: 0; }
+  100%      { opacity: 0; }
+}
+
+/* ------------------------------------------------------------- RED ALERT ---*/
+.stage--scc .scc-alert {
+  position: absolute; inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(120% 95% at 50% 50%, rgba(255, 46, 151, 0.10) 26%, rgba(255, 46, 151, 0.30) 100%);
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 46, 151, 0.6),
+    inset 0 0 70px rgba(255, 46, 151, 0.35);
+  animation: scc-alert var(--scc-loop) linear infinite;
+}
+@keyframes scc-alert {
+  0%, 40%   { opacity: 0; }
+  47%       { opacity: 0.32; }
+  51.7%     { opacity: 1; }
+  56%       { opacity: 0.4; }
+  60%       { opacity: 0.9; }
+  64%       { opacity: 0.32; }
+  68%       { opacity: 0.75; }
+  73%       { opacity: 0.25; }
+  80%       { opacity: 0.1; }
+  86%, 100% { opacity: 0; }
+}
+
+/* --------------------------------------------------------- narrow: stacked */
+@media (max-width: 759px) {
+  /* screen on top, couch underneath — and a taller housing so both grow */
+  .stage--scc { --stage-h: clamp(330px, 74vw, 430px); }
+  /* The set widens to 2:1 rather than 16:9 so it still fills the wall at the
+     top of this range instead of stranding the phones around a small screen;
+     max-width takes over on the narrowest handsets. */
+  .stage--scc .scc-tv {
+    right: auto; bottom: auto;
+    left: 50%;
+    top: 8%;
+    height: 48%;
+    aspect-ratio: 2 / 1;
+    max-width: 94%;
+    transform: translateX(-50%);
+  }
+  .stage--scc .scc-crew {
+    flex-direction: row;
+    align-items: flex-end;
+    top: 61%; bottom: 2%;
+    width: 48.5%;
+  }
+  .stage--scc .scc-crew--l { left: 1.5%; }
+  .stage--scc .scc-crew--r { right: 1.5%; }
+  .stage--scc .scc-phone { height: 100%; width: 32%; }
+  .stage--scc .scc-phone__body { height: 76%; }
+  .stage--scc .scc-phone__wire { display: none; }
+}
+
+/* smallest handsets: keep the longest station name inside its slot */
+@media (max-width: 440px) {
+  .stage--scc .scc-phone__name { font-size: 0.55rem; letter-spacing: 0.05em; }
+  .stage--scc .scc-meters { font-size: 0.52rem; }
+}
+
+/* --------------------------------------------- the still twin's own icons  */
+@media (prefers-reduced-motion: reduce) {
+  .stage-static--scc .stage-static__step svg { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .stage-static--scc .stage-static__step:nth-child(3) { color: var(--lime-t); }
+  .stage-static--scc .stage-static__step:nth-child(7) { color: var(--magenta-t); }
+}
+
+/* four steps on one line needs room; below that they sit two by two and the
+   connectors would only dangle, so they step out. */
+@media (prefers-reduced-motion: reduce) and (max-width: 640px) {
+  .stage-static--scc .stage-static__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem 0.6rem;
+  }
+  .stage-static--scc .stage-static__arrow { display: none; }
+}

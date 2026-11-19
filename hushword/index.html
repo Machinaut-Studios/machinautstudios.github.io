@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<!--
+  Hushword — a game by Machinaut Studios LLC
+  Copyright © 2026 Machinaut Studios LLC. All rights reserved. See /LICENSE.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hushword — Find every word. The leftovers spell a secret. | Machinaut Studios LLC</title>
+  <meta name="description" content="Hushword is a word search with a twist: find every word on the list, then spell out the hidden phrase yourself from the letters nobody used, one letter at a time. 480 levels across 32 themed packs, a daily puzzle everyone shares, bonus coins for words that aren't on the list, and nothing that counts down. An iOS and Android game by Machinaut Studios LLC — out now on the App Store and Google Play." />
+  <meta name="copyright" content="© 2026 Machinaut Studios LLC. All rights reserved." />
+  <meta name="theme-color" content="#07060f" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="canonical" href="https://machinautstudios.com/hushword/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Hushword — Find every word. The leftovers spell a secret." />
+  <meta property="og:description" content="A word search that hides two things: the list, and the phrase the leftover letters spell once the list is gone. 480 levels, a daily puzzle, nothing that counts down. Out now on the App Store and Google Play." />
+  <meta property="og:url" content="https://machinautstudios.com/hushword/" />
+  <meta property="og:image" content="https://machinautstudios.com/hushword/hushword-og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="1200" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="Hushword — a cream letter tile stamped with a dark H and a small gold sparkle." />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <!-- Fonts: Orbitron (chrome display) + VT323 (arcade accents) + IBM Plex Mono (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Orbitron:wght@600;800;900&family=VT323&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/hushword/stage.css" />
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ===================== NAV (editor tab bar) ===================== -->
+  <header class="nav tabbar">
+    <div class="tabbar__inner">
+      <a class="brand" href="/">
+        <img class="brand__logo" src="/logo.png" alt="" width="28" height="28" />
+        <span class="brand__name">MACHINAUT</span>
+        <span class="brand__sub">STUDIOS&nbsp;LLC</span>
+      </a>
+
+      <button class="tabbar__toggle" id="navToggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span aria-hidden="true"></span>
+      </button>
+
+      <nav class="tabs" id="nav-menu" aria-label="Primary">
+        <a class="tab" href="/#pipeline"><span class="tab__dot tab__dot--c"></span>pipeline.yml</a>
+        <a class="tab" href="/#ship"><span class="tab__dot tab__dot--l"></span>products/</a>
+        <a class="tab" href="/#studio"><span class="tab__dot tab__dot--v"></span>studio.blame</a>
+        <a class="tab tab--cta" href="/#complaint"><span class="tab__dot tab__dot--m"></span>feedback.sh</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <!-- ===================== HERO ===================== -->
+    <section class="hero hero--compact" aria-labelledby="hushword-title">
+      <div class="hero__scanlines" aria-hidden="true"></div>
+      <!-- Embers off this one's own furnace -->
+      <div class="motes" aria-hidden="true">
+        <span class="mote" style="--x:7%;--s:4px;--dur:18s;--d:-2s;--c:var(--cyan);--drift:22px;--rise:-240px"></span>
+        <span class="mote" style="--x:18%;--s:3px;--dur:23s;--d:-9s;--c:var(--violet);--drift:-18px;--rise:-280px"></span>
+        <span class="mote" style="--x:31%;--s:5px;--dur:16s;--d:-14s;--c:var(--cyan);--drift:26px;--rise:-220px"></span>
+        <span class="mote" style="--x:43%;--s:3px;--dur:21s;--d:-5s;--c:var(--violet);--drift:-24px;--rise:-300px"></span>
+        <span class="mote" style="--x:57%;--s:4px;--dur:25s;--d:-17s;--c:var(--cyan);--drift:20px;--rise:-260px"></span>
+        <span class="mote" style="--x:69%;--s:5px;--dur:19s;--d:-7s;--c:var(--violet);--drift:-22px;--rise:-230px"></span>
+        <span class="mote" style="--x:81%;--s:3px;--dur:22s;--d:-12s;--c:var(--cyan);--drift:28px;--rise:-290px"></span>
+        <span class="mote" style="--x:92%;--s:4px;--dur:17s;--d:-3s;--c:var(--violet);--drift:-20px;--rise:-250px"></span>
+      </div>
+      <div class="hero__inner">
+        <div class="app-hero__layout">
+          <img class="app-hero__icon" src="/hushword/hushword_icon.png" alt="Hushword app icon — a cream letter tile stamped with a dark H and a small gold sparkle" width="152" height="152" />
+          <div class="app-hero__text">
+            <p class="stamp stamp--hero">&#9654; NOW SHIPPING &nbsp;//&nbsp; iOS + ANDROID</p>
+            <h1 class="hero__title" id="hushword-title"><span class="n1">Hushword</span><span class="cursor" aria-hidden="true"></span></h1>
+            <p class="app-hero__tagline">Find every word.<br />The leftovers spell a secret.</p>
+            <p class="hero__sub">
+              It looks like an ordinary word search: a grid of letters, a list of
+              themed words, trace them out. It isn't. Every board is built so the
+              cells <b>no listed word touches</b> spell a hidden phrase — and the
+              moment you find the last word on the list, the real game begins: you
+              spell that phrase out yourself, double-tapping the leftover letters
+              in order. No countdown, no energy meter, no way to lose. Just a
+              grid, a list, and something waiting underneath it.
+            </p>
+            <div class="hero__actions">
+              <a class="btn btn--primary btn--play"
+                 href="https://play.google.com/store/apps/details?id=com.machinautstudios.hushword"
+                 aria-label="Get Hushword on Google Play">
+                <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M4 3.5v17a1 1 0 0 0 1.5.87l14-8.5a1 1 0 0 0 0-1.74l-14-8.5A1 1 0 0 0 4 3.5z" fill="currentColor"/>
+                </svg>
+                <span>Get it on Google Play</span>
+              </a>
+              <a class="btn btn--primary btn--play"
+                 href="https://apps.apple.com/us/app/hushword-word-search/id6800428199"
+                 aria-label="Download Hushword on the App Store">
+                <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M16.37 1.43c0 1.06-.43 2.07-1.13 2.83-.76.82-1.99 1.45-3 1.37-.13-.99.39-2.05 1.05-2.74.74-.78 2.01-1.37 3.01-1.42.03.32.06.64.07-.04zm3.4 16.05c-.5 1.16-.74 1.67-1.38 2.7-.9 1.43-2.16 3.21-3.73 3.22-1.39.01-1.75-.91-3.64-.9-1.89.01-2.28.92-3.68.9-1.57-.01-2.77-1.62-3.67-3.05-2.51-3.98-2.77-8.65-1.23-11.13 1.1-1.76 2.83-2.79 4.46-2.79 1.66 0 2.7.91 4.07.91 1.33 0 2.14-.91 4.06-.91 1.45 0 2.99.79 4.08 2.16-3.59 1.96-3.01 7.09.66 8.89z" fill="currentColor"/>
+                </svg>
+                <span>Download on the App Store</span>
+              </a>
+              <a class="btn btn--ghost" href="/hushword/privacy/">PRIVACY POLICY</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== HOW IT PLAYS ===================== -->
+    <section class="section" id="how-it-plays" aria-labelledby="how-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; THE LOOP</p>
+        <h2 class="section__title chrome" id="how-h">HOW IT PLAYS</h2>
+        <p class="vibe vibe--head">The secret shipped unread. So did the diff.</p>
+      </div>
+      <p class="section__lead">
+        A word search asks you to clear a list. Hushword asks you to clear a list so
+        that something else can be read. The generator hides the list first, counts
+        what nothing covered, and then picks a secret of <b>exactly</b> that many
+        letters — reshuffling the board until the arithmetic lands. Every pack
+        carries a phrase for every length it might need, so there is always one
+        waiting under there.
+      </p>
+
+      <!-- ========= THE HIDDEN LINE — the signature loop for this page =========
+           One 6x6 board, eighteen seconds. Five listed words are traced out one
+           at a time — MOON down, ORBIT across, STAR down-left, COMET backwards,
+           PLANET on the long diagonal — and each sweep spends the letters it
+           eats and strikes the word off the list. Clearing the list hands over
+           nothing: LIST CLEAR flips to YOUR TURN, the twelve masked slots along
+           the bottom arm, and the guessing act opens. Then the leftovers are
+           PICKED — a double-tap ring on a cell, that letter going lime and
+           dropping into its own slot, twelve times over, in reading order,
+           tightening as the line fills — until it reads THE QUIET PART. The
+           phrase is spelled out, never revealed: nothing on that line got there
+           by itself, every letter is there because a tap sent it. Then it
+           redeals. The board below is a real one: those five words are
+           genuinely in it, and the cells none of them cross genuinely spell the
+           phrase. -->
+      <div class="stage stage--hushword" aria-hidden="true">
+        <div class="stage__grid"></div>
+        <div class="motes hw__air">
+          <span class="mote" style="--x:5%;--s:3px;--dur:19s;--d:-4s;--c:var(--cyan);--drift:18px;--rise:-260px"></span>
+          <span class="mote" style="--x:13%;--s:4px;--dur:24s;--d:-13s;--c:var(--violet);--drift:-16px;--rise:-300px"></span>
+          <span class="mote" style="--x:26%;--s:3px;--dur:21s;--d:-8s;--c:var(--lime);--drift:22px;--rise:-240px"></span>
+          <span class="mote" style="--x:74%;--s:3px;--dur:23s;--d:-16s;--c:var(--cyan);--drift:-20px;--rise:-280px"></span>
+          <span class="mote" style="--x:88%;--s:4px;--dur:18s;--d:-2s;--c:var(--violet);--drift:16px;--rise:-250px"></span>
+          <span class="mote" style="--x:96%;--s:3px;--dur:26s;--d:-11s;--c:var(--magenta);--drift:-14px;--rise:-290px"></span>
+        </div>
+
+        <div class="hw">
+          <div class="hw__board">
+            <div class="hw__lattice"></div>
+
+            <!-- the five traces: start cell, length, step (1 straight, 1.414
+                 diagonal) and the angle of the line they run down -->
+            <i class="hw__sweep hw__sweep--1" style="--c:0;--r:1;--len:4;--k:1;--a:90deg"></i>
+            <i class="hw__sweep hw__sweep--2" style="--c:1;--r:0;--len:5;--k:1;--a:0deg"></i>
+            <i class="hw__sweep hw__sweep--3" style="--c:4;--r:1;--len:4;--k:1.41421;--a:135deg"></i>
+            <i class="hw__sweep hw__sweep--4" style="--c:4;--r:5;--len:5;--k:1;--a:180deg"></i>
+            <i class="hw__sweep hw__sweep--5" style="--c:0;--r:0;--len:6;--k:1.41421;--a:45deg"></i>
+
+            <!-- one tap ring per leftover cell: the guess, in reading
+                 order, each firing at the moment its letter is chosen -->
+            <i class="hw__tap" style="--r:1;--c:2;--d:8.15s"></i>
+            <i class="hw__tap" style="--r:1;--c:3;--d:8.77s"></i>
+            <i class="hw__tap" style="--r:1;--c:5;--d:9.35s"></i>
+            <i class="hw__tap" style="--r:2;--c:1;--d:9.90s"></i>
+            <i class="hw__tap" style="--r:2;--c:4;--d:10.43s"></i>
+            <i class="hw__tap" style="--r:2;--c:5;--d:10.94s"></i>
+            <i class="hw__tap" style="--r:3;--c:1;--d:11.44s"></i>
+            <i class="hw__tap" style="--r:3;--c:4;--d:11.93s"></i>
+            <i class="hw__tap" style="--r:3;--c:5;--d:12.41s"></i>
+            <i class="hw__tap" style="--r:4;--c:2;--d:12.88s"></i>
+            <i class="hw__tap" style="--r:4;--c:3;--d:13.34s"></i>
+            <i class="hw__tap" style="--r:4;--c:5;--d:13.79s"></i>
+
+            <!-- the 24 cells the list uses: w1 MOON, w2 ORBIT, w3 STAR,
+                 w4 COMET, w5 PLANET -->
+            <span class="hw__cell hw__cell--w5" style="--c:0;--r:0">P</span>
+            <span class="hw__cell hw__cell--w2" style="--c:1;--r:0">O</span>
+            <span class="hw__cell hw__cell--w2" style="--c:2;--r:0">R</span>
+            <span class="hw__cell hw__cell--w2" style="--c:3;--r:0">B</span>
+            <span class="hw__cell hw__cell--w2" style="--c:4;--r:0">I</span>
+            <span class="hw__cell hw__cell--w2" style="--c:5;--r:0">T</span>
+
+            <span class="hw__cell hw__cell--w1" style="--c:0;--r:1">M</span>
+            <span class="hw__cell hw__cell--w5" style="--c:1;--r:1">L</span>
+            <span class="hw__cell hw__cell--w3" style="--c:4;--r:1">S</span>
+
+            <span class="hw__cell hw__cell--w1" style="--c:0;--r:2">O</span>
+            <span class="hw__cell hw__cell--w5" style="--c:2;--r:2">A</span>
+            <span class="hw__cell hw__cell--w3" style="--c:3;--r:2">T</span>
+
+            <span class="hw__cell hw__cell--w1" style="--c:0;--r:3">O</span>
+            <span class="hw__cell hw__cell--w3" style="--c:2;--r:3">A</span>
+            <span class="hw__cell hw__cell--w5" style="--c:3;--r:3">N</span>
+
+            <span class="hw__cell hw__cell--w1" style="--c:0;--r:4">N</span>
+            <span class="hw__cell hw__cell--w3" style="--c:1;--r:4">R</span>
+            <span class="hw__cell hw__cell--w5" style="--c:4;--r:4">E</span>
+
+            <span class="hw__cell hw__cell--w4" style="--c:0;--r:5">T</span>
+            <span class="hw__cell hw__cell--w4" style="--c:1;--r:5">E</span>
+            <span class="hw__cell hw__cell--w4" style="--c:2;--r:5">M</span>
+            <span class="hw__cell hw__cell--w4" style="--c:3;--r:5">O</span>
+            <span class="hw__cell hw__cell--w4" style="--c:4;--r:5">C</span>
+            <span class="hw__cell hw__cell--w5" style="--c:5;--r:5">T</span>
+
+            <div class="hw__flash"></div>
+          </div>
+
+          <div class="hw__list">
+            <p class="hw__pack">NIGHT SKY <b>&nbsp;LV 12</b></p>
+            <div class="hw__words">
+              <p class="hw__word hw__word--1">MOON</p>
+              <p class="hw__word hw__word--2">ORBIT</p>
+              <p class="hw__word hw__word--3">STAR</p>
+              <p class="hw__word hw__word--4">COMET</p>
+              <p class="hw__word hw__word--5">PLANET</p>
+            </div>
+            <div class="hw__state">
+              <span class="hw__clear">LIST CLEAR</span>
+              <span class="hw__turn">YOUR TURN</span>
+            </div>
+          </div>
+
+          <!-- twelve masked slots: the shape of the secret is on show from
+               the first frame, the letters never are. They arm when the list
+               clears and are filled only by letters tapped into them. -->
+          <div class="hw__tray">
+            <span class="hw__glow"></span>
+            <i class="hw__slot" style="--i:0;--w:0"></i>
+            <i class="hw__slot" style="--i:1;--w:0"></i>
+            <i class="hw__slot" style="--i:2;--w:0"></i>
+            <i class="hw__slot" style="--i:3;--w:1"></i>
+            <i class="hw__slot" style="--i:4;--w:1"></i>
+            <i class="hw__slot" style="--i:5;--w:1"></i>
+            <i class="hw__slot" style="--i:6;--w:1"></i>
+            <i class="hw__slot" style="--i:7;--w:1"></i>
+            <i class="hw__slot" style="--i:8;--w:2"></i>
+            <i class="hw__slot" style="--i:9;--w:2"></i>
+            <i class="hw__slot" style="--i:10;--w:2"></i>
+            <i class="hw__slot" style="--i:11;--w:2"></i>
+            <span class="hw__shine"></span>
+          </div>
+
+          <!-- the spares. Each one carries the cell it sits in (--r/--c), the
+               place on the answer line it belongs to (--i/--w), and a class
+               numbered with that same --i — its place in the phrase, and so
+               its turn to be picked. -->
+          <span class="hw__fly hw__fly--0" style="--r:1;--c:2;--i:0;--w:0">T</span>
+          <span class="hw__fly hw__fly--1" style="--r:1;--c:3;--i:1;--w:0">H</span>
+          <span class="hw__fly hw__fly--2" style="--r:1;--c:5;--i:2;--w:0">E</span>
+          <span class="hw__fly hw__fly--3" style="--r:2;--c:1;--i:3;--w:1">Q</span>
+          <span class="hw__fly hw__fly--4" style="--r:2;--c:4;--i:4;--w:1">U</span>
+          <span class="hw__fly hw__fly--5" style="--r:2;--c:5;--i:5;--w:1">I</span>
+          <span class="hw__fly hw__fly--6" style="--r:3;--c:1;--i:6;--w:1">E</span>
+          <span class="hw__fly hw__fly--7" style="--r:3;--c:4;--i:7;--w:1">T</span>
+          <span class="hw__fly hw__fly--8" style="--r:3;--c:5;--i:8;--w:2">P</span>
+          <span class="hw__fly hw__fly--9" style="--r:4;--c:2;--i:9;--w:2">A</span>
+          <span class="hw__fly hw__fly--10" style="--r:4;--c:3;--i:10;--w:2">R</span>
+          <span class="hw__fly hw__fly--11" style="--r:4;--c:5;--i:11;--w:2">T</span>
+
+          <!-- one spark per landing, over the slot it lands in -->
+          <div class="hw__sparks">
+            <i style="--i:0;--w:0;--dx:-9px;--d:8.67s"></i>
+            <i class="is-m" style="--i:1;--w:0;--dx:7px;--d:9.25s"></i>
+            <i style="--i:2;--w:0;--dx:-6px;--d:9.81s"></i>
+            <i class="is-c" style="--i:3;--w:1;--dx:10px;--d:10.34s"></i>
+            <i class="is-m" style="--i:4;--w:1;--dx:-11px;--d:10.85s"></i>
+            <i style="--i:5;--w:1;--dx:8px;--d:11.35s"></i>
+            <i class="is-c" style="--i:6;--w:1;--dx:-7px;--d:11.85s"></i>
+            <i style="--i:7;--w:1;--dx:9px;--d:12.33s"></i>
+            <i class="is-m" style="--i:8;--w:2;--dx:-8px;--d:12.80s"></i>
+            <i class="is-c" style="--i:9;--w:2;--dx:6px;--d:13.26s"></i>
+            <i style="--i:10;--w:2;--dx:-10px;--d:13.71s"></i>
+            <i class="is-c" style="--i:11;--w:2;--dx:7px;--d:14.33s"></i>
+          </div>
+        </div>
+
+        <span class="stage__tag">THE HIDDEN LINE</span>
+        <span class="stage__tag stage__tag--end stage__tag--bottom">NOW YOU SPELL IT</span>
+      </div>
+
+      <div class="stage-static stage-static--hushword" aria-hidden="true">
+        <div class="stage-static__row">
+          <span class="stage-static__step">
+            <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+              <g fill="none" stroke="rgba(47,228,255,0.4)" stroke-width="1.5">
+                <rect x="5" y="5" width="38" height="38" rx="4" />
+                <path d="M17.7 5v38M30.3 5v38M5 17.7h38M5 30.3h38" />
+              </g>
+              <rect x="4" y="18.5" width="40" height="11" rx="5.5"
+                    transform="rotate(45 24 24)"
+                    fill="rgba(47,228,255,0.22)" stroke="#2fe4ff" stroke-width="2" />
+            </svg>
+            TRACE A WORD
+          </span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step">
+            <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+              <g stroke="#b0a8dd" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.8">
+                <path d="M13 13h24" /><path d="M13 24h24" /><path d="M13 35h15" />
+              </g>
+              <g stroke="#2fe4ff" stroke-width="2.5" stroke-linecap="round" fill="none">
+                <path d="M9 13h32" /><path d="M9 24h32" />
+              </g>
+            </svg>
+            IT COMES OFF
+          </span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step stage-static__step--clear">
+            <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+              <rect x="6" y="10" width="36" height="28" rx="5"
+                    fill="rgba(255,46,151,0.12)" stroke="#ff2e97" stroke-width="2" />
+              <path d="M15 24.5l6.5 7L34 17" fill="none" stroke="#ff2e97"
+                    stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            LIST CLEAR
+          </span>
+          <span class="stage-static__arrow">&#9656;</span>
+          <span class="stage-static__step stage-static__step--secret">
+            <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+              <!-- three leftover cells, the third taking a double-tap -->
+              <g fill="none" stroke="rgba(47,228,255,0.4)" stroke-width="1.5">
+                <rect x="4.5" y="5" width="11" height="11" rx="2" />
+                <rect x="18.5" y="5" width="11" height="11" rx="2" />
+              </g>
+              <rect x="32.5" y="5" width="11" height="11" rx="2"
+                    fill="rgba(182,255,58,0.18)" stroke="#b6ff3a" stroke-width="2" />
+              <g fill="none" stroke="#b6ff3a" stroke-width="1.5" opacity="0.7">
+                <rect x="29.5" y="2" width="17" height="17" rx="4" />
+              </g>
+              <!-- and dropping into the next blank -->
+              <path d="M38 21v4.5" fill="none" stroke="#b6ff3a" stroke-width="2"
+                    stroke-linecap="round" stroke-dasharray="3 3" />
+              <path d="M34.5 24.5L38 28l3.5-3.5" fill="none" stroke="#b6ff3a"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <g fill="none" stroke="#b6ff3a" stroke-width="2">
+                <rect x="4.5" y="31" width="11" height="12" rx="2" />
+                <rect x="18.5" y="31" width="11" height="12" rx="2" />
+                <rect x="32.5" y="31" width="11" height="12" rx="2" stroke-dasharray="3 2.5" opacity="0.75" />
+              </g>
+              <g fill="#b6ff3a">
+                <rect x="7.5" y="34" width="5" height="6" rx="1" />
+                <rect x="21.5" y="34" width="5" height="6" rx="1" />
+              </g>
+            </svg>
+            NOW YOU SPELL IT
+          </span>
+        </div>
+      </div>
+
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">STEP ONE &nbsp;//&nbsp; TRACE</span>
+          <h3 class="cell__title">CLEAR THE LIST</h3>
+          <p class="cell__text">Drag across touching letters in any of the eight directions — forwards or backwards — to trace a word from the list. Boards run 6&times;6 with five words up to 8&times;8 with nine, ramping inside every pack. Found words stay coloured in, like a paper puzzle.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STEP TWO &nbsp;//&nbsp; THE POINT</span>
+          <h3 class="cell__title">THE SECRET</h3>
+          <p class="cell__text">Whatever the list never used is not filler: in reading order those spare letters spell a phrase, six to twenty letters long, written for that pack. Every single board has one — but clearing the list doesn't hand it over, it opens the guessing act. Double-tap the leftovers in order to spell it out; a wrong letter, or the right one out of order, costs a guess. You start with one and every bonus word you find earns another. A whisper fills the next letter for 100 coins — free for a watched ad if you're short — and costs no guess. Run dry and you can take another guess for 100 coins or an ad, or let the board keep its secret: the level still finishes either way.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STEP THREE &nbsp;//&nbsp; GREED</span>
+          <h3 class="cell__title">BONUS WORDS</h3>
+          <p class="cell__text">See a real word that isn't on the list? Trace it anyway. Any dictionary word of four letters or more pays a coin, up to ten a level — enough to reward looking, not enough to make farming one board a job.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">STUCK?</span>
+          <h3 class="cell__title">HINTS, PRICED</h3>
+          <p class="cell__text">A hint costs 100 coins and flags a word's first letter; a full reveal costs 300. You start with 300 in the bank and earn more by playing. If you're short and an ad is loaded, the hint is free for a watched one — your choice, never a wall.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">NO CLOCK</span>
+          <h3 class="cell__title">NOTHING RUNS OUT</h3>
+          <p class="cell__text">No countdown, no energy meter, no failure — a level you can't crack still counts, it just keeps its secret. The only clock counts <b>up</b>, and only so the daily has a time to brag with — it pauses when you do. Put it down mid-word and the board is exactly where you left it, saved on your own phone.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">OFFLINE</span>
+          <h3 class="cell__title">WORKS IN A TUNNEL</h3>
+          <p class="cell__text">The whole dictionary and all 32 packs ship inside the app, and boards are generated on your device. Aeroplanes, basements, and dead-zone commutes all play perfectly. Only the ads need a signal.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== WHAT'S IN IT ===================== -->
+    <section class="section section--alt" id="contents" aria-labelledby="contents-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; TWO WAYS IN</p>
+        <h2 class="section__title chrome" id="contents-h">WHAT'S IN THE BOX</h2>
+      </div>
+      <p class="section__lead">
+        A campaign you work through at your own pace, and one puzzle a day that the
+        whole planet gets identically. Both hide a secret; neither can be failed.
+      </p>
+      <ul class="grid" role="list">
+        <li class="cell">
+          <span class="cell__stamp">MODE 01 &nbsp;//&nbsp; 480 LEVELS</span>
+          <h3 class="cell__title">32 THEMED PACKS</h3>
+          <p class="cell__text">Fifteen levels each, across Animals, Ocean, Kitchen, Garden, Bakery, Forest, Space, Carnival, Old Library, Pirates, Night Sky, Tide Pools, Old Castles and nineteen more. Every pack brings its own word pool and its own set of secrets, and gets harder as you go: 6&times;6, then 7&times;7, then 8&times;8. Finish one and it pays out.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">MODE 02 &nbsp;//&nbsp; DAILY</span>
+          <h3 class="cell__title">ONE PUZZLE A DAY</h3>
+          <p class="cell__text">A full-size board built from that calendar date, <b>identical on every device on earth</b> — no server hands it out, your phone computes it from the date. Solve it and keep a streak; the longer the streak, the bigger the payout, and there's a line of text you can paste at whoever needs to know how fast you were.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== MONETIZATION ===================== -->
+    <section class="section" id="cost" aria-labelledby="cost-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; THE HONEST BIT</p>
+        <h2 class="section__title chrome" id="cost-h">WHAT IT COSTS</h2>
+      </div>
+      <p class="section__lead">
+        Hushword is free. Nothing you can buy makes a puzzle solvable that wasn't, and
+        nothing expires, drains, or refills on a timer — there is no energy meter here
+        because we didn't build one. Money buys fewer interruptions and a faster route
+        to a prettier grid. That's the entire list.
+      </p>
+      <ul class="grid grid--3" role="list">
+        <li class="cell">
+          <span class="cell__stamp">FREE &nbsp;//&nbsp; AD-SUPPORTED</span>
+          <h3 class="cell__title">ADS, ON A LEASH</h3>
+          <p class="cell__text">A full-screen ad only ever appears <b>after</b> a level is finished. Your first six levels are ad-free entirely, then at most every second level, and never less than two and a half minutes since the last one. Never mid-word, never mid-board. Those limits are in the code, not in a promise.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">ONE-TIME PURCHASE</span>
+          <h3 class="cell__title">REMOVE ADS</h3>
+          <p class="cell__text">Ends the between-level interruptions permanently. The opt-in ad stays available on purpose, so a free hint is still there for you when you're broke — you just never get shown one you didn't ask for.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">COINS &nbsp;//&nbsp; OPTIONAL</span>
+          <h3 class="cell__title">A POUCH, A SATCHEL, A CHEST</h3>
+          <p class="cell__text">Three coin packs, if you'd rather buy the hints than earn them. Coins also fall out of ordinary play — every level, every secret, every bonus word, every finished pack, every daily. Buying is a shortcut, never a gate.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">COSMETIC ONLY</span>
+          <h3 class="cell__title">FOUR GRID THEMES</h3>
+          <p class="cell__text"><b>Lamplight</b> is free and there from the start. <b>Moon Study</b>, <b>Meadow Press</b> and <b>Rose &amp; Wine</b> cost 400 coins each — coins, not money. They restyle the board and nothing else.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">NOT IN HERE</span>
+          <h3 class="cell__title">NO SUBSCRIPTION</h3>
+          <p class="cell__text">No monthly anything, no season pass, no loot box, no daily-login casino, no "watch an ad to keep your streak". A streak you earned is not for sale back to you.</p>
+        </li>
+        <li class="cell">
+          <span class="cell__stamp">SUITABLE FOR</span>
+          <h3 class="cell__title">EVERYONE</h3>
+          <p class="cell__text">No chat, no accounts, no player-made content, nobody to be matched against. Both the board generator and the bonus-word payout run against a blocklist, so nothing crude turns up in a grid or gets celebrated with a coin.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== PRIVACY TEASER ===================== -->
+    <section class="section section--alt" id="privacy" aria-labelledby="privacy-h">
+      <div class="section__head">
+        <p class="stamp">&#9654; ON THE RECORD</p>
+        <h2 class="section__title chrome" id="privacy-h">YOUR DATA STAYS YOURS</h2>
+      </div>
+      <p class="section__lead">
+        Hushword asks for <b>no permissions of its own</b> — no camera, no microphone,
+        no location, no contacts, no notifications. There is no account to make, no
+        server of ours anywhere in the picture, and no analytics or crash reporter in
+        the build. Progress, stats, streaks, settings, your coin balance and the board
+        you're halfway through all sit in your phone's own storage; delete the app and
+        they go with it. The dictionary and every pack ship inside the game, so the
+        puzzles are local and work offline. Exactly two things reach the network:
+        Google's ad network, which serves the ads, and the App Store or Google Play,
+        which handle purchases — we never see payment details. The full, plainly-worded
+        details live on the privacy page — the same one we submit to the App Store and
+        Google Play.
+      </p>
+      <p>
+        <a class="btn btn--ghost" href="/hushword/privacy/">READ THE HUSHWORD PRIVACY POLICY</a>
+      </p>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER (status bar) ===================== -->
+  <footer class="footer footer--bar">
+    <div class="statusbar">
+      <span class="sb sb--branch"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="5" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="6" cy="19" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="9" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 7.6v8.8M18 11.6c0 3.2-3 3.6-6 4.2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>main &#10003;</span>
+      <span class="sb">0 problems</span>
+      <span class="sb">temperature 1.0</span>
+      <span class="sb sb--warm">GPU 88.4&deg;C</span>
+      <span class="sb">Ln &#8734;, Col 1</span>
+      <span class="sb sb--flow">prompt &#8594; accept &#8594; deploy</span>
+      <span class="sb sb--right">autocomplete: on &nbsp;&middot;&nbsp; brakes: off</span>
+    </div>
+
+    <div class="footer__body">
+      <img class="footer__logo" src="/logo.png" alt="" width="44" height="44" />
+
+      <nav class="footer__links" aria-label="Footer">
+        <a href="/">Home</a>
+        <a href="/hushword/">Hushword</a>
+        <a href="/hushword/privacy/">Privacy Policy</a>
+        <a href="https://apps.apple.com/us/app/hushword-word-search/id6800428199">App Store</a>
+        <a href="https://play.google.com/store/apps/details?id=com.machinautstudios.hushword">Google Play</a>
+        <a href="/voidhorde/">Voidhorde</a>
+        <a href="/clappybird/">Clappy Bird</a>
+        <a href="/spellheir/">Spellheir</a>
+        <a href="/slateveil/">Slateveil</a>
+        <a href="/starknell/">STARKNELL</a>
+        <a href="/space-couch-command/">Space Couch Command</a>
+        <a href="/voicecmd/">VoiceCmd</a>
+        <a href="/tooter/">Tooter</a>
+        <a href="/emberseam/">Emberseam</a>
+        <a href="/anvilspell/">Anvilspell</a>
+        <a href="/crittergram/">Critter Gram</a>
+        <a href="/ninehole/">Ninehole</a>
+      </nav>
+
+      <p class="footer__text">
+        Hushword is a game by MACHINAUT STUDIOS LLC &mdash; one prompt, one build, no
+        follow-up questions. Every board is keeping something from you. Find the list
+        and then it's your turn to say it.
+        <span class="footer__cursor cursor" aria-hidden="true"></span>
+      </p>
+
+      <p class="footer__fine">&copy; 2026 Machinaut Studios LLC. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

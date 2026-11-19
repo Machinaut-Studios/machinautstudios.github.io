@@ -1,0 +1,684 @@
+/* =========================================================================
+   TOOTER — THE COURIC SCALE BENCH
+   The page's signature contraption, built on the site MOTION KIT (.stage).
+   One clip per lap, 11 seconds, in four stations:
+
+     PICKUP  a capsule takes the emission — rings out, capsule blooms
+     TRACE   the clip rips across the oscilloscope, cyan, left to right
+     GAUGE   the magenta needle climbs the graduated dial and settles
+     STAMP   the score thumps down onto the bench apron in lime, rides
+             right, and lifts into slot 02 of the Hall of Fame rack
+
+   Every housing bottoms out on --tt-deck; the strip below it is the bench
+   apron and stays clear, so the ticket never lands on top of a readout.
+
+   Every selector below is scoped to .stage--tooter / .tt-static. Keyframes
+   are prefixed tt-. Reduced motion and offscreen pausing belong to the kit;
+   nothing here re-implements them.
+   ========================================================================= */
+
+.stage--tooter {
+  --stage-h: clamp(316px, 44vw, 404px);
+  --tt-loop: 11s;
+  /* Where the stamped score has to fly to reach slot 02 of the rack. */
+  --tt-fx: 23.5%;
+  --tt-fy: -47.1%;
+  /* The bench top. Every housing bottoms out here; the strip underneath is
+     kept clear so the stamped ticket has somewhere to land. */
+  --tt-deck: 84%;
+}
+
+.stage--tooter .tt-bench { position: absolute; inset: 0; z-index: 1; }
+
+/* Station placards, same voice as the factory's machine labels. */
+.stage--tooter .tt-label {
+  position: absolute;
+  left: 0; bottom: 100%;
+  margin-bottom: 0.35em;
+  font-family: var(--font-arcade);
+  font-size: clamp(0.62rem, 1.25vw, 0.88rem);
+  letter-spacing: 0.12em;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--cyan-t);
+  text-shadow: var(--glow-c);
+}
+
+/* ---- The bench top: a signal bus with dashes flowing down it ------------ */
+.stage--tooter .tt-deck {
+  position: absolute;
+  left: 1.5%; right: 1.5%;
+  top: var(--tt-deck);
+  height: 5px;
+  z-index: 2;
+  background: #0b0a16;
+  border-top: 2px solid rgba(47, 228, 255, 0.45);
+  border-bottom: 2px solid rgba(255, 46, 151, 0.35);
+  box-shadow: 0 0 16px rgba(47, 228, 255, 0.18);
+}
+.stage--tooter .tt-deck::before {
+  content: "";
+  position: absolute; inset: 0;
+  opacity: 0.55;
+  background: repeating-linear-gradient(90deg,
+    rgba(182, 255, 58, 0.75) 0 7px, rgba(182, 255, 58, 0) 7px 20px);
+  animation: tt-bus 0.85s linear infinite;
+}
+.stage--tooter .tt-deck::after {
+  content: "";
+  position: absolute; left: 0; right: 0; top: 100%;
+  height: 14px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent);
+}
+.stage--tooter .tt-deck--b { display: none; }
+@keyframes tt-bus { to { background-position: 20px 0; } }
+
+/* =========================== 1. PICKUP =================================== */
+.stage--tooter .tt-mic {
+  position: absolute;
+  left: 2%; width: 11.5%;
+  top: 40%; height: 44%;
+  z-index: 3;
+}
+.stage--tooter .tt-mic__capsule {
+  position: absolute;
+  left: 50%; top: 0;
+  width: 66%; height: 54%;
+  transform: translateX(-50%) rotate(-8deg);
+  border-radius: 44% 44% 40% 40% / 32% 32% 26% 26%;
+  border: 1px solid rgba(47, 228, 255, 0.55);
+  background-image:
+    repeating-linear-gradient(0deg, rgba(47, 228, 255, 0.22) 0 1px, rgba(47, 228, 255, 0) 1px 4px),
+    linear-gradient(180deg, #2a1c52, #150d30);
+  box-shadow: inset 0 0 10px rgba(47, 228, 255, 0.2), 0 0 12px rgba(47, 228, 255, 0.12);
+}
+.stage--tooter .tt-mic__bloom {
+  position: absolute;
+  left: 50%; top: 27%;
+  width: 74%; aspect-ratio: 1;
+  transform: translate(-50%, -50%) scale(0.6);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 46, 151, 0.75), rgba(255, 46, 151, 0) 65%);
+  opacity: 0;
+  animation: tt-bloom var(--tt-loop) linear infinite;
+}
+.stage--tooter .tt-mic__ring {
+  position: absolute;
+  left: 50%; top: 27%;
+  width: 128%; aspect-ratio: 1;
+  transform: translate(-50%, -50%) scale(0.16);
+  border: 2px solid var(--violet);
+  border-radius: 50%;
+  opacity: 0;
+  box-shadow: 0 0 14px rgba(168, 85, 255, 0.75), inset 0 0 10px rgba(168, 85, 255, 0.35);
+  animation: tt-ring var(--tt-loop) linear infinite;
+}
+/* The three rings are the first three spans in .tt-mic, so nth-of-type
+   counts them directly — 2 and 3 trail the first one out. */
+.stage--tooter .tt-mic__ring:nth-of-type(2) { animation-delay: 0.24s; }
+.stage--tooter .tt-mic__ring:nth-of-type(3) { animation-delay: 0.48s; }
+.stage--tooter .tt-mic__stem {
+  position: absolute;
+  left: 50%; top: 52%; bottom: 0;
+  width: 7px; margin-left: -3.5px;
+  background: linear-gradient(90deg, #0d0a1c, #33296b, #0d0a1c);
+  border-radius: 2px;
+}
+.stage--tooter .tt-mic__stem::after {
+  content: "";
+  position: absolute;
+  left: 50%; bottom: -2px;
+  width: 46px; max-width: 260%; height: 7px;
+  transform: translateX(-50%);
+  border-radius: 3px;
+  background: linear-gradient(180deg, #2b2258, #120e26);
+  border: 1px solid var(--line);
+}
+.stage--tooter .tt-mic__lamp {
+  position: absolute;
+  left: 50%; top: 58%;
+  width: 7px; height: 7px;
+  margin-left: -3.5px;
+  border-radius: 50%;
+  background: var(--lime);
+  box-shadow: var(--glow-l);
+  opacity: 0.25;
+  animation: tt-lamp var(--tt-loop) linear infinite;
+}
+
+@keyframes tt-ring {
+  0%, 3%   { opacity: 0; transform: translate(-50%, -50%) scale(0.2); }
+  6%       { opacity: 0.9; }
+  16%      { opacity: 0; transform: translate(-50%, -50%) scale(1.28); }
+  100%     { opacity: 0; transform: translate(-50%, -50%) scale(0.2); }
+}
+@keyframes tt-bloom {
+  0%, 3%    { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
+  7%        { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+  20%       { opacity: 0.35; transform: translate(-50%, -50%) scale(1); }
+  36%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
+}
+@keyframes tt-lamp {
+  0%, 2%    { opacity: 1; }
+  4%, 88%   { opacity: 0.2; }
+  90%       { opacity: 1; }
+  92%       { opacity: 0.2; }
+  94%       { opacity: 1; }
+  96%       { opacity: 0.2; }
+  98%, 100% { opacity: 1; }
+}
+
+/* ============================ 2. TRACE =================================== */
+.stage--tooter .tt-scope {
+  position: absolute;
+  left: 15.5%; width: 34.5%;
+  top: 22%; height: 62%;
+  z-index: 3;
+}
+.stage--tooter .tt-scope__screen {
+  position: absolute; inset: 0;
+  overflow: hidden;
+  border: 1px solid rgba(47, 228, 255, 0.45);
+  border-radius: 8px;
+  background: radial-gradient(120% 90% at 50% 0%, #0d1a2e 0%, #060912 78%);
+  box-shadow: inset 0 0 26px rgba(47, 228, 255, 0.14), 0 0 18px rgba(47, 228, 255, 0.1);
+}
+.stage--tooter .tt-scope__ruled {
+  position: absolute; inset: 0;
+  opacity: 0.6;
+  background-image:
+    linear-gradient(to right, rgba(47, 228, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(47, 228, 255, 0.09) 1px, transparent 1px);
+  background-size: 12.5% 25%;
+}
+.stage--tooter .tt-scope__zero {
+  position: absolute;
+  left: 4%; right: 4%; top: 50%;
+  height: 1px;
+  background: linear-gradient(90deg,
+    rgba(47, 228, 255, 0.05), rgba(47, 228, 255, 0.4), rgba(47, 228, 255, 0.05));
+}
+.stage--tooter .tt-scope__wipe {
+  position: absolute;
+  left: 4%; right: 4%; top: 3%; bottom: 3%;
+  clip-path: inset(0 100% 0 0);
+  animation: tt-wipe var(--tt-loop) linear infinite;
+}
+.stage--tooter .tt-scope__wave {
+  width: 100%; height: 100%;
+  filter: drop-shadow(0 0 5px rgba(47, 228, 255, 0.8));
+  animation: tt-wave-fade var(--tt-loop) linear infinite;
+}
+.stage--tooter .tt-scope__wave polyline {
+  fill: none;
+  stroke: var(--cyan);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+.stage--tooter .tt-scope__sweep {
+  position: absolute;
+  left: 4%; right: 4%; top: 3%; bottom: 3%;
+  animation: tt-sweep var(--tt-loop) linear infinite;
+}
+.stage--tooter .tt-scope__beam {
+  position: absolute;
+  left: -1px; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg,
+    rgba(47, 228, 255, 0.15), var(--cyan) 45%, rgba(47, 228, 255, 0.15));
+  box-shadow: 0 0 14px 2px rgba(47, 228, 255, 0.6);
+  opacity: 0;
+  animation: tt-beam var(--tt-loop) linear infinite;
+}
+.stage--tooter .tt-scope__rec,
+.stage--tooter .tt-scope__hz {
+  position: absolute;
+  top: 4%;
+  font-family: var(--font-arcade);
+  font-size: clamp(0.55rem, 1.1vw, 0.8rem);
+  letter-spacing: 0.1em;
+  line-height: 1;
+}
+.stage--tooter .tt-scope__rec {
+  left: 5%;
+  color: var(--magenta-t);
+  opacity: 0.28;
+  animation: tt-armed var(--tt-loop) steps(1) infinite;
+}
+.stage--tooter .tt-scope__rec .tt-dot {
+  display: inline-block;
+  width: 0.5em; height: 0.5em;
+  margin-right: 0.35em;
+  border-radius: 50%;
+  background: var(--magenta);
+  box-shadow: var(--glow-m);
+  animation: tt-blink 1.1s steps(2) infinite;
+}
+.stage--tooter .tt-scope__hz { right: 5%; color: var(--muted-2); }
+
+.stage--tooter .tt-scope__idle {
+  position: absolute;
+  left: 0; right: 0; top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  font-family: var(--font-arcade);
+  font-size: clamp(0.6rem, 1.2vw, 0.86rem);
+  letter-spacing: 0.22em;
+  line-height: 1;
+  color: var(--muted-2);
+  opacity: 0;
+  animation: tt-idle var(--tt-loop) linear infinite;
+}
+.stage--tooter .tt-scope__idle .tt-caret {
+  display: inline-block;
+  width: 0.42em; height: 0.85em;
+  margin-left: 0.3em;
+  vertical-align: -0.1em;
+  background: var(--cyan);
+  box-shadow: var(--glow-c);
+  animation: tt-blink 1.1s steps(2) infinite;
+}
+@keyframes tt-idle {
+  0%, 7%    { opacity: 0.6; }
+  9%, 72%   { opacity: 0; }
+  75%, 100% { opacity: 0.6; }
+}
+@keyframes tt-wipe {
+  0%, 9%      { clip-path: inset(0 100% 0 0); }
+  36%, 72%    { clip-path: inset(0 0 0 0); }
+  72.01%, 100% { clip-path: inset(0 100% 0 0); }
+}
+@keyframes tt-wave-fade {
+  0%, 66%   { opacity: 1; }
+  72%, 100% { opacity: 0; }
+}
+@keyframes tt-sweep {
+  0%, 9%    { transform: translateX(0); }
+  36%, 100% { transform: translateX(100%); }
+}
+@keyframes tt-beam {
+  0%, 8.5%   { opacity: 0; }
+  10%, 34%   { opacity: 1; }
+  37%, 100%  { opacity: 0; }
+}
+@keyframes tt-armed {
+  0%, 6%    { opacity: 0.28; }
+  7%, 37%   { opacity: 1; }
+  38%, 100% { opacity: 0.28; }
+}
+@keyframes tt-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0.15; } }
+
+/* ============================ 3. THE GAUGE =============================== */
+.stage--tooter .tt-gauge {
+  position: absolute;
+  left: 52.5%; width: 25%;
+  top: 38%; height: 46%;
+  z-index: 3;
+}
+.stage--tooter .tt-gauge__face {
+  position: absolute; inset: 0;
+  border: 1px solid rgba(255, 46, 151, 0.4);
+  border-radius: 10px 10px 6px 6px;
+  background: linear-gradient(180deg, #241748, #150d30);
+  box-shadow: inset 0 0 20px rgba(255, 46, 151, 0.12), 0 0 16px rgba(255, 46, 151, 0.08);
+}
+.stage--tooter .tt-gauge__dial {
+  position: absolute;
+  left: 4%; width: 92%;
+  bottom: 24%; height: auto;
+  aspect-ratio: 200 / 112;
+  overflow: visible;
+}
+.stage--tooter .tt-arc {
+  fill: none;
+  stroke: rgba(47, 228, 255, 0.55);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.stage--tooter .tt-arc--red { stroke: var(--magenta); filter: drop-shadow(0 0 5px rgba(255, 46, 151, 0.7)); }
+.stage--tooter .t--maj { stroke: rgba(243, 241, 255, 0.72); stroke-width: 2.2; }
+.stage--tooter .t--min { stroke: rgba(176, 168, 221, 0.45); stroke-width: 1.4; }
+.stage--tooter .tt-num {
+  fill: var(--muted);
+  font-family: var(--font-arcade);
+  font-size: 16px;
+  text-anchor: middle;
+}
+.stage--tooter .tt-face-mark {
+  fill: rgba(255, 92, 174, 0.45);
+  font-family: var(--font-arcade);
+  font-size: 12px;
+  letter-spacing: 2.5px;
+  text-anchor: middle;
+}
+.stage--tooter .tt-needle {
+  fill: var(--magenta);
+  transform-box: view-box;
+  transform-origin: 100px 100px;
+  transform: rotate(-72deg);
+  filter: drop-shadow(0 0 6px rgba(255, 46, 151, 0.85));
+  animation: tt-needle var(--tt-loop) linear infinite;
+}
+.stage--tooter .tt-hub {
+  fill: #150d30;
+  stroke: var(--magenta);
+  stroke-width: 2;
+}
+
+.stage--tooter .tt-gauge__leds {
+  position: absolute;
+  left: 11%; right: 11%; bottom: 8%;
+  height: 8%;
+  background: linear-gradient(90deg, rgba(182, 255, 58, 0.2) 0 76%, rgba(255, 46, 151, 0.22) 76% 100%);
+  -webkit-mask-image: repeating-linear-gradient(90deg, #000 0 5.2%, transparent 5.2% 7.7%);
+  mask-image: repeating-linear-gradient(90deg, #000 0 5.2%, transparent 5.2% 7.7%);
+}
+.stage--tooter .tt-gauge__leds i {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, var(--lime) 0 76%, var(--magenta) 76% 100%);
+  clip-path: inset(0 100% 0 0);
+  animation: tt-leds var(--tt-loop) linear infinite;
+}
+@keyframes tt-leds {
+  0%, 9.5%   { clip-path: inset(0 100% 0 0); }
+  12%        { clip-path: inset(0 68% 0 0); }
+  16%        { clip-path: inset(0 36% 0 0); }
+  19%        { clip-path: inset(0 24% 0 0); }
+  24%        { clip-path: inset(0 18% 0 0); }
+  30%        { clip-path: inset(0 16% 0 0); }
+  34%        { clip-path: inset(0 4% 0 0); }
+  37%        { clip-path: inset(0 13% 0 0); }
+  44%, 66%   { clip-path: inset(0 13% 0 0); }
+  72%, 100%  { clip-path: inset(0 100% 0 0); }
+}
+
+@keyframes tt-needle {
+  0%, 9.5% { transform: rotate(-72deg); }
+  12%     { transform: rotate(-26deg); }
+  16%     { transform: rotate(20deg); }
+  19%     { transform: rotate(38deg); }
+  21%     { transform: rotate(27deg); }
+  24%     { transform: rotate(46deg); }
+  27%     { transform: rotate(40deg); }
+  30%     { transform: rotate(49deg); }
+  34%     { transform: rotate(66deg); }
+  37%     { transform: rotate(46deg); }
+  40%     { transform: rotate(57deg); }
+  42%     { transform: rotate(50.5deg); }
+  44%, 66% { transform: rotate(53.3deg); animation-timing-function: cubic-bezier(0.5, 0, 0.2, 1); }
+  72%     { transform: rotate(-75deg); }
+  75%     { transform: rotate(-69deg); }
+  78%, 100% { transform: rotate(-72deg); }
+}
+
+/* ============================ 4. HALL OF FAME ============================ */
+.stage--tooter .tt-rack {
+  position: absolute;
+  left: 79%; width: 19%;
+  top: 18%; height: 66%;
+  z-index: 3;
+}
+.stage--tooter .tt-rack .tt-label { font-size: clamp(0.55rem, 1.08vw, 0.78rem); }
+.stage--tooter .tt-rack__chip {
+  position: absolute;
+  right: 0; bottom: 100%;
+  margin-bottom: 0.35em;
+  padding: 0.05em 0.35em;
+  border: 1px solid rgba(182, 255, 58, 0.6);
+  border-radius: 3px;
+  font-family: var(--font-arcade);
+  font-size: clamp(0.5rem, 1vw, 0.72rem);
+  letter-spacing: 0.1em;
+  line-height: 1.25;
+  white-space: nowrap;
+  color: var(--lime-t);
+  text-shadow: var(--glow-l);
+  opacity: 0;
+  animation: tt-chip var(--tt-loop) linear infinite;
+}
+.stage--tooter .tt-rack__body {
+  position: absolute; inset: 0;
+  border: 1px solid var(--line-2);
+  border-radius: 8px;
+  background: linear-gradient(180deg, var(--panel-2), var(--panel));
+  box-shadow: inset 0 0 20px rgba(168, 85, 255, 0.12);
+}
+.stage--tooter .tt-slots {
+  position: absolute; inset: 6% 7%;
+  display: flex;
+  flex-direction: column;
+  gap: 5%;
+  margin: 0; padding: 0;
+  list-style: none;
+}
+.stage--tooter .tt-slot {
+  position: relative;
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  min-width: 0;
+  padding: 0 0.3em;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: rgba(120, 90, 255, 0.07);
+}
+.stage--tooter .tt-slot__rank {
+  font-family: var(--font-arcade);
+  font-size: clamp(0.6rem, 1.2vw, 0.85rem);
+  line-height: 1;
+  color: var(--muted-2);
+}
+.stage--tooter .tt-slot__wave {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 58%;
+  filter: drop-shadow(0 0 3px rgba(47, 228, 255, 0.5));
+}
+.stage--tooter .tt-slot__wave polyline {
+  fill: none;
+  stroke: rgba(87, 236, 255, 0.85);
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.stage--tooter .tt-slot__score {
+  font-family: var(--font-arcade);
+  font-size: clamp(0.72rem, 1.5vw, 1.02rem);
+  line-height: 1;
+  color: var(--cyan-t);
+  text-shadow: 0 0 8px rgba(47, 228, 255, 0.45);
+}
+
+/* Slot 02 — the bay the fresh clip drops into. */
+.stage--tooter .tt-slot--new {
+  border-style: dashed;
+  border-color: rgba(182, 255, 58, 0.4);
+  background: rgba(182, 255, 58, 0.04);
+  animation: tt-bay var(--tt-loop) linear infinite;
+}
+.stage--tooter .tt-slot__ghost {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-arcade);
+  font-size: clamp(0.6rem, 1.2vw, 0.85rem);
+  letter-spacing: 0.14em;
+  color: var(--muted-2);
+  animation: tt-ghost var(--tt-loop) linear infinite;
+}
+.stage--tooter .tt-slot__entry {
+  position: absolute; inset: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  padding: 0 0.3em;
+  opacity: 0;
+  animation: tt-entry var(--tt-loop) linear infinite;
+}
+.stage--tooter .tt-slot__entry .tt-slot__rank { color: var(--lime-t); }
+.stage--tooter .tt-slot__entry .tt-slot__score { color: var(--lime); text-shadow: var(--glow-l); }
+.stage--tooter .tt-slot__wipe {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  clip-path: inset(0 100% 0 0);
+  animation: tt-slotwipe var(--tt-loop) linear infinite;
+}
+.stage--tooter .tt-slot__entry .tt-slot__wave polyline { stroke: var(--lime); }
+.stage--tooter .tt-slot__entry .tt-slot__wave { filter: drop-shadow(0 0 3px rgba(182, 255, 58, 0.6)); }
+
+/* The empty bay hands over to the filed entry exactly as the ticket lands,
+   so the two never sit on top of each other half-faded. */
+@keyframes tt-ghost {
+  0%, 64%   { opacity: 1; }
+  66%, 94%  { opacity: 0; }
+  96%, 100% { opacity: 1; }
+}
+@keyframes tt-entry {
+  0%, 66.5% { opacity: 0; }
+  68%, 93%  { opacity: 1; }
+  95%, 100% { opacity: 0; }
+}
+@keyframes tt-slotwipe {
+  0%, 68%      { clip-path: inset(0 100% 0 0); }
+  74%, 94%     { clip-path: inset(0 0 0 0); }
+  94.01%, 100% { clip-path: inset(0 100% 0 0); }
+}
+@keyframes tt-bay {
+  0%, 66%   { box-shadow: none; border-color: rgba(182, 255, 58, 0.4); border-style: dashed; }
+  68%       { box-shadow: 0 0 20px rgba(182, 255, 58, 0.75), inset 0 0 14px rgba(182, 255, 58, 0.35);
+              border-color: var(--lime); border-style: solid; }
+  75%, 92%  { box-shadow: 0 0 10px rgba(182, 255, 58, 0.28), inset 0 0 8px rgba(182, 255, 58, 0.12);
+              border-color: rgba(182, 255, 58, 0.7); border-style: solid; }
+  96%, 100% { box-shadow: none; border-color: rgba(182, 255, 58, 0.4); border-style: dashed; }
+}
+@keyframes tt-chip {
+  0%, 67%   { opacity: 0; }
+  69%, 88%  { opacity: 1; }
+  92%, 100% { opacity: 0; }
+}
+
+/* ==================== 5. THE STAMPED SCORE, IN TRANSIT =================== */
+.stage--tooter .tt-flyer {
+  position: absolute; inset: 0;
+  z-index: 7;
+  animation: tt-fly var(--tt-loop) linear infinite;
+}
+.stage--tooter .tt-card {
+  position: absolute;
+  left: 65%; top: 90.5%;
+  padding: 0.28em 0.65em 0.34em;
+  border: 1px solid var(--lime);
+  border-radius: 6px;
+  text-align: center;
+  white-space: nowrap;
+  background: linear-gradient(180deg, rgba(30, 46, 8, 0.95), rgba(9, 14, 4, 0.96));
+  box-shadow: 0 0 22px rgba(182, 255, 58, 0.35), inset 0 0 14px rgba(182, 255, 58, 0.14);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(1.9) rotate(-9deg);
+  animation: tt-card var(--tt-loop) linear infinite;
+}
+.stage--tooter .tt-card__num {
+  display: block;
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: clamp(0.98rem, 2.1vw, 1.38rem);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: var(--lime);
+  text-shadow: var(--glow-l);
+}
+.stage--tooter .tt-card__unit {
+  display: block;
+  margin-top: 0.1em;
+  font-family: var(--font-arcade);
+  font-size: clamp(0.55rem, 1.05vw, 0.76rem);
+  letter-spacing: 0.24em;
+  line-height: 1;
+  color: var(--lime-t);
+}
+/* The ring the stamp knocks out of the bench when it lands. */
+.stage--tooter .tt-card::after {
+  content: "";
+  position: absolute; inset: -3px;
+  border: 2px solid var(--lime);
+  border-radius: 8px;
+  opacity: 0;
+  animation: tt-thump var(--tt-loop) linear infinite;
+}
+
+/* The ticket rides the bench right, the way a gizmo rides the belt on the
+   home page, then lifts into its slot in front of the rack. */
+@keyframes tt-fly {
+  0%, 56%     { transform: none; }
+  62%         { transform: translate(var(--tt-fx), 0); }
+  67.5%, 100% { transform: translate(var(--tt-fx), var(--tt-fy)); }
+}
+@keyframes tt-card {
+  0%, 43.5%  { opacity: 0; transform: translate(-50%, -50%) scale(1.9) rotate(-9deg); }
+  45.5%      { opacity: 1; transform: translate(-50%, -50%) scale(0.9) rotate(1deg); }
+  47.5%      { opacity: 1; transform: translate(-50%, -50%) scale(1.06) rotate(-5deg); }
+  49.5%, 56% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(-4deg); }
+  62%        { opacity: 1; transform: translate(-50%, -50%) scale(0.94) rotate(-1deg); }
+  65%        { opacity: 1; transform: translate(-50%, -50%) scale(0.62) rotate(0deg); }
+  67.5%      { opacity: 0; transform: translate(-50%, -50%) scale(0.42) rotate(0deg); }
+  100%       { opacity: 0; transform: translate(-50%, -50%) scale(1.9) rotate(-9deg); }
+}
+@keyframes tt-thump {
+  0%, 45.5% { opacity: 0; transform: scale(0.85); }
+  46.5%     { opacity: 0.9; transform: scale(1); }
+  52%, 100% { opacity: 0; transform: scale(1.5); }
+}
+
+/* ============================ NARROW BENCH =============================== */
+/* Under ~640px the bench folds into two decks: pickup + trace up top,
+   gauge + archive below. Same machine, shorter shop floor. */
+@media (max-width: 640px) {
+  .stage--tooter {
+    --stage-h: clamp(330px, 88vw, 384px);
+    --tt-deck: 46%;
+    --tt-fx: 47.75%;
+    --tt-fy: -24.5%;
+  }
+  .stage--tooter .tt-deck--b { display: block; top: 84%; }
+
+  .stage--tooter .tt-mic  { left: 1.5%; width: 13%; top: 18%; height: 28%; }
+  .stage--tooter .tt-scope { left: 17%; width: 81.5%; top: 17%; height: 29%; }
+  .stage--tooter .tt-gauge { left: 1.5%; width: 37%; top: 51%; height: 33%; }
+  .stage--tooter .tt-rack  { left: 41%; width: 57.5%; top: 51%; height: 33%; }
+  .stage--tooter .tt-gauge__dial { left: 13%; width: 74%; bottom: 30%; }
+  .stage--tooter .tt-gauge__leds { left: 16%; right: 16%; bottom: 8%; height: 8%; }
+  .stage--tooter .tt-face-mark { display: none; }
+
+  .stage--tooter .tt-card { left: 22%; top: 92%; padding: 0.2em 0.5em 0.26em; }
+  .stage--tooter .tt-slot--last { display: none; }
+  .stage--tooter .tt-slots { gap: 6%; }
+  .stage--tooter .tt-rack .tt-label { font-size: clamp(0.6rem, 2.4vw, 0.8rem); }
+  .stage--tooter .tt-rack__chip { font-size: clamp(0.55rem, 2.1vw, 0.72rem); }
+  .stage--tooter .tt-label { font-size: clamp(0.6rem, 2.4vw, 0.85rem); }
+  .stage--tooter .tt-slot__rank,
+  .stage--tooter .tt-slot__ghost { font-size: clamp(0.65rem, 2.5vw, 0.9rem); }
+  .stage--tooter .tt-slot__score { font-size: clamp(0.8rem, 3.2vw, 1.05rem); }
+  .stage--tooter .tt-card__num { font-size: clamp(0.95rem, 4.2vw, 1.3rem); }
+  .stage--tooter .tt-card__unit { font-size: clamp(0.5rem, 2vw, 0.7rem); letter-spacing: 0.18em; }
+  .stage--tooter .tt-scope__rec,
+  .stage--tooter .tt-scope__hz { font-size: clamp(0.55rem, 2.2vw, 0.75rem); }
+}
+
+/* ======================= THE STILL TWIN (reduced motion) ================= */
+.tt-static .stage-static__step svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.tt-static .tt-s-wave   { stroke: var(--violet); }
+.tt-static .tt-s-trace  { stroke: var(--cyan); stroke-width: 2.2; }
+.tt-static .tt-s-needle { stroke: var(--magenta); stroke-width: 3; }
+.tt-static .tt-s-row    { stroke: var(--lime); stroke-width: 1.6; }

@@ -1,0 +1,920 @@
+/* =========================================================================
+   ANVILSPELL — "THE FORGE"
+   The page's signature contraption. One slice of the board: a cyan trace
+   lights four touching tiles into a word and burns them off, the chute drops
+   replacements, then twin letters ride the feed into a drop hammer and come
+   out one tier rarer and one notch hotter — E > D > F > J, x2 > x4 > x8 —
+   before the blazing tile gets banked and the whole line resets.
+
+   Everything here is scoped to .stage--anvilspell / .stage-static--anvilspell.
+   Housing, grid, tag, reduced-motion swap and offscreen pausing all come from
+   the MOTION KIT in /styles.css — nothing below reimplements them.
+   ========================================================================= */
+
+.stage--anvilspell {
+  --stage-h: clamp(250px, 37vw, 400px);
+
+  --t: clamp(30px, 7.2vw, 76px);          /* one tile                      */
+  --cols: 4;                              /* board columns on this width   */
+  --lastc: 3;                             /* the feed lane: nearest column */
+  --g: calc(var(--t) * 0.16);             /* grout between tiles           */
+  --p: calc(var(--t) * 1.16);             /* cell pitch                    */
+  --bw: calc(var(--cols) * var(--t) + (var(--cols) - 1) * var(--g));
+  --by: calc(var(--t) * 0.7);             /* board top inside the scene    */
+
+  --fx: calc(var(--t) * 7.6);             /* forge centre line             */
+  --sy: calc(var(--t) * 2.15);            /* the strike station (tile top) */
+  --drop: calc(var(--t) * 0.6);           /* hammer travel                 */
+  --fw: calc(var(--fx) - var(--bw) - var(--t) * 1.62);   /* feed run       */
+
+  --sw: calc(var(--t) * 9.3);             /* scene box                     */
+  --sh: calc(var(--t) * 4.6);
+  --loop: 12s;
+}
+
+/* The scene: one px-locked box, centred in the housing, everything inside
+   measured in tiles so the whole rig scales from one clamp(). */
+.stage--anvilspell .fg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--sw);
+  height: var(--sh);
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  /* nudged down so the SPAWN lip never crowds the corner placard */
+  margin-top: calc(var(--t) * 0.14);
+}
+
+/* ---- the board --------------------------------------------------------- */
+.stage--anvilspell .fg__bezel {
+  position: absolute;
+  left: calc(var(--t) * -0.16);
+  top: calc(var(--by) - var(--t) * 0.16);
+  width: calc(var(--bw) + var(--t) * 0.32);
+  height: calc(var(--t) * 3.32 + var(--t) * 0.32);
+  border: 1px solid var(--line-2);
+  border-radius: calc(var(--t) * 0.2);
+  background: rgba(9, 7, 20, 0.55);
+  box-shadow: inset 0 0 calc(var(--t) * 0.5) rgba(168, 85, 255, 0.14);
+  z-index: 1;
+}
+
+/* Spawn chute over the board — where the refills come from. */
+.stage--anvilspell .fg__chute {
+  position: absolute;
+  left: calc(var(--t) * -0.16);
+  top: calc(var(--t) * 0.06);
+  width: calc(var(--bw) + var(--t) * 0.32);
+  height: calc(var(--t) * 0.42);
+  border: 1px solid rgba(182, 255, 58, 0.34);
+  border-bottom-style: dashed;
+  border-radius: calc(var(--t) * 0.08);
+  background: linear-gradient(180deg, rgba(182, 255, 58, 0.10), rgba(182, 255, 58, 0));
+  z-index: 1;
+}
+/* The lip flares each time the chute pays out — the placard itself stays lit,
+   so SPAWN is readable at every point in the loop. */
+.stage--anvilspell .fg__chute::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(182, 255, 58, 0.40), rgba(182, 255, 58, 0));
+  box-shadow: 0 0 0.9em rgba(182, 255, 58, 0.45);
+  opacity: 0;
+  animation: anvilspell-chute var(--loop) linear infinite;
+}
+.stage--anvilspell .fg__chute span {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-arcade);
+  font-size: max(0.62rem, calc(var(--t) * 0.27));
+  letter-spacing: 0.18em;
+  line-height: 1;
+  color: var(--lime-t);
+  text-shadow: var(--glow-l);
+  white-space: nowrap;
+}
+
+/* ---- tiles ------------------------------------------------------------- */
+.stage--anvilspell .fg__tile,
+.stage--anvilspell .fg__res {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: var(--t);
+  height: var(--t);
+  border: 1px solid rgba(182, 255, 58, 0.34);
+  border-radius: calc(var(--t) * 0.16);
+  background: linear-gradient(160deg, #1d1443, #120c2a);
+  box-shadow: inset 0 0 0.4em rgba(182, 255, 58, 0.12);
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: calc(var(--t) * 0.44);
+  line-height: 1;
+  color: var(--lime-t);
+  text-shadow: 0 0 0.4em rgba(182, 255, 58, 0.55);
+  z-index: 3;
+}
+.stage--anvilspell .fg__tile {
+  left: calc(var(--c) * var(--p));
+  top: calc(var(--by) + var(--r) * var(--p));
+}
+
+/* Filler tiles: they just sit there and cook. */
+.stage--anvilspell .fg__tile--idle {
+  animation: anvilspell-flick 5.4s ease-in-out infinite;
+  animation-delay: var(--fd, 0s);
+}
+
+/* The four tiles the trace runs through. */
+.stage--anvilspell .fg__tile--tr {
+  z-index: 4;
+  animation: anvilspell-bt var(--loop) linear infinite;
+  animation-delay: var(--d, 0s);
+}
+
+/* The feed lane — the board column that backs onto the forge. Everything the
+   anvil eats starts here, so a travelling tile never crosses an occupied cell.
+   --ex is where it parks at the strike station. */
+.stage--anvilspell .fg__tile--lane {
+  --c: var(--lastc);
+  --ey: var(--sy);
+  --mx: calc(var(--ex, 0px) - var(--c) * var(--p));
+  --my: calc(var(--ey) - (var(--by) + var(--r) * var(--p)));
+  z-index: 5;
+}
+.stage--anvilspell .fg__tile--twin   { animation: anvilspell-twin   var(--loop) linear infinite; }
+.stage--anvilspell .fg__tile--feed-d { animation: anvilspell-feed-d var(--loop) linear infinite; }
+/* The third feeder is itself a chute drop: it lands in the hole the twins
+   left, sits for a beat, and gets spent. */
+.stage--anvilspell .fg__tile--feed-f { opacity: 0; animation: anvilspell-feed-f var(--loop) linear infinite; }
+
+/* Replacements for the cells the forge emptied — one per spend, not a batch. */
+.stage--anvilspell .fg__tile--rf { opacity: 0; }
+.stage--anvilspell .fg__tile--rf-a { animation: anvilspell-rf-a var(--loop) linear infinite; }
+.stage--anvilspell .fg__tile--rf-b { animation: anvilspell-rf-b var(--loop) linear infinite; }
+.stage--anvilspell .fg__tile--rf-c { animation: anvilspell-rf-c var(--loop) linear infinite; }
+
+/* A tile in flight is carried above the board, not dragged through it. */
+.stage--anvilspell .fg__tile--twin,
+.stage--anvilspell .fg__tile--feed-d,
+.stage--anvilspell .fg__tile--feed-f { will-change: transform; }
+
+/* ---- the trace --------------------------------------------------------- */
+.stage--anvilspell .fg__trace {
+  position: absolute;
+  left: 0;
+  top: var(--by);
+  width: calc(var(--t) * 2.16);
+  height: calc(var(--t) * 3.32);
+  z-index: 6;
+  overflow: visible;
+  pointer-events: none;
+}
+.stage--anvilspell .fg__trace polyline {
+  fill: none;
+  stroke: var(--cyan);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.stage--anvilspell .fg__trace-line {
+  stroke-width: 8;
+  opacity: 0;
+  stroke-dasharray: 348;
+  stroke-dashoffset: 348;
+  filter: drop-shadow(0 0 6px rgba(47, 228, 255, 0.85));
+  animation: anvilspell-line var(--loop) linear infinite;
+}
+.stage--anvilspell .fg__trace-tip {
+  stroke: #eafdff;
+  stroke-width: 15;
+  opacity: 0;
+  stroke-dasharray: 0.01 348;
+  stroke-dashoffset: 348;
+  filter: drop-shadow(0 0 8px rgba(47, 228, 255, 0.95));
+  animation: anvilspell-tip var(--loop) linear infinite;
+}
+
+/* The word it just paid out. */
+.stage--anvilspell .fg__word {
+  position: absolute;
+  left: calc(var(--t) * 1.08);
+  top: calc(var(--by) + var(--t) * 1.08);
+  z-index: 9;
+  padding: calc(var(--t) * 0.12) calc(var(--t) * 0.22);
+  border: 1px solid rgba(47, 228, 255, 0.55);
+  border-radius: calc(var(--t) * 0.1);
+  background: rgba(7, 6, 15, 0.88);
+  box-shadow: 0 0 1.2em rgba(47, 228, 255, 0.35);
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: max(0.72rem, calc(var(--t) * 0.3));
+  letter-spacing: 0.1em;
+  line-height: 1;
+  color: var(--cyan-t);
+  text-shadow: var(--glow-c);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  animation: anvilspell-word var(--loop) linear infinite;
+}
+.stage--anvilspell .fg__word b {
+  margin-left: 0.45em;
+  font-family: var(--font-arcade);
+  font-weight: 400;
+  color: var(--lime-t);
+  text-shadow: var(--glow-l);
+}
+
+/* ---- the feed run ------------------------------------------------------ */
+.stage--anvilspell .fg__funnel {
+  position: absolute;
+  left: calc(var(--bw) + var(--t) * 0.14);
+  top: calc(var(--t) * 1.3);
+  width: var(--fw);
+  height: calc(var(--t) * 2.4);
+  z-index: 1;
+}
+.stage--anvilspell .fg__funnel polygon {
+  fill: rgba(255, 46, 151, 0.04);
+  stroke: rgba(47, 228, 255, 0.3);
+  stroke-width: 1;
+  stroke-dasharray: 6 6;
+}
+.stage--anvilspell .fg__flow {
+  position: absolute;
+  left: calc(var(--bw) + var(--t) * 0.14);
+  top: calc(var(--t) * 2.4);
+  width: var(--fw);
+  height: calc(var(--t) * 0.4);
+  z-index: 1;
+}
+.stage--anvilspell .fg__flow i {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: var(--font-arcade);
+  font-style: normal;
+  font-size: calc(var(--t) * 0.36);
+  line-height: 1;
+  color: var(--magenta-t);
+  opacity: 0;
+  animation: anvilspell-flow 3.2s linear infinite;
+  animation-delay: var(--d, 0s);
+}
+
+/* ---- the drop hammer --------------------------------------------------- */
+.stage--anvilspell .fg__rail {
+  position: absolute;
+  top: calc(var(--t) * 0.14);
+  width: calc(var(--t) * 0.07);
+  height: calc(var(--t) * 3.05);
+  border-radius: 99px;
+  background: linear-gradient(180deg,
+    rgba(47, 228, 255, 0.5) 0%, rgba(47, 228, 255, 0.12) 40%,
+    rgba(47, 228, 255, 0.5) 70%, rgba(47, 228, 255, 0.12) 100%);
+  background-size: 100% 220%;
+  z-index: 2;
+  animation: anvilspell-rail 3.4s linear infinite;
+}
+.stage--anvilspell .fg__rail--l { left: calc(var(--fx) - var(--t) * 0.82); }
+.stage--anvilspell .fg__rail--r { left: calc(var(--fx) + var(--t) * 0.75); }
+
+.stage--anvilspell .fg__hammer {
+  position: absolute;
+  left: calc(var(--fx) - var(--t) * 0.9);
+  top: calc(var(--t) * 0.83);
+  width: calc(var(--t) * 1.8);
+  height: calc(var(--t) * 0.72);
+  z-index: 8;
+  filter: drop-shadow(0 0 0.5em rgba(255, 46, 151, 0.35));
+  animation: anvilspell-hammer var(--loop) linear infinite;
+}
+.stage--anvilspell .fg__hammer .fg__hammer-body { fill: url(#av-steel); stroke: rgba(255, 46, 151, 0.55); stroke-width: 2; }
+.stage--anvilspell .fg__hammer .fg__hammer-face { fill: var(--magenta); }
+.stage--anvilspell .fg__hammer .fg__hammer-slot { fill: rgba(47, 228, 255, 0.35); }
+
+/* ---- the anvil --------------------------------------------------------- */
+.stage--anvilspell .fg__anvil {
+  position: absolute;
+  left: calc(var(--fx) - var(--t) * 1.3);
+  top: calc(var(--t) * 3.15);
+  width: calc(var(--t) * 2.6);
+  height: calc(var(--t) * 1.2);
+  z-index: 4;
+  animation: anvilspell-shake var(--loop) linear infinite;
+}
+.stage--anvilspell .fg__anvil .fg__anvil-body { fill: url(#av-steel); stroke: rgba(47, 228, 255, 0.4); stroke-width: 1.6; }
+.stage--anvilspell .fg__anvil .fg__anvil-face {
+  fill: var(--magenta);
+  animation: anvilspell-face var(--loop) linear infinite;
+}
+
+/* Heat bloom behind the station. */
+.stage--anvilspell .fg__heat {
+  position: absolute;
+  left: calc(var(--fx) - var(--t) * 2);
+  top: calc(var(--t) * 1.2);
+  width: calc(var(--t) * 4);
+  height: calc(var(--t) * 3.2);
+  z-index: 1;
+  border-radius: 50%;
+  background: radial-gradient(50% 50% at 50% 62%, rgba(255, 46, 151, 0.55), rgba(255, 46, 151, 0) 70%);
+  opacity: 0.16;
+  animation: anvilspell-heat var(--loop) linear infinite;
+}
+
+/* ---- what comes off the anvil ------------------------------------------ */
+.stage--anvilspell .fg__res {
+  left: calc(var(--fx) - var(--t) * 0.5);
+  top: var(--sy);
+  z-index: 6;
+  opacity: 0;
+}
+.stage--anvilspell .fg__res--d {
+  border-color: rgba(255, 46, 151, 0.55);
+  background: linear-gradient(160deg, #3a1246, #180c2c);
+  box-shadow: inset 0 0 0.5em rgba(255, 46, 151, 0.25), 0 0 0.8em rgba(255, 46, 151, 0.35);
+  animation: anvilspell-res-d var(--loop) linear infinite;
+}
+.stage--anvilspell .fg__res--f {
+  border-color: rgba(255, 46, 151, 0.8);
+  background: linear-gradient(160deg, #5a1350, #23102f);
+  color: #ffd9ec;
+  text-shadow: 0 0 0.5em rgba(255, 46, 151, 0.9);
+  box-shadow: inset 0 0 0.6em rgba(255, 46, 151, 0.4), 0 0 1.1em rgba(255, 46, 151, 0.5);
+  animation: anvilspell-res-f var(--loop) linear infinite;
+}
+.stage--anvilspell .fg__res--j {
+  border-color: #ffd9ec;
+  background: linear-gradient(160deg, var(--magenta), #7c1a86);
+  color: #fff;
+  text-shadow: 0 0 0.55em rgba(255, 255, 255, 0.95);
+  box-shadow: inset 0 0 0.7em rgba(255, 255, 255, 0.5), 0 0 1.6em rgba(255, 46, 151, 0.85);
+  animation: anvilspell-res-j var(--loop) linear infinite;
+}
+/* the ember tail it leaves on the way out */
+.stage--anvilspell .fg__res--j::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--t) * -0.1);
+  width: calc(var(--t) * 0.2);
+  height: calc(var(--t) * 0.2);
+  transform: translateX(-50%);
+  border-radius: 50% 50% 50% 50% / 35% 35% 65% 65%;
+  background: linear-gradient(180deg, #ffffff, var(--magenta) 55%, rgba(255, 46, 151, 0));
+  filter: blur(1.2px);
+  opacity: 0;
+  animation: anvilspell-tail var(--loop) linear infinite;
+}
+
+/* Multiplier chip. */
+.stage--anvilspell .fg__x {
+  position: absolute;
+  top: calc(var(--t) * -0.17);
+  right: calc(var(--t) * -0.2);
+  padding: 0 calc(var(--t) * 0.1);
+  border-radius: calc(var(--t) * 0.08);
+  background: var(--magenta);
+  color: #0a0718;
+  font-family: var(--font-arcade);
+  font-weight: 400;
+  font-size: max(0.6rem, calc(var(--t) * 0.3));
+  line-height: 1.3;
+  letter-spacing: 0.04em;
+  text-shadow: none;
+  box-shadow: 0 0 0.6em rgba(255, 46, 151, 0.8);
+}
+.stage--anvilspell .fg__res--j .fg__x {
+  background: linear-gradient(90deg, var(--magenta), var(--violet));
+  color: #fff;
+  box-shadow: 0 0 0.9em rgba(255, 46, 151, 0.95);
+}
+
+/* ---- impact ------------------------------------------------------------ */
+.stage--anvilspell .fg__flash {
+  position: absolute;
+  left: calc(var(--fx) - var(--t) * 1.25);
+  top: calc(var(--t) * 1.4);
+  width: calc(var(--t) * 2.5);
+  height: calc(var(--t) * 2.5);
+  z-index: 7;
+  border-radius: 50%;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 46, 151, 0.55) 26%, rgba(255, 46, 151, 0) 62%);
+  opacity: 0;
+  animation: anvilspell-flash var(--loop) linear infinite;
+}
+.stage--anvilspell .fg__ring {
+  position: absolute;
+  left: calc(var(--fx) - var(--t) * 0.7);
+  top: calc(var(--t) * 1.95);
+  width: calc(var(--t) * 1.4);
+  height: calc(var(--t) * 1.4);
+  z-index: 7;
+  border: 1.5px solid var(--lime);
+  border-radius: 50%;
+  opacity: 0;
+  animation: anvilspell-ring var(--loop) linear infinite;
+}
+.stage--anvilspell .fg__sparks {
+  position: absolute;
+  left: var(--fx);
+  top: calc(var(--t) * 2.65);
+  width: 0;
+  height: 0;
+  z-index: 7;
+}
+.stage--anvilspell .fg__sparks i {
+  position: absolute;
+  left: 0;
+  top: calc(var(--t) * -0.02);
+  width: calc(var(--t) * 0.3);
+  height: calc(var(--t) * 0.055);
+  border-radius: 99px;
+  background: linear-gradient(90deg, #ffffff, var(--lime) 45%, var(--magenta));
+  transform-origin: left center;
+  opacity: 0;
+  animation: anvilspell-spark var(--loop) linear infinite;
+}
+
+/* Embers off the hot metal. */
+.stage--anvilspell .fg__ember {
+  position: absolute;
+  left: calc(var(--fx) + var(--ox));
+  top: calc(var(--t) * 3.1);
+  width: calc(var(--t) * 0.07);
+  height: calc(var(--t) * 0.07);
+  border-radius: 50%;
+  background: var(--c2, var(--magenta));
+  box-shadow: 0 0 0.5em currentColor;
+  color: var(--c2, var(--magenta));
+  opacity: 0;
+  z-index: 5;
+  animation: anvilspell-ember var(--dur, 5s) linear infinite;
+  animation-delay: var(--d, 0s);
+}
+
+/* ---- the forging chain readout ----------------------------------------- */
+.stage--anvilspell .fg__chain {
+  position: absolute;
+  left: var(--fx);
+  top: calc(var(--t) * 4.28);
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: calc(var(--t) * 0.1);
+  font-family: var(--font-arcade);
+  font-size: max(0.72rem, calc(var(--t) * 0.32));
+  line-height: 1;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  z-index: 6;
+}
+.stage--anvilspell .fg__chain b {
+  font-weight: 400;
+  color: var(--muted-2);
+}
+.stage--anvilspell .fg__chain s {
+  text-decoration: none;
+  color: rgba(150, 120, 255, 0.5);
+}
+.stage--anvilspell .fg__chain .is-base {
+  color: var(--lime-t);
+  text-shadow: var(--glow-l);
+}
+.stage--anvilspell .fg__chain .lv-d { animation: anvilspell-lv-d var(--loop) linear infinite; }
+.stage--anvilspell .fg__chain .lv-f { animation: anvilspell-lv-f var(--loop) linear infinite; }
+.stage--anvilspell .fg__chain .lv-j { animation: anvilspell-lv-j var(--loop) linear infinite; }
+
+/* Narrow screens: the filler column goes, the feed lane slides left into its
+   place, and the forge closes the gap. */
+@media (max-width: 640px) {
+  .stage--anvilspell {
+    --stage-h: clamp(240px, 52vw, 320px);
+    --t: clamp(30px, 9vw, 58px);
+    --cols: 3;
+    --lastc: 2;
+    --fx: calc(var(--t) * 6.4);
+    --sw: calc(var(--t) * 8.1);
+  }
+  .stage--anvilspell .fg__tile--pad { display: none; }
+  .stage--anvilspell .fg__chain {
+    gap: calc(var(--t) * 0.06);
+    font-size: max(0.8rem, calc(var(--t) * 0.32));
+  }
+}
+
+/* =========================== the choreography ============================
+   One 12s pass: 0.4s trace, burst at 2.4s, the traced cells refilled by 4.1s,
+   then twins in at 4.9s and a half-second on the anvil before each of three
+   strikes at 5.4s / 7.1s / 8.8s. The chute settles every hole as it is made,
+   the x8 tile is banked by 10.5s, the chain cools, and it goes round again.
+   ======================================================================== */
+
+/* Board tiles: light on the trace, burn off, come back down the chute. */
+@keyframes anvilspell-bt {
+  0%, 3.2% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    color: var(--lime-t);
+    border-color: rgba(182, 255, 58, 0.34);
+    background: linear-gradient(160deg, #1d1443, #120c2a);
+    box-shadow: inset 0 0 0.4em rgba(182, 255, 58, 0.12);
+    text-shadow: 0 0 0.4em rgba(182, 255, 58, 0.55);
+  }
+  4.6% {
+    transform: translateY(0) scale(1.07);
+    opacity: 1;
+    color: var(--cyan-t);
+    border-color: rgba(47, 228, 255, 0.9);
+    background: linear-gradient(160deg, #113c53, #0a2338);
+    box-shadow: inset 0 0 0.5em rgba(47, 228, 255, 0.4), 0 0 0.9em rgba(47, 228, 255, 0.55);
+    text-shadow: 0 0 0.55em rgba(47, 228, 255, 0.95);
+  }
+  6.6%, 17.4% {
+    transform: translateY(0) scale(1.03);
+    opacity: 1;
+    color: var(--cyan-t);
+    border-color: rgba(47, 228, 255, 0.9);
+    background: linear-gradient(160deg, #113c53, #0a2338);
+    box-shadow: inset 0 0 0.5em rgba(47, 228, 255, 0.4), 0 0 0.9em rgba(47, 228, 255, 0.55);
+    text-shadow: 0 0 0.55em rgba(47, 228, 255, 0.95);
+  }
+  19.4% {
+    transform: translateY(0) scale(1.14);
+    opacity: 1;
+    color: #04222e;
+    border-color: #ffffff;
+    background: linear-gradient(160deg, #b9f7ff, var(--cyan));
+    box-shadow: inset 0 0 0.5em rgba(255, 255, 255, 0.7), 0 0 1.6em rgba(47, 228, 255, 1);
+    text-shadow: 0 0 0.2em rgba(255, 255, 255, 0.6);
+  }
+  22.8% {
+    transform: translateY(0) scale(1.55);
+    opacity: 0;
+    color: #04222e;
+    border-color: rgba(47, 228, 255, 0);
+    background: linear-gradient(160deg, #8beeff, var(--cyan));
+    box-shadow: inset 0 0 0.5em rgba(255, 255, 255, 0), 0 0 1.4em rgba(47, 228, 255, 0);
+    text-shadow: 0 0 0.2em rgba(255, 255, 255, 0);
+  }
+  22.9%, 25.2% {
+    transform: translateY(calc(var(--t) * -0.62)) scale(0.94);
+    opacity: 0;
+    color: var(--lime-t);
+    border-color: rgba(182, 255, 58, 0.34);
+    background: linear-gradient(160deg, #1d1443, #120c2a);
+    box-shadow: inset 0 0 0.4em rgba(182, 255, 58, 0.12);
+    text-shadow: 0 0 0.4em rgba(182, 255, 58, 0.55);
+  }
+  26.8% { transform: translateY(calc(var(--t) * -0.34)) scale(0.95); opacity: 0.55; }
+  28.2% { transform: translateY(calc(var(--t) * -0.12)) scale(0.97); opacity: 1; }
+  29.4% { transform: translateY(0) scale(1.08, 0.9); opacity: 1; }
+  30.8% { transform: translateY(0) scale(1); opacity: 1; }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    color: var(--lime-t);
+    border-color: rgba(182, 255, 58, 0.34);
+    background: linear-gradient(160deg, #1d1443, #120c2a);
+    box-shadow: inset 0 0 0.4em rgba(182, 255, 58, 0.12);
+    text-shadow: 0 0 0.4em rgba(182, 255, 58, 0.55);
+  }
+}
+
+/* The trace itself. */
+@keyframes anvilspell-line {
+  0%, 3.2%   { opacity: 0; stroke-dashoffset: 348; }
+  3.8%       { opacity: 0.9; stroke-dashoffset: 348; }
+  12.9%      { opacity: 0.9; stroke-dashoffset: 0; }
+  22%        { opacity: 0.9; stroke-dashoffset: 0; }
+  25.5%      { opacity: 0; stroke-dashoffset: 0; }
+  25.6%, 100% { opacity: 0; stroke-dashoffset: 348; }
+}
+@keyframes anvilspell-tip {
+  0%, 3.2%   { opacity: 0; stroke-dashoffset: 348; }
+  3.8%       { opacity: 1; stroke-dashoffset: 348; }
+  12.9%      { opacity: 1; stroke-dashoffset: 0; }
+  15%        { opacity: 0; stroke-dashoffset: 0; }
+  15.1%, 100% { opacity: 0; stroke-dashoffset: 348; }
+}
+@keyframes anvilspell-word {
+  0%, 17.6% { opacity: 0; transform: translate(-50%, -50%) scale(0.55); }
+  19.8%     { opacity: 1; transform: translate(-50%, -50%) scale(1.14); }
+  21.4%     { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  27%       { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  30.6%     { opacity: 0; transform: translate(-50%, calc(-50% - var(--t) * 0.45)) scale(1); }
+  100%      { opacity: 0; transform: translate(-50%, calc(-50% - var(--t) * 0.45)) scale(0.55); }
+}
+/* The chute lip flares on every payout: the traced word's four cells, then
+   once per tile the forge spends. */
+@keyframes anvilspell-chute {
+  0%, 22%     { opacity: 0; }
+  25.5%       { opacity: 0.9; }
+  33%, 45.5%  { opacity: 0; }
+  47.5%       { opacity: 0.9; }
+  52%, 55.3%  { opacity: 0; }
+  56.6%       { opacity: 0.9; }
+  60%, 84%    { opacity: 0; }
+  85.6%       { opacity: 0.9; }
+  89%, 100%   { opacity: 0; }
+}
+
+/* Twin letters ride the feed, sit side by side long enough to be read as a
+   matching pair, and get slammed into one. */
+@keyframes anvilspell-twin {
+  0%, 34.2% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+    border-color: rgba(182, 255, 58, 0.34);
+    box-shadow: inset 0 0 0.4em rgba(182, 255, 58, 0.12);
+  }
+  35.8% {
+    transform: translate(0, calc(var(--t) * -0.18)) scale(1.09);
+    opacity: 1;
+    border-color: rgba(255, 46, 151, 0.7);
+    box-shadow: 0 0 0.9em rgba(255, 46, 151, 0.45);
+  }
+  38.4% { transform: translate(calc(var(--mx) * 0.55), calc(var(--my) * 0.55 - var(--t) * 0.62)) scale(1.06); opacity: 1; }
+  40.4% { transform: translate(var(--mx), var(--my)) scale(1); opacity: 1; }
+  43.2% { transform: translate(var(--mx), var(--my)) scale(1); opacity: 1; }
+  44.2% {
+    transform: translate(var(--mx), var(--my)) scale(1.05);
+    opacity: 1;
+    border-color: rgba(255, 46, 151, 0.95);
+    box-shadow: 0 0 1em rgba(255, 46, 151, 0.6);
+  }
+  44.9% { transform: translate(var(--mx), var(--my)) scale(1); opacity: 1; }
+  45.3% {
+    transform: translate(calc(var(--mx) + var(--conv)), var(--my)) scale(1.16, 0.84);
+    opacity: 1;
+    border-color: #ffffff;
+    box-shadow: 0 0 1.4em rgba(255, 255, 255, 0.8);
+  }
+  45.6% { transform: translate(calc(var(--mx) + var(--conv)), var(--my)) scale(1.3, 0.6); opacity: 0; }
+  100%  { transform: translate(calc(var(--mx) + var(--conv)), var(--my)) scale(1); opacity: 0; }
+}
+
+/* Second feed: a D goes in beside the D that just came out. */
+@keyframes anvilspell-feed-d {
+  0%, 50.8% { transform: translate(0, 0) scale(1); opacity: 1; border-color: rgba(182, 255, 58, 0.34); }
+  52.2%     { transform: translate(0, calc(var(--t) * -0.18)) scale(1.09); opacity: 1; border-color: rgba(255, 46, 151, 0.7); }
+  54.2%     { transform: translate(calc(var(--mx) * 0.55), calc(var(--my) * 0.55 - var(--t) * 0.55)) scale(1.06); opacity: 1; }
+  55.4%     { transform: translate(var(--mx), var(--my)) scale(1); opacity: 1; }
+  58.2%     { transform: translate(var(--mx), var(--my)) scale(1); opacity: 1; }
+  59%       { transform: translate(var(--mx), var(--my)) scale(1.05); opacity: 1; border-color: rgba(255, 46, 151, 0.95); }
+  59.3%     { transform: translate(calc(var(--mx) + var(--t) * 0.34), var(--my)) scale(1.16, 0.84); opacity: 1; border-color: #ffffff; }
+  59.7%     { transform: translate(calc(var(--mx) + var(--t) * 0.34), var(--my)) scale(1.3, 0.6); opacity: 0; }
+  100%      { transform: translate(calc(var(--mx) + var(--t) * 0.34), var(--my)) scale(1); opacity: 0; }
+}
+
+/* Third feed: an F the chute dropped a beat earlier, straight back out again —
+   the inflow paying for the next tier. Chain tops out at J. */
+@keyframes anvilspell-feed-f {
+  0%, 45.9% { transform: translate(0, calc(var(--t) * -0.62)) scale(0.94); opacity: 0; border-color: rgba(182, 255, 58, 0.34); }
+  47%       { transform: translate(0, calc(var(--t) * -0.34)) scale(0.95); opacity: 0.55; }
+  47.9%     { transform: translate(0, calc(var(--t) * -0.12)) scale(0.97); opacity: 1; }
+  48.7%     { transform: translate(0, 0) scale(1.08, 0.9); opacity: 1; }
+  49.8%     { transform: translate(0, 0) scale(1); opacity: 1; }
+  64.6%     { transform: translate(0, 0) scale(1); opacity: 1; border-color: rgba(182, 255, 58, 0.34); }
+  66%       { transform: translate(0, calc(var(--t) * -0.18)) scale(1.09); opacity: 1; border-color: rgba(255, 46, 151, 0.7); }
+  68%       { transform: translate(calc(var(--mx) * 0.55), calc(var(--my) * 0.55 - var(--t) * 0.6)) scale(1.06); opacity: 1; }
+  69.2%     { transform: translate(var(--mx), var(--my)) scale(1); opacity: 1; }
+  71.8%     { transform: translate(var(--mx), var(--my)) scale(1); opacity: 1; }
+  72.5%     { transform: translate(var(--mx), var(--my)) scale(1.05); opacity: 1; border-color: rgba(255, 46, 151, 0.95); }
+  72.9%     { transform: translate(calc(var(--mx) + var(--t) * 0.34), var(--my)) scale(1.16, 0.84); opacity: 1; border-color: #ffffff; }
+  73.2%     { transform: translate(calc(var(--mx) + var(--t) * 0.34), var(--my)) scale(1.3, 0.6); opacity: 0; }
+  100%      { transform: translate(calc(var(--mx) + var(--t) * 0.34), var(--my)) scale(1); opacity: 0; }
+}
+
+/* Every move spawns fresh tiles: the chute settles each hole as it is made,
+   so the board is never left standing gutted. */
+@keyframes anvilspell-rf-a {
+  0%, 45.9% { opacity: 0; transform: translateY(calc(var(--t) * -0.62)) scale(0.94); }
+  47%       { opacity: 0.55; transform: translateY(calc(var(--t) * -0.34)) scale(0.95); }
+  47.9%     { opacity: 1; transform: translateY(calc(var(--t) * -0.12)) scale(0.97); }
+  48.7%     { opacity: 1; transform: translateY(0) scale(1.08, 0.9); }
+  49.8%     { opacity: 1; transform: translateY(0) scale(1); }
+  100%      { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes anvilspell-rf-b {
+  0%, 55%   { opacity: 0; transform: translateY(calc(var(--t) * -0.62)) scale(0.94); }
+  56.1%     { opacity: 0.55; transform: translateY(calc(var(--t) * -0.34)) scale(0.95); }
+  57%       { opacity: 1; transform: translateY(calc(var(--t) * -0.12)) scale(0.97); }
+  57.8%     { opacity: 1; transform: translateY(0) scale(1.08, 0.9); }
+  58.9%     { opacity: 1; transform: translateY(0) scale(1); }
+  100%      { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes anvilspell-rf-c {
+  0%, 84.2% { opacity: 0; transform: translateY(calc(var(--t) * -0.62)) scale(0.94); }
+  85.3%     { opacity: 0.55; transform: translateY(calc(var(--t) * -0.34)) scale(0.95); }
+  86.2%     { opacity: 1; transform: translateY(calc(var(--t) * -0.12)) scale(0.97); }
+  87%       { opacity: 1; transform: translateY(0) scale(1.08, 0.9); }
+  88.1%     { opacity: 1; transform: translateY(0) scale(1); }
+  100%      { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* The hammer: three drops, each with a wind-up and a rebound. */
+@keyframes anvilspell-hammer {
+  0%         { transform: translateY(0); }
+  9%         { transform: translateY(calc(var(--t) * -0.025)); }
+  18%        { transform: translateY(0); }
+  27%        { transform: translateY(calc(var(--t) * -0.025)); }
+  36%, 42.4% { transform: translateY(0); }
+  43.4%      { transform: translateY(calc(var(--t) * -0.16)); animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  45.3%      { transform: translateY(var(--drop)); }
+  45.9%      { transform: translateY(var(--drop)); }
+  46.9%      { transform: translateY(calc(var(--t) * 0.05)); }
+  48%, 56.6% { transform: translateY(0); }
+  57.6%      { transform: translateY(calc(var(--t) * -0.16)); animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  59.5%      { transform: translateY(var(--drop)); }
+  60.1%      { transform: translateY(var(--drop)); }
+  61.1%      { transform: translateY(calc(var(--t) * 0.05)); }
+  62.2%, 70% { transform: translateY(0); }
+  71%        { transform: translateY(calc(var(--t) * -0.2)); animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  72.9%      { transform: translateY(var(--drop)); }
+  73.6%      { transform: translateY(var(--drop)); }
+  75.1%      { transform: translateY(calc(var(--t) * 0.06)); }
+  76.5%      { transform: translateY(0); }
+  86%        { transform: translateY(calc(var(--t) * -0.025)); }
+  94%, 100%  { transform: translateY(0); }
+}
+@keyframes anvilspell-shake {
+  0%, 45.2%    { transform: translateY(0); }
+  45.6%        { transform: translateY(calc(var(--t) * 0.06)); }
+  47%, 59.4%   { transform: translateY(0); }
+  59.8%        { transform: translateY(calc(var(--t) * 0.06)); }
+  61.2%, 72.8% { transform: translateY(0); }
+  73.2%        { transform: translateY(calc(var(--t) * 0.09)); }
+  75%, 100%    { transform: translateY(0); }
+}
+
+/* Impact: white flash, shockwave, sparks. */
+@keyframes anvilspell-flash {
+  0%, 45.2%    { opacity: 0; transform: scale(0.3); }
+  45.55%       { opacity: 0.75; transform: scale(0.72); }
+  47%          { opacity: 0; transform: scale(1.35); }
+  47.1%, 59.4% { opacity: 0; transform: scale(0.3); }
+  59.75%       { opacity: 0.78; transform: scale(0.76); }
+  61.2%        { opacity: 0; transform: scale(1.45); }
+  61.3%, 73%   { opacity: 0; transform: scale(0.3); }
+  73.4%        { opacity: 0.9; transform: scale(0.95); }
+  75.4%        { opacity: 0; transform: scale(1.8); }
+  75.5%, 100%  { opacity: 0; transform: scale(0.3); }
+}
+@keyframes anvilspell-ring {
+  0%, 45.3%    { opacity: 0; transform: scale(0.6); border-color: var(--lime); }
+  45.7%        { opacity: 0.7; transform: scale(0.95); }
+  48%          { opacity: 0; transform: scale(1.85); }
+  48.1%, 59.5% { opacity: 0; transform: scale(0.6); border-color: var(--lime); }
+  59.9%        { opacity: 0.7; transform: scale(1); }
+  62.1%        { opacity: 0; transform: scale(2); }
+  62.2%, 73.1% { opacity: 0; transform: scale(0.6); border-color: #ffffff; }
+  73.6%        { opacity: 0.85; transform: scale(1.05); border-color: #ffffff; }
+  76.4%        { opacity: 0; transform: scale(2.4); border-color: var(--magenta); }
+  76.5%, 100%  { opacity: 0; transform: scale(0.6); border-color: var(--lime); }
+}
+@keyframes anvilspell-spark {
+  0%, 45.3%    { opacity: 0; transform: rotate(var(--a)) translateX(calc(var(--t) * 0.1)) scaleX(0.4); }
+  45.8%        { opacity: 1; transform: rotate(var(--a)) translateX(calc(var(--t) * 0.45)) scaleX(1); }
+  48.6%        { opacity: 0; transform: rotate(var(--a)) translateX(calc(var(--t) * 1.15)) scaleX(0.5); }
+  48.7%, 59.5% { opacity: 0; transform: rotate(var(--a)) translateX(calc(var(--t) * 0.1)) scaleX(0.4); }
+  60.1%        { opacity: 1; transform: rotate(var(--a)) translateX(calc(var(--t) * 0.5)) scaleX(1); }
+  63%          { opacity: 0; transform: rotate(var(--a)) translateX(calc(var(--t) * 1.25)) scaleX(0.5); }
+  63.1%, 73.1% { opacity: 0; transform: rotate(var(--a)) translateX(calc(var(--t) * 0.1)) scaleX(0.4); }
+  73.7%        { opacity: 1; transform: rotate(var(--a)) translateX(calc(var(--t) * 0.6)) scaleX(1.15); }
+  77.4%        { opacity: 0; transform: rotate(var(--a)) translateX(calc(var(--t) * 1.6)) scaleX(0.5); }
+  77.5%, 100%  { opacity: 0; transform: rotate(var(--a)) translateX(calc(var(--t) * 0.1)) scaleX(0.4); }
+}
+
+/* What the anvil hands back, one tier at a time. Each result sits on the face
+   long enough to be read before the next feeder arrives beside it. */
+@keyframes anvilspell-res-d {
+  0%, 45.3% { opacity: 0; transform: scale(0.3); }
+  46.1%     { opacity: 1; transform: scale(1.32); }
+  47.4%     { opacity: 1; transform: scale(1); }
+  52%       { opacity: 1; transform: scale(1.04); }
+  56%       { opacity: 1; transform: scale(1); }
+  59.4%     { opacity: 1; transform: scale(1.12); }
+  59.9%     { opacity: 0; transform: scale(1.3); }
+  100%      { opacity: 0; transform: scale(0.3); }
+}
+@keyframes anvilspell-res-f {
+  0%, 59.5% { opacity: 0; transform: scale(0.3); }
+  60.3%     { opacity: 1; transform: scale(1.34); }
+  61.6%     { opacity: 1; transform: scale(1); }
+  66%       { opacity: 1; transform: scale(1.05); }
+  70%       { opacity: 1; transform: scale(1); }
+  72.8%     { opacity: 1; transform: scale(1.14); }
+  73.3%     { opacity: 0; transform: scale(1.32); }
+  100%      { opacity: 0; transform: scale(0.3); }
+}
+@keyframes anvilspell-res-j {
+  0%, 73%   { opacity: 0; transform: translate(0, 0) scale(0.3) rotate(0deg); }
+  74%       { opacity: 1; transform: translate(0, 0) scale(1.4) rotate(0deg); }
+  75.5%     { opacity: 1; transform: translate(0, 0) scale(1) rotate(0deg); }
+  77.4%     { opacity: 1; transform: translate(0, 0) scale(1.07) rotate(0deg); }
+  79.4%     { opacity: 1; transform: translate(0, 0) scale(1) rotate(0deg); }
+  80.8%     { opacity: 1; transform: translate(0, calc(var(--t) * 0.08)) scale(1.06) rotate(0deg); }
+  83.8%     { opacity: 1; transform: translate(calc(var(--t) * 1.15), calc(var(--t) * -0.95)) scale(0.95) rotate(9deg); }
+  87.9%     { opacity: 0; transform: translate(calc(var(--t) * 1.95), calc(var(--t) * -2.6)) scale(0.62) rotate(18deg); }
+  100%      { opacity: 0; transform: translate(0, 0) scale(0.3) rotate(0deg); }
+}
+@keyframes anvilspell-tail {
+  0%, 80.4% { opacity: 0; height: calc(var(--t) * 0.1); }
+  81.8%     { opacity: 0.95; height: calc(var(--t) * 0.42); }
+  86%       { opacity: 0.9; height: calc(var(--t) * 0.62); }
+  87.9%     { opacity: 0; height: calc(var(--t) * 0.28); }
+  100%      { opacity: 0; height: calc(var(--t) * 0.1); }
+}
+
+/* Heat: the forge banks it up over three strikes, then cools off. */
+@keyframes anvilspell-heat {
+  0%, 45.2% { opacity: 0.16; transform: scale(1); }
+  46%       { opacity: 0.5; transform: scale(1.08); }
+  48.4%     { opacity: 0.3; transform: scale(1); }
+  59.4%     { opacity: 0.3; transform: scale(1); }
+  60.2%     { opacity: 0.68; transform: scale(1.14); }
+  62.4%     { opacity: 0.44; transform: scale(1.02); }
+  72.9%     { opacity: 0.44; transform: scale(1.02); }
+  74%       { opacity: 1; transform: scale(1.28); }
+  79%       { opacity: 0.72; transform: scale(1.1); }
+  88%       { opacity: 0.5; transform: scale(1.04); }
+  95%, 100% { opacity: 0.16; transform: scale(1); }
+}
+@keyframes anvilspell-face {
+  0%, 45.2% { opacity: 0.35; }
+  46%       { opacity: 1; }
+  52%       { opacity: 0.55; }
+  60.2%     { opacity: 1; }
+  66%       { opacity: 0.7; }
+  74%       { opacity: 1; }
+  86%       { opacity: 0.8; }
+  95%, 100% { opacity: 0.35; }
+}
+
+/* The chain readout lights a tier per strike, then cools back to E. */
+@keyframes anvilspell-lv-d {
+  0%, 45.3%   { color: var(--muted-2); text-shadow: none; transform: scale(1); }
+  46.2%       { color: var(--lime-t); text-shadow: var(--glow-l); transform: scale(1.4); }
+  47.8%       { color: var(--lime-t); text-shadow: var(--glow-l); transform: scale(1); }
+  89%         { color: var(--lime-t); text-shadow: var(--glow-l); transform: scale(1); }
+  92.5%, 100% { color: var(--muted-2); text-shadow: none; transform: scale(1); }
+}
+@keyframes anvilspell-lv-f {
+  0%, 59.5%   { color: var(--muted-2); text-shadow: none; transform: scale(1); }
+  60.4%       { color: var(--lime-t); text-shadow: var(--glow-l); transform: scale(1.4); }
+  62%         { color: var(--lime-t); text-shadow: var(--glow-l); transform: scale(1); }
+  90%         { color: var(--lime-t); text-shadow: var(--glow-l); transform: scale(1); }
+  93.5%, 100% { color: var(--muted-2); text-shadow: none; transform: scale(1); }
+}
+@keyframes anvilspell-lv-j {
+  0%, 73%     { color: var(--muted-2); text-shadow: none; transform: scale(1); }
+  74%         { color: var(--magenta-t); text-shadow: var(--glow-m); transform: scale(1.5); }
+  75.6%       { color: var(--magenta-t); text-shadow: var(--glow-m); transform: scale(1); }
+  91%         { color: var(--magenta-t); text-shadow: var(--glow-m); transform: scale(1); }
+  94.5%, 100% { color: var(--muted-2); text-shadow: none; transform: scale(1); }
+}
+
+
+/* ---- ambience ---------------------------------------------------------- */
+@keyframes anvilspell-flick {
+  0%, 100% { filter: brightness(1); }
+  50%      { filter: brightness(1.16); }
+}
+@keyframes anvilspell-rail {
+  0%   { background-position: 0 0; }
+  100% { background-position: 0 -100%; }
+}
+@keyframes anvilspell-flow {
+  0%   { opacity: 0; transform: translateX(0); }
+  20%  { opacity: 0.55; }
+  80%  { opacity: 0.3; }
+  100% { opacity: 0; transform: translateX(var(--fw)); }
+}
+@keyframes anvilspell-ember {
+  0%   { opacity: 0; transform: translate(0, 0) scale(0.6); }
+  12%  { opacity: 0.9; }
+  70%  { opacity: 0.4; }
+  100% { opacity: 0; transform: translate(var(--dx, 6px), calc(var(--t) * -1.9)) scale(1.15); }
+}
+
+/* ---- the still twin ---------------------------------------------------- */
+.stage-static--anvilspell .stage-static__step { color: var(--cyan-t); }
+.stage-static--anvilspell .st-tile { fill: #1d1443; stroke: var(--lime); stroke-width: 1.6; }
+.stage-static--anvilspell .st-tile--out { fill: #6a1257; stroke: #ffd9ec; }
+.stage-static--anvilspell .st-ink { fill: var(--lime); font-family: var(--font-head); font-weight: 800; font-size: 15px; }
+.stage-static--anvilspell .st-ink--hot { fill: #ffffff; font-size: 17px; }
+.stage-static--anvilspell .st-trace { fill: none; stroke: var(--cyan); stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+.stage-static--anvilspell .st-burst { stroke: var(--cyan); stroke-width: 3; stroke-linecap: round; }
+.stage-static--anvilspell .st-steel { fill: #2a1d55; stroke: var(--magenta); stroke-width: 1.6; }
+.stage-static--anvilspell .st-chip { fill: var(--magenta); }
+.stage-static--anvilspell .st-x { fill: #0a0718; font-family: var(--font-arcade); font-size: 14px; }
+
+

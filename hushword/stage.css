@@ -1,0 +1,1138 @@
+/* =========================================================================
+   HUSHWORD — "THE HIDDEN LINE"
+   The page's signature contraption. One board, one list, eighteen seconds:
+
+     a cyan sweep runs along a listed word  ->  the word strikes off the list
+     and its letters go used and dim        ->  the last word clears the list,
+     which hands over nothing: LIST CLEAR flips to YOUR TURN and the twelve
+     masked slots along the bottom arm      ->  and then the leftovers are
+     PICKED, one double-tap at a time, in reading order, each letter dropping
+     into its own slot until the line reads:  THE QUIET PART
+
+   Clearing the list opens the guessing act; it does not pay the secret out.
+   Nothing on the answer line lights up by itself — every letter is there
+   because a tap put it there, which is the whole of what the game asks.
+
+   The board is honest: MOON, ORBIT, STAR, COMET and PLANET really are in
+   there (down, across, down-left, backwards, and the long diagonal), and the
+   twelve cells none of them touch really do read as the phrase, top-left to
+   bottom-right, exactly the way the game plays it.
+
+   Everything is scoped to .stage--hushword / .stage-static--hushword and
+   every keyframe is prefixed `hw-`. The housing, the back-wall grid, the
+   corner placards, the reduced-motion swap and the offscreen pausing all come
+   from the MOTION KIT in /styles.css — nothing below reimplements them.
+   ========================================================================= */
+
+.stage--hushword {
+  /* ---- one number drives the rig ------------------------------------- */
+  /* One grid cell. The second term is the hard ceiling: below ~410px the
+     answer line, not taste, decides how big a cell may be. */
+  --hw-t:  min(clamp(24px, 4.6vw, 46px), calc(7.15vw - 2.2px));
+  --hw-g:  calc(var(--hw-t) * 0.14);                 /* grout              */
+  --hw-p:  calc(var(--hw-t) + var(--hw-g));          /* cell pitch         */
+  --hw-bw: calc(6 * var(--hw-p) - var(--hw-g));      /* 6x6 board          */
+
+  --hw-lw: calc(var(--hw-t) * 5.2);                  /* the list panel     */
+  --hw-dg: calc(var(--hw-t) * 1.4);                  /* board -> list gap  */
+  --hw-dw: calc(var(--hw-bw) + var(--hw-dg) + var(--hw-lw));
+
+  --hw-tp: calc(var(--hw-t) * 1.05);                 /* answer-line pitch  */
+  --hw-wg: calc(var(--hw-t) * 0.55);                 /* gap between words  */
+  /* the answer line is the widest thing here, so it sets the scene width:
+     twelve letters, two word gaps, one letter box of overhang */
+  --hw-sw: calc(11 * var(--hw-tp) + 2 * var(--hw-wg) + var(--hw-t));
+
+  --hw-bx: calc((var(--hw-sw) - var(--hw-dw)) / 2);  /* board left         */
+  --hw-lx: calc(var(--hw-bx) + var(--hw-bw) + var(--hw-dg));
+  --hw-ty: calc(var(--hw-bw) + var(--hw-t) * 0.7);  /* answer line top    */
+  --hw-th: calc(var(--hw-t) * 1.35);                  /* its height         */
+  --hw-rt: calc(var(--hw-ty) + (var(--hw-th) - var(--hw-t)) / 2);
+  --hw-sh: calc(var(--hw-ty) + var(--hw-th));        /* scene height       */
+
+  --hw-loop: 18s;
+  --hw-dim: #7385bd;                                 /* a spent letter     */
+
+  /* housing tall enough for the scene plus air for the two placards */
+  --stage-h: calc(var(--hw-sh) + 3.7rem);
+}
+
+/* The scene: px-locked, centred, hung just under the top placard. */
+.stage--hushword .hw {
+  position: absolute;
+  left: 50%;
+  top: 1.55rem;
+  width: var(--hw-sw);
+  height: var(--hw-sh);
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+/* Ambient drift in the slack either side, straight off the kit. */
+.stage--hushword .hw__air { opacity: 0.5; }
+
+/* ---- the board --------------------------------------------------------- */
+.stage--hushword .hw__board {
+  position: absolute;
+  left: var(--hw-bx);
+  top: 0;
+  width: var(--hw-bw);
+  height: var(--hw-bw);
+}
+.stage--hushword .hw__board::before {          /* bezel */
+  content: "";
+  position: absolute;
+  inset: calc(var(--hw-t) * -0.2);
+  border: 1px solid var(--line-2);
+  border-radius: calc(var(--hw-t) * 0.22);
+  background: rgba(9, 7, 20, 0.6);
+  box-shadow:
+    0 0 26px rgba(47, 228, 255, 0.10),
+    inset 0 0 calc(var(--hw-t) * 0.9) rgba(168, 85, 255, 0.14);
+}
+.stage--hushword .hw__lattice {
+  position: absolute;
+  inset: calc(var(--hw-g) / -2);
+  z-index: 1;
+  background-image:
+    linear-gradient(to right, rgba(47, 228, 255, 0.16) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(47, 228, 255, 0.16) 1px, transparent 1px);
+  background-size: var(--hw-p) var(--hw-p);
+}
+
+/* Letters the list eats. They start indistinguishable from the spares —
+   that is the whole trick — and only a sweep tells them apart. */
+.stage--hushword .hw__cell {
+  position: absolute;
+  left: calc(var(--c) * var(--hw-p));
+  top:  calc(var(--r) * var(--hw-p));
+  width: var(--hw-t);
+  height: var(--hw-t);
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: max(13px, calc(var(--hw-t) * 0.58));
+  line-height: 1;
+  color: var(--ink);
+  text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4);
+  /* No will-change here on purpose: twenty-four promoted text layers cost
+     more than they save, and these only ever tween colour and a small pop. */
+}
+
+/* ---- the sweep --------------------------------------------------------- */
+/* One rounded lozenge per word, pinned to the word's first cell and rotated
+   onto its line, then grown from that end. Brightest at the leading edge, so
+   it reads as a finger dragging rather than a bar switching on. */
+.stage--hushword .hw__sweep {
+  position: absolute;
+  left: calc(var(--c) * var(--hw-p));
+  top: calc(var(--r) * var(--hw-p) + var(--hw-t) * 0.08);
+  width: calc(var(--hw-t) + (var(--len) - 1) * var(--hw-p) * var(--k));
+  height: calc(var(--hw-t) * 0.84);
+  z-index: 2;
+  border-radius: 999px;
+  transform-origin: calc(var(--hw-t) / 2) 50%;
+  transform: rotate(var(--a)) scaleX(0.05);
+  opacity: 0;
+  border: 1px solid rgba(47, 228, 255, 0.55);
+  background: linear-gradient(90deg,
+    rgba(47, 228, 255, 0.10),
+    rgba(47, 228, 255, 0.22) 62%,
+    rgba(47, 228, 255, 0.55) 100%);
+  box-shadow:
+    0 0 1.1em rgba(47, 228, 255, 0.35),
+    inset 0 0 0.8em rgba(47, 228, 255, 0.22);
+  will-change: transform, opacity;
+}
+
+/* ---- the double-tap ---------------------------------------------------- */
+/* The guess itself. One ring per leftover cell, sized and cornered like the
+   board's own bezel, that pulses twice on the cell being chosen — the gesture
+   the game is built on. It sits above the spent letters and below the letter
+   it is picking, so the glyph is never covered by its own tap. */
+.stage--hushword .hw__tap {
+  position: absolute;
+  left: calc(var(--c) * var(--hw-p));
+  top:  calc(var(--r) * var(--hw-p));
+  width: var(--hw-t);
+  height: var(--hw-t);
+  z-index: 4;
+  border: 1.5px solid rgba(182, 255, 58, 0.9);
+  border-radius: calc(var(--hw-t) * 0.22);
+  box-shadow:
+    0 0 0.9em rgba(182, 255, 58, 0.55),
+    inset 0 0 0.7em rgba(182, 255, 58, 0.3);
+  opacity: 0;
+  transform: scale(1.3);
+  animation: hw-tap var(--hw-loop) linear infinite;
+  animation-delay: var(--d);
+}
+
+/* Lime wash over the board the instant the list goes clear. */
+.stage--hushword .hw__flash {
+  position: absolute;
+  inset: calc(var(--hw-t) * -0.4);
+  z-index: 4;
+  border-radius: calc(var(--hw-t) * 0.3);
+  background: radial-gradient(60% 60% at 50% 50%,
+    rgba(182, 255, 58, 0.30), rgba(182, 255, 58, 0) 72%);
+  opacity: 0;
+  animation: hw-flash var(--hw-loop) linear infinite;
+}
+
+/* ---- the list ---------------------------------------------------------- */
+/* Sits ABOVE the spares (z 6 vs 5) and paints an almost-solid ground, so a
+   letter on its way to the answer line passes behind the panel instead of
+   printing itself over LIST CLEAR. */
+.stage--hushword .hw__list {
+  position: absolute;
+  left: var(--hw-lx);
+  top: 0;
+  width: var(--hw-lw);
+  height: var(--hw-bw);
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--hw-t) * 0.36) calc(var(--hw-t) * 0.42);
+  border: 1px solid var(--line-2);
+  border-radius: calc(var(--hw-t) * 0.22);
+  background: rgba(9, 7, 20, 0.93);
+  box-shadow: inset 0 0 calc(var(--hw-t) * 0.9) rgba(168, 85, 255, 0.12);
+  font-family: var(--font-arcade);
+  line-height: 1;
+}
+.stage--hushword .hw__pack {
+  margin: 0 0 calc(var(--hw-t) * 0.3);
+  padding-bottom: calc(var(--hw-t) * 0.22);
+  border-bottom: 1px solid rgba(255, 46, 151, 0.28);
+  font-size: max(10px, calc(var(--hw-t) * 0.42));
+  letter-spacing: 0.14em;
+  color: var(--magenta-t);
+  text-shadow: var(--glow-m);
+  white-space: nowrap;
+}
+.stage--hushword .hw__pack b { color: var(--muted-2); font-weight: 400; }
+.stage--hushword .hw__words {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(var(--hw-t) * 0.3);
+  margin-left: calc(var(--hw-t) * 0.62);
+}
+/* The strike is the row's own background, grown left to right — one animated
+   element per word instead of two. */
+.stage--hushword .hw__word {
+  position: relative;
+  margin: 0;
+  font-size: max(14px, calc(var(--hw-t) * 0.6));
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  opacity: 0.92;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 62%;
+  background-size: 0% 2px;
+}
+.stage--hushword .hw__word::before {
+  content: "\25B8";
+  position: absolute;
+  left: calc(var(--hw-t) * -0.52);
+  top: 0;
+  color: var(--cyan);
+  opacity: 0.55;
+}
+/* The hand-off, in one corner of the list. Two stamps in the same place:
+   LIST CLEAR lands magenta, holds a beat, and gives way to YOUR TURN — the
+   second one stacked on the first so the panel never changes height. Nothing
+   was won by clearing the list; the game just changed hands. */
+.stage--hushword .hw__state {
+  position: relative;
+  margin-top: auto;
+  align-self: flex-start;
+}
+.stage--hushword .hw__clear,
+.stage--hushword .hw__turn {
+  display: block;
+  padding: calc(var(--hw-t) * 0.12) calc(var(--hw-t) * 0.3);
+  border: 1px solid var(--magenta);
+  border-radius: calc(var(--hw-t) * 0.1);
+  font-size: max(11px, calc(var(--hw-t) * 0.44));
+  letter-spacing: 0.16em;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--magenta-t);
+  text-shadow: var(--glow-m);
+  background: rgba(255, 46, 151, 0.1);
+  box-shadow: 0 0 1em rgba(255, 46, 151, 0.35);
+  opacity: 0;
+}
+.stage--hushword .hw__clear {
+  transform: scale(0.4) rotate(-7deg);
+  animation: hw-clear var(--hw-loop) linear infinite;
+}
+.stage--hushword .hw__turn {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-color: var(--lime);
+  color: var(--lime-t);
+  text-shadow: var(--glow-l);
+  background: rgba(182, 255, 58, 0.1);
+  box-shadow: 0 0 1em rgba(182, 255, 58, 0.35);
+  transform: scale(0.4) rotate(5deg);
+  animation: hw-turn var(--hw-loop) linear infinite;
+}
+
+/* ---- the answer line --------------------------------------------------- */
+.stage--hushword .hw__tray {
+  position: absolute;
+  left: 0;
+  top: var(--hw-ty);
+  width: var(--hw-sw);
+  height: var(--hw-th);
+  z-index: 2;
+  overflow: hidden;
+}
+.stage--hushword .hw__tray::before,
+.stage--hushword .hw__tray::after {   /* corner brackets, so the line reads as a slot */
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: calc(var(--hw-t) * 0.42);
+  height: calc(var(--hw-t) * 0.5);
+  border: 1px solid rgba(182, 255, 58, 0.6);
+}
+.stage--hushword .hw__tray::before { left: 0;  border-right: 0; border-top: 0; }
+.stage--hushword .hw__tray::after  { right: 0; border-left: 0;  border-top: 0; }
+
+/* A masked slot: twelve of them, so the SHAPE of the secret is on show from
+   the first frame and the letters never are. They sit at a quarter light all
+   through the search and arm — brighter, in a left-to-right ripple — the
+   moment the list clears and the guessing act opens. One is only ever filled
+   by a letter being tapped into it. */
+.stage--hushword .hw__slot {
+  position: absolute;
+  left: calc(var(--i) * var(--hw-tp) + var(--w) * var(--hw-wg) + var(--hw-t) * 0.08);
+  bottom: calc(var(--hw-t) * 0.1);
+  width: calc(var(--hw-t) * 0.84);
+  height: 2px;
+  border-radius: 2px;
+  background: var(--lime);
+  opacity: 0.26;
+  animation: hw-slot var(--hw-loop) linear infinite;
+  animation-delay: calc(var(--i) * 0.06s);
+}
+/* A glimmer walking the masked slots, all loop long: 4.5s is a clean quarter
+   of the eighteen, so it never fights the seam. Under a slot that has been
+   filled it is simply hidden by the letter standing on it. */
+.stage--hushword .hw__slot::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 2px;
+  background: var(--lime);
+  box-shadow: 0 0 8px rgba(182, 255, 58, 0.8);
+  opacity: 0;
+  animation: hw-wait 4.5s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.16s);
+}
+.stage--hushword .hw__glow {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 150%;
+  background: radial-gradient(58% 100% at 50% 100%,
+    rgba(182, 255, 58, 0.26), rgba(182, 255, 58, 0.05) 55%, transparent 76%);
+  opacity: 0;
+  animation: hw-glow var(--hw-loop) linear infinite;
+}
+.stage--hushword .hw__shine {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: -40%;
+  width: 30%;
+  mix-blend-mode: screen;
+  background: linear-gradient(100deg,
+    transparent, rgba(214, 255, 150, 0.22) 48%, transparent);
+  opacity: 0;
+  animation: hw-shine var(--hw-loop) linear infinite;
+}
+
+/* ---- the twelve spares ------------------------------------------------- */
+/* Each one lives at its slot on the answer line and spends most of the loop
+   translated back to the cell it came from, sitting in the grid pretending to
+   be filler. That translate does not run out on its own: it is cancelled, one
+   letter at a time, by the tap that picks it. Which is why each spare carries
+   its own keyframe (hw-pick-0 .. hw-pick-11) rather than a shared one — they
+   do not share a moment, they take turns. */
+.stage--hushword .hw__fly {
+  --hw-x: calc(var(--i) * var(--hw-tp) + var(--w) * var(--hw-wg));
+  --hw-dx: calc(var(--hw-bx) + var(--c) * var(--hw-p) - var(--hw-x));
+  --hw-dy: calc(var(--r) * var(--hw-p) - var(--hw-rt));
+  position: absolute;
+  left: var(--hw-x);
+  top: var(--hw-rt);
+  width: var(--hw-t);
+  height: var(--hw-t);
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: max(17px, calc(var(--hw-t) * 0.76));
+  line-height: 1;
+  color: var(--ink);
+  transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763);
+  will-change: transform, opacity;
+}
+
+/* ---- sparks off each landing ------------------------------------------- */
+.stage--hushword .hw__sparks {
+  position: absolute;
+  left: 0; right: 0;
+  top: var(--hw-ty);
+  height: var(--hw-th);
+  z-index: 4;
+  pointer-events: none;
+}
+.stage--hushword .hw__sparks i {
+  position: absolute;
+  /* pinned to its own slot, by the same sum the slot uses */
+  left: calc(var(--i) * var(--hw-tp) + var(--w) * var(--hw-wg) + var(--hw-t) * 0.5);
+  bottom: 20%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  color: var(--lime);
+  box-shadow: 0 0 9px currentColor;
+  opacity: 0;
+  animation: hw-spark var(--hw-loop) linear infinite;
+  animation-delay: var(--d, 0s);
+}
+.stage--hushword .hw__sparks i.is-m { color: var(--magenta); }
+.stage--hushword .hw__sparks i.is-c { color: var(--cyan); }
+
+/* =========================== THE LOOP ====================================
+   Eighteen seconds, and every number below is a percentage of it.
+
+   ACT ONE — clear the list.  Unchanged, to the millisecond: the longer loop
+   only bought room for act two, so every beat here sits where it always did.
+     0.65s MOON  ·  1.85s ORBIT  ·  3.10s STAR  ·  4.25s COMET  ·  5.50s PLANET
+     6.75s LIST CLEAR lands  ·  7.48s the found letters recede to spent, and
+     the twelve nothing ever touched are the only bright things on the board.
+
+   ACT TWO — the guessing act.  Clearing the list hands over nothing.
+     7.62s LIST CLEAR flips to YOUR TURN and the twelve masked slots arm,
+           rippling left to right: the shape of the secret, still masked
+     8.15s the first pick — a double-tap ring on the cell, the letter goes
+           lime and drops into slot one.  Then eleven more, in reading order,
+           one at a time, tightening 0.62s -> 0.45s apart as the line fills:
+           8.15 8.77 9.35 9.90 10.43 10.94 11.44 11.93 12.41 12.88 13.34 13.79
+    14.39s the last letter is home.  THE QUIET PART, spelled out, not revealed
+    14.5s  the finished line takes a shine  ·  16.05s the hold ends
+    16.35s the board ghosts  ·  16.45s it deals back  ·  17.55s solid again
+   Nothing moves for the last half second: an ordinary word search again.
+   ======================================================================== */
+
+/* ---- sweeps ------------------------------------------------------------ */
+@keyframes hw-sweep-1 {
+  0%, 3.61%   { transform: rotate(var(--a)) scaleX(0.05); opacity: 0; }
+  4.33%       { transform: rotate(var(--a)) scaleX(0.12); opacity: 1; }
+  7.51%       { transform: rotate(var(--a)) scaleX(1); opacity: 1; }
+  41.53%       { transform: rotate(var(--a)) scaleX(1); opacity: 0.45; }
+  89.17%       { transform: rotate(var(--a)) scaleX(1); opacity: 0.45; }
+  90.83%       { transform: rotate(var(--a)) scaleX(1); opacity: 0; }
+  91.39%, 100% { transform: rotate(var(--a)) scaleX(0.05); opacity: 0; }
+}
+@keyframes hw-sweep-2 {
+  0%, 10.26%   { transform: rotate(var(--a)) scaleX(0.05); opacity: 0; }
+  10.98%       { transform: rotate(var(--a)) scaleX(0.12); opacity: 1; }
+  14.44%       { transform: rotate(var(--a)) scaleX(1); opacity: 1; }
+  41.53%       { transform: rotate(var(--a)) scaleX(1); opacity: 0.45; }
+  89.17%       { transform: rotate(var(--a)) scaleX(1); opacity: 0.45; }
+  90.83%       { transform: rotate(var(--a)) scaleX(1); opacity: 0; }
+  91.39%, 100% { transform: rotate(var(--a)) scaleX(0.05); opacity: 0; }
+}
+@keyframes hw-sweep-3 {
+  0%, 17.19%   { transform: rotate(var(--a)) scaleX(0.05); opacity: 0; }
+  17.91%       { transform: rotate(var(--a)) scaleX(0.12); opacity: 1; }
+  20.80%       { transform: rotate(var(--a)) scaleX(1); opacity: 1; }
+  41.53%       { transform: rotate(var(--a)) scaleX(1); opacity: 0.45; }
+  89.17%       { transform: rotate(var(--a)) scaleX(1); opacity: 0.45; }
+  90.83%       { transform: rotate(var(--a)) scaleX(1); opacity: 0; }
+  91.39%, 100% { transform: rotate(var(--a)) scaleX(0.05); opacity: 0; }
+}
+@keyframes hw-sweep-4 {
+  0%, 23.62%   { transform: rotate(var(--a)) scaleX(0.05); opacity: 0; }
+  24.34%       { transform: rotate(var(--a)) scaleX(0.12); opacity: 1; }
+  27.81%       { transform: rotate(var(--a)) scaleX(1); opacity: 1; }
+  41.53%       { transform: rotate(var(--a)) scaleX(1); opacity: 0.45; }
+  89.17%       { transform: rotate(var(--a)) scaleX(1); opacity: 0.45; }
+  90.83%       { transform: rotate(var(--a)) scaleX(1); opacity: 0; }
+  91.39%, 100% { transform: rotate(var(--a)) scaleX(0.05); opacity: 0; }
+}
+@keyframes hw-sweep-5 {
+  0%, 30.55%   { transform: rotate(var(--a)) scaleX(0.05); opacity: 0; }
+  31.27%       { transform: rotate(var(--a)) scaleX(0.12); opacity: 1; }
+  35.82%       { transform: rotate(var(--a)) scaleX(1); opacity: 1; }
+  41.53%       { transform: rotate(var(--a)) scaleX(1); opacity: 0.45; }
+  89.17%       { transform: rotate(var(--a)) scaleX(1); opacity: 0.45; }
+  90.83%       { transform: rotate(var(--a)) scaleX(1); opacity: 0; }
+  91.39%, 100% { transform: rotate(var(--a)) scaleX(0.05); opacity: 0; }
+}
+
+/* ---- letters the sweep eats -------------------------------------------- */
+/* Flash white-cyan as the sweep passes, settle to found, then recede to spent
+   once the list is clear — which is also what makes the leftovers findable:
+   they are simply the ones that never dimmed. */
+@keyframes hw-used-1 {
+  0%, 3.90%   { color: var(--ink); opacity: 1; transform: scale(1); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  4.98%       { color: #eaffff; opacity: 1; transform: scale(1.2); text-shadow: 0 0 0.75em rgba(47, 228, 255, 0.95); }
+  8.31%       { color: var(--cyan-t); transform: scale(1); text-shadow: 0 0 0.55em rgba(47, 228, 255, 0.6); }
+  38.28%       { color: var(--cyan-t); opacity: 1; }
+  41.53%       { color: var(--hw-dim); opacity: 0.45; text-shadow: none; }
+  89.17%       { color: var(--hw-dim); opacity: 0.45; text-shadow: none; }
+  90.83%       { opacity: 0.15; transform: scale(0.88); color: var(--hw-dim); text-shadow: none; }
+  92.50%       { opacity: 0.15; transform: scale(0.88); color: var(--ink); text-shadow: none; }
+  97.50%, 100% { opacity: 1; transform: scale(1); color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+}
+@keyframes hw-used-2 {
+  0%, 10.54%   { color: var(--ink); opacity: 1; transform: scale(1); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  11.70%       { color: #eaffff; opacity: 1; transform: scale(1.2); text-shadow: 0 0 0.75em rgba(47, 228, 255, 0.95); }
+  15.31%       { color: var(--cyan-t); transform: scale(1); text-shadow: 0 0 0.55em rgba(47, 228, 255, 0.6); }
+  38.28%       { color: var(--cyan-t); opacity: 1; }
+  41.53%       { color: var(--hw-dim); opacity: 0.45; text-shadow: none; }
+  89.17%       { color: var(--hw-dim); opacity: 0.45; text-shadow: none; }
+  90.83%       { opacity: 0.15; transform: scale(0.88); color: var(--hw-dim); text-shadow: none; }
+  92.50%       { opacity: 0.15; transform: scale(0.88); color: var(--ink); text-shadow: none; }
+  97.50%, 100% { opacity: 1; transform: scale(1); color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+}
+@keyframes hw-used-3 {
+  0%, 17.48%   { color: var(--ink); opacity: 1; transform: scale(1); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  18.63%       { color: #eaffff; opacity: 1; transform: scale(1.2); text-shadow: 0 0 0.75em rgba(47, 228, 255, 0.95); }
+  21.67%       { color: var(--cyan-t); transform: scale(1); text-shadow: 0 0 0.55em rgba(47, 228, 255, 0.6); }
+  38.28%       { color: var(--cyan-t); opacity: 1; }
+  41.53%       { color: var(--hw-dim); opacity: 0.45; text-shadow: none; }
+  89.17%       { color: var(--hw-dim); opacity: 0.45; text-shadow: none; }
+  90.83%       { opacity: 0.15; transform: scale(0.88); color: var(--hw-dim); text-shadow: none; }
+  92.50%       { opacity: 0.15; transform: scale(0.88); color: var(--ink); text-shadow: none; }
+  97.50%, 100% { opacity: 1; transform: scale(1); color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+}
+@keyframes hw-used-4 {
+  0%, 23.91%   { color: var(--ink); opacity: 1; transform: scale(1); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  24.99%       { color: #eaffff; opacity: 1; transform: scale(1.2); text-shadow: 0 0 0.75em rgba(47, 228, 255, 0.95); }
+  28.60%       { color: var(--cyan-t); transform: scale(1); text-shadow: 0 0 0.55em rgba(47, 228, 255, 0.6); }
+  38.28%       { color: var(--cyan-t); opacity: 1; }
+  41.53%       { color: var(--hw-dim); opacity: 0.45; text-shadow: none; }
+  89.17%       { color: var(--hw-dim); opacity: 0.45; text-shadow: none; }
+  90.83%       { opacity: 0.15; transform: scale(0.88); color: var(--hw-dim); text-shadow: none; }
+  92.50%       { opacity: 0.15; transform: scale(0.88); color: var(--ink); text-shadow: none; }
+  97.50%, 100% { opacity: 1; transform: scale(1); color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+}
+@keyframes hw-used-5 {
+  0%, 30.84%   { color: var(--ink); opacity: 1; transform: scale(1); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  31.92%       { color: #eaffff; opacity: 1; transform: scale(1.2); text-shadow: 0 0 0.75em rgba(47, 228, 255, 0.95); }
+  36.69%       { color: var(--cyan-t); transform: scale(1); text-shadow: 0 0 0.55em rgba(47, 228, 255, 0.6); }
+  38.28%       { color: var(--cyan-t); opacity: 1; }
+  41.53%       { color: var(--hw-dim); opacity: 0.45; text-shadow: none; }
+  89.17%       { color: var(--hw-dim); opacity: 0.45; text-shadow: none; }
+  90.83%       { opacity: 0.15; transform: scale(0.88); color: var(--hw-dim); text-shadow: none; }
+  92.50%       { opacity: 0.15; transform: scale(0.88); color: var(--ink); text-shadow: none; }
+  97.50%, 100% { opacity: 1; transform: scale(1); color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+}
+
+/* ---- the list, struck one line at a time ------------------------------- */
+@keyframes hw-word-1 {
+  0%, 6.36%   { color: var(--ink); opacity: 0.92; background-size: 0% 2px; text-shadow: none; }
+  7.58%       { color: #eaffff; opacity: 1; background-size: 55% 2px; text-shadow: 0 0 0.6em rgba(47, 228, 255, 0.9); }
+  8.59%       { color: var(--cyan-t); opacity: 1; background-size: 100% 2px; text-shadow: 0 0 0.4em rgba(47, 228, 255, 0.5); }
+  41.53%       { color: var(--cyan-t); opacity: 0.72; background-size: 100% 2px; text-shadow: none; }
+  89.17%       { color: var(--cyan-t); opacity: 0.72; background-size: 100% 2px; text-shadow: none; }
+  91.39%, 100% { color: var(--ink); opacity: 0.92; background-size: 0% 2px; text-shadow: none; }
+}
+@keyframes hw-word-2 {
+  0%, 13.36%   { color: var(--ink); opacity: 0.92; background-size: 0% 2px; text-shadow: none; }
+  14.44%       { color: #eaffff; opacity: 1; background-size: 55% 2px; text-shadow: 0 0 0.6em rgba(47, 228, 255, 0.9); }
+  15.53%       { color: var(--cyan-t); opacity: 1; background-size: 100% 2px; text-shadow: 0 0 0.4em rgba(47, 228, 255, 0.5); }
+  41.53%       { color: var(--cyan-t); opacity: 0.72; background-size: 100% 2px; text-shadow: none; }
+  89.17%       { color: var(--cyan-t); opacity: 0.72; background-size: 100% 2px; text-shadow: none; }
+  91.39%, 100% { color: var(--ink); opacity: 0.92; background-size: 0% 2px; text-shadow: none; }
+}
+@keyframes hw-word-3 {
+  0%, 19.72%   { color: var(--ink); opacity: 0.92; background-size: 0% 2px; text-shadow: none; }
+  20.94%       { color: #eaffff; opacity: 1; background-size: 55% 2px; text-shadow: 0 0 0.6em rgba(47, 228, 255, 0.9); }
+  21.96%       { color: var(--cyan-t); opacity: 1; background-size: 100% 2px; text-shadow: 0 0 0.4em rgba(47, 228, 255, 0.5); }
+  41.53%       { color: var(--cyan-t); opacity: 0.72; background-size: 100% 2px; text-shadow: none; }
+  89.17%       { color: var(--cyan-t); opacity: 0.72; background-size: 100% 2px; text-shadow: none; }
+  91.39%, 100% { color: var(--ink); opacity: 0.92; background-size: 0% 2px; text-shadow: none; }
+}
+@keyframes hw-word-4 {
+  0%, 26.65%   { color: var(--ink); opacity: 0.92; background-size: 0% 2px; text-shadow: none; }
+  27.81%       { color: #eaffff; opacity: 1; background-size: 55% 2px; text-shadow: 0 0 0.6em rgba(47, 228, 255, 0.9); }
+  28.89%       { color: var(--cyan-t); opacity: 1; background-size: 100% 2px; text-shadow: 0 0 0.4em rgba(47, 228, 255, 0.5); }
+  41.53%       { color: var(--cyan-t); opacity: 0.72; background-size: 100% 2px; text-shadow: none; }
+  89.17%       { color: var(--cyan-t); opacity: 0.72; background-size: 100% 2px; text-shadow: none; }
+  91.39%, 100% { color: var(--ink); opacity: 0.92; background-size: 0% 2px; text-shadow: none; }
+}
+@keyframes hw-word-5 {
+  0%, 34.74%   { color: var(--ink); opacity: 0.92; background-size: 0% 2px; text-shadow: none; }
+  35.89%       { color: #eaffff; opacity: 1; background-size: 55% 2px; text-shadow: 0 0 0.6em rgba(47, 228, 255, 0.9); }
+  36.98%       { color: var(--cyan-t); opacity: 1; background-size: 100% 2px; text-shadow: 0 0 0.4em rgba(47, 228, 255, 0.5); }
+  41.53%       { color: var(--cyan-t); opacity: 0.72; background-size: 100% 2px; text-shadow: none; }
+  89.17%       { color: var(--cyan-t); opacity: 0.72; background-size: 100% 2px; text-shadow: none; }
+  91.39%, 100% { color: var(--ink); opacity: 0.92; background-size: 0% 2px; text-shadow: none; }
+}
+
+/* ---- list clear, the flash it lands with, and the hand-off ------------- */
+/* The whole correction lives in these two stamps. LIST CLEAR is not the
+   payoff, it is the cue: it holds for a beat and then hands the board to
+   YOUR TURN, which stays lit for the entire picking act. */
+@keyframes hw-clear {
+  0%, 37.48%   { opacity: 0; transform: scale(0.4) rotate(-7deg); }
+  38.57%       { opacity: 1; transform: scale(1.14) rotate(-4deg); }
+  39.72%       { opacity: 1; transform: scale(1) rotate(-4deg); }
+  41.94%       { opacity: 1; transform: scale(1) rotate(-4deg); }
+  43.33%, 100% { opacity: 0; transform: scale(0.94) rotate(-4deg); }
+}
+@keyframes hw-turn {
+  0%, 42.33%   { opacity: 0; transform: scale(0.4) rotate(5deg); }
+  43.33%       { opacity: 1; transform: scale(1.12) rotate(3deg); }
+  44.17%       { opacity: 1; transform: scale(1) rotate(3deg); }
+  89.17%       { opacity: 1; transform: scale(1) rotate(3deg); }
+  90.83%, 100% { opacity: 0; transform: scale(1) rotate(3deg); }
+}
+@keyframes hw-flash {
+  0%, 37.19%   { opacity: 0; }
+  38.57%       { opacity: 1; }
+  42.61%, 100% { opacity: 0; }
+}
+
+/* ---- the double-tap ---------------------------------------------------- */
+/* One ring per leftover cell, and the only thing it ever does is pulse twice
+   at its own moment — so all twelve can share this keyframe and be spaced by
+   animation-delay alone. Two hits, 0.13s apart: the gesture the game asks
+   for, at the speed a thumb actually does it. */
+@keyframes hw-tap {
+  0%      { opacity: 0; transform: scale(1.3); }
+  0.28%   { opacity: 0.9; transform: scale(0.98); }
+  0.56%   { opacity: 0.18; transform: scale(1.18); }
+  0.72%   { opacity: 0.9; transform: scale(1); }
+  1.55%   { opacity: 0; transform: scale(1.45); }
+  100%    { opacity: 0; transform: scale(1.45); }
+}
+
+/* ---- the twelve picks -------------------------------------------------- */
+/* One keyframe per letter, because each one has to wait its own turn: a
+   shared keyframe plus a delay would drag the redeal along with the pick and
+   leave holes in the next board. The shape is identical for all twelve —
+   breathe with the others when the list clears, sit still until tapped, take
+   two hits, lift, cross the board small so the glyph never smears, arrive
+   over its slot and settle lime — only the phase differs. Nothing here moves
+   on its own: every letter is at its slot because a tap sent it there. */
+@keyframes hw-pick-0 {
+  0%, 40.00%   { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  42.22%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.8); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.78em rgba(168, 85, 255, 0.8); }
+  44.44%, 45.17%
+              { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  45.28%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.9); opacity: 1;
+                color: #f4ffe0; text-shadow: 0 0 0.85em rgba(182, 255, 58, 0.95); }
+  46.00%      { transform: translate(var(--hw-dx), calc(var(--hw-dy) - var(--hw-t) * 0.04)) scale(0.99);
+                color: #f4ffe0; text-shadow: 0 0 1em rgba(182, 255, 58, 1); }
+  46.44%      { transform: translate(var(--hw-dx), calc(var(--hw-dy) - var(--hw-t) * 0.26)) scale(1);
+                color: var(--lime-t); text-shadow: 0 0 0.8em rgba(182, 255, 58, 0.8);
+                animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+  47.14%      { transform: translate(calc(var(--hw-dx) * 0.7),
+                                     calc(var(--hw-dy) * 0.7 - var(--hw-t) * 0.16)) scale(0.72);
+                opacity: 0.92; }
+  47.64%      { transform: translate(calc(var(--hw-dx) * 0.3),
+                                     calc(var(--hw-dy) * 0.3 - var(--hw-t) * 0.06)) scale(0.84);
+                opacity: 0.98; }
+  48.14%      { transform: translate(0, 0) scale(1.16); opacity: 1; }
+  48.44%, 89.17%
+              { transform: translate(0, 0) scale(1); opacity: 1;
+                color: var(--lime-t); text-shadow: 0 0 0.8em rgba(182, 255, 58, 0.85); }
+  90.83%      { transform: translate(0, 0) scale(1.14); opacity: 0; }
+  91.39%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 0;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  92.50%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 0.15;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  97.50%, 100% { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+}
+@keyframes hw-pick-1 {
+  0%, 40.00%   { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  42.22%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.8); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.78em rgba(168, 85, 255, 0.8); }
+  44.44%, 48.61%
+              { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  48.72%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.9); opacity: 1;
+                color: #f4ffe0; text-shadow: 0 0 0.85em rgba(182, 255, 58, 0.95); }
+  49.44%      { transform: translate(var(--hw-dx), calc(var(--hw-dy) - var(--hw-t) * 0.04)) scale(0.99);
+                color: #f4ffe0; text-shadow: 0 0 1em rgba(182, 255, 58, 1); }
+  49.89%      { transform: translate(var(--hw-dx), calc(var(--hw-dy) - var(--hw-t) * 0.26)) scale(1);
+                color: var(--lime-t); text-shadow: 0 0 0.8em rgba(182, 255, 58, 0.8);
+                animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+  50.51%      { transform: translate(calc(var(--hw-dx) * 0.7),
+                                     calc(var(--hw-dy) * 0.7 - var(--hw-t) * 0.16)) scale(0.72);
+                opacity: 0.92; }
+  50.96%      { transform: translate(calc(var(--hw-dx) * 0.3),
+                                     calc(var(--hw-dy) * 0.3 - var(--hw-t) * 0.06)) scale(0.84);
+                opacity: 0.98; }
+  51.40%      { transform: translate(0, 0) scale(1.16); opacity: 1; }
+  51.67%, 89.17%
+              { transform: translate(0, 0) scale(1); opacity: 1;
+                color: var(--lime-t); text-shadow: 0 0 0.8em rgba(182, 255, 58, 0.85); }
+  90.83%      { transform: translate(0, 0) scale(1.14); opacity: 0; }
+  91.39%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 0;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  92.50%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 0.15;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  97.50%, 100% { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+}
+@keyframes hw-pick-2 {
+  0%, 40.00%   { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  42.22%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.8); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.78em rgba(168, 85, 255, 0.8); }
+  44.44%, 51.83%
+              { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  51.94%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.9); opacity: 1;
+                color: #f4ffe0; text-shadow: 0 0 0.85em rgba(182, 255, 58, 0.95); }
+  52.67%      { transform: translate(var(--hw-dx), calc(var(--hw-dy) - var(--hw-t) * 0.04)) scale(0.99);
+                color: #f4ffe0; text-shadow: 0 0 1em rgba(182, 255, 58, 1); }
+  53.11%      { transform: translate(var(--hw-dx), calc(var(--hw-dy) - var(--hw-t) * 0.26)) scale(1);
+                color: var(--lime-t); text-shadow: 0 0 0.8em rgba(182, 255, 58, 0.8);
+                animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+  53.68%      { transform: translate(calc(var(--hw-dx) * 0.7),
+                                     calc(var(--hw-dy) * 0.7 - var(--hw-t) * 0.16)) scale(0.72);
+                opacity: 0.92; }
+  54.08%      { transform: translate(calc(var(--hw-dx) * 0.3),
+                                     calc(var(--hw-dy) * 0.3 - var(--hw-t) * 0.06)) scale(0.84);
+                opacity: 0.98; }
+  54.48%      { transform: translate(0, 0) scale(1.16); opacity: 1; }
+  54.72%, 89.17%
+              { transform: translate(0, 0) scale(1); opacity: 1;
+                color: var(--lime-t); text-shadow: 0 0 0.8em rgba(182, 255, 58, 0.85); }
+  90.83%      { transform: translate(0, 0) scale(1.14); opacity: 0; }
+  91.39%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 0;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  92.50%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 0.15;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  97.50%, 100% { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+}
+@keyframes hw-pick-3 {
+  0%, 40.00%   { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  42.22%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.8); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.78em rgba(168, 85, 255, 0.8); }
+  44.44%, 54.89%
+              { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  55.00%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.9); opacity: 1;
+                color: #f4ffe0; text-shadow: 0 0 0.85em rgba(182, 255, 58, 0.95); }
+  55.72%      { transform: translate(var(--hw-dx), calc(var(--hw-dy) - var(--hw-t) * 0.04)) scale(0.99);
+                color: #f4ffe0; text-shadow: 0 0 1em rgba(182, 255, 58, 1); }
+  56.17%      { transform: translate(var(--hw-dx), calc(var(--hw-dy) - var(--hw-t) * 0.26)) scale(1);
+                color: var(--lime-t); text-shadow: 0 0 0.8em rgba(182, 255, 58, 0.8);
+                animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+  56.69%      { transform: translate(calc(var(--hw-dx) * 0.7),
+                                     calc(var(--hw-dy) * 0.7 - var(--hw-t) * 0.16)) scale(0.72);
+                opacity: 0.92; }
+  57.07%      { transform: translate(calc(var(--hw-dx) * 0.3),
+                                     calc(var(--hw-dy) * 0.3 - var(--hw-t) * 0.06)) scale(0.84);
+                opacity: 0.98; }
+  57.44%      { transform: translate(0, 0) scale(1.16); opacity: 1; }
+  57.67%, 89.17%
+              { transform: translate(0, 0) scale(1); opacity: 1;
+                color: var(--lime-t); text-shadow: 0 0 0.8em rgba(182, 255, 58, 0.85); }
+  90.83%      { transform: translate(0, 0) scale(1.14); opacity: 0; }
+  91.39%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 0;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  92.50%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 0.15;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  97.50%, 100% { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+}
+@keyframes hw-pick-4 {
+  0%, 40.00%   { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  42.22%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.8); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.78em rgba(168, 85, 255, 0.8); }
+  44.44%, 57.83%
+              { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  57.94%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.9); opacity: 1;
+                color: #f4ffe0; text-shadow: 0 0 0.85em rgba(182, 255, 58, 0.95); }
+  58.67%      { transform: translate(var(--hw-dx), calc(var(--hw-dy) - var(--hw-t) * 0.04)) scale(0.99);
+                color: #f4ffe0; text-shadow: 0 0 1em rgba(182, 255, 58, 1); }
+  59.11%      { transform: translate(var(--hw-dx), calc(var(--hw-dy) - var(--hw-t) * 0.26)) scale(1);
+                color: var(--lime-t); text-shadow: 0 0 0.8em rgba(182, 255, 58, 0.8);
+                animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+  59.60%      { transform: translate(calc(var(--hw-dx) * 0.7),
+                                     calc(var(--hw-dy) * 0.7 - var(--hw-t) * 0.16)) scale(0.72);
+                opacity: 0.92; }
+  59.94%      { transform: translate(calc(var(--hw-dx) * 0.3),
+                                     calc(var(--hw-dy) * 0.3 - var(--hw-t) * 0.06)) scale(0.84);
+                opacity: 0.98; }
+  60.29%      { transform: translate(0, 0) scale(1.16); opacity: 1; }
+  60.50%, 89.17%
+              { transform: translate(0, 0) scale(1); opacity: 1;
+                color: var(--lime-t); text-shadow: 0 0 0.8em rgba(182, 255, 58, 0.85); }
+  90.83%      { transform: translate(0, 0) scale(1.14); opacity: 0; }
+  91.39%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 0;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  92.50%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 0.15;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  97.50%, 100% { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+}
+@keyframes hw-pick-5 {
+  0%, 40.00%   { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  42.22%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.8); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.78em rgba(168, 85, 255, 0.8); }
+  44.44%, 60.67%
+              { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  60.78%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.9); opacity: 1;
+                color: #f4ffe0; text-shadow: 0 0 0.85em rgba(182, 255, 58, 0.95); }
+  61.50%      { transform: translate(var(--hw-dx), calc(var(--hw-dy) - var(--hw-t) * 0.04)) scale(0.99);
+                color: #f4ffe0; text-shadow: 0 0 1em rgba(182, 255, 58, 1); }
+  61.94%      { transform: translate(var(--hw-dx), calc(var(--hw-dy) - var(--hw-t) * 0.26)) scale(1);
+                color: var(--lime-t); text-shadow: 0 0 0.8em rgba(182, 255, 58, 0.8);
+                animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+  62.41%      { transform: translate(calc(var(--hw-dx) * 0.7),
+                                     calc(var(--hw-dy) * 0.7 - var(--hw-t) * 0.16)) scale(0.72);
+                opacity: 0.92; }
+  62.74%      { transform: translate(calc(var(--hw-dx) * 0.3),
+                                     calc(var(--hw-dy) * 0.3 - var(--hw-t) * 0.06)) scale(0.84);
+                opacity: 0.98; }
+  63.08%      { transform: translate(0, 0) scale(1.16); opacity: 1; }
+  63.28%, 89.17%
+              { transform: translate(0, 0) scale(1); opacity: 1;
+                color: var(--lime-t); text-shadow: 0 0 0.8em rgba(182, 255, 58, 0.85); }
+  90.83%      { transform: translate(0, 0) scale(1.14); opacity: 0; }
+  91.39%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 0;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  92.50%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 0.15;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  97.50%, 100% { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+}
+@keyframes hw-pick-6 {
+  0%, 40.00%   { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  42.22%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.8); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.78em rgba(168, 85, 255, 0.8); }
+  44.44%, 63.44%
+              { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  63.56%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.9); opacity: 1;
+                color: #f4ffe0; text-shadow: 0 0 0.85em rgba(182, 255, 58, 0.95); }
+  64.28%      { transform: translate(var(--hw-dx), calc(var(--hw-dy) - var(--hw-t) * 0.04)) scale(0.99);
+                color: #f4ffe0; text-shadow: 0 0 1em rgba(182, 255, 58, 1); }
+  64.72%      { transform: translate(var(--hw-dx), calc(var(--hw-dy) - var(--hw-t) * 0.26)) scale(1);
+                color: var(--lime-t); text-shadow: 0 0 0.8em rgba(182, 255, 58, 0.8);
+                animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+  65.17%      { transform: translate(calc(var(--hw-dx) * 0.7),
+                                     calc(var(--hw-dy) * 0.7 - var(--hw-t) * 0.16)) scale(0.72);
+                opacity: 0.92; }
+  65.49%      { transform: translate(calc(var(--hw-dx) * 0.3),
+                                     calc(var(--hw-dy) * 0.3 - var(--hw-t) * 0.06)) scale(0.84);
+                opacity: 0.98; }
+  65.81%      { transform: translate(0, 0) scale(1.16); opacity: 1; }
+  66.00%, 89.17%
+              { transform: translate(0, 0) scale(1); opacity: 1;
+                color: var(--lime-t); text-shadow: 0 0 0.8em rgba(182, 255, 58, 0.85); }
+  90.83%      { transform: translate(0, 0) scale(1.14); opacity: 0; }
+  91.39%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 0;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  92.50%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 0.15;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  97.50%, 100% { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+}
+@keyframes hw-pick-7 {
+  0%, 40.00%   { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  42.22%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.8); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.78em rgba(168, 85, 255, 0.8); }
+  44.44%, 66.17%
+              { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  66.28%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.9); opacity: 1;
+                color: #f4ffe0; text-shadow: 0 0 0.85em rgba(182, 255, 58, 0.95); }
+  67.00%      { transform: translate(var(--hw-dx), calc(var(--hw-dy) - var(--hw-t) * 0.04)) scale(0.99);
+                color: #f4ffe0; text-shadow: 0 0 1em rgba(182, 255, 58, 1); }
+  67.44%      { transform: translate(var(--hw-dx), calc(var(--hw-dy) - var(--hw-t) * 0.26)) scale(1);
+                color: var(--lime-t); text-shadow: 0 0 0.8em rgba(182, 255, 58, 0.8);
+                animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+  67.87%      { transform: translate(calc(var(--hw-dx) * 0.7),
+                                     calc(var(--hw-dy) * 0.7 - var(--hw-t) * 0.16)) scale(0.72);
+                opacity: 0.92; }
+  68.18%      { transform: translate(calc(var(--hw-dx) * 0.3),
+                                     calc(var(--hw-dy) * 0.3 - var(--hw-t) * 0.06)) scale(0.84);
+                opacity: 0.98; }
+  68.48%      { transform: translate(0, 0) scale(1.16); opacity: 1; }
+  68.67%, 89.17%
+              { transform: translate(0, 0) scale(1); opacity: 1;
+                color: var(--lime-t); text-shadow: 0 0 0.8em rgba(182, 255, 58, 0.85); }
+  90.83%      { transform: translate(0, 0) scale(1.14); opacity: 0; }
+  91.39%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 0;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  92.50%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 0.15;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  97.50%, 100% { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+}
+@keyframes hw-pick-8 {
+  0%, 40.00%   { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  42.22%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.8); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.78em rgba(168, 85, 255, 0.8); }
+  44.44%, 68.83%
+              { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  68.94%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.9); opacity: 1;
+                color: #f4ffe0; text-shadow: 0 0 0.85em rgba(182, 255, 58, 0.95); }
+  69.67%      { transform: translate(var(--hw-dx), calc(var(--hw-dy) - var(--hw-t) * 0.04)) scale(0.99);
+                color: #f4ffe0; text-shadow: 0 0 1em rgba(182, 255, 58, 1); }
+  70.11%      { transform: translate(var(--hw-dx), calc(var(--hw-dy) - var(--hw-t) * 0.26)) scale(1);
+                color: var(--lime-t); text-shadow: 0 0 0.8em rgba(182, 255, 58, 0.8);
+                animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+  70.52%      { transform: translate(calc(var(--hw-dx) * 0.7),
+                                     calc(var(--hw-dy) * 0.7 - var(--hw-t) * 0.16)) scale(0.72);
+                opacity: 0.92; }
+  70.81%      { transform: translate(calc(var(--hw-dx) * 0.3),
+                                     calc(var(--hw-dy) * 0.3 - var(--hw-t) * 0.06)) scale(0.84);
+                opacity: 0.98; }
+  71.10%      { transform: translate(0, 0) scale(1.16); opacity: 1; }
+  71.28%, 89.17%
+              { transform: translate(0, 0) scale(1); opacity: 1;
+                color: var(--lime-t); text-shadow: 0 0 0.8em rgba(182, 255, 58, 0.85); }
+  90.83%      { transform: translate(0, 0) scale(1.14); opacity: 0; }
+  91.39%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 0;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  92.50%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 0.15;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  97.50%, 100% { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+}
+@keyframes hw-pick-9 {
+  0%, 40.00%   { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  42.22%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.8); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.78em rgba(168, 85, 255, 0.8); }
+  44.44%, 71.44%
+              { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  71.56%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.9); opacity: 1;
+                color: #f4ffe0; text-shadow: 0 0 0.85em rgba(182, 255, 58, 0.95); }
+  72.28%      { transform: translate(var(--hw-dx), calc(var(--hw-dy) - var(--hw-t) * 0.04)) scale(0.99);
+                color: #f4ffe0; text-shadow: 0 0 1em rgba(182, 255, 58, 1); }
+  72.72%      { transform: translate(var(--hw-dx), calc(var(--hw-dy) - var(--hw-t) * 0.26)) scale(1);
+                color: var(--lime-t); text-shadow: 0 0 0.8em rgba(182, 255, 58, 0.8);
+                animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+  73.11%      { transform: translate(calc(var(--hw-dx) * 0.7),
+                                     calc(var(--hw-dy) * 0.7 - var(--hw-t) * 0.16)) scale(0.72);
+                opacity: 0.92; }
+  73.39%      { transform: translate(calc(var(--hw-dx) * 0.3),
+                                     calc(var(--hw-dy) * 0.3 - var(--hw-t) * 0.06)) scale(0.84);
+                opacity: 0.98; }
+  73.67%      { transform: translate(0, 0) scale(1.16); opacity: 1; }
+  73.83%, 89.17%
+              { transform: translate(0, 0) scale(1); opacity: 1;
+                color: var(--lime-t); text-shadow: 0 0 0.8em rgba(182, 255, 58, 0.85); }
+  90.83%      { transform: translate(0, 0) scale(1.14); opacity: 0; }
+  91.39%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 0;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  92.50%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 0.15;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  97.50%, 100% { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+}
+@keyframes hw-pick-10 {
+  0%, 40.00%   { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  42.22%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.8); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.78em rgba(168, 85, 255, 0.8); }
+  44.44%, 74.00%
+              { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  74.11%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.9); opacity: 1;
+                color: #f4ffe0; text-shadow: 0 0 0.85em rgba(182, 255, 58, 0.95); }
+  74.83%      { transform: translate(var(--hw-dx), calc(var(--hw-dy) - var(--hw-t) * 0.04)) scale(0.99);
+                color: #f4ffe0; text-shadow: 0 0 1em rgba(182, 255, 58, 1); }
+  75.28%      { transform: translate(var(--hw-dx), calc(var(--hw-dy) - var(--hw-t) * 0.26)) scale(1);
+                color: var(--lime-t); text-shadow: 0 0 0.8em rgba(182, 255, 58, 0.8);
+                animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+  75.65%      { transform: translate(calc(var(--hw-dx) * 0.7),
+                                     calc(var(--hw-dy) * 0.7 - var(--hw-t) * 0.16)) scale(0.72);
+                opacity: 0.92; }
+  75.91%      { transform: translate(calc(var(--hw-dx) * 0.3),
+                                     calc(var(--hw-dy) * 0.3 - var(--hw-t) * 0.06)) scale(0.84);
+                opacity: 0.98; }
+  76.17%      { transform: translate(0, 0) scale(1.16); opacity: 1; }
+  76.33%, 89.17%
+              { transform: translate(0, 0) scale(1); opacity: 1;
+                color: var(--lime-t); text-shadow: 0 0 0.8em rgba(182, 255, 58, 0.85); }
+  90.83%      { transform: translate(0, 0) scale(1.14); opacity: 0; }
+  91.39%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 0;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  92.50%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 0.15;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  97.50%, 100% { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+}
+@keyframes hw-pick-11 {
+  0%, 40.00%   { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  42.22%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.8); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.78em rgba(168, 85, 255, 0.8); }
+  44.44%, 76.50%
+              { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  76.61%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.9); opacity: 1;
+                color: #f4ffe0; text-shadow: 0 0 0.85em rgba(182, 255, 58, 0.95); }
+  77.33%      { transform: translate(var(--hw-dx), calc(var(--hw-dy) - var(--hw-t) * 0.04)) scale(0.99);
+                color: #f4ffe0; text-shadow: 0 0 1em rgba(182, 255, 58, 1); }
+  77.78%      { transform: translate(var(--hw-dx), calc(var(--hw-dy) - var(--hw-t) * 0.26)) scale(1);
+                color: var(--lime-t); text-shadow: 0 0 0.8em rgba(182, 255, 58, 0.8);
+                animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+  78.54%      { transform: translate(calc(var(--hw-dx) * 0.7),
+                                     calc(var(--hw-dy) * 0.7 - var(--hw-t) * 0.16)) scale(0.72);
+                opacity: 0.92; }
+  79.08%      { transform: translate(calc(var(--hw-dx) * 0.3),
+                                     calc(var(--hw-dy) * 0.3 - var(--hw-t) * 0.06)) scale(0.84);
+                opacity: 0.98; }
+  79.62%      { transform: translate(0, 0) scale(1.16); opacity: 1; }
+  79.94%, 89.17%
+              { transform: translate(0, 0) scale(1); opacity: 1;
+                color: var(--lime-t); text-shadow: 0 0 0.8em rgba(182, 255, 58, 0.85); }
+  90.83%      { transform: translate(0, 0) scale(1.14); opacity: 0; }
+  91.39%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 0;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  92.50%      { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 0.15;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+  97.50%, 100% { transform: translate(var(--hw-dx), var(--hw-dy)) scale(0.763); opacity: 1;
+                color: var(--ink); text-shadow: 0 0 0.5em rgba(168, 85, 255, 0.4); }
+}
+
+/* ---- the answer line: masked, armed, filling --------------------------- */
+@keyframes hw-slot {
+  0%, 40.56%   { opacity: 0.26; transform: scaleX(1); box-shadow: none; }
+  44.17%       { opacity: 0.62; transform: scaleX(1.08); box-shadow: 0 0 9px rgba(182, 255, 58, 0.6); }
+  46.00%       { opacity: 0.5; transform: scaleX(1); box-shadow: 0 0 6px rgba(182, 255, 58, 0.4); }
+  89.17%       { opacity: 0.5; transform: scaleX(1); box-shadow: 0 0 6px rgba(182, 255, 58, 0.4); }
+  91.39%, 100% { opacity: 0.26; transform: scaleX(1); box-shadow: none; }
+}
+@keyframes hw-wait {
+  0%, 62%, 100% { opacity: 0; }
+  10%           { opacity: 0.62; }
+  26%           { opacity: 0; }
+}
+/* The ground under the line brightens as the line fills, so the last letter
+   lands on something that has been building the whole act. */
+@keyframes hw-glow {
+  0%, 41.11%   { opacity: 0; }
+  45.00%       { opacity: 0.22; }
+  62.22%       { opacity: 0.55; }
+  79.94%       { opacity: 1; }
+  89.17%       { opacity: 1; }
+  91.39%, 100% { opacity: 0; }
+}
+@keyframes hw-shine {
+  0%, 80.56%   { opacity: 0; transform: translateX(0); }
+  81.50%       { opacity: 0.85; }
+  87.22%       { opacity: 0.85; }
+  88.22%       { opacity: 0; transform: translateX(430%); }
+  100%        { opacity: 0; transform: translateX(430%); }
+}
+/* One spark per landing, delayed onto the letter it belongs to — same trick
+   as the tap rings: a single transient event, so one keyframe covers twelve. */
+@keyframes hw-spark {
+  0%      { opacity: 0; transform: translate3d(0, 0, 0) scale(0.4); }
+  0.6%    { opacity: 1; transform: translate3d(0, 0, 0) scale(0.95); }
+  4.4%    { opacity: 0; transform: translate3d(var(--dx, 6px), calc(var(--hw-t) * -1.9), 0) scale(1.1); }
+  100%    { opacity: 0; transform: translate3d(var(--dx, 6px), calc(var(--hw-t) * -1.9), 0) scale(1.1); }
+}
+
+/* ---- wiring ------------------------------------------------------------ */
+.stage--hushword .hw__sweep--1 { animation: hw-sweep-1 var(--hw-loop) var(--ease) infinite; }
+.stage--hushword .hw__sweep--2 { animation: hw-sweep-2 var(--hw-loop) var(--ease) infinite; }
+.stage--hushword .hw__sweep--3 { animation: hw-sweep-3 var(--hw-loop) var(--ease) infinite; }
+.stage--hushword .hw__sweep--4 { animation: hw-sweep-4 var(--hw-loop) var(--ease) infinite; }
+.stage--hushword .hw__sweep--5 { animation: hw-sweep-5 var(--hw-loop) var(--ease) infinite; }
+
+.stage--hushword .hw__cell--w1 { animation: hw-used-1 var(--hw-loop) linear infinite; }
+.stage--hushword .hw__cell--w2 { animation: hw-used-2 var(--hw-loop) linear infinite; }
+.stage--hushword .hw__cell--w3 { animation: hw-used-3 var(--hw-loop) linear infinite; }
+.stage--hushword .hw__cell--w4 { animation: hw-used-4 var(--hw-loop) linear infinite; }
+.stage--hushword .hw__cell--w5 { animation: hw-used-5 var(--hw-loop) linear infinite; }
+
+.stage--hushword .hw__word--1 { animation: hw-word-1 var(--hw-loop) linear infinite; }
+.stage--hushword .hw__word--2 { animation: hw-word-2 var(--hw-loop) linear infinite; }
+.stage--hushword .hw__word--3 { animation: hw-word-3 var(--hw-loop) linear infinite; }
+.stage--hushword .hw__word--4 { animation: hw-word-4 var(--hw-loop) linear infinite; }
+.stage--hushword .hw__word--5 { animation: hw-word-5 var(--hw-loop) linear infinite; }
+
+/* The number on a spare is its --i: its place in the phrase, and its turn. */
+.stage--hushword .hw__fly--0  { animation: hw-pick-0 var(--hw-loop) linear infinite; }
+.stage--hushword .hw__fly--1  { animation: hw-pick-1 var(--hw-loop) linear infinite; }
+.stage--hushword .hw__fly--2  { animation: hw-pick-2 var(--hw-loop) linear infinite; }
+.stage--hushword .hw__fly--3  { animation: hw-pick-3 var(--hw-loop) linear infinite; }
+.stage--hushword .hw__fly--4  { animation: hw-pick-4 var(--hw-loop) linear infinite; }
+.stage--hushword .hw__fly--5  { animation: hw-pick-5 var(--hw-loop) linear infinite; }
+.stage--hushword .hw__fly--6  { animation: hw-pick-6 var(--hw-loop) linear infinite; }
+.stage--hushword .hw__fly--7  { animation: hw-pick-7 var(--hw-loop) linear infinite; }
+.stage--hushword .hw__fly--8  { animation: hw-pick-8 var(--hw-loop) linear infinite; }
+.stage--hushword .hw__fly--9  { animation: hw-pick-9 var(--hw-loop) linear infinite; }
+.stage--hushword .hw__fly--10 { animation: hw-pick-10 var(--hw-loop) linear infinite; }
+.stage--hushword .hw__fly--11 { animation: hw-pick-11 var(--hw-loop) linear infinite; }
+
+/* The bottom placard is the caption for the picking act, so it waits in the
+   half-light until the first letter has been chosen. */
+.stage--hushword .stage__tag--end {
+  opacity: 0.6;
+  animation: hw-tag var(--hw-loop) linear infinite;
+}
+@keyframes hw-tag {
+  0%, 41.11%    { opacity: 0.6; }
+  46.00%        { opacity: 1; }
+  89.17%      { opacity: 1; }
+  91.39%, 100%  { opacity: 0.6; }
+}
+
+/* ---- narrow: the rig tightens rather than shrinking further ------------ */
+@media (max-width: 640px) {
+  .stage--hushword {
+    --hw-lw: calc(var(--hw-t) * 4.6);
+    --hw-dg: calc(var(--hw-t) * 0.9);
+    --hw-wg: calc(var(--hw-t) * 0.38);
+    --stage-h: calc(var(--hw-sh) + 3.8rem);
+  }
+  .stage--hushword .hw { top: 1.5rem; }
+  .stage--hushword .hw__words {
+    gap: calc(var(--hw-t) * 0.18);
+    margin-left: calc(var(--hw-t) * 0.5);
+  }
+}
+
+/* ---- the still twin ---------------------------------------------------- */
+/* The kit swaps these in under prefers-reduced-motion; this only tints the
+   last beat lime, because that one is the whole game. */
+.stage-static--hushword .stage-static__step svg { filter: drop-shadow(0 0 8px rgba(47, 228, 255, 0.35)); }
+.stage-static--hushword .stage-static__step--clear { color: var(--magenta-t); }
+.stage-static--hushword .stage-static__step--clear svg { filter: drop-shadow(0 0 8px rgba(255, 46, 151, 0.45)); }
+.stage-static--hushword .stage-static__step--secret { color: var(--lime-t); }
+.stage-static--hushword .stage-static__step--secret svg { filter: drop-shadow(0 0 9px rgba(182, 255, 58, 0.5)); }
